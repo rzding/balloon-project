@@ -44,7 +44,7 @@
 			)
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866"
 					(page "4")
 				)
@@ -52,7 +52,7 @@
 		)
 	)
 	(sheet
-		(at 21.59 34.925)
+		(at 20.32 34.29)
 		(size 78.105 41.91)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -68,7 +68,7 @@
 		)
 		(uuid "1b5737e2-4399-496a-b942-ad94430e2078")
 		(property "Sheetname" "Power"
-			(at 21.59 34.2134 0)
+			(at 20.32 33.5784 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -79,7 +79,7 @@
 			)
 		)
 		(property "Sheetfile" "Power.kicad_sch"
-			(at 21.59 77.4196 0)
+			(at 20.32 76.7846 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -89,8 +89,38 @@
 				(justify left top)
 			)
 		)
+		(pin "+1V8" output
+			(at 50.8 76.2 270)
+			(uuid "8e86398f-16aa-4aff-a927-607281cfc12d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "+3V3" output
+			(at 98.425 70.485 0)
+			(uuid "2bd654cf-6683-43e5-835d-4ca591c7559d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GND" passive
+			(at 20.32 42.545 180)
+			(uuid "b26e9901-30da-4f89-9482-ff5da715c2b2")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866"
 					(page "2")
 				)
@@ -136,7 +166,7 @@
 			)
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866"
 					(page "5")
 				)
@@ -182,7 +212,7 @@
 			)
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866"
 					(page "6")
 				)
@@ -228,7 +258,7 @@
 			)
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866"
 					(page "3")
 				)

@@ -2847,6 +2847,26 @@
 		)
 		(uuid "b1515164-fe7d-4feb-a418-7460ed512168")
 	)
+	(text "Passive:"
+		(exclude_from_sim no)
+		(at 225.806 29.464 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "dfbe4a91-eaff-469f-a7bb-46f61e57c451")
+	)
+	(text "Output:"
+		(exclude_from_sim no)
+		(at 225.806 22.86 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "ecb2106e-adc5-4d7c-ad97-703558e49398")
+	)
 	(junction
 		(at 97.79 46.99)
 		(diameter 0)
@@ -2980,6 +3000,16 @@
 			(type default)
 		)
 		(uuid "07e1e766-e18a-4f9e-b04c-fffecd09a282")
+	)
+	(wire
+		(pts
+			(xy 48.26 140.97) (xy 48.26 139.7)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0e4c40ef-f762-4620-a8dc-8aba4dd38326")
 	)
 	(wire
 		(pts
@@ -3373,6 +3403,16 @@
 	)
 	(wire
 		(pts
+			(xy 48.26 139.7) (xy 52.07 139.7)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "723d3254-7549-49f4-ac28-42919155602d")
+	)
+	(wire
+		(pts
 			(xy 116.84 114.3) (xy 116.84 115.57)
 		)
 		(stroke
@@ -3570,6 +3610,16 @@
 			(type default)
 		)
 		(uuid "c5b8d192-3901-45b8-83b3-872650eb4fc8")
+	)
+	(wire
+		(pts
+			(xy 45.72 137.16) (xy 52.07 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cb0974bc-3250-4e16-966b-880a66ca138a")
 	)
 	(wire
 		(pts
@@ -3841,6 +3891,16 @@
 		)
 		(uuid "0fa4bbe5-7f16-4766-986d-f169b58e0fae")
 	)
+	(label "+5V"
+		(at 45.72 137.16 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "128fcff2-2551-4b01-a44f-b032006120d8")
+	)
 	(label "+1V8"
 		(at 185.42 137.16 0)
 		(effects
@@ -3910,6 +3970,39 @@
 			(justify right bottom)
 		)
 		(uuid "b7645038-08ac-4aac-99e4-fb56cb4e1138")
+	)
+	(hierarchical_label "+1V8"
+		(shape output)
+		(at 241.3 22.86 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "4d850315-afa1-46ad-b324-dd1bbe4c19df")
+	)
+	(hierarchical_label "GND"
+		(shape passive)
+		(at 232.41 29.21 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "59a17aee-7265-4e32-9fb3-5fad49fd4eb3")
+	)
+	(hierarchical_label "+3V3"
+		(shape output)
+		(at 231.14 22.86 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "7e0775fb-d4cc-469e-85e9-b70ccd1105e5")
 	)
 	(symbol
 		(lib_id "Device:C")
@@ -3984,7 +4077,7 @@
 			(uuid "1cf72a9c-7f84-4bec-890d-c90010a21543")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "C8")
 					(unit 1)
@@ -4065,7 +4158,7 @@
 			(uuid "52978a25-6758-4e70-9336-54c25308b03a")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "C7")
 					(unit 1)
@@ -4143,7 +4236,7 @@
 			(uuid "3296edbd-1d1d-4a95-8143-17c45a99db71")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "#PWR017")
 					(unit 1)
@@ -4221,7 +4314,7 @@
 			(uuid "061124a3-4c36-4ee3-a6cb-287a1f7b26ed")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "#PWR07")
 					(unit 1)
@@ -4299,7 +4392,7 @@
 			(uuid "85244526-95d1-4c34-be58-6703f78fe508")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "#PWR015")
 					(unit 1)
@@ -4377,7 +4470,7 @@
 			(uuid "7b322b0a-f2c2-427c-af33-779ef0f2fdfe")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "#PWR013")
 					(unit 1)
@@ -4456,7 +4549,7 @@
 			(uuid "8b575591-0b57-4da0-b5cb-11b8b02dd53a")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "R3")
 					(unit 1)
@@ -4534,7 +4627,7 @@
 			(uuid "a79af3dd-9bd3-4728-a4ea-005b81f0d84f")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "#PWR08")
 					(unit 1)
@@ -4615,7 +4708,7 @@
 			(uuid "f5462db7-f1bf-40a4-b6c3-649420986898")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "C10")
 					(unit 1)
@@ -4696,7 +4789,7 @@
 			(uuid "ed50f390-06da-4326-9b07-ef6f921fe3a7")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "C6")
 					(unit 1)
@@ -4774,7 +4867,7 @@
 			(uuid "32be5966-7bfa-4fda-af06-bb97b8b8e576")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "#PWR06")
 					(unit 1)
@@ -4856,7 +4949,7 @@
 			(uuid "085bd1cd-5a27-435d-88d1-34e0d39b3f4b")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "R1")
 					(unit 1)
@@ -4934,7 +5027,7 @@
 			(uuid "a70a6352-93ca-493f-83d1-21d1f8205d2b")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "#PWR019")
 					(unit 1)
@@ -5016,7 +5109,7 @@
 			(uuid "00a0970d-a98d-4674-b750-76030a77f7a0")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "R4")
 					(unit 1)
@@ -5212,7 +5305,7 @@
 			(uuid "c9f39202-8a0e-4615-80bf-777ed643b319")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "U3")
 					(unit 1)
@@ -5290,7 +5383,7 @@
 			(uuid "e95b9205-d8b5-44e0-ab3d-2e7f40bbca1b")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "#PWR01")
 					(unit 1)
@@ -5371,7 +5464,7 @@
 			(uuid "f820eec0-dfef-4647-9b19-f2b0c0fa0519")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "C2")
 					(unit 1)
@@ -5449,9 +5542,87 @@
 			(uuid "366f3611-614d-4771-9e1e-8632dbb5ec73")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "#PWR03")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 48.26 140.97 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5c99ab97-648a-4046-9fb8-4b401474f35f")
+		(property "Reference" "#PWR021"
+			(at 48.26 147.32 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 48.26 146.05 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 48.26 140.97 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 48.26 140.97 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 48.26 140.97 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "727e1cd0-5cf2-412d-96da-d6c643fa4b9a")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
+					(reference "#PWR021")
 					(unit 1)
 				)
 			)
@@ -5527,7 +5698,7 @@
 			(uuid "49290b36-fc1f-46af-a461-21b75f9d2809")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "#PWR016")
 					(unit 1)
@@ -5605,7 +5776,7 @@
 			(uuid "7d997e21-2a6a-4a15-8950-aae5feaadf88")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "#PWR020")
 					(unit 1)
@@ -5683,7 +5854,7 @@
 			(uuid "1a679577-a1e3-4e93-a134-9f0edd4ba921")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "#PWR018")
 					(unit 1)
@@ -5714,7 +5885,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_01x02"
+		(property "Value" "Battery connector"
 			(at 105.41 49.5299 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5765,7 +5936,7 @@
 			(uuid "fbefbad7-87f5-4036-a2e0-fea9edff6f88")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "J1")
 					(unit 1)
@@ -5846,7 +6017,7 @@
 			(uuid "bfbd8059-b99e-4050-a8ae-fd5a6b8f80cb")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "C11")
 					(unit 1)
@@ -5927,7 +6098,7 @@
 			(uuid "0c13cd5e-61ff-4db1-9690-add53543b8d0")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "C4")
 					(unit 1)
@@ -6006,7 +6177,7 @@
 			(uuid "2745cb94-dec2-4354-9ff7-706c204a45bb")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "R2")
 					(unit 1)
@@ -6084,7 +6255,7 @@
 			(uuid "fa6cbff1-c75e-441b-8b31-1ea8603ac4fb")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "#PWR09")
 					(unit 1)
@@ -6301,7 +6472,7 @@
 			(uuid "a6c87f73-bce4-45d9-a733-cbaa695064dc")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "Q2")
 					(unit 1)
@@ -6380,7 +6551,7 @@
 			(uuid "dee62468-7f53-4114-928b-64705caaaab0")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "C1")
 					(unit 1)
@@ -6461,7 +6632,7 @@
 			(uuid "76563ab9-8a81-4231-b887-5eafc6c516f6")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "C9")
 					(unit 1)
@@ -6539,7 +6710,7 @@
 			(uuid "ee161035-5f1e-4fbb-981f-fac8d01e68cf")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "#PWR011")
 					(unit 1)
@@ -6622,7 +6793,7 @@
 			(uuid "49560804-8f91-4658-82a3-29b5f694882d")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "SW1")
 					(unit 1)
@@ -6700,7 +6871,7 @@
 			(uuid "ffdcee88-4c96-4ae8-ac68-224e34db1f61")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "#PWR02")
 					(unit 1)
@@ -6883,7 +7054,7 @@
 			(uuid "d3a58160-5c0f-4738-9532-b8c61da5f408")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "U4")
 					(unit 1)
@@ -6965,9 +7136,91 @@
 			(uuid "702cb033-04ec-4829-8643-0bca4d265b10")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "R5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Generic:Conn_01x02")
+		(at 57.15 137.16 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "bad4aee3-dd09-4591-902a-7060c47343c3")
+		(property "Reference" "J2"
+			(at 59.69 137.1599 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Raspberry Pi Connector"
+			(at 59.69 139.6999 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 57.15 137.16 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 57.15 137.16 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 57.15 137.16 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "b82f3013-6d0e-44b7-bfd9-ffdcc962b679")
+		)
+		(pin "2"
+			(uuid "036322fa-4b93-42bc-b81d-ad4d39a352fe")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
+					(reference "J2")
 					(unit 1)
 				)
 			)
@@ -7043,7 +7296,7 @@
 			(uuid "9e979cab-430d-4e33-baa9-7da7359bd2da")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "#PWR012")
 					(unit 1)
@@ -7281,7 +7534,7 @@
 			(uuid "4cce9eef-28b1-473b-8c55-ff2d8460ae04")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "F1")
 					(unit 1)
@@ -7359,7 +7612,7 @@
 			(uuid "3dc6cd32-f945-4c5f-85f4-6b10d1ffcf46")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "#PWR04")
 					(unit 1)
@@ -7606,7 +7859,7 @@
 			(uuid "e86f795e-59ce-42ab-a684-c271203c6b02")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "U2")
 					(unit 1)
@@ -7687,7 +7940,7 @@
 			(uuid "fc8877f6-db5e-454c-a751-af2f36b08e6a")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "C12")
 					(unit 1)
@@ -7768,7 +8021,7 @@
 			(uuid "691b81e3-125f-46bd-949d-e4bc0aed057d")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "C5")
 					(unit 1)
@@ -7847,7 +8100,7 @@
 			(uuid "7813a22a-84f4-4ca8-827d-8b18df9d7142")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "L1")
 					(unit 1)
@@ -7925,7 +8178,7 @@
 			(uuid "6a64fc5d-6584-420d-ab2c-211b1fde3d7a")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "#PWR010")
 					(unit 1)
@@ -8004,7 +8257,7 @@
 			(uuid "e4c92ca2-0884-4392-8c35-e628e737e82b")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "#PWR05")
 					(unit 1)
@@ -8082,7 +8335,7 @@
 			(uuid "f2072c3f-7c21-42fa-8f99-660bb61b2536")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "#PWR014")
 					(unit 1)
@@ -8163,7 +8416,7 @@
 			(uuid "1b56966f-c00c-476a-a40c-de76d10d4def")
 		)
 		(instances
-			(project "Untitled"
+			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "C3")
 					(unit 1)
