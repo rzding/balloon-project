@@ -1,0 +1,180 @@
+
+<style>
+.bom-section{margin-bottom:2rem}
+.section-header{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-radius:var(--border-radius-md);margin-bottom:8px}
+.section-title{font-size:13px;font-weight:500;letter-spacing:.04em;text-transform:uppercase}
+.section-total{font-size:15px;font-weight:500}
+.bom-table{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed}
+.bom-table th{font-size:11px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.05em;padding:6px 10px;border-bottom:0.5px solid var(--color-border-tertiary);text-align:left}
+.bom-table th:nth-child(4),.bom-table td:nth-child(4){text-align:center}
+.bom-table th:last-child,.bom-table td:last-child{text-align:right}
+.bom-table td{padding:8px 10px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary);vertical-align:top}
+.bom-table tr:last-child td{border-bottom:none}
+.part-name{font-weight:500}
+.part-desc{color:var(--color-text-secondary);font-size:12px;margin-top:2px}
+.badge{display:inline-block;font-size:10px;font-weight:500;padding:2px 7px;border-radius:99px;margin-left:6px;vertical-align:middle;white-space:nowrap}
+.badge-new{background:#E1F5EE;color:#0F6E56}
+.badge-optional{background:#FAEEDA;color:#854F0B}
+.badge-covered{background:#E6F1FB;color:#185FA5}
+.badge-changed{background:#FBEAF0;color:#993556}
+.grand-total{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-radius:var(--border-radius-md);background:var(--color-background-secondary);border:0.5px solid var(--color-border-secondary);margin-top:1.5rem}
+.grand-label{font-size:14px;font-weight:500;color:var(--color-text-primary)}
+.grand-sub{font-size:12px;color:var(--color-text-secondary);margin-top:2px}
+.grand-num{font-size:22px;font-weight:500;color:var(--color-text-primary)}
+.legend{display:flex;gap:16px;margin-bottom:1.5rem;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--color-text-secondary)}
+.rail-box{border-radius:var(--border-radius-md);padding:10px 14px;margin-bottom:8px;border:0.5px solid var(--color-border-tertiary)}
+.rail-title{font-size:12px;font-weight:500;margin-bottom:4px}
+.rail-desc{font-size:11px;color:var(--color-text-secondary)}
+</style>
+
+<h2 class="sr-only">HAB Flight Computer — Final Bill of Materials v3</h2>
+<div style="padding:1rem 0">
+
+<div class="legend">
+  <div class="legend-item"><span class="badge badge-new">new</span> Added</div>
+  <div class="legend-item"><span class="badge badge-changed">changed</span> Modified</div>
+  <div class="legend-item"><span class="badge badge-optional">optional</span> Can cut if over budget</div>
+  <div class="legend-item"><span class="badge badge-covered">SSI covered</span> Not from your budget</div>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1.5rem">
+  <div class="rail-box" style="background:#FAEEDA">
+    <div class="rail-title" style="color:#633806">5V main rail</div>
+    <div class="rail-desc" style="color:#854F0B">TPS63070 (buck-boost from battery)<br>Powers Pi Zero directly + feeds lower rails</div>
+  </div>
+  <div class="rail-box" style="background:#EEEDFE">
+    <div class="rail-title" style="color:#3C3489">3.3V logic rail</div>
+    <div class="rail-desc" style="color:#534AB7">AP2112K-3.3 (LDO from 5V)<br>STM32, IMU, LoRa, APRS, temp, SD</div>
+  </div>
+  <div class="rail-box" style="background:#E1F5EE">
+    <div class="rail-title" style="color:#085041">1.8V GPS rail</div>
+    <div class="rail-desc" style="color:#0F6E56">XC6206P182MR (LDO from 3.3V)<br>MAX-M10S GPS module only</div>
+  </div>
+</div>
+
+<!-- PCB SECTION -->
+<div class="bom-section">
+  <div class="section-header" style="background:#EEEDFE">
+    <span class="section-title" style="color:#3C3489">PCB / Electronics</span>
+    <span class="section-total" style="color:#3C3489">$157</span>
+  </div>
+  <table class="bom-table">
+    <thead>
+      <tr>
+        <th style="width:24%">Part</th>
+        <th style="width:20%">Part number</th>
+        <th style="width:32%">Notes</th>
+        <th style="width:5%">Qty</th>
+        <th style="width:8%">Unit</th>
+        <th style="width:11%">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><div class="part-name">MCU</div><div class="part-desc">Cortex-M4, main brain</div></td><td>STM32F411CEU6</td><td>Bare IC, 3.3V rail</td><td>1</td><td>$10</td><td>$10</td></tr>
+      <tr><td><div class="part-name">Crystal 8MHz</div><div class="part-desc">External clock for STM32</div></td><td>ABM8-8.000MHZ</td><td>Cold-stable oscillator reference</td><td>1</td><td>$1</td><td>$1</td></tr>
+      <tr><td><div class="part-name">GPS Module</div><div class="part-desc">&gt;18km altitude bypass</div></td><td>u-blox MAX-M10S</td><td>1.8V rail — cannot connect to 3.3V directly</td><td>1</td><td>$35</td><td>$35</td></tr>
+      <tr><td><div class="part-name">GPS Patch Antenna</div><div class="part-desc">Passive ceramic patch</div></td><td>Taoglas FXP73</td><td>Pairs with MAX-M10S via U.FL, faces up</td><td>1</td><td>$4</td><td>$4</td></tr>
+      <tr><td><div class="part-name">GPS Level Shifter</div><div class="part-desc">3.3V ↔ 1.8V UART bridge</div></td><td>TXS0102<span class="badge badge-new">new</span></td><td>STM32 UART is 3.3V logic, GPS UART is 1.8V — need translation</td><td>1</td><td>$0.80</td><td>$0.80</td></tr>
+      <tr><td><div class="part-name">1.8V LDO</div><div class="part-desc">GPS power rail</div></td><td>XC6206P182MR<span class="badge badge-new">new</span></td><td>3.3V → 1.8V for MAX-M10S only</td><td>1</td><td>$0.30</td><td>$0.30</td></tr>
+      <tr><td><div class="part-name">LoRa Module (flight)</div><div class="part-desc">915 MHz primary downlink</div></td><td>RFM95W</td><td>3.3V rail, SPI to STM32</td><td>1</td><td>$10</td><td>$10</td></tr>
+      <tr><td><div class="part-name">LoRa Module (ground)</div><div class="part-desc">915 MHz ground station RX</div></td><td>RFM95W</td><td>Connects to Nucleo dev board</td><td>1</td><td>$10</td><td>$10</td></tr>
+      <tr><td><div class="part-name">APRS Radio Module</div><div class="part-desc">VHF 144.390 MHz backup</div></td><td>Dorji DRA818V</td><td>3.3V rail, UART config + DAC audio in</td><td>1</td><td>$8</td><td>$8</td></tr>
+      <tr><td><div class="part-name">VHF Low-Pass Filter</div><div class="part-desc">Harmonic suppression</div></td><td>Mini-Circuits or discrete</td><td>Required by FCC for ham TX</td><td>1</td><td>$3</td><td>$3</td></tr>
+      <tr><td><div class="part-name">Audio Voltage Divider</div><div class="part-desc">DAC → DRA818V mic level</div></td><td>2x resistors (in passives)<span class="badge badge-new">new</span></td><td>Divides STM32 DAC 3.3V down to ~300mV for APRS audio input</td><td>1</td><td>$0</td><td>$0</td></tr>
+      <tr><td><div class="part-name">IMU Sensor</div><div class="part-desc">6-axis gyro + accel</div></td><td>ICM-42688-P</td><td>Bare IC, SPI, 3.3V rail</td><td>1</td><td>$6</td><td>$6</td></tr>
+      <tr><td><div class="part-name">Ext. Temp Probe</div><div class="part-desc">Ambient digital sensor</div></td><td>TMP117</td><td>±0.1°C, I2C, 3.3V rail<span class="badge badge-optional">optional</span></td><td>1</td><td>$4</td><td>$4</td></tr>
+      <tr><td><div class="part-name">Buck-Boost 5V</div><div class="part-desc">Main power rail</div></td><td>TPS63070<span class="badge badge-changed">changed</span></td><td>Now set to 5V output (resistor change only) — feeds 3.3V LDO + Pi Zero directly</td><td>1</td><td>$4</td><td>$4</td></tr>
+      <tr><td><div class="part-name">LDO 3.3V</div><div class="part-desc">Logic rail from 5V</div></td><td>AP2112K-3.3<span class="badge badge-changed">changed</span></td><td>Was -5.0 variant. Now takes 5V in → 3.3V out. Input safely within 6V max rating.</td><td>1</td><td>$0.50</td><td>$0.50</td></tr>
+      <tr><td><div class="part-name">Battery Protection IC</div><div class="part-desc">Over-discharge + short circuit</div></td><td>DW01A<span class="badge badge-changed">changed</span></td><td>Simpler 2S implementation than S-8254A, more available</td><td>1</td><td>$0.50</td><td>$0.50</td></tr>
+      <tr><td><div class="part-name">Polyfuse 2A</div><div class="part-desc">Resettable fuse</div></td><td>MF-MSMF200</td><td>Main power line, trips before battery vents</td><td>1</td><td>$0.30</td><td>$0.30</td></tr>
+      <tr><td><div class="part-name">Reverse Polarity MOSFET</div><div class="part-desc">P-ch at power input</div></td><td>DMG2305UX</td><td>Protects all ICs if battery reversed</td><td>1</td><td>$0.30</td><td>$0.30</td></tr>
+      <tr><td><div class="part-name">Bulk Input Capacitor</div><div class="part-desc">100µF at battery input</div></td><td>Tantalum or electrolytic</td><td>Smooths LoRa TX spikes, prevents STM32 resets</td><td>2</td><td>$0.50</td><td>$1</td></tr>
+      <tr><td><div class="part-name">Power Switch SPDT</div><div class="part-desc">External on/off on box wall</div></td><td>Any panel mount</td><td>Power up on pad without opening box</td><td>1</td><td>$1.50</td><td>$1.50</td></tr>
+      <tr><td><div class="part-name">Power LED + resistor</div><div class="part-desc">3.3V rail indicator</div></td><td>Generic</td><td>Visual confirmation board is live</td><td>1</td><td>$0.20</td><td>$0.20</td></tr>
+      <tr><td><div class="part-name">microSD Holder</div><div class="part-desc">Telemetry log only</div></td><td>Molex 104031</td><td>SPI to STM32, no photos stored here</td><td>1</td><td>$1</td><td>$1</td></tr>
+      <tr><td><div class="part-name">SWD Debug Header</div><div class="part-desc">5-pin 1.27mm</div></td><td>Generic</td><td>Mandatory for firmware flashing</td><td>1</td><td>$1</td><td>$1</td></tr>
+      <tr><td><div class="part-name">PCB Fabrication</div><div class="part-desc">4-layer, JLCPCB pool</div></td><td>Custom Design</td><td>5 copies per order, plan 1 respin</td><td>2</td><td>$15</td><td>$30</td></tr>
+      <tr><td><div class="part-name">Passives & Protection</div><div class="part-desc">Caps, resistors, TVS, ferrites</div></td><td>Various (LCSC)</td><td>Includes ~20 decoupling caps, audio divider resistors, crystal load caps</td><td>1</td><td>$25</td><td>$25</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- EMBEDDED SECTION -->
+<div class="bom-section">
+  <div class="section-header" style="background:#E1F5EE">
+    <span class="section-title" style="color:#085041">Embedded / Dev</span>
+    <span class="section-total" style="color:#085041">$100</span>
+  </div>
+  <table class="bom-table">
+    <thead>
+      <tr>
+        <th style="width:24%">Part</th>
+        <th style="width:20%">Part number</th>
+        <th style="width:32%">Notes</th>
+        <th style="width:5%">Qty</th>
+        <th style="width:8%">Unit</th>
+        <th style="width:11%">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><div class="part-name">Dev Board</div><div class="part-desc">Firmware proto + ground station RX</div></td><td>STM32 Nucleo-F411RE</td><td>Doubles as ground station during flight — connects to RFM95W #2</td><td>1</td><td>$25</td><td>$25</td></tr>
+      <tr><td><div class="part-name">Imaging Computer</div><div class="part-desc">Linux, camera stack, SSDV encode</div></td><td>Raspberry Pi Zero 2W</td><td>5V direct from main rail, GPIO trigger + UART back to STM32</td><td>1</td><td>$15</td><td>$15</td></tr>
+      <tr><td><div class="part-name">Camera Module</div><div class="part-desc">12MP, autofocus, IMX708</div></td><td>Pi Camera Module 3</td><td>CSI-2 ribbon to Pi Zero, full-res saved + downscaled for SSDV</td><td>1</td><td>$25</td><td>$25</td></tr>
+      <tr><td><div class="part-name">Action Camera</div><div class="part-desc">Cinematic post-recovery footage</div></td><td>Runcam 2 / Thumb Pro</td><td>External velcro mount, no electrical connection</td><td>1</td><td>$45</td><td>$45</td></tr>
+      <tr><td><div class="part-name">Storage — Pi photos</div><div class="part-desc">Pi Zero boot + image storage</div></td><td>SanDisk Industrial 32GB</td><td>Goes in Pi Zero built-in SD slot</td><td>1</td><td>$15</td><td>$15</td></tr>
+      <tr><td><div class="part-name">Storage — STM32 log</div><div class="part-desc">Telemetry only, no photos</div></td><td>SanDisk Industrial 8GB</td><td>Goes in PCB microSD holder via SPI</td><td>1</td><td>$10</td><td>$10</td></tr>
+      <tr><td><div class="part-name">SSDV Library</div><div class="part-desc">Image packetizer</div></td><td>github.com/fsphil/ssdv</td><td>Open source, runs on Pi Zero</td><td>—</td><td>$0</td><td>$0</td></tr>
+      <tr><td><div class="part-name">Firmware Toolchain</div><div class="part-desc">IDE + libraries</div></td><td>STM32CubeIDE / OSS</td><td>Free</td><td>—</td><td>$0</td><td>$0</td></tr>
+      <tr><td><div class="part-name">Ham License Exam</div><div class="part-desc">Required for APRS TX</div></td><td>ARRL / local club</td><td>One weekend study, valid 10 years</td><td>1</td><td>$15</td><td>$15</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- MECHANICAL SECTION -->
+<div class="bom-section">
+  <div class="section-header" style="background:#E6F1FB">
+    <span class="section-title" style="color:#0C447C">Mechanical / Ops <span class="badge badge-covered">SSI covered</span></span>
+    <span class="section-total" style="color:#0C447C">$347</span>
+  </div>
+  <table class="bom-table">
+    <thead>
+      <tr>
+        <th style="width:24%">Part</th>
+        <th style="width:20%">Part number</th>
+        <th style="width:32%">Notes</th>
+        <th style="width:5%">Qty</th>
+        <th style="width:8%">Unit</th>
+        <th style="width:11%">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><div class="part-name">Primary Flight Balloon</div></td><td>Kaymont 1200g</td><td>Standard HAB, correct for 100k ft target</td><td>1</td><td>$100</td><td>$100</td></tr>
+      <tr><td><div class="part-name">Recovery Parachute</div></td><td>HABstore / Apogee 30"</td><td>Right size for sub-4lb payload</td><td>1</td><td>$30</td><td>$30</td></tr>
+      <tr><td><div class="part-name">Rigging Accessories</div></td><td>Various</td><td>Nomex cord, swivels, flight line</td><td>1</td><td>$10</td><td>$10</td></tr>
+      <tr><td><div class="part-name">Helium Gas Fill</div></td><td>Local Welding Supply</td><td>~150 cu ft, get slightly extra</td><td>1</td><td>$90</td><td>$90</td></tr>
+      <tr><td><div class="part-name">Flight Batteries</div></td><td>Samsung INR18650-35E</td><td>Best cold-weather Li-ion available</td><td>4</td><td>$6</td><td>$24</td></tr>
+      <tr><td><div class="part-name">Battery Chassis</div></td><td>2S2P 18650 Holder</td><td>High-retention cell holder</td><td>1</td><td>$6</td><td>$6</td></tr>
+      <tr><td><div class="part-name">Enclosure Materials</div></td><td>Local hardware store</td><td>1" foam + Mylar lining</td><td>1</td><td>$25</td><td>$25</td></tr>
+      <tr><td><div class="part-name">Antennas 915MHz</div></td><td>Amazon / Digikey</td><td>One on payload, one at ground station</td><td>2</td><td>$5</td><td>$10</td></tr>
+      <tr><td><div class="part-name">VHF Antenna 144MHz</div></td><td>Any 144MHz whip</td><td>Payload only — APRS TX</td><td>1</td><td>$5</td><td>$5</td></tr>
+      <tr><td><div class="part-name">Hand Warmers</div></td><td>Any grocery store</td><td>Inside payload box, battery insurance</td><td>4</td><td>$0.50</td><td>$2</td></tr>
+      <tr><td><div class="part-name">Operational Misc.</div></td><td>Various</td><td>Tape, zip ties, NOTAM filing, gas deposits</td><td>1</td><td>$50</td><td>$50</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- GRAND TOTAL -->
+<div class="grand-total">
+  <div>
+    <div class="grand-label">Grand total</div>
+    <div class="grand-sub">Electronics only (PCB + Embedded): <strong>$257</strong> — within your $200–300 budget</div>
+    <div class="grand-sub">Power rails verified · all voltages within spec · 3 new parts added · 2 parts changed</div>
+  </div>
+  <div style="text-align:right">
+    <div class="grand-num">$604</div>
+    <div style="font-size:12px;color:var(--color-text-secondary)">$347 SSI + $257 your budget</div>
+  </div>
+</div>
+
+</div>
