@@ -119,6 +119,16 @@
 				(justify left)
 			)
 		)
+		(pin "+4V1" output
+			(at 87.63 76.2 270)
+			(uuid "915ce8e4-144a-461c-bea7-f7cffd7ec495")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
 		(instances
 			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866"
