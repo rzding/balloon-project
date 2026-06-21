@@ -100,7 +100,7 @@
 			)
 		)
 		(pin "+3V3" output
-			(at 98.425 70.485 0)
+			(at 98.425 60.96 0)
 			(uuid "2bd654cf-6683-43e5-835d-4ca591c7559d")
 			(effects
 				(font
@@ -265,6 +265,156 @@
 					(size 1.27 1.27)
 				)
 				(justify left top)
+			)
+		)
+		(pin "GPS_RX" input
+			(at 136.525 53.34 180)
+			(uuid "c32eb374-3775-4a0c-9224-a237f4aabcdb")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "MISO" input
+			(at 161.29 76.2 270)
+			(uuid "bb65fc3b-d3cb-4311-be7b-cb255dbe7fd2")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "MOSI" output
+			(at 163.83 76.2 270)
+			(uuid "5592dcfd-c533-4fa7-9027-3adc56074abd")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "APRS_RX" input
+			(at 136.525 44.45 180)
+			(uuid "3bb1242d-7587-44a3-805c-b80fa0c91ee5")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "PI_ZERO_RX" input
+			(at 136.525 63.5 180)
+			(uuid "6fcc0383-a211-4894-bee4-96c3958527bd")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "microSD_CS" output
+			(at 171.3228 76.2 270)
+			(uuid "09d9d7c8-2394-4afa-b48f-3cc658705257")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "PI_ZERO_TX" output
+			(at 136.525 66.04 180)
+			(uuid "693ac335-ca38-4b90-8645-26e81912a23a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "LoRa_CS" output
+			(at 173.2914 76.2 270)
+			(uuid "0e86f56d-8af3-4c35-a090-0ed5ec01986f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "BMP_CS" output
+			(at 174.9107 76.2 270)
+			(uuid "0e045ba4-d896-4b00-a1df-98b45d676bc9")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "IMU_CS" output
+			(at 176.53 76.2 270)
+			(uuid "a6c41e42-9b67-440c-9769-593ac003b803")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SCK" output
+			(at 166.37 76.2 270)
+			(uuid "64467601-b934-4209-860e-9a6921591c4c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "GPS_TX" output
+			(at 136.525 55.88 180)
+			(uuid "baea45ff-9919-4955-8feb-8debd03e6a7e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "APRS_TX" output
+			(at 136.525 46.99 180)
+			(uuid "1fca6c06-f2f7-43c4-8489-edeb9e034f91")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SCL" bidirectional
+			(at 185.0707 76.2 270)
+			(uuid "11e18fd1-5eca-4a0b-886b-611402efdda4")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SDA" bidirectional
+			(at 186.69 76.2 270)
+			(uuid "ff8b7f30-8536-4eb9-8f22-325906f9709c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 			)
 		)
 		(instances
