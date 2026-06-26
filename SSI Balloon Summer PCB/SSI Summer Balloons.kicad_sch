@@ -5,6 +5,370 @@
 	(uuid "3c45a535-6e6b-4825-ad52-82c10cbe7866")
 	(paper "A4")
 	(lib_symbols)
+	(text "*UART is RX to TX, TX to RX\n(this is not a wiring mistake)"
+		(exclude_from_sim no)
+		(at 189.738 85.09 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "37c586c2-30ad-48ee-a65a-8aba8d173f13")
+	)
+	(junction
+		(at 212.09 50.8)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "06a1d86b-8f76-4812-a0e3-04edd6bc4d0e")
+	)
+	(junction
+		(at 209.55 54.61)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "82050112-2470-47c9-9664-7d5493049cb5")
+	)
+	(junction
+		(at 207.01 58.42)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "fe68a3c6-6088-4591-8e4f-db7b92ff80f4")
+	)
+	(wire
+		(pts
+			(xy 209.55 95.25) (xy 180.34 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0d4e05f4-af61-49a9-bdfc-0dceef170558")
+	)
+	(wire
+		(pts
+			(xy 207.01 92.71) (xy 177.8 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "24763b57-f112-45be-aea1-7b8a82bbb1c1")
+	)
+	(wire
+		(pts
+			(xy 177.8 92.71) (xy 177.8 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2f768de9-6894-4c3b-a08c-00de11daab8c")
+	)
+	(wire
+		(pts
+			(xy 207.01 58.42) (xy 207.01 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "38a92f7d-dba6-4d20-b989-ffdb92e750ca")
+	)
+	(wire
+		(pts
+			(xy 153.67 76.2) (xy 153.67 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "412767bc-d6fd-4149-842a-63cd9ccfbc48")
+	)
+	(wire
+		(pts
+			(xy 191.77 38.1) (xy 223.52 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "439ea3a7-3412-4840-9705-f9f1f182950f")
+	)
+	(wire
+		(pts
+			(xy 170.18 76.2) (xy 170.18 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "57fc20cb-d522-42d1-97be-5294d5c5a87e")
+	)
+	(wire
+		(pts
+			(xy 212.09 50.8) (xy 212.09 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "650261d6-4250-4f0b-a234-f476bfaf59bc")
+	)
+	(wire
+		(pts
+			(xy 191.77 54.61) (xy 209.55 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7c1ee688-25d8-4efc-a69b-c8dd20fd0063")
+	)
+	(wire
+		(pts
+			(xy 182.88 97.79) (xy 182.88 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "83669319-864c-427d-b85f-e766d3dd0d79")
+	)
+	(wire
+		(pts
+			(xy 151.13 76.2) (xy 151.13 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "84cd0803-3669-4c01-be03-0c679a6c7157")
+	)
+	(wire
+		(pts
+			(xy 212.09 97.79) (xy 182.88 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "862e2c17-ef13-4b56-8674-dd0d0688bbf2")
+	)
+	(wire
+		(pts
+			(xy 209.55 54.61) (xy 223.52 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "90151ebd-5724-4cad-8c36-de07ece571e3")
+	)
+	(wire
+		(pts
+			(xy 172.72 76.2) (xy 172.72 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "96c0dca3-fcfc-4c70-a674-7794858afe61")
+	)
+	(wire
+		(pts
+			(xy 207.01 58.42) (xy 223.52 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a49efd77-bd86-4018-b058-6145cc3c9f75")
+	)
+	(wire
+		(pts
+			(xy 191.77 50.8) (xy 212.09 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a561af91-2357-4a6c-861f-9b5443965ece")
+	)
+	(wire
+		(pts
+			(xy 156.21 76.2) (xy 156.21 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a87d1684-a248-4b93-a0fa-0b3a64350af8")
+	)
+	(wire
+		(pts
+			(xy 158.75 76.2) (xy 158.75 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b4662cd6-6e13-40fa-8917-6c7d7f8f7f30")
+	)
+	(wire
+		(pts
+			(xy 180.34 95.25) (xy 180.34 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b7c5afcd-c167-464b-9372-4570d6ee4d22")
+	)
+	(wire
+		(pts
+			(xy 191.77 58.42) (xy 207.01 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c4cbdbfa-8006-4881-bd7e-389323812f30")
+	)
+	(wire
+		(pts
+			(xy 191.77 41.91) (xy 223.52 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f40ee085-013c-4abb-89cd-5eb353052dbe")
+	)
+	(wire
+		(pts
+			(xy 212.09 50.8) (xy 223.52 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f47bddf8-5f26-4e24-8340-2bd1086f81aa")
+	)
+	(wire
+		(pts
+			(xy 167.64 76.2) (xy 167.64 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fcbe5a79-0ce3-4f86-a4b7-4bc8cb7b9e80")
+	)
+	(wire
+		(pts
+			(xy 209.55 54.61) (xy 209.55 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ff24e495-34a1-4b20-8931-b2691a738cb8")
+	)
+	(sheet
+		(at 223.52 35.56)
+		(size 48.26 40.64)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "0df234a1-8d04-4ff9-99d5-3634fc842029")
+		(property "Sheetname" "microSD"
+			(at 223.52 34.8484 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "microSD.kicad_sch"
+			(at 223.52 76.7846 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "MOSI" input
+			(at 223.52 54.61 180)
+			(uuid "e3804e2b-d0a6-498c-8778-9ce358bbc36a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SCK" input
+			(at 223.52 50.8 180)
+			(uuid "1a206cc8-87b9-4cfc-8a23-87c428638220")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "MISO" output
+			(at 223.52 58.42 180)
+			(uuid "99e439c7-686b-4eb5-a663-8f2653beae67")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "microSD_detect" output
+			(at 223.52 38.1 180)
+			(uuid "e58a353c-5ff9-4298-bc2d-c1c667897138")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "microSD_CS" input
+			(at 223.52 41.91 180)
+			(uuid "3e0f078a-5099-4988-a2c9-f2ff828345c2")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866"
+					(page "7")
+				)
+			)
+		)
+	)
 	(sheet
 		(at 20.32 120.65)
 		(size 78.105 38.735)
@@ -138,8 +502,8 @@
 		)
 	)
 	(sheet
-		(at 109.22 120.65)
-		(size 78.105 38.735)
+		(at 116.84 120.65)
+		(size 74.93 38.735)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -154,7 +518,7 @@
 		)
 		(uuid "2467bfc8-9a58-45c6-9683-5b5ac73ee36d")
 		(property "Sheetname" "Radio"
-			(at 109.22 119.9384 0)
+			(at 116.1284 159.385 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -165,7 +529,7 @@
 			)
 		)
 		(property "Sheetfile" "Radio.kicad_sch"
-			(at 109.22 159.9696 0)
+			(at 192.3546 159.385 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -173,6 +537,106 @@
 					(size 1.27 1.27)
 				)
 				(justify left top)
+			)
+		)
+		(pin "MISO" output
+			(at 177.8 120.65 90)
+			(uuid "f27d2e50-fadd-4c59-a7d0-685bd2d2794e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "LoRa_CS" input
+			(at 172.72 120.65 90)
+			(uuid "cc693bf4-04d6-4621-b699-22e3c096665f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "LoRa_RESET" input
+			(at 151.13 120.65 90)
+			(uuid "c8a135b7-91bc-401c-9e31-4645cb1da57d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "APRS_PTT" input
+			(at 158.75 120.65 90)
+			(uuid "592715ff-3338-4d17-93f1-5321a8cdbd8d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "SCK" input
+			(at 182.88 120.65 90)
+			(uuid "f9084134-b55b-429e-81ae-27ef5f931980")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "MOSI" input
+			(at 180.34 120.65 90)
+			(uuid "b0393f52-9e8b-4259-99b0-77f3327a2b0d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "LoRa_DIO0" bidirectional
+			(at 153.67 120.65 90)
+			(uuid "e4ba7739-3350-4e02-b09b-60e938a87720")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "APRS_TX" output
+			(at 167.64 120.65 90)
+			(uuid "6654367f-90ae-41c9-bc09-17063d1ec194")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "APRS_RX" input
+			(at 170.18 120.65 90)
+			(uuid "414af71d-2973-4843-a7c5-7a24ed58151f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "APRS_PD" input
+			(at 156.21 120.65 90)
+			(uuid "ee6b466e-1c3d-4a82-8a8b-67246e6b92a1")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(instances
@@ -184,8 +648,8 @@
 		)
 	)
 	(sheet
-		(at 196.215 120.65)
-		(size 76.835 37.465)
+		(at 204.47 120.65)
+		(size 68.58 37.465)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -200,7 +664,7 @@
 		)
 		(uuid "98c67578-63cf-4cdd-a22b-0d2ebd53e276")
 		(property "Sheetname" "Sensor"
-			(at 196.215 119.9384 0)
+			(at 204.47 119.9384 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -211,7 +675,7 @@
 			)
 		)
 		(property "Sheetfile" "Sensor.kicad_sch"
-			(at 196.215 158.6996 0)
+			(at 204.47 158.6996 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -230,8 +694,8 @@
 		)
 	)
 	(sheet
-		(at 136.525 34.925)
-		(size 80.01 41.275)
+		(at 116.84 34.925)
+		(size 74.93 41.275)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -246,7 +710,7 @@
 		)
 		(uuid "b11ef58b-98ba-47ea-88cc-0eee30828228")
 		(property "Sheetname" "MCU (STM)"
-			(at 136.525 34.2134 0)
+			(at 116.84 34.2134 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -257,7 +721,7 @@
 			)
 		)
 		(property "Sheetfile" "MCU.kicad_sch"
-			(at 136.525 76.7846 0)
+			(at 116.84 76.7846 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -268,7 +732,7 @@
 			)
 		)
 		(pin "GPS_RX" input
-			(at 136.525 53.34 180)
+			(at 116.84 53.34 180)
 			(uuid "c32eb374-3775-4a0c-9224-a237f4aabcdb")
 			(effects
 				(font
@@ -278,27 +742,27 @@
 			)
 		)
 		(pin "MISO" input
-			(at 161.29 76.2 270)
+			(at 191.77 58.42 0)
 			(uuid "bb65fc3b-d3cb-4311-be7b-cb255dbe7fd2")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(pin "MOSI" output
-			(at 163.83 76.2 270)
+			(at 191.77 54.61 0)
 			(uuid "5592dcfd-c533-4fa7-9027-3adc56074abd")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(pin "APRS_RX" input
-			(at 136.525 44.45 180)
+			(at 167.64 76.2 270)
 			(uuid "3bb1242d-7587-44a3-805c-b80fa0c91ee5")
 			(effects
 				(font
@@ -308,7 +772,7 @@
 			)
 		)
 		(pin "PI_ZERO_RX" input
-			(at 136.525 63.5 180)
+			(at 116.84 63.5 180)
 			(uuid "6fcc0383-a211-4894-bee4-96c3958527bd")
 			(effects
 				(font
@@ -318,17 +782,17 @@
 			)
 		)
 		(pin "microSD_CS" output
-			(at 171.3228 76.2 270)
+			(at 191.77 41.91 0)
 			(uuid "09d9d7c8-2394-4afa-b48f-3cc658705257")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(pin "PI_ZERO_TX" output
-			(at 136.525 66.04 180)
+			(at 116.84 66.04 180)
 			(uuid "693ac335-ca38-4b90-8645-26e81912a23a")
 			(effects
 				(font
@@ -338,7 +802,7 @@
 			)
 		)
 		(pin "LoRa_CS" output
-			(at 173.2914 76.2 270)
+			(at 172.72 76.2 270)
 			(uuid "0e86f56d-8af3-4c35-a090-0ed5ec01986f")
 			(effects
 				(font
@@ -348,37 +812,37 @@
 			)
 		)
 		(pin "BMP_CS" output
-			(at 174.9107 76.2 270)
+			(at 191.77 66.04 0)
 			(uuid "0e045ba4-d896-4b00-a1df-98b45d676bc9")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(pin "IMU_CS" output
-			(at 176.53 76.2 270)
+			(at 191.77 68.58 0)
 			(uuid "a6c41e42-9b67-440c-9769-593ac003b803")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(pin "SCK" output
-			(at 166.37 76.2 270)
+			(at 191.77 50.8 0)
 			(uuid "64467601-b934-4209-860e-9a6921591c4c")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(pin "GPS_TX" output
-			(at 136.525 55.88 180)
+			(at 116.84 55.88 180)
 			(uuid "baea45ff-9919-4955-8feb-8debd03e6a7e")
 			(effects
 				(font
@@ -388,7 +852,7 @@
 			)
 		)
 		(pin "APRS_TX" output
-			(at 136.525 46.99 180)
+			(at 170.18 76.2 270)
 			(uuid "1fca6c06-f2f7-43c4-8489-edeb9e034f91")
 			(effects
 				(font
@@ -398,7 +862,7 @@
 			)
 		)
 		(pin "SCL" bidirectional
-			(at 185.0707 76.2 270)
+			(at 137.16 76.2 270)
 			(uuid "11e18fd1-5eca-4a0b-886b-611402efdda4")
 			(effects
 				(font
@@ -408,8 +872,58 @@
 			)
 		)
 		(pin "SDA" bidirectional
-			(at 186.69 76.2 270)
+			(at 138.7793 76.2 270)
 			(uuid "ff8b7f30-8536-4eb9-8f22-325906f9709c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "microSD_detect" input
+			(at 191.77 38.1 0)
+			(uuid "946912a9-298e-485a-a1f1-6f094a82767c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "LoRa_RESET" output
+			(at 151.13 76.2 270)
+			(uuid "8f387215-59f6-4a4f-b80f-546ee3526069")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "APRS_PD" output
+			(at 156.21 76.2 270)
+			(uuid "889d9314-2aed-4287-92c8-52e6f63db329")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "APRS_PTT" output
+			(at 158.75 76.2 270)
+			(uuid "7fb0f9f8-a85b-4f8b-83b3-5bcdff5159c2")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "LoRa_DIO0" bidirectional
+			(at 153.67 76.2 270)
+			(uuid "82aee856-475b-4c7a-b496-f04129839548")
 			(effects
 				(font
 					(size 1.27 1.27)

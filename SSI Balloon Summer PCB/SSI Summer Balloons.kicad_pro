@@ -648,7 +648,7 @@
         "uuid": "3c45a535-6e6b-4825-ad52-82c10cbe7866"
       }
     ],
-    "used_designators": "",
+    "used_designators": "D1,R16-17,C34,#PWR75-80,J6",
     "variants": []
   },
   "sheets": [
@@ -675,6 +675,10 @@
     [
       "98c67578-63cf-4cdd-a22b-0d2ebd53e276",
       "Sensor"
+    ],
+    [
+      "0df234a1-8d04-4ff9-99d5-3634fc842029",
+      "microSD"
     ]
   ],
   "text_variables": {},
