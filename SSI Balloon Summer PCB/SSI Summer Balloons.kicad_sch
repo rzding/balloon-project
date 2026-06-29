@@ -28,6 +28,12 @@
 		(uuid "82050112-2470-47c9-9664-7d5493049cb5")
 	)
 	(junction
+		(at 98.425 69.85)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b8ac272d-9159-4a4e-a6b4-b51a5349487d")
+	)
+	(junction
 		(at 207.01 58.42)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -92,6 +98,16 @@
 			(type default)
 		)
 		(uuid "439ea3a7-3412-4840-9705-f9f1f182950f")
+	)
+	(wire
+		(pts
+			(xy 97.79 69.85) (xy 98.425 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "53c66cc6-9bb6-47ed-bb40-17de66033af0")
 	)
 	(wire
 		(pts
@@ -172,6 +188,16 @@
 			(type default)
 		)
 		(uuid "96c0dca3-fcfc-4c70-a674-7794858afe61")
+	)
+	(wire
+		(pts
+			(xy 98.425 69.85) (xy 116.84 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9f93a0e7-d642-4811-930f-e0110b3a8702")
 	)
 	(wire
 		(pts
@@ -464,7 +490,7 @@
 			)
 		)
 		(pin "+3V3" output
-			(at 98.425 60.96 0)
+			(at 98.425 69.85 0)
 			(uuid "2bd654cf-6683-43e5-835d-4ca591c7559d")
 			(effects
 				(font
@@ -924,6 +950,16 @@
 		(pin "LoRa_DIO0" bidirectional
 			(at 153.67 76.2 270)
 			(uuid "82aee856-475b-4c7a-b496-f04129839548")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "+3V3" input
+			(at 116.84 69.85 180)
+			(uuid "0a3302f8-8a96-41b5-9c3d-2fff78a0f28c")
 			(effects
 				(font
 					(size 1.27 1.27)

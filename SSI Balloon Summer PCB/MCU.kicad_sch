@@ -3695,6 +3695,16 @@
 	)
 	(wire
 		(pts
+			(xy 210.82 44.45) (xy 215.9 44.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ff2ba00f-033c-45cb-91e4-b51b9428c61d")
+	)
+	(wire
+		(pts
 			(xy 91.44 63.5) (xy 107.95 63.5)
 		)
 		(stroke
@@ -3892,6 +3902,16 @@
 			(justify right bottom)
 		)
 		(uuid "5fa6cdd6-e596-4182-9536-0176d15f5d05")
+	)
+	(label "+3V3"
+		(at 210.82 44.45 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "60006b24-43f8-4e55-8796-8fbf662c09b0")
 	)
 	(label "SCL"
 		(at 44.45 93.98 180)
@@ -4287,6 +4307,17 @@
 			(justify left)
 		)
 		(uuid "2cf2dd32-68ab-478a-ae62-b3b2ef4dc304")
+	)
+	(hierarchical_label "+3V3"
+		(shape input)
+		(at 215.9 44.45 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "2f5943d3-3485-4b3f-9ee3-23ab42089266")
 	)
 	(hierarchical_label "GPS_RX"
 		(shape input)
