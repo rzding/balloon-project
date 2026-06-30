@@ -22,6 +22,12 @@
 		(uuid "06a1d86b-8f76-4812-a0e3-04edd6bc4d0e")
 	)
 	(junction
+		(at 99.06 109.22)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3c424270-359a-4d2b-8be6-578a55f0ec6b")
+	)
+	(junction
 		(at 99.06 69.85)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -38,16 +44,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "fe68a3c6-6088-4591-8e4f-db7b92ff80f4")
-	)
-	(wire
-		(pts
-			(xy 99.06 69.85) (xy 99.06 120.65)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0be97096-ff10-49b0-bfbc-394c992fe461")
 	)
 	(wire
 		(pts
@@ -98,6 +94,16 @@
 			(type default)
 		)
 		(uuid "24763b57-f112-45be-aea1-7b8a82bbb1c1")
+	)
+	(wire
+		(pts
+			(xy 120.65 111.76) (xy 88.9 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2e9e6659-13af-4b8b-aca3-b3341be464aa")
 	)
 	(wire
 		(pts
@@ -281,6 +287,16 @@
 	)
 	(wire
 		(pts
+			(xy 125.73 120.65) (xy 125.73 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "91328802-d8de-4c09-bf15-b4c40385e85d")
+	)
+	(wire
+		(pts
 			(xy 172.72 76.2) (xy 172.72 120.65)
 		)
 		(stroke
@@ -301,6 +317,16 @@
 	)
 	(wire
 		(pts
+			(xy 133.35 116.84) (xy 133.35 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a199421e-fca7-4c7e-a48d-3bf049868f09")
+	)
+	(wire
+		(pts
 			(xy 207.01 58.42) (xy 223.52 58.42)
 		)
 		(stroke
@@ -318,6 +344,16 @@
 			(type default)
 		)
 		(uuid "a561af91-2357-4a6c-861f-9b5443965ece")
+	)
+	(wire
+		(pts
+			(xy 125.73 109.22) (xy 99.06 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a61a2e05-06cf-4b59-a4b4-037191f457bf")
 	)
 	(wire
 		(pts
@@ -361,6 +397,16 @@
 	)
 	(wire
 		(pts
+			(xy 99.06 69.85) (xy 99.06 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bf0dc2da-c65e-41a5-8d0d-15dddf790f42")
+	)
+	(wire
+		(pts
 			(xy 191.77 58.42) (xy 207.01 58.42)
 		)
 		(stroke
@@ -368,6 +414,16 @@
 			(type default)
 		)
 		(uuid "c4cbdbfa-8006-4881-bd7e-389323812f30")
+	)
+	(wire
+		(pts
+			(xy 88.9 111.76) (xy 88.9 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ee007f1c-e062-4cde-8a7c-cf43b628c693")
 	)
 	(wire
 		(pts
@@ -391,6 +447,16 @@
 	)
 	(wire
 		(pts
+			(xy 99.06 109.22) (xy 99.06 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f63b8bfc-40aa-45bb-8f1a-0a3851377cfa")
+	)
+	(wire
+		(pts
 			(xy 167.64 76.2) (xy 167.64 120.65)
 		)
 		(stroke
@@ -398,6 +464,16 @@
 			(type default)
 		)
 		(uuid "fcbe5a79-0ce3-4f86-a4b7-4bc8cb7b9e80")
+	)
+	(wire
+		(pts
+			(xy 120.65 120.65) (xy 120.65 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fd2f9269-8516-41a6-937e-eba2e0d3beb4")
 	)
 	(wire
 		(pts
@@ -446,6 +522,30 @@
 		(uuid "32de1c40-0a48-4a0c-8ac4-f1cfa912d10f")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 43.18 111.2543 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+	)
+	(global_label "GND"
+		(shape input)
+		(at 133.35 116.84 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "bce1c84c-805a-4f4b-9324-c4d17597cc8d")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 133.35 109.9843 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -698,7 +798,7 @@
 			)
 		)
 		(pin "+4V1" output
-			(at 86.36 76.2 270)
+			(at 88.9 76.2 270)
 			(uuid "915ce8e4-144a-461c-bea7-f7cffd7ec495")
 			(effects
 				(font
@@ -846,6 +946,36 @@
 		(pin "APRS_PD" input
 			(at 156.21 120.65 90)
 			(uuid "ee6b466e-1c3d-4a82-8a8b-67246e6b92a1")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "+3V3" input
+			(at 125.73 120.65 90)
+			(uuid "cc8d0c32-86cf-400b-afb0-6d424b1550f3")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "+4V1" input
+			(at 120.65 120.65 90)
+			(uuid "67a325a5-47b2-4f76-94e0-4cb3430aa1eb")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GND" passive
+			(at 133.35 120.65 90)
+			(uuid "0f134825-0035-4bb9-b580-d955cf529062")
 			(effects
 				(font
 					(size 1.27 1.27)

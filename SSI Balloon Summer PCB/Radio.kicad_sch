@@ -1885,6 +1885,16 @@
 	)
 	(wire
 		(pts
+			(xy 254 63.5) (xy 262.89 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0111fd4e-3cd0-4131-a2f9-fe5079eaafe4")
+	)
+	(wire
+		(pts
 			(xy 255.27 25.4) (xy 264.16 25.4)
 		)
 		(stroke
@@ -2175,6 +2185,16 @@
 	)
 	(wire
 		(pts
+			(xy 254 71.12) (xy 262.89 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7bee7064-3773-492d-ac8b-eca7e9d6812f")
+	)
+	(wire
+		(pts
 			(xy 255.27 33.02) (xy 264.16 33.02)
 		)
 		(stroke
@@ -2435,6 +2455,16 @@
 	)
 	(wire
 		(pts
+			(xy 254 59.69) (xy 262.89 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f27beded-0d07-4b86-9105-5a8abb82d19e")
+	)
+	(wire
+		(pts
 			(xy 227.33 102.87) (xy 229.87 102.87)
 		)
 		(stroke
@@ -2563,6 +2593,16 @@
 		)
 		(uuid "440bf9f0-0305-4b30-a825-cd08c60b817e")
 	)
+	(label "+4V1"
+		(at 254 59.69 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4d1ef75b-35d7-43e2-a075-b56fa83eb247")
+	)
 	(label "MOSI"
 		(at 120.65 78.74 0)
 		(effects
@@ -2582,6 +2622,16 @@
 			(justify left bottom)
 		)
 		(uuid "5701410c-af75-456d-b837-27c2ff2e4eb1")
+	)
+	(label "GND"
+		(at 254 71.12 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "64ef2a2b-67b0-41ac-8aca-fb1fff522875")
 	)
 	(label "LoRa_CS"
 		(at 255.27 33.02 180)
@@ -2653,6 +2703,16 @@
 		)
 		(uuid "a7d5929b-4750-4e4a-8ed8-5d7c100901ec")
 	)
+	(label "+3V3"
+		(at 254 63.5 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b18f414a-7f58-4c8a-8180-e1a941376af4")
+	)
 	(label "LoRa_RESET"
 		(at 66.04 88.9 0)
 		(effects
@@ -2715,6 +2775,17 @@
 		)
 		(uuid "1f419a41-3bb5-4f32-b63d-e4ac4d64059a")
 	)
+	(hierarchical_label "+3V3"
+		(shape input)
+		(at 262.89 63.5 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "1fcffc3c-f3b6-42b2-9991-d1515b2fd4c2")
+	)
 	(hierarchical_label "LoRa_CS"
 		(shape input)
 		(at 264.16 33.02 0)
@@ -2769,6 +2840,28 @@
 			(justify left)
 		)
 		(uuid "8970520a-38d2-4100-9b87-a82697e2a39e")
+	)
+	(hierarchical_label "GND"
+		(shape passive)
+		(at 262.89 71.12 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "bbee95f3-8bd8-4101-92d6-0f8ef167d1b7")
+	)
+	(hierarchical_label "+4V1"
+		(shape input)
+		(at 262.89 59.69 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "c5185e27-ce2c-4e9b-9899-96762e687e50")
 	)
 	(hierarchical_label "LoRa_RESET"
 		(shape input)
