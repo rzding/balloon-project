@@ -2715,7 +2715,7 @@
 	)
 	(wire
 		(pts
-			(xy 254 41.91) (xy 260.35 41.91)
+			(xy 209.55 34.29) (xy 215.9 34.29)
 		)
 		(stroke
 			(width 0)
@@ -3395,7 +3395,7 @@
 	)
 	(wire
 		(pts
-			(xy 210.82 36.83) (xy 215.9 36.83)
+			(xy 255.27 60.96) (xy 260.35 60.96)
 		)
 		(stroke
 			(width 0)
@@ -3525,7 +3525,7 @@
 	)
 	(wire
 		(pts
-			(xy 254 60.96) (xy 260.35 60.96)
+			(xy 209.55 36.83) (xy 215.9 36.83)
 		)
 		(stroke
 			(width 0)
@@ -3535,7 +3535,7 @@
 	)
 	(wire
 		(pts
-			(xy 210.82 34.29) (xy 215.9 34.29)
+			(xy 254 41.91) (xy 259.08 41.91)
 		)
 		(stroke
 			(width 0)
@@ -3794,7 +3794,7 @@
 		(uuid "237523fe-7639-4662-a138-1b1329887352")
 	)
 	(label "GPS_RX"
-		(at 210.82 36.83 180)
+		(at 255.27 60.96 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3924,7 +3924,7 @@
 		(uuid "60f5207a-a9a2-4e3e-8db2-c13153725422")
 	)
 	(label "GPS_TX"
-		(at 254 60.96 180)
+		(at 209.55 36.83 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -4024,7 +4024,7 @@
 		(uuid "a90828fb-dbb2-4d4e-a2f5-77e31639a762")
 	)
 	(label "APRS_RX"
-		(at 210.82 34.29 180)
+		(at 254 41.91 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -4084,7 +4084,7 @@
 		(uuid "b98ac014-4406-4d99-89f5-0cd562f16fc2")
 	)
 	(label "APRS_TX"
-		(at 254 41.91 180)
+		(at 209.55 34.29 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -4276,8 +4276,8 @@
 		(uuid "11d90d4f-6ec4-4367-b17e-22ce1f9187a2")
 	)
 	(hierarchical_label "APRS_RX"
-		(shape input)
-		(at 215.9 34.29 0)
+		(shape output)
+		(at 259.08 41.91 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -4320,8 +4320,8 @@
 		(uuid "2f5943d3-3485-4b3f-9ee3-23ab42089266")
 	)
 	(hierarchical_label "GPS_RX"
-		(shape input)
-		(at 215.9 36.83 0)
+		(shape output)
+		(at 260.35 60.96 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -4452,8 +4452,8 @@
 		(uuid "d0e4fbc0-db51-490b-ac95-fd30c321a025")
 	)
 	(hierarchical_label "GPS_TX"
-		(shape output)
-		(at 260.35 60.96 0)
+		(shape input)
+		(at 215.9 36.83 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -4463,8 +4463,8 @@
 		(uuid "d35ace0b-4f0a-4149-aea7-c0ba3a96eab3")
 	)
 	(hierarchical_label "APRS_TX"
-		(shape output)
-		(at 260.35 41.91 0)
+		(shape input)
+		(at 215.9 34.29 0)
 		(effects
 			(font
 				(size 1.27 1.27)

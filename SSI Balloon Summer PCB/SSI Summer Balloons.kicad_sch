@@ -22,22 +22,32 @@
 		(uuid "06a1d86b-8f76-4812-a0e3-04edd6bc4d0e")
 	)
 	(junction
+		(at 99.06 69.85)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3da2262d-e2dd-4725-83d7-d4a38348ef9a")
+	)
+	(junction
 		(at 209.55 54.61)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "82050112-2470-47c9-9664-7d5493049cb5")
 	)
 	(junction
-		(at 98.425 69.85)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "b8ac272d-9159-4a4e-a6b4-b51a5349487d")
-	)
-	(junction
 		(at 207.01 58.42)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "fe68a3c6-6088-4591-8e4f-db7b92ff80f4")
+	)
+	(wire
+		(pts
+			(xy 99.06 69.85) (xy 99.06 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0be97096-ff10-49b0-bfbc-394c992fe461")
 	)
 	(wire
 		(pts
@@ -48,6 +58,36 @@
 			(type default)
 		)
 		(uuid "0d4e05f4-af61-49a9-bdfc-0dceef170558")
+	)
+	(wire
+		(pts
+			(xy 93.98 120.65) (xy 93.98 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "10fad805-a173-46ca-acce-447fa790cd8a")
+	)
+	(wire
+		(pts
+			(xy 113.03 116.84) (xy 113.03 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "17a89065-52b6-4498-ae27-f1153cf47a26")
+	)
+	(wire
+		(pts
+			(xy 90.17 114.3) (xy 110.49 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1fb94b0a-b7be-450c-9a77-3aa552379015")
 	)
 	(wire
 		(pts
@@ -71,6 +111,26 @@
 	)
 	(wire
 		(pts
+			(xy 99.06 69.85) (xy 116.84 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "31c8fa6f-f581-4798-a4d1-6b9b8c9adad3")
+	)
+	(wire
+		(pts
+			(xy 110.49 114.3) (xy 110.49 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "370b593b-7980-4f61-b210-050d60ca1f77")
+	)
+	(wire
+		(pts
 			(xy 207.01 58.42) (xy 207.01 92.71)
 		)
 		(stroke
@@ -78,6 +138,16 @@
 			(type default)
 		)
 		(uuid "38a92f7d-dba6-4d20-b989-ffdb92e750ca")
+	)
+	(wire
+		(pts
+			(xy 110.49 53.34) (xy 116.84 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3a419392-d091-40a3-b3ab-f71c215a4448")
 	)
 	(wire
 		(pts
@@ -91,6 +161,16 @@
 	)
 	(wire
 		(pts
+			(xy 113.03 55.88) (xy 116.84 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "426529ea-e582-41c2-849a-8491fcfe9da5")
+	)
+	(wire
+		(pts
 			(xy 191.77 38.1) (xy 223.52 38.1)
 		)
 		(stroke
@@ -101,7 +181,7 @@
 	)
 	(wire
 		(pts
-			(xy 97.79 69.85) (xy 98.425 69.85)
+			(xy 97.155 69.85) (xy 99.06 69.85)
 		)
 		(stroke
 			(width 0)
@@ -128,6 +208,26 @@
 			(type default)
 		)
 		(uuid "650261d6-4250-4f0b-a234-f476bfaf59bc")
+	)
+	(wire
+		(pts
+			(xy 43.18 76.2) (xy 43.18 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "750bc552-6469-4afd-93cb-dffd0b96008f")
+	)
+	(wire
+		(pts
+			(xy 43.18 118.11) (xy 43.18 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "75c30c26-74b4-4b39-88fa-eeffa311ca34")
 	)
 	(wire
 		(pts
@@ -191,13 +291,13 @@
 	)
 	(wire
 		(pts
-			(xy 98.425 69.85) (xy 116.84 69.85)
+			(xy 93.98 116.84) (xy 113.03 116.84)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "9f93a0e7-d642-4811-930f-e0110b3a8702")
+		(uuid "9f1b4dad-e89f-4b5d-ae58-5e14d4d8917c")
 	)
 	(wire
 		(pts
@@ -228,6 +328,16 @@
 			(type default)
 		)
 		(uuid "a87d1684-a248-4b93-a0fa-0b3a64350af8")
+	)
+	(wire
+		(pts
+			(xy 90.17 120.65) (xy 90.17 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b3e92a33-9b69-49dc-9792-21326ac110f0")
 	)
 	(wire
 		(pts
@@ -298,6 +408,54 @@
 			(type default)
 		)
 		(uuid "ff24e495-34a1-4b20-8931-b2691a738cb8")
+	)
+	(global_label "GND"
+		(shape input)
+		(at 43.18 78.74 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "0ddc1828-8eb1-4f53-b13c-af5f8ce65190")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 43.18 85.5957 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(global_label "GND"
+		(shape input)
+		(at 43.18 118.11 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "32de1c40-0a48-4a0c-8ac4-f1cfa912d10f")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 43.18 111.2543 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
 	)
 	(sheet
 		(at 223.52 35.56)
@@ -397,7 +555,7 @@
 	)
 	(sheet
 		(at 20.32 120.65)
-		(size 78.105 38.735)
+		(size 80.264 38.735)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -412,7 +570,7 @@
 		)
 		(uuid "0dfa70d3-600a-4378-88cc-26e3fb39b4f5")
 		(property "Sheetname" "GPS"
-			(at 20.32 119.9384 0)
+			(at 19.6084 159.385 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -423,7 +581,7 @@
 			)
 		)
 		(property "Sheetfile" "GPS.kicad_sch"
-			(at 20.32 159.9696 0)
+			(at 101.1686 159.385 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -431,6 +589,46 @@
 					(size 1.27 1.27)
 				)
 				(justify left top)
+			)
+		)
+		(pin "+3V3" input
+			(at 99.06 120.65 90)
+			(uuid "c420834d-c934-4469-8f09-c7dde18657e3")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GND" passive
+			(at 43.18 120.65 90)
+			(uuid "e6e33ea8-6bab-43a6-a438-09a91f1bdf7e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GPS_RX" input
+			(at 90.17 120.65 90)
+			(uuid "b7e93406-93a2-495d-8301-214a5c795446")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GPS_TX" output
+			(at 93.98 120.65 90)
+			(uuid "1d13bf79-a8cd-4859-bbe2-d44caae09093")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(instances
@@ -442,7 +640,7 @@
 		)
 	)
 	(sheet
-		(at 20.32 34.29)
+		(at 19.05 34.29)
 		(size 78.105 41.91)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -458,7 +656,7 @@
 		)
 		(uuid "1b5737e2-4399-496a-b942-ad94430e2078")
 		(property "Sheetname" "Power"
-			(at 20.32 33.5784 0)
+			(at 19.05 33.5784 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -469,7 +667,7 @@
 			)
 		)
 		(property "Sheetfile" "Power.kicad_sch"
-			(at 20.32 76.7846 0)
+			(at 19.05 76.7846 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -479,18 +677,8 @@
 				(justify left top)
 			)
 		)
-		(pin "+1V8" output
-			(at 50.8 76.2 270)
-			(uuid "8e86398f-16aa-4aff-a927-607281cfc12d")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
 		(pin "+3V3" output
-			(at 98.425 69.85 0)
+			(at 97.155 69.85 0)
 			(uuid "2bd654cf-6683-43e5-835d-4ca591c7559d")
 			(effects
 				(font
@@ -500,7 +688,7 @@
 			)
 		)
 		(pin "GND" passive
-			(at 20.32 42.545 180)
+			(at 43.18 76.2 270)
 			(uuid "b26e9901-30da-4f89-9482-ff5da715c2b2")
 			(effects
 				(font
@@ -510,7 +698,7 @@
 			)
 		)
 		(pin "+4V1" output
-			(at 87.63 76.2 270)
+			(at 86.36 76.2 270)
 			(uuid "915ce8e4-144a-461c-bea7-f7cffd7ec495")
 			(effects
 				(font
@@ -757,7 +945,7 @@
 				(justify left top)
 			)
 		)
-		(pin "GPS_RX" input
+		(pin "GPS_RX" output
 			(at 116.84 53.34 180)
 			(uuid "c32eb374-3775-4a0c-9224-a237f4aabcdb")
 			(effects
@@ -787,7 +975,7 @@
 				(justify right)
 			)
 		)
-		(pin "APRS_RX" input
+		(pin "APRS_RX" output
 			(at 167.64 76.2 270)
 			(uuid "3bb1242d-7587-44a3-805c-b80fa0c91ee5")
 			(effects
@@ -867,7 +1055,7 @@
 				(justify right)
 			)
 		)
-		(pin "GPS_TX" output
+		(pin "GPS_TX" input
 			(at 116.84 55.88 180)
 			(uuid "baea45ff-9919-4955-8feb-8debd03e6a7e")
 			(effects
@@ -877,7 +1065,7 @@
 				(justify left)
 			)
 		)
-		(pin "APRS_TX" output
+		(pin "APRS_TX" input
 			(at 170.18 76.2 270)
 			(uuid "1fca6c06-f2f7-43c4-8489-edeb9e034f91")
 			(effects

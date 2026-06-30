@@ -3305,7 +3305,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_Coaxial"
+		(property "Value" "LoRa antenna"
 			(at 48.26 92.4167 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3465,7 +3465,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_Coaxial"
+		(property "Value" "APRS antenna"
 			(at 200.66 130.4924 90)
 			(show_name no)
 			(do_not_autoplace no)
