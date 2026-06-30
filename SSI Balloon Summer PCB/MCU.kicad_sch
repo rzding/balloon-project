@@ -2581,6 +2581,16 @@
 		)
 		(uuid "887b2d94-e35e-4c51-9420-b6da48e26ec4")
 	)
+	(text "Passive"
+		(exclude_from_sim no)
+		(at 218.44 62.738 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "8e174df4-df8a-488d-86b8-9b6d112996bf")
+	)
 	(text "Serial Wire Flash/Debug\n(STLink needed!)\n"
 		(exclude_from_sim no)
 		(at 177.292 127.254 0)
@@ -3255,6 +3265,16 @@
 	)
 	(wire
 		(pts
+			(xy 209.55 66.04) (xy 218.44 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "827100e8-94b5-4d7a-a529-d7ea45a34862")
+	)
+	(wire
+		(pts
 			(xy 76.2 127) (xy 76.2 129.54)
 		)
 		(stroke
@@ -3803,6 +3823,16 @@
 		)
 		(uuid "249845d6-845c-4449-b3fd-6ed128b76062")
 	)
+	(label "GND"
+		(at 209.55 66.04 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "29deba79-6be5-44bb-a36b-6bb36ac9f20e")
+	)
 	(label "SCK"
 		(at 107.95 63.5 0)
 		(effects
@@ -4318,6 +4348,17 @@
 			(justify left)
 		)
 		(uuid "2f5943d3-3485-4b3f-9ee3-23ab42089266")
+	)
+	(hierarchical_label "GND"
+		(shape passive)
+		(at 218.44 66.04 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "334d9139-6893-4d33-8d76-0beae3c22a1d")
 	)
 	(hierarchical_label "GPS_RX"
 		(shape output)

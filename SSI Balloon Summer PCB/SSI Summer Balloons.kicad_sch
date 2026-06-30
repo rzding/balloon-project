@@ -257,6 +257,16 @@
 	)
 	(wire
 		(pts
+			(xy 144.78 76.2) (xy 144.78 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "843b533c-14fa-4eab-a6c8-dc06a52d290f")
+	)
+	(wire
+		(pts
 			(xy 151.13 76.2) (xy 151.13 120.65)
 		)
 		(stroke
@@ -530,6 +540,30 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
+			)
+		)
+	)
+	(global_label "GND"
+		(shape input)
+		(at 144.78 80.01 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "7e52bfe0-7f33-46be-9639-3fbc89d3d2ac")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 144.78 86.8657 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 	)
@@ -1278,6 +1312,16 @@
 		(pin "+3V3" input
 			(at 116.84 69.85 180)
 			(uuid "0a3302f8-8a96-41b5-9c3d-2fff78a0f28c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "GND" passive
+			(at 144.78 76.2 270)
+			(uuid "ad89f7a5-412d-4ce4-8807-cfa491be93a9")
 			(effects
 				(font
 					(size 1.27 1.27)
