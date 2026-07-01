@@ -4345,7 +4345,7 @@
 		)
 		(uuid "505621cf-f902-497d-accc-f4e07aecb158")
 	)
-	(label "GPS_TX"
+	(label "GPS_RX"
 		(at 107.95 73.66 0)
 		(effects
 			(font
@@ -4435,7 +4435,7 @@
 		)
 		(uuid "68b09d4a-7d63-444f-8428-85d24a39ddff")
 	)
-	(label "APRS_TX"
+	(label "APRS_RX"
 		(at 99.06 55.88 0)
 		(effects
 			(font
@@ -4715,7 +4715,7 @@
 		)
 		(uuid "e6b027f0-055b-42bd-bdc7-92adbf86a435")
 	)
-	(label "APRS_RX"
+	(label "APRS_TX"
 		(at 107.95 58.42 0)
 		(effects
 			(font
@@ -4725,7 +4725,7 @@
 		)
 		(uuid "e8ced701-3f1a-4f28-ae19-4c556968066e")
 	)
-	(label "GPS_RX"
+	(label "GPS_TX"
 		(at 99.06 76.2 0)
 		(effects
 			(font
