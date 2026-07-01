@@ -4084,6 +4084,16 @@
 	)
 	(wire
 		(pts
+			(xy 226.06 35.56) (xy 236.22 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9a67fcff-cf96-4774-9e97-8266b453aa0a")
+	)
+	(wire
+		(pts
 			(xy 229.87 106.68) (xy 229.87 109.22)
 		)
 		(stroke
@@ -4191,16 +4201,6 @@
 			(type default)
 		)
 		(uuid "addd6231-ba6b-4bde-baf3-2acfd725ddff")
-	)
-	(wire
-		(pts
-			(xy 226.06 35.56) (xy 236.22 35.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ae0ef16e-c950-433c-8eb3-d64d43d7c766")
 	)
 	(wire
 		(pts
@@ -4662,7 +4662,7 @@
 		)
 		(uuid "0520d09e-4fc5-426f-aa7c-24f241c3a26a")
 	)
-	(label "+1V8"
+	(label "+5V"
 		(at 226.06 35.56 0)
 		(effects
 			(font
@@ -4670,7 +4670,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "18537d2b-f9d3-481d-b4dc-e215464dafb3")
+		(uuid "756a26e5-b4a9-4d76-a1e0-dfcb5219215d")
 	)
 	(label "+4V1"
 		(at 226.06 33.02 0)
@@ -4682,7 +4682,7 @@
 		)
 		(uuid "805b1519-63cb-4dda-a174-53950f29c5bd")
 	)
-	(hierarchical_label "+1V8"
+	(hierarchical_label "+5V"
 		(shape output)
 		(at 236.22 35.56 0)
 		(effects
@@ -4691,7 +4691,7 @@
 			)
 			(justify left)
 		)
-		(uuid "4d850315-afa1-46ad-b324-dd1bbe4c19df")
+		(uuid "17c88770-4636-4927-85c9-359e297ce482")
 	)
 	(hierarchical_label "GND"
 		(shape passive)
