@@ -1541,16 +1541,6 @@
 				(justify left)
 			)
 		)
-		(pin "PI_ZERO_RX" input
-			(at 116.84 63.5 180)
-			(uuid "6fcc0383-a211-4894-bee4-96c3958527bd")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
 		(pin "microSD_CS" output
 			(at 191.77 41.91 0)
 			(uuid "09d9d7c8-2394-4afa-b48f-3cc658705257")
@@ -1559,16 +1549,6 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
-			)
-		)
-		(pin "PI_ZERO_TX" output
-			(at 116.84 66.04 180)
-			(uuid "693ac335-ca38-4b90-8645-26e81912a23a")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
 			)
 		)
 		(pin "LoRa_CS" output
@@ -1614,26 +1594,6 @@
 		(pin "APRS_TX" input
 			(at 170.18 76.2 270)
 			(uuid "1fca6c06-f2f7-43c4-8489-edeb9e034f91")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "SCL" bidirectional
-			(at 137.16 76.2 270)
-			(uuid "11e18fd1-5eca-4a0b-886b-611402efdda4")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "SDA" bidirectional
-			(at 138.7793 76.2 270)
-			(uuid "ff8b7f30-8536-4eb9-8f22-325906f9709c")
 			(effects
 				(font
 					(size 1.27 1.27)
