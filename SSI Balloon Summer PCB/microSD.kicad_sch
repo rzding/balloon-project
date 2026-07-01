@@ -1162,6 +1162,16 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "Passive:"
+		(exclude_from_sim no)
+		(at 246.38 52.832 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "6c997856-e463-4737-b158-741ee52a64f8")
+	)
 	(text "microSD_detect: \nhigh if SD card detected\nlow if no SD card"
 		(exclude_from_sim no)
 		(at 140.208 65.278 0)
@@ -1215,6 +1225,16 @@
 			(type default)
 		)
 		(uuid "15d28001-afb0-48e1-a5b1-8efe44eda6ea")
+	)
+	(wire
+		(pts
+			(xy 241.3 57.15) (xy 247.65 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3ec3419e-1423-4786-b844-ffd308ed427f")
 	)
 	(wire
 		(pts
@@ -1386,6 +1406,16 @@
 		)
 		(uuid "30473e65-82ce-452d-8349-ba16aeefe1a7")
 	)
+	(label "GND"
+		(at 241.3 57.15 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "72ac696c-f758-4789-a7b2-5c14988da413")
+	)
 	(label "microSD_detect"
 		(at 144.78 78.74 180)
 		(effects
@@ -1435,6 +1465,17 @@
 			(justify right bottom)
 		)
 		(uuid "d6b1c122-9abb-4fb4-86bd-428e713ba9f4")
+	)
+	(hierarchical_label "GND"
+		(shape passive)
+		(at 247.65 57.15 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "27fcfaf6-d183-4f69-94eb-4ab98be4052f")
 	)
 	(hierarchical_label "MISO"
 		(shape output)

@@ -1802,22 +1802,34 @@
 		)
 	)
 	(junction
-		(at 231.14 102.87)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "01d86f74-0605-4d7a-bdec-0b52851dad98")
-	)
-	(junction
 		(at 125.73 73.66)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "0ab35c24-222d-4be7-bf7a-3c45a49b8923")
 	)
 	(junction
-		(at 166.37 110.49)
+		(at 165.1 110.49)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "561da479-a5bb-4845-a06d-636d4f804997")
+		(uuid "15f82128-d0f3-4ed5-bbbd-3744757ad044")
+	)
+	(junction
+		(at 238.76 102.87)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "187bb71c-bc0d-453e-9fec-2b7b1199cfd8")
+	)
+	(junction
+		(at 229.87 102.87)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "33f59da1-9ffd-4b8a-bd94-34e9678b5f4e")
+	)
+	(junction
+		(at 171.45 80.01)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "41dd778b-a1ba-4005-9db1-cdb65bb9067c")
 	)
 	(junction
 		(at 64.77 83.82)
@@ -1836,6 +1848,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "af8e9ee4-3999-44c9-98a5-dbf2da307af8")
+	)
+	(junction
+		(at 196.85 80.01)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "eedcda19-f656-43a3-a33f-edad20f093a5")
 	)
 	(no_connect
 		(at 77.47 101.6)
@@ -1858,16 +1876,22 @@
 		(uuid "856cba32-947c-4869-894a-32fa6247f48d")
 	)
 	(no_connect
-		(at 196.85 102.87)
-		(uuid "ac22bf35-a8a3-40e2-8008-595b2926c8eb")
-	)
-	(no_connect
 		(at 77.47 96.52)
 		(uuid "cfd2c5dc-586d-4fa0-b032-9f6c39841393")
 	)
 	(no_connect
 		(at 77.47 106.68)
 		(uuid "dcc1c13c-9449-4ad4-b3f6-3505779ffd57")
+	)
+	(wire
+		(pts
+			(xy 254 63.5) (xy 262.89 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0111fd4e-3cd0-4131-a2f9-fe5079eaafe4")
 	)
 	(wire
 		(pts
@@ -1891,6 +1915,16 @@
 	)
 	(wire
 		(pts
+			(xy 229.87 87.63) (xy 229.87 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0ab3a62f-2378-4b7e-9561-90bf4f7b7374")
+	)
+	(wire
+		(pts
 			(xy 255.27 22.86) (xy 264.16 22.86)
 		)
 		(stroke
@@ -1898,6 +1932,16 @@
 			(type default)
 		)
 		(uuid "15a32ea9-a3fe-4be7-bc53-32de30ee4e6e")
+	)
+	(wire
+		(pts
+			(xy 182.88 80.01) (xy 187.96 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1cb29a13-1c39-410f-a339-639c2791d553")
 	)
 	(wire
 		(pts
@@ -1921,7 +1965,7 @@
 	)
 	(wire
 		(pts
-			(xy 231.14 87.63) (xy 231.14 91.44)
+			(xy 238.76 87.63) (xy 238.76 91.44)
 		)
 		(stroke
 			(width 0)
@@ -1971,13 +2015,23 @@
 	)
 	(wire
 		(pts
-			(xy 153.67 110.49) (xy 166.37 110.49)
+			(xy 153.67 110.49) (xy 165.1 110.49)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "3060b450-c4e0-454d-a63d-e78b1634de47")
+	)
+	(wire
+		(pts
+			(xy 171.45 90.17) (xy 171.45 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "31f4521b-75c2-46c2-83f4-c02517b5d3fd")
 	)
 	(wire
 		(pts
@@ -2131,6 +2185,16 @@
 	)
 	(wire
 		(pts
+			(xy 254 71.12) (xy 262.89 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7bee7064-3773-492d-ac8b-eca7e9d6812f")
+	)
+	(wire
+		(pts
 			(xy 255.27 33.02) (xy 264.16 33.02)
 		)
 		(stroke
@@ -2171,6 +2235,16 @@
 	)
 	(wire
 		(pts
+			(xy 196.85 80.01) (xy 196.85 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "87c75ac3-40cd-4e92-af41-5b33d91fee7e")
+	)
+	(wire
+		(pts
 			(xy 66.04 88.9) (xy 77.47 88.9)
 		)
 		(stroke
@@ -2188,6 +2262,16 @@
 			(type default)
 		)
 		(uuid "8ce9c7fb-631f-4f7d-b906-105dae2637dd")
+	)
+	(wire
+		(pts
+			(xy 238.76 102.87) (xy 250.19 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8e6b43ae-08a9-46d2-88f6-0686cff7a35a")
 	)
 	(wire
 		(pts
@@ -2221,13 +2305,13 @@
 	)
 	(wire
 		(pts
-			(xy 166.37 110.49) (xy 196.85 110.49)
+			(xy 147.32 80.01) (xy 160.02 80.01)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "99647ed5-9178-4d01-ab25-7c01ba69380a")
+		(uuid "99053550-10af-4577-b64c-f22d04c1df26")
 	)
 	(wire
 		(pts
@@ -2241,6 +2325,16 @@
 	)
 	(wire
 		(pts
+			(xy 171.45 80.01) (xy 171.45 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a2813f31-b105-435f-80c5-564fd10cd7b9")
+	)
+	(wire
+		(pts
 			(xy 255.27 46.99) (xy 264.16 46.99)
 		)
 		(stroke
@@ -2251,7 +2345,27 @@
 	)
 	(wire
 		(pts
-			(xy 231.14 99.06) (xy 231.14 102.87)
+			(xy 171.45 80.01) (xy 175.26 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a3b6ae7e-7bae-4511-a429-3de48852131e")
+	)
+	(wire
+		(pts
+			(xy 167.64 80.01) (xy 171.45 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a6ea3eab-7c7c-48cb-b5fb-82b356f8fc01")
+	)
+	(wire
+		(pts
+			(xy 238.76 99.06) (xy 238.76 102.87)
 		)
 		(stroke
 			(width 0)
@@ -2261,13 +2375,23 @@
 	)
 	(wire
 		(pts
-			(xy 231.14 102.87) (xy 243.84 102.87)
+			(xy 165.1 110.49) (xy 196.85 110.49)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "c807a095-28d7-4b09-bcc1-4c3507587bf0")
+		(uuid "c4c56d88-4884-4fda-ab8c-a9524ab9ffae")
+	)
+	(wire
+		(pts
+			(xy 229.87 102.87) (xy 238.76 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cdd508d7-dec5-422e-b515-ed49fc4071db")
 	)
 	(wire
 		(pts
@@ -2291,6 +2415,16 @@
 	)
 	(wire
 		(pts
+			(xy 195.58 80.01) (xy 196.85 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d3a1f934-e4dd-4143-820b-9c9a7c400c4c")
+	)
+	(wire
+		(pts
 			(xy 255.27 52.07) (xy 264.16 52.07)
 		)
 		(stroke
@@ -2298,6 +2432,16 @@
 			(type default)
 		)
 		(uuid "db06ad45-5d5e-442f-b691-ae802d242efa")
+	)
+	(wire
+		(pts
+			(xy 196.85 80.01) (xy 201.93 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e1c662c2-0194-4fc4-a072-4ddba9c60973")
 	)
 	(wire
 		(pts
@@ -2311,13 +2455,33 @@
 	)
 	(wire
 		(pts
-			(xy 227.33 102.87) (xy 231.14 102.87)
+			(xy 254 59.69) (xy 262.89 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f27beded-0d07-4b86-9105-5a8abb82d19e")
+	)
+	(wire
+		(pts
+			(xy 227.33 102.87) (xy 229.87 102.87)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "f3bb4237-8700-4f38-baa0-8e47de7da9e6")
+	)
+	(wire
+		(pts
+			(xy 229.87 99.06) (xy 229.87 102.87)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f64940b9-279c-40de-91da-187f7146f97b")
 	)
 	(wire
 		(pts
@@ -2328,6 +2492,16 @@
 			(type default)
 		)
 		(uuid "f9e1f176-9e07-42ba-af13-3ad4fe913372")
+	)
+	(wire
+		(pts
+			(xy 201.93 87.63) (xy 201.93 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fa6be79d-7705-4aba-b803-85800607e03e")
 	)
 	(wire
 		(pts
@@ -2419,6 +2593,16 @@
 		)
 		(uuid "440bf9f0-0305-4b30-a825-cd08c60b817e")
 	)
+	(label "+4V1"
+		(at 254 59.69 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4d1ef75b-35d7-43e2-a075-b56fa83eb247")
+	)
 	(label "MOSI"
 		(at 120.65 78.74 0)
 		(effects
@@ -2438,6 +2622,16 @@
 			(justify left bottom)
 		)
 		(uuid "5701410c-af75-456d-b837-27c2ff2e4eb1")
+	)
+	(label "GND"
+		(at 254 71.12 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "64ef2a2b-67b0-41ac-8aca-fb1fff522875")
 	)
 	(label "LoRa_CS"
 		(at 255.27 33.02 180)
@@ -2498,6 +2692,26 @@
 			(justify right bottom)
 		)
 		(uuid "a3748bb0-2dea-4564-a955-32c7e7f8e75b")
+	)
+	(label "APRS_AUDIO"
+		(at 147.32 80.01 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a7d5929b-4750-4e4a-8ed8-5d7c100901ec")
+	)
+	(label "+3V3"
+		(at 254 63.5 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b18f414a-7f58-4c8a-8180-e1a941376af4")
 	)
 	(label "LoRa_RESET"
 		(at 66.04 88.9 0)
@@ -2561,6 +2775,17 @@
 		)
 		(uuid "1f419a41-3bb5-4f32-b63d-e4ac4d64059a")
 	)
+	(hierarchical_label "+3V3"
+		(shape input)
+		(at 262.89 63.5 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "1fcffc3c-f3b6-42b2-9991-d1515b2fd4c2")
+	)
 	(hierarchical_label "LoRa_CS"
 		(shape input)
 		(at 264.16 33.02 0)
@@ -2616,6 +2841,28 @@
 		)
 		(uuid "8970520a-38d2-4100-9b87-a82697e2a39e")
 	)
+	(hierarchical_label "GND"
+		(shape passive)
+		(at 262.89 71.12 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "bbee95f3-8bd8-4101-92d6-0f8ef167d1b7")
+	)
+	(hierarchical_label "+4V1"
+		(shape input)
+		(at 262.89 59.69 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "c5185e27-ce2c-4e9b-9899-96762e687e50")
+	)
 	(hierarchical_label "LoRa_RESET"
 		(shape input)
 		(at 264.16 35.56 0)
@@ -2648,6 +2895,88 @@
 			(justify left)
 		)
 		(uuid "e267c697-dc75-4e2e-bd3f-1b7483cafe51")
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 201.93 83.82 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "03112907-16b8-4658-933c-2c3fa7d486bd")
+		(property "Reference" "R20"
+			(at 204.47 82.5499 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100"
+			(at 204.47 85.0899 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 200.152 83.82 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 201.93 83.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 201.93 83.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "042a9821-7c19-47f2-96df-47a3dfb76473")
+		)
+		(pin "2"
+			(uuid "ae44f99f-a702-485b-972e-7e9690723329")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/2467bfc8-9a58-45c6-9683-5b5ac73ee36d"
+					(reference "R20")
+					(unit 1)
+				)
+			)
+		)
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -2729,7 +3058,7 @@
 	)
 	(symbol
 		(lib_id "power:+4V")
-		(at 243.84 102.87 0)
+		(at 250.19 102.87 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2740,7 +3069,7 @@
 		(fields_autoplaced yes)
 		(uuid "0c025bd3-f257-41f4-872a-fe744dafcd97")
 		(property "Reference" "#PWR074"
-			(at 243.84 106.68 0)
+			(at 250.19 106.68 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2751,7 +3080,7 @@
 			)
 		)
 		(property "Value" "+4V1"
-			(at 243.84 97.79 0)
+			(at 250.19 97.79 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2761,7 +3090,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 243.84 102.87 0)
+			(at 250.19 102.87 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2772,7 +3101,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 243.84 102.87 0)
+			(at 250.19 102.87 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2783,7 +3112,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+4V1\""
-			(at 243.84 102.87 0)
+			(at 250.19 102.87 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2800,6 +3129,84 @@
 			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/2467bfc8-9a58-45c6-9683-5b5ac73ee36d"
 					(reference "#PWR074")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 201.93 91.44 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0c09b4c8-7240-4300-bef7-93f25636bcef")
+		(property "Reference" "#PWR082"
+			(at 201.93 97.79 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 201.93 96.52 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 201.93 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 201.93 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 201.93 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "9544c7c1-dac7-4e61-af96-aab7aa2945e6")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/2467bfc8-9a58-45c6-9683-5b5ac73ee36d"
+					(reference "#PWR082")
 					(unit 1)
 				)
 			)
@@ -2991,7 +3398,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_Coaxial"
+		(property "Value" "LoRa antenna"
 			(at 48.26 92.4167 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3151,7 +3558,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_Coaxial"
+		(property "Value" "APRS antenna"
 			(at 200.66 130.4924 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3212,7 +3619,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 231.14 87.63 180)
+		(at 238.76 87.63 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3223,7 +3630,7 @@
 		(fields_autoplaced yes)
 		(uuid "3981bc33-8b3e-45c4-aa56-47a18afddfb0")
 		(property "Reference" "#PWR038"
-			(at 231.14 81.28 0)
+			(at 238.76 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3234,7 +3641,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 231.14 82.55 0)
+			(at 238.76 82.55 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3244,7 +3651,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 231.14 87.63 0)
+			(at 238.76 87.63 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3255,7 +3662,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 231.14 87.63 0)
+			(at 238.76 87.63 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3266,7 +3673,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 231.14 87.63 0)
+			(at 238.76 87.63 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3626,8 +4033,8 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+3V3")
-		(at 166.37 102.87 0)
+		(lib_id "Device:R")
+		(at 163.83 80.01 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3636,10 +4043,9 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "6bf86677-fc4a-4632-9f06-ca232635fbe1")
-		(property "Reference" "#PWR072"
-			(at 166.37 106.68 0)
-			(hide yes)
+		(uuid "6538f523-5dba-4d79-9db2-80bd168a42f8")
+		(property "Reference" "R18"
+			(at 163.83 73.66 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3648,8 +4054,8 @@
 				)
 			)
 		)
-		(property "Value" "+3V3"
-			(at 166.37 97.79 0)
+		(property "Value" "1k"
+			(at 163.83 76.2 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3659,7 +4065,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 166.37 102.87 0)
+			(at 163.83 81.788 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3670,7 +4076,88 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 166.37 102.87 0)
+			(at 163.83 80.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 163.83 80.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "2d01d1f8-89bb-4756-b9cc-a5d093452876")
+		)
+		(pin "2"
+			(uuid "3e620723-58c2-4ef0-8995-c51ad361d573")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/2467bfc8-9a58-45c6-9683-5b5ac73ee36d"
+					(reference "R18")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 165.1 102.87 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6bf86677-fc4a-4632-9f06-ca232635fbe1")
+		(property "Reference" "#PWR072"
+			(at 165.1 106.68 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 165.1 97.79 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 165.1 102.87 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 165.1 102.87 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3681,7 +4168,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3V3\""
-			(at 166.37 102.87 0)
+			(at 165.1 102.87 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3776,6 +4263,329 @@
 			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/2467bfc8-9a58-45c6-9683-5b5ac73ee36d"
 					(reference "#PWR040")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 171.45 86.36 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "76819aa9-4e00-4566-8fed-505dd98b8342")
+		(property "Reference" "C35"
+			(at 175.26 85.0899 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10nF"
+			(at 175.26 87.6299 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 172.4152 90.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 171.45 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 171.45 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "8874578d-ea2d-47ef-9476-ccc79ee28c6a")
+		)
+		(pin "1"
+			(uuid "c3c3bf20-f054-45a0-982e-8977cead3b10")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/2467bfc8-9a58-45c6-9683-5b5ac73ee36d"
+					(reference "C35")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 191.77 80.01 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "76ce1346-3e7c-48fc-877f-74af4ac3cbe7")
+		(property "Reference" "R19"
+			(at 191.77 73.66 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 191.77 76.2 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 191.77 81.788 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 191.77 80.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 191.77 80.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "4f66ac1f-09a5-434e-aed2-6eefdc375875")
+		)
+		(pin "2"
+			(uuid "38a6b5a7-ab7e-4094-b251-09eb2e60ccb7")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/2467bfc8-9a58-45c6-9683-5b5ac73ee36d"
+					(reference "R19")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 179.07 80.01 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "77530a49-72c5-43b2-a5d6-f0f2599b0a55")
+		(property "Reference" "C36"
+			(at 179.07 72.39 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100nF"
+			(at 179.07 74.93 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 182.88 79.0448 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 179.07 80.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 179.07 80.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "d3624e70-a2a0-436c-82b7-902b19ac4ca0")
+		)
+		(pin "1"
+			(uuid "1aa25529-966a-4178-8608-920615c53c02")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/2467bfc8-9a58-45c6-9683-5b5ac73ee36d"
+					(reference "C36")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 229.87 95.25 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "7ac45846-d119-4b5b-8708-aeff9e9a6ffc")
+		(property "Reference" "C37"
+			(at 231.902 93.726 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 231.394 97.536 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 230.8352 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 229.87 95.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 229.87 95.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "d6161da7-adb9-4606-816f-78353c7404ff")
+		)
+		(pin "1"
+			(uuid "0ed5eb96-1411-4299-9f69-be7bf9243cb8")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/2467bfc8-9a58-45c6-9683-5b5ac73ee36d"
+					(reference "C37")
 					(unit 1)
 				)
 			)
@@ -4095,7 +4905,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 166.37 106.68 180)
+		(at 165.1 106.68 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4105,7 +4915,7 @@
 		(dnp no)
 		(uuid "d4196d9b-ecc3-43e3-9fe8-479fd8b6b559")
 		(property "Reference" "R12"
-			(at 168.91 105.4099 0)
+			(at 167.64 105.4099 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4116,7 +4926,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 168.91 107.9499 0)
+			(at 167.64 107.9499 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4127,7 +4937,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 168.148 106.68 90)
+			(at 166.878 106.68 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4138,7 +4948,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 166.37 106.68 0)
+			(at 165.1 106.68 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4149,7 +4959,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 166.37 106.68 0)
+			(at 165.1 106.68 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4247,6 +5057,162 @@
 			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/2467bfc8-9a58-45c6-9683-5b5ac73ee36d"
 					(reference "#PWR041")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 229.87 87.63 180)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e27d1850-4424-4b15-89f7-cd203465cbdf")
+		(property "Reference" "#PWR083"
+			(at 229.87 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 229.87 82.55 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 229.87 87.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 229.87 87.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 229.87 87.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "3297bf3a-df83-48b0-b7c4-7cb5d51a6855")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/2467bfc8-9a58-45c6-9683-5b5ac73ee36d"
+					(reference "#PWR083")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 171.45 91.44 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "eacd1759-2595-4dad-990e-cf11c7c28221")
+		(property "Reference" "#PWR081"
+			(at 171.45 97.79 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 171.45 96.52 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 171.45 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 171.45 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 171.45 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "317e00e8-13c2-47e5-914a-f76fcc327320")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/2467bfc8-9a58-45c6-9683-5b5ac73ee36d"
+					(reference "#PWR081")
 					(unit 1)
 				)
 			)
@@ -4723,7 +5689,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 231.14 95.25 0)
+		(at 238.76 95.25 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4731,10 +5697,9 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "fcdd18ce-9053-4e99-863f-f4b24422dbbb")
 		(property "Reference" "C23"
-			(at 234.95 93.9799 0)
+			(at 241.046 93.98 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4745,7 +5710,7 @@
 			)
 		)
 		(property "Value" "10uF"
-			(at 234.95 96.5199 0)
+			(at 241.554 97.028 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4756,7 +5721,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 232.1052 99.06 0)
+			(at 239.7252 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4767,7 +5732,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 231.14 95.25 0)
+			(at 238.76 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4778,7 +5743,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 231.14 95.25 0)
+			(at 238.76 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
