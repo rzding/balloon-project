@@ -691,6 +691,16 @@
 	)
 	(wire
 		(pts
+			(xy 140.97 76.2) (xy 140.97 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fa1b3cf8-842f-4598-abc1-342662488870")
+	)
+	(wire
+		(pts
 			(xy 41.91 76.2) (xy 41.91 78.74)
 		)
 		(stroke
@@ -1319,6 +1329,16 @@
 				(justify right)
 			)
 		)
+		(pin "APRS_AUDIO" input
+			(at 140.97 120.65 90)
+			(uuid "c4ae8468-2de0-4d0a-acfa-263afb9fae76")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
 		(instances
 			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866"
@@ -1704,6 +1724,16 @@
 		(pin "+5V" input
 			(at 116.84 49.53 180)
 			(uuid "9c212739-94ae-4151-8338-93a19967a98f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "APRS_AUDIO" output
+			(at 140.97 76.2 270)
+			(uuid "943f7935-2b2e-42ba-94d1-f131afc2b3a9")
 			(effects
 				(font
 					(size 1.27 1.27)
