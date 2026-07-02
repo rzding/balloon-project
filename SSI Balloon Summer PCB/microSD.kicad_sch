@@ -1193,6 +1193,12 @@
 		(uuid "d3083605-77a4-4a97-a514-1a57f9096b7b")
 	)
 	(junction
+		(at 62.23 78.74)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2cc91c14-a41d-47e1-9f3c-5bb06b618bc6")
+	)
+	(junction
 		(at 41.91 83.82)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1228,6 +1234,16 @@
 	)
 	(wire
 		(pts
+			(xy 62.23 76.2) (xy 62.23 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "192c88e6-cb91-4b19-857e-beffbcdc69aa")
+	)
+	(wire
+		(pts
 			(xy 241.3 57.15) (xy 247.65 57.15)
 		)
 		(stroke
@@ -1238,13 +1254,23 @@
 	)
 	(wire
 		(pts
-			(xy 66.04 78.74) (xy 69.85 78.74)
+			(xy 57.15 78.74) (xy 62.23 78.74)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "3f4f3667-99ab-4224-aa96-9941da974dd8")
+	)
+	(wire
+		(pts
+			(xy 62.23 66.04) (xy 62.23 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "41d41c45-612f-4116-a3fc-267c899ba776")
 	)
 	(wire
 		(pts
@@ -1325,6 +1351,16 @@
 			(type default)
 		)
 		(uuid "838904f7-a1e0-4e56-bd5b-d1f42c8831e7")
+	)
+	(wire
+		(pts
+			(xy 62.23 78.74) (xy 69.85 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "99949130-14dc-4447-ba0b-b85a80d72144")
 	)
 	(wire
 		(pts
@@ -1437,7 +1473,7 @@
 		(uuid "90013f21-e789-4698-9601-b5d1da88f36b")
 	)
 	(label "microSD_CS"
-		(at 66.04 78.74 180)
+		(at 57.15 78.74 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1465,6 +1501,16 @@
 			(justify right bottom)
 		)
 		(uuid "d6b1c122-9abb-4fb4-86bd-428e713ba9f4")
+	)
+	(label "+3V3"
+		(at 62.23 66.04 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "db0b817b-5eb3-46b1-bded-6e11dac2db0a")
 	)
 	(hierarchical_label "GND"
 		(shape passive)
@@ -1620,6 +1666,87 @@
 			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/0df234a1-8d04-4ff9-99d5-3634fc842029"
 					(reference "D1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 62.23 72.39 180)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "1d917e9e-2cb5-4a67-8f9e-7322159612e6")
+		(property "Reference" "R26"
+			(at 60.198 73.66 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 60.198 71.12 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 64.008 72.39 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 62.23 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 62.23 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "96009afd-907c-4c76-a358-c9da5bd4c17b")
+		)
+		(pin "2"
+			(uuid "55f84d89-0ab8-4adf-875e-444e5bcb8d27")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/0df234a1-8d04-4ff9-99d5-3634fc842029"
+					(reference "R26")
 					(unit 1)
 				)
 			)
