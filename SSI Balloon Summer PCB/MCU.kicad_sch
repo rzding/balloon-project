@@ -2842,6 +2842,16 @@
 		)
 		(uuid "2cbc9114-ac1d-4178-a88c-89bc85d12a8f")
 	)
+	(text "Add pull up resistors for I2C\nLook at datasheet\n"
+		(exclude_from_sim no)
+		(at 107.95 98.552 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "3713826d-dc9c-4056-8d44-71584b645721")
+	)
 	(text "BOOT0 (button forces it high)"
 		(exclude_from_sim no)
 		(at 255.27 128.778 0)

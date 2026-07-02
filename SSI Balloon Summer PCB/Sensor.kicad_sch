@@ -2037,6 +2037,16 @@
 		)
 		(uuid "a4d6a979-8ec4-4f85-bcb5-149e03a59113")
 	)
+	(text "understand left side of temp sensor\n"
+		(exclude_from_sim no)
+		(at 154.94 63.246 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "a94b8f21-c428-42ac-aadd-09622b4b926c")
+	)
 	(text "Input:"
 		(exclude_from_sim no)
 		(at 232.41 24.13 0)

@@ -1801,6 +1801,16 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "APRS_AUDIO unconnected so far"
+		(exclude_from_sim no)
+		(at 165.354 69.088 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "79f1f498-5a4f-4894-83e4-1e56e54b88bd")
+	)
 	(junction
 		(at 125.73 73.66)
 		(diameter 0)
