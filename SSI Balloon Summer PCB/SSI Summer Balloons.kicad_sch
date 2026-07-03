@@ -5,16 +5,6 @@
 	(uuid "3c45a535-6e6b-4825-ad52-82c10cbe7866")
 	(paper "A4")
 	(lib_symbols)
-	(text "*UART is RX to TX, TX to RX\n(this is not a wiring mistake)"
-		(exclude_from_sim no)
-		(at 189.738 85.09 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "37c586c2-30ad-48ee-a65a-8aba8d173f13")
-	)
 	(junction
 		(at 212.09 50.8)
 		(diameter 0)
@@ -52,16 +42,16 @@
 		(uuid "a51e5d86-429c-46b7-a6b7-f38c0c8bd85b")
 	)
 	(junction
+		(at 99.06 69.85)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ad4c6d36-d036-4246-84b2-8c9e067311f7")
+	)
+	(junction
 		(at 219.71 50.8)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ce4689b2-fbb9-4343-883a-109d171bd8ef")
-	)
-	(junction
-		(at 99.06 69.85)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "f176407f-5dbe-4f20-bb76-e0c39cf77e37")
 	)
 	(junction
 		(at 207.01 58.42)
@@ -131,7 +121,7 @@
 	)
 	(wire
 		(pts
-			(xy 95.885 49.53) (xy 116.84 49.53)
+			(xy 96.52 49.53) (xy 116.84 49.53)
 		)
 		(stroke
 			(width 0)
@@ -151,7 +141,7 @@
 	)
 	(wire
 		(pts
-			(xy 120.65 111.76) (xy 87.63 111.76)
+			(xy 120.65 111.76) (xy 88.9 111.76)
 		)
 		(stroke
 			(width 0)
@@ -271,23 +261,13 @@
 	)
 	(wire
 		(pts
-			(xy 95.885 69.85) (xy 99.06 69.85)
+			(xy 96.52 69.85) (xy 99.06 69.85)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "53c66cc6-9bb6-47ed-bb40-17de66033af0")
-	)
-	(wire
-		(pts
-			(xy 170.18 76.2) (xy 170.18 120.65)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "57fc20cb-d522-42d1-97be-5294d5c5a87e")
 	)
 	(wire
 		(pts
@@ -611,6 +591,16 @@
 	)
 	(wire
 		(pts
+			(xy 167.64 76.2) (xy 167.64 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ce9e1c51-d727-4f48-b19c-53e9030068c1")
+	)
+	(wire
+		(pts
 			(xy 266.7 62.23) (xy 266.7 66.04)
 		)
 		(stroke
@@ -631,6 +621,16 @@
 	)
 	(wire
 		(pts
+			(xy 170.18 76.2) (xy 170.18 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e42676ff-9b95-4d67-9045-b7357bc0023b")
+	)
+	(wire
+		(pts
 			(xy 234.95 71.12) (xy 234.95 120.65)
 		)
 		(stroke
@@ -641,7 +641,7 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 111.76) (xy 87.63 76.2)
+			(xy 88.9 111.76) (xy 88.9 76.2)
 		)
 		(stroke
 			(width 0)
@@ -708,16 +708,6 @@
 			(type default)
 		)
 		(uuid "faf5a037-3bc4-44dc-ac53-eee2b264e67b")
-	)
-	(wire
-		(pts
-			(xy 167.64 76.2) (xy 167.64 120.65)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fcbe5a79-0ce3-4f86-a4b7-4bc8cb7b9e80")
 	)
 	(wire
 		(pts
@@ -1076,7 +1066,7 @@
 		)
 	)
 	(sheet
-		(at 17.78 34.29)
+		(at 18.415 34.29)
 		(size 78.105 41.91)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1092,7 +1082,7 @@
 		)
 		(uuid "1b5737e2-4399-496a-b942-ad94430e2078")
 		(property "Sheetname" "Power"
-			(at 17.78 33.5784 0)
+			(at 18.415 33.5784 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1103,7 +1093,7 @@
 			)
 		)
 		(property "Sheetfile" "Power.kicad_sch"
-			(at 17.78 76.7846 0)
+			(at 18.415 76.7846 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1114,7 +1104,7 @@
 			)
 		)
 		(pin "+3V3" output
-			(at 95.885 69.85 0)
+			(at 96.52 69.85 0)
 			(uuid "2bd654cf-6683-43e5-835d-4ca591c7559d")
 			(effects
 				(font
@@ -1134,7 +1124,7 @@
 			)
 		)
 		(pin "+4V1" output
-			(at 87.63 76.2 270)
+			(at 88.9 76.2 270)
 			(uuid "915ce8e4-144a-461c-bea7-f7cffd7ec495")
 			(effects
 				(font
@@ -1144,7 +1134,7 @@
 			)
 		)
 		(pin "+5V" output
-			(at 95.885 49.53 0)
+			(at 96.52 49.53 0)
 			(uuid "7640b43f-2322-4218-8788-8876b56b9ee2")
 			(effects
 				(font
@@ -1270,7 +1260,7 @@
 			)
 		)
 		(pin "APRS_TX" output
-			(at 167.64 120.65 90)
+			(at 170.18 120.65 90)
 			(uuid "6654367f-90ae-41c9-bc09-17063d1ec194")
 			(effects
 				(font
@@ -1280,7 +1270,7 @@
 			)
 		)
 		(pin "APRS_RX" input
-			(at 170.18 120.65 90)
+			(at 167.64 120.65 90)
 			(uuid "414af71d-2973-4843-a7c5-7a24ed58151f")
 			(effects
 				(font
@@ -1691,7 +1681,7 @@
 				(justify left)
 			)
 		)
-		(pin "Baro_CS" output
+		(pin "BARO_CS" output
 			(at 191.77 71.12 0)
 			(uuid "c86a9656-5023-4c2c-9d86-cdf7d9a6d09a")
 			(effects
