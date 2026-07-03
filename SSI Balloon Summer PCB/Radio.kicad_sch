@@ -1801,6 +1801,16 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "APRS_AUDIO unconnected so far"
+		(exclude_from_sim no)
+		(at 165.354 69.088 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "79f1f498-5a4f-4894-83e4-1e56e54b88bd")
+	)
 	(junction
 		(at 125.73 73.66)
 		(diameter 0)
@@ -2042,6 +2052,16 @@
 			(type default)
 		)
 		(uuid "40ac0d0c-9a38-42f2-bc37-f95b61067232")
+	)
+	(wire
+		(pts
+			(xy 255.27 41.91) (xy 264.16 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "43719c73-7de4-4ea0-9c26-2706c5dcdd96")
 	)
 	(wire
 		(pts
@@ -2643,6 +2663,16 @@
 		)
 		(uuid "666885f2-981c-4e65-8117-3cd551c6a632")
 	)
+	(label "APRS_AUDIO"
+		(at 255.27 41.91 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "6dc50213-c946-4458-a2db-0b8994b10e51")
+	)
 	(label "LoRa_DIO0"
 		(at 255.27 38.1 180)
 		(effects
@@ -2796,6 +2826,17 @@
 			(justify left)
 		)
 		(uuid "2c1c92a9-88ee-4d26-96cf-c9ab696d98fb")
+	)
+	(hierarchical_label "APRS_AUDIO"
+		(shape input)
+		(at 264.16 41.91 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "3d6c8763-609c-4474-9d0d-b079ad9479dd")
 	)
 	(hierarchical_label "LoRa_DIO0"
 		(shape bidirectional)
