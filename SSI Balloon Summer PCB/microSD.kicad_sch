@@ -1202,7 +1202,7 @@
 		(at 41.91 83.82)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "79363a88-6640-449f-bf3a-ad693e152883")
+		(uuid "976c9ed5-9daf-4984-812f-dab49dbf4f82")
 	)
 	(no_connect
 		(at 125.73 81.28)
@@ -1274,13 +1274,13 @@
 	)
 	(wire
 		(pts
-			(xy 41.91 83.82) (xy 69.85 83.82)
+			(xy 41.91 81.28) (xy 41.91 83.82)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "4ab9d61e-6383-48be-91a7-560a1cb4c107")
+		(uuid "4929ae37-4bed-4390-8cc3-5fd3a1470efc")
 	)
 	(wire
 		(pts
@@ -1354,6 +1354,16 @@
 	)
 	(wire
 		(pts
+			(xy 41.91 83.82) (xy 69.85 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9522effb-3f0d-42a2-becd-86e0aa3c7a39")
+	)
+	(wire
+		(pts
 			(xy 62.23 78.74) (xy 69.85 78.74)
 		)
 		(stroke
@@ -1401,6 +1411,16 @@
 			(justify right bottom)
 		)
 		(uuid "0da95298-b59a-4741-bf6a-0cd963d13f1c")
+	)
+	(label "+3V3"
+		(at 41.91 81.28 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1d831c2b-114d-451f-941d-62e587132163")
 	)
 	(label "SCK"
 		(at 66.04 86.36 180)
@@ -2437,84 +2457,6 @@
 			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/0df234a1-8d04-4ff9-99d5-3634fc842029"
 					(reference "#PWR077")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+3V3")
-		(at 41.91 83.82 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "a045c2ed-6e2c-45c8-9ca4-8ec03b7c4344")
-		(property "Reference" "#PWR075"
-			(at 41.91 87.63 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "+3V3"
-			(at 41.91 78.74 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 41.91 83.82 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 41.91 83.82 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+3V3\""
-			(at 41.91 83.82 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "5433b65e-e24f-4824-9306-a80784e29dc4")
-		)
-		(instances
-			(project "SSI Summer Balloons"
-				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/0df234a1-8d04-4ff9-99d5-3634fc842029"
-					(reference "#PWR075")
 					(unit 1)
 				)
 			)

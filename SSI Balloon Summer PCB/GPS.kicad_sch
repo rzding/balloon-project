@@ -1001,6 +1001,16 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "IMPORTANT: for VCC_REF we leave it as\nnot connected because it is PASSIVE - so its\nunbiased because we plan on the antenna being\nclose to the module. IF THIS CHANGES AND THE\nANTENNA IS FAE FROM THE MODULE WE MUST MAKE IT ACTIVE\nAND CONNECT SHIT ON VCC_REF\n"
+		(exclude_from_sim no)
+		(at 241.046 72.136 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "90144d0b-a201-4192-89f0-ffbb3442a240")
+	)
 	(text "Output:"
 		(exclude_from_sim no)
 		(at 242.062 30.734 0)
@@ -1078,6 +1088,10 @@
 	(no_connect
 		(at 168.91 105.41)
 		(uuid "951c337e-0d9e-4bcd-b88d-5a93d67bb8a3")
+	)
+	(no_connect
+		(at 168.91 77.47)
+		(uuid "ba1e45a4-da2f-471b-a6f8-e1471d37292c")
 	)
 	(no_connect
 		(at 168.91 87.63)
