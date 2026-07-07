@@ -1085,6 +1085,172 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Device:D_Zener"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "D_Zener"
+				(at 0 -2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Zener diode"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "diode"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "TO-???* *_Diode_* *SingleDiode* D_*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "D_Zener_0_1"
+				(polyline
+					(pts
+						(xy -1.27 -1.27) (xy -1.27 1.27) (xy -0.762 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 0) (xy -1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -1.27) (xy 1.27 1.27) (xy -1.27 0) (xy 1.27 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "D_Zener_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Device:L"
 			(pin_numbers
 				(hide yes)
@@ -3149,6 +3315,12 @@
 		(uuid "656ad9fd-3f46-4093-9857-10d7068ef4d5")
 	)
 	(junction
+		(at 189.23 45.72)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7a6ff21f-b21b-47fd-8bff-32743416cd54")
+	)
+	(junction
 		(at 247.65 128.27)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3207,6 +3379,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a6b04457-9616-438d-bc29-10b1b618a436")
+	)
+	(junction
+		(at 175.26 54.61)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b96bc263-2e7b-4857-907b-632d27e66b02")
 	)
 	(junction
 		(at 229.87 119.38)
@@ -3432,6 +3610,16 @@
 	)
 	(wire
 		(pts
+			(xy 189.23 45.72) (xy 189.23 46.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "27c2345d-85ef-45f2-9c65-ad0870dde1fd")
+	)
+	(wire
+		(pts
 			(xy 267.97 116.84) (xy 267.97 119.38)
 		)
 		(stroke
@@ -3492,6 +3680,16 @@
 	)
 	(wire
 		(pts
+			(xy 158.75 45.72) (xy 167.64 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "373821d3-4125-407b-a22e-39960ad167e1")
+	)
+	(wire
+		(pts
 			(xy 35.56 81.28) (xy 35.56 83.82)
 		)
 		(stroke
@@ -3512,16 +3710,6 @@
 	)
 	(wire
 		(pts
-			(xy 158.75 45.72) (xy 165.1 45.72)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "37d1d3c8-b061-4979-8eff-734d9a7239af")
-	)
-	(wire
-		(pts
 			(xy 64.77 104.14) (xy 62.23 104.14)
 		)
 		(stroke
@@ -3529,6 +3717,16 @@
 			(type default)
 		)
 		(uuid "3cdcff9b-fa29-4919-9f86-4033ebe1f96d")
+	)
+	(wire
+		(pts
+			(xy 175.26 62.23) (xy 175.26 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3d5c7565-cb9b-4400-8e01-dd76e62356b2")
 	)
 	(wire
 		(pts
@@ -3802,16 +4000,6 @@
 	)
 	(wire
 		(pts
-			(xy 167.64 26.67) (xy 167.64 30.48)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "69b820d2-bded-4545-926d-2da0bbb1ad8c")
-	)
-	(wire
-		(pts
 			(xy 153.67 119.38) (xy 162.56 119.38)
 		)
 		(stroke
@@ -3889,6 +4077,16 @@
 			(type default)
 		)
 		(uuid "7096bf0e-9a9c-4e87-a6f5-2630ebe9797c")
+	)
+	(wire
+		(pts
+			(xy 177.8 45.72) (xy 189.23 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "710d35b9-a613-41e6-bb65-1ebd641942ab")
 	)
 	(wire
 		(pts
@@ -4002,6 +4200,16 @@
 	)
 	(wire
 		(pts
+			(xy 175.26 54.61) (xy 175.26 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "88140f2c-d6d7-4ffc-b0ba-ca125d28acbe")
+	)
+	(wire
+		(pts
 			(xy 189.23 121.92) (xy 191.77 121.92)
 		)
 		(stroke
@@ -4092,16 +4300,6 @@
 	)
 	(wire
 		(pts
-			(xy 175.26 45.72) (xy 185.42 45.72)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9b5a38c4-d691-4d26-b919-d4f37f41bf24")
-	)
-	(wire
-		(pts
 			(xy 140.97 93.98) (xy 151.13 93.98)
 		)
 		(stroke
@@ -4172,6 +4370,16 @@
 	)
 	(wire
 		(pts
+			(xy 189.23 45.72) (xy 193.04 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a87ccba2-cd7a-4f91-ae0d-9e9cce68982f")
+	)
+	(wire
+		(pts
 			(xy 82.55 152.4) (xy 82.55 156.21)
 		)
 		(stroke
@@ -4219,16 +4427,6 @@
 			(type default)
 		)
 		(uuid "b29ea665-8ddb-40d4-885e-97f0376faef9")
-	)
-	(wire
-		(pts
-			(xy 167.64 38.1) (xy 167.64 40.64)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b2fd45ed-67e6-4fdc-92fb-c946c978301f")
 	)
 	(wire
 		(pts
@@ -4562,6 +4760,16 @@
 	)
 	(wire
 		(pts
+			(xy 189.23 54.61) (xy 175.26 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f8506da3-9f3e-4238-84c8-4a30c21d3f37")
+	)
+	(wire
+		(pts
 			(xy 102.87 81.28) (xy 102.87 83.82)
 		)
 		(stroke
@@ -4651,7 +4859,7 @@
 		(uuid "9fe988cd-d2de-4a0f-90d3-57dabba3cf94")
 	)
 	(label "VBAT_PROT"
-		(at 185.42 45.72 0)
+		(at 193.04 45.72 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -4767,7 +4975,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 36.5252 91.44 0)
 			(hide yes)
 			(show_name no)
@@ -4848,7 +5056,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 44.1452 91.44 0)
 			(hide yes)
 			(show_name no)
@@ -5241,7 +5449,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 268.9352 116.84 0)
 			(hide yes)
 			(show_name no)
@@ -5478,7 +5686,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 171.1452 116.84 0)
 			(hide yes)
 			(show_name no)
@@ -5635,7 +5843,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 109.22 98.298 90)
 			(hide yes)
 			(show_name no)
@@ -5794,7 +6002,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 113.9952 163.83 0)
 			(hide yes)
 			(show_name no)
@@ -5875,7 +6083,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 61.9252 91.44 0)
 			(hide yes)
 			(show_name no)
@@ -5954,7 +6162,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 236.22 123.698 90)
 			(hide yes)
 			(show_name no)
@@ -6035,7 +6243,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 230.8352 116.84 0)
 			(hide yes)
 			(show_name no)
@@ -6085,7 +6293,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 167.64 34.29 0)
+		(at 175.26 58.42 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -6096,7 +6304,7 @@
 		(fields_autoplaced yes)
 		(uuid "2c2e03f7-9a37-4438-a035-d89b4024286f")
 		(property "Reference" "R1"
-			(at 170.18 33.0199 0)
+			(at 172.72 59.6901 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6107,7 +6315,7 @@
 			)
 		)
 		(property "Value" "100k"
-			(at 170.18 35.5599 0)
+			(at 172.72 57.1501 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6117,8 +6325,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 165.862 34.29 90)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 177.038 58.42 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6129,7 +6337,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 167.64 34.29 0)
+			(at 175.26 58.42 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6140,7 +6348,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 167.64 34.29 0)
+			(at 175.26 58.42 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6188,7 +6396,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "680k"
+		(property "Value" "AP2112K-3.3TRG1"
 			(at 123.19 100.3299 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6199,7 +6407,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "AP2112K-3.3TRG1:SOT95P285X140-5N"
 			(at 118.872 99.06 90)
 			(hide yes)
 			(show_name no)
@@ -6221,7 +6429,106 @@
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "Voltage Regulators, LDO, 600mA CMOS LDO 50mA 3.3V 250mV | Diodes Inc AP2112K-3.3TRG1"
+			(at 120.65 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Availability" "In Stock"
+			(at 120.65 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Check_prices" "https://www.snapeda.com/parts/AP2112K-3.3TRG1/Diodes+Inc./view-part/?ref=eda"
+			(at 120.65 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MANUFACTURER" "Diodes Inc."
+			(at 120.65 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MF" "Diodes Inc."
+			(at 120.65 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MP" "AP2112K-3.3TRG1"
+			(at 120.65 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PARTREV" "2-2"
+			(at 120.65 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Package" "SOT-753 Diodes Inc."
+			(at 120.65 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Price" "None"
+			(at 120.65 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "SnapEDA_Link" "https://www.snapeda.com/parts/AP2112K-3.3TRG1/Diodes+Inc./view-part/?ref=snap"
 			(at 120.65 99.06 0)
 			(hide yes)
 			(show_name no)
@@ -6270,7 +6577,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "412k"
+		(property "Value" "130k"
 			(at 250.19 125.7299 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6281,7 +6588,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 245.872 124.46 90)
 			(hide yes)
 			(show_name no)
@@ -6351,7 +6658,7 @@
 				)
 			)
 		)
-		(property "Value" "AP2112K-3.3TRG1"
+		(property "Value" "TPS63070RNMR"
 			(at 97.79 161.29 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6361,7 +6668,7 @@
 				)
 			)
 		)
-		(property "Footprint" "AP2112K-3.3TRG1:SOT95P285X140-5N"
+		(property "Footprint" "TPS63070RNMR:VREG_TPS63070RNMR"
 			(at 97.79 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -6384,7 +6691,7 @@
 				)
 			)
 		)
-		(property "Description" "Voltage Regulators, LDO, 600mA CMOS LDO 50mA 3.3V 250mV | Diodes Inc AP2112K-3.3TRG1"
+		(property "Description" "Wide input voltage (2V-16V) buck-boost converter"
 			(at 97.79 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -6396,7 +6703,7 @@
 				(justify bottom)
 			)
 		)
-		(property "MF" "Diodes Inc."
+		(property "MF" "Texas Instruments"
 			(at 97.79 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -6408,7 +6715,7 @@
 				(justify bottom)
 			)
 		)
-		(property "Package" "SOT-753 Diodes Inc."
+		(property "Package" "VQFN-HR-15 Texas Instruments"
 			(at 97.79 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -6432,7 +6739,7 @@
 				(justify bottom)
 			)
 		)
-		(property "Check_prices" "https://www.snapeda.com/parts/AP2112K-3.3TRG1/Diodes+Inc./view-part/?ref=eda"
+		(property "Check_prices" "https://www.snapeda.com/parts/TPS63070RNMR/Texas+Instruments/view-part/?ref=eda"
 			(at 97.79 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -6444,7 +6751,7 @@
 				(justify bottom)
 			)
 		)
-		(property "PARTREV" "2-2"
+		(property "PARTREV" "B"
 			(at 97.79 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -6456,7 +6763,7 @@
 				(justify bottom)
 			)
 		)
-		(property "SnapEDA_Link" "https://www.snapeda.com/parts/AP2112K-3.3TRG1/Diodes+Inc./view-part/?ref=snap"
+		(property "SnapEDA_Link" "https://www.snapeda.com/parts/TPS63070RNMR/Texas+Instruments/view-part/?ref=snap"
 			(at 97.79 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -6468,7 +6775,7 @@
 				(justify bottom)
 			)
 		)
-		(property "MP" "AP2112K-3.3TRG1"
+		(property "MP" "TPS63070RNMR"
 			(at 97.79 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -6492,7 +6799,7 @@
 				(justify bottom)
 			)
 		)
-		(property "MANUFACTURER" "Diodes Inc."
+		(property "MANUFACTURER" "Texas Instruments"
 			(at 97.79 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -6502,6 +6809,28 @@
 					(size 1.27 1.27)
 				)
 				(justify bottom)
+			)
+		)
+		(property "MAXIMUM_PACKAGE_HEIGHT" "1.0mm"
+			(at 97.79 171.45 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "STANDARD" "Manufacturer Recommendations"
+			(at 97.79 171.45 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
 		)
 		(pin "3"
@@ -6636,7 +6965,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 126.6952 91.44 0)
 			(hide yes)
 			(show_name no)
@@ -7030,7 +7359,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical"
 			(at 102.87 46.99 0)
 			(hide yes)
 			(show_name no)
@@ -7111,7 +7440,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 141.9352 91.44 0)
 			(hide yes)
 			(show_name no)
@@ -7192,7 +7521,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 163.5252 116.84 0)
 			(hide yes)
 			(show_name no)
@@ -7271,7 +7600,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 50.8 103.378 90)
 			(hide yes)
 			(show_name no)
@@ -7320,6 +7649,87 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:D_Zener")
+		(at 189.23 50.8 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "7eac2a5d-528d-4325-9868-6a30ed20e089")
+		(property "Reference" "D2"
+			(at 186.69 52.0701 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "BZT52C5V1"
+			(at 187.198 49.784 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Diode_SMD:D_SOD-123"
+			(at 189.23 50.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 189.23 50.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Zener diode"
+			(at 189.23 50.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "9745822b-2351-484c-85d6-4d6ab96958dd")
+		)
+		(pin "1"
+			(uuid "0fa7801c-f723-46f1-94f3-51df2654a89b")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
+					(reference "D2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 247.65 134.62 0)
 		(unit 1)
@@ -7353,7 +7763,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 245.872 134.62 90)
 			(hide yes)
 			(show_name no)
@@ -7559,7 +7969,7 @@
 	)
 	(symbol
 		(lib_id "DMG2305UX-7:DMG2305UX-7")
-		(at 170.18 43.18 270)
+		(at 172.72 48.26 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -7567,10 +7977,9 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "95972fcc-4ef4-4eeb-9eef-4525f814f029")
 		(property "Reference" "Q2"
-			(at 170.18 49.53 90)
+			(at 172.72 42.926 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7580,7 +7989,7 @@
 			)
 		)
 		(property "Value" "DMG2305UX-7"
-			(at 170.18 52.07 90)
+			(at 172.466 40.64 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7590,7 +7999,7 @@
 			)
 		)
 		(property "Footprint" "DMG2305UX-7:SOT91P240X110-3N_DMG2305UX-7"
-			(at 170.18 43.18 0)
+			(at 172.72 48.26 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7602,7 +8011,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 170.18 43.18 0)
+			(at 172.72 48.26 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7613,7 +8022,7 @@
 			)
 		)
 		(property "Description" "MOSFET P-Ch 20V 5A Enhancement SOT23 | Diodes Inc DMG2305UX-7"
-			(at 170.18 43.18 0)
+			(at 172.72 48.26 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7625,7 +8034,7 @@
 			)
 		)
 		(property "MF" "Diodes Inc."
-			(at 170.18 43.18 0)
+			(at 172.72 48.26 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7637,7 +8046,7 @@
 			)
 		)
 		(property "MAXIMUM_PACKAGE_HEIGHT" "1.1mm"
-			(at 170.18 43.18 0)
+			(at 172.72 48.26 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7649,7 +8058,7 @@
 			)
 		)
 		(property "Package" "SOT-23 Diodes Inc."
-			(at 170.18 43.18 0)
+			(at 172.72 48.26 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7661,7 +8070,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 170.18 43.18 0)
+			(at 172.72 48.26 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7673,7 +8082,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/DMG2305UX-7/Diodes+Inc./view-part/?ref=eda"
-			(at 170.18 43.18 0)
+			(at 172.72 48.26 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7685,7 +8094,7 @@
 			)
 		)
 		(property "STANDARD" "IPC-7351B"
-			(at 170.18 43.18 0)
+			(at 172.72 48.26 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7697,7 +8106,7 @@
 			)
 		)
 		(property "PARTREV" "09/2018"
-			(at 170.18 43.18 0)
+			(at 172.72 48.26 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7709,7 +8118,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/DMG2305UX-7/Diodes+Inc./view-part/?ref=snap"
-			(at 170.18 43.18 0)
+			(at 172.72 48.26 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7721,7 +8130,7 @@
 			)
 		)
 		(property "MP" "DMG2305UX-7"
-			(at 170.18 43.18 0)
+			(at 172.72 48.26 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7733,7 +8142,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 170.18 43.18 0)
+			(at 172.72 48.26 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7745,7 +8154,7 @@
 			)
 		)
 		(property "MANUFACTURER" "Diodes Inc."
-			(at 170.18 43.18 0)
+			(at 172.72 48.26 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7805,7 +8214,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 114.3 113.3348 0)
 			(hide yes)
 			(show_name no)
@@ -7886,7 +8295,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 83.5152 163.83 0)
 			(hide yes)
 			(show_name no)
@@ -7956,7 +8365,7 @@
 				)
 			)
 		)
-		(property "Value" "TPS63070RNMR"
+		(property "Value" "SW_SPDT"
 			(at 209.55 114.3 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7966,7 +8375,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TPS63070RNMR:VREG_TPS63070RNMR"
+		(property "Footprint" "Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical"
 			(at 209.55 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -7989,7 +8398,7 @@
 				)
 			)
 		)
-		(property "Description" "Wide input voltage (2V-16V) buck-boost converter"
+		(property "Description" "Switch, single pole double throw"
 			(at 209.55 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -8001,7 +8410,7 @@
 				(justify bottom)
 			)
 		)
-		(property "MF" "Texas Instruments"
+		(property "MF" ""
 			(at 209.55 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -8013,7 +8422,7 @@
 				(justify bottom)
 			)
 		)
-		(property "MAXIMUM_PACKAGE_HEIGHT" "1.0mm"
+		(property "MAXIMUM_PACKAGE_HEIGHT" ""
 			(at 209.55 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -8025,7 +8434,7 @@
 				(justify bottom)
 			)
 		)
-		(property "Package" "VQFN-HR-15 Texas Instruments"
+		(property "Package" ""
 			(at 209.55 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -8037,7 +8446,7 @@
 				(justify bottom)
 			)
 		)
-		(property "Price" "None"
+		(property "Price" ""
 			(at 209.55 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -8049,7 +8458,7 @@
 				(justify bottom)
 			)
 		)
-		(property "Check_prices" "https://www.snapeda.com/parts/TPS63070RNMR/Texas+Instruments/view-part/?ref=eda"
+		(property "Check_prices" ""
 			(at 209.55 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -8061,7 +8470,7 @@
 				(justify bottom)
 			)
 		)
-		(property "STANDARD" "Manufacturer Recommendations"
+		(property "STANDARD" ""
 			(at 209.55 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -8073,7 +8482,7 @@
 				(justify bottom)
 			)
 		)
-		(property "PARTREV" "B"
+		(property "PARTREV" ""
 			(at 209.55 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -8085,7 +8494,7 @@
 				(justify bottom)
 			)
 		)
-		(property "SnapEDA_Link" "https://www.snapeda.com/parts/TPS63070RNMR/Texas+Instruments/view-part/?ref=snap"
+		(property "SnapEDA_Link" ""
 			(at 209.55 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -8097,7 +8506,7 @@
 				(justify bottom)
 			)
 		)
-		(property "MP" "TPS63070RNMR"
+		(property "MP" ""
 			(at 209.55 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -8109,7 +8518,7 @@
 				(justify bottom)
 			)
 		)
-		(property "Availability" "In Stock"
+		(property "Availability" ""
 			(at 209.55 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -8121,7 +8530,7 @@
 				(justify bottom)
 			)
 		)
-		(property "MANUFACTURER" "Texas Instruments"
+		(property "MANUFACTURER" ""
 			(at 209.55 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -8281,7 +8690,7 @@
 				)
 			)
 		)
-		(property "Value" "SW_SPDT"
+		(property "Value" "412k"
 			(at 129.54 41.91 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8291,7 +8700,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 129.54 48.26 0)
 			(hide yes)
 			(show_name no)
@@ -8313,7 +8722,7 @@
 				)
 			)
 		)
-		(property "Description" "Switch, single pole double throw"
+		(property "Description" "Resistor"
 			(at 129.54 48.26 0)
 			(hide yes)
 			(show_name no)
@@ -8344,7 +8753,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 167.64 26.67 180)
+		(at 175.26 63.5 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -8355,7 +8764,7 @@
 		(fields_autoplaced yes)
 		(uuid "9fb1cd55-532b-4987-9a99-64283638cc41")
 		(property "Reference" "#PWR02"
-			(at 167.64 20.32 0)
+			(at 175.26 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8366,7 +8775,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 167.64 21.59 0)
+			(at 175.26 68.58 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -8376,7 +8785,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 167.64 26.67 0)
+			(at 175.26 63.5 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8387,7 +8796,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 167.64 26.67 0)
+			(at 175.26 63.5 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8398,7 +8807,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 167.64 26.67 0)
+			(at 175.26 63.5 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8443,7 +8852,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "130k"
+		(property "Value" "680k"
 			(at 123.19 110.4899 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8454,7 +8863,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 118.872 109.22 90)
 			(hide yes)
 			(show_name no)
@@ -8691,7 +9100,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 253.6952 116.84 0)
 			(hide yes)
 			(show_name no)
@@ -8772,7 +9181,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 188.9252 116.84 0)
 			(hide yes)
 			(show_name no)
@@ -9323,7 +9732,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 177.8 128.778 90)
 			(hide yes)
 			(show_name no)
@@ -9472,7 +9881,7 @@
 				)
 			)
 		)
-		(property "Value" "TPS63070RNMR"
+		(property "Value" "SW_SPDT"
 			(at 82.55 88.9 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9482,7 +9891,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TPS63070RNMR:VREG_TPS63070RNMR"
+		(property "Footprint" "Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical"
 			(at 82.55 106.68 0)
 			(hide yes)
 			(show_name no)
@@ -9505,7 +9914,7 @@
 				)
 			)
 		)
-		(property "Description" "Wide input voltage (2V-16V) buck-boost converter"
+		(property "Description" "Switch, single pole double throw"
 			(at 82.55 106.68 0)
 			(hide yes)
 			(show_name no)
@@ -9517,7 +9926,7 @@
 				(justify bottom)
 			)
 		)
-		(property "MF" "Texas Instruments"
+		(property "MF" ""
 			(at 82.55 106.68 0)
 			(hide yes)
 			(show_name no)
@@ -9529,7 +9938,7 @@
 				(justify bottom)
 			)
 		)
-		(property "MAXIMUM_PACKAGE_HEIGHT" "1.0mm"
+		(property "MAXIMUM_PACKAGE_HEIGHT" ""
 			(at 82.55 106.68 0)
 			(hide yes)
 			(show_name no)
@@ -9541,7 +9950,7 @@
 				(justify bottom)
 			)
 		)
-		(property "Package" "VQFN-HR-15 Texas Instruments"
+		(property "Package" ""
 			(at 82.55 106.68 0)
 			(hide yes)
 			(show_name no)
@@ -9553,7 +9962,7 @@
 				(justify bottom)
 			)
 		)
-		(property "Price" "None"
+		(property "Price" ""
 			(at 82.55 106.68 0)
 			(hide yes)
 			(show_name no)
@@ -9565,7 +9974,7 @@
 				(justify bottom)
 			)
 		)
-		(property "Check_prices" "https://www.snapeda.com/parts/TPS63070RNMR/Texas+Instruments/view-part/?ref=eda"
+		(property "Check_prices" ""
 			(at 82.55 106.68 0)
 			(hide yes)
 			(show_name no)
@@ -9577,7 +9986,7 @@
 				(justify bottom)
 			)
 		)
-		(property "STANDARD" "Manufacturer Recommendations"
+		(property "STANDARD" ""
 			(at 82.55 106.68 0)
 			(hide yes)
 			(show_name no)
@@ -9589,7 +9998,7 @@
 				(justify bottom)
 			)
 		)
-		(property "PARTREV" "B"
+		(property "PARTREV" ""
 			(at 82.55 106.68 0)
 			(hide yes)
 			(show_name no)
@@ -9601,7 +10010,7 @@
 				(justify bottom)
 			)
 		)
-		(property "SnapEDA_Link" "https://www.snapeda.com/parts/TPS63070RNMR/Texas+Instruments/view-part/?ref=snap"
+		(property "SnapEDA_Link" ""
 			(at 82.55 106.68 0)
 			(hide yes)
 			(show_name no)
@@ -9613,7 +10022,7 @@
 				(justify bottom)
 			)
 		)
-		(property "MP" "TPS63070RNMR"
+		(property "MP" ""
 			(at 82.55 106.68 0)
 			(hide yes)
 			(show_name no)
@@ -9625,7 +10034,7 @@
 				(justify bottom)
 			)
 		)
-		(property "Availability" "In Stock"
+		(property "Availability" ""
 			(at 82.55 106.68 0)
 			(hide yes)
 			(show_name no)
@@ -9637,7 +10046,7 @@
 				(justify bottom)
 			)
 		)
-		(property "MANUFACTURER" "Texas Instruments"
+		(property "MANUFACTURER" ""
 			(at 82.55 106.68 0)
 			(hide yes)
 			(show_name no)
@@ -9808,7 +10217,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 103.8352 91.44 0)
 			(hide yes)
 			(show_name no)
@@ -9887,7 +10296,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 241.3 138.7348 0)
 			(hide yes)
 			(show_name no)
@@ -9966,7 +10375,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Inductor_SMD:L_Coilcraft_XxL4020"
 			(at 55.88 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -10279,7 +10688,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Inductor_SMD:L_Coilcraft_XxL4020"
 			(at 182.88 137.16 0)
 			(hide yes)
 			(show_name no)
@@ -10517,7 +10926,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 134.3152 91.44 0)
 			(hide yes)
 			(show_name no)
@@ -10598,7 +11007,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 261.3152 116.84 0)
 			(hide yes)
 			(show_name no)
