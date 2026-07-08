@@ -3055,12 +3055,6 @@
 		(uuid "9cadfb9b-1651-4475-9755-aa9acfe068a3")
 	)
 	(junction
-		(at 114.3 93.98)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "a287b8c0-cc96-417b-9fd2-9f185e1e39a0")
-	)
-	(junction
 		(at 120.65 93.98)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3121,12 +3115,6 @@
 		(uuid "d708a113-5064-4800-9a04-11cd884eda82")
 	)
 	(junction
-		(at 241.3 119.38)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "dd0d0e93-bc04-4705-80be-1f759d1131eb")
-	)
-	(junction
 		(at 62.23 101.6)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3149,8 +3137,16 @@
 		(uuid "13d633b4-990d-41e8-855e-3b5585f1774f")
 	)
 	(no_connect
+		(at 227.33 121.92)
+		(uuid "4d375e88-c88a-493a-8296-6c98d348b101")
+	)
+	(no_connect
 		(at 134.62 50.8)
 		(uuid "50d0f58b-e966-475c-b6e8-6bb5d4d9807c")
+	)
+	(no_connect
+		(at 100.33 96.52)
+		(uuid "63e9eb5b-11e6-4e93-87b2-b29f9e5f9b26")
 	)
 	(no_connect
 		(at 227.33 129.54)
@@ -3175,16 +3171,6 @@
 			(type default)
 		)
 		(uuid "07e1e766-e18a-4f9e-b04c-fffecd09a282")
-	)
-	(wire
-		(pts
-			(xy 114.3 96.52) (xy 114.3 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0f356f32-6a7f-4109-847e-92399c72d3f9")
 	)
 	(wire
 		(pts
@@ -3215,16 +3201,6 @@
 			(type default)
 		)
 		(uuid "11185fbb-97af-4168-8ab3-70660aab1963")
-	)
-	(wire
-		(pts
-			(xy 102.87 93.98) (xy 114.3 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "119e147b-72fd-4cc4-af0d-9fcd8f86418a")
 	)
 	(wire
 		(pts
@@ -3378,16 +3354,6 @@
 	)
 	(wire
 		(pts
-			(xy 241.3 119.38) (xy 247.65 119.38)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "357467c0-5519-415c-b666-a82a765ce39a")
-	)
-	(wire
-		(pts
 			(xy 158.75 45.72) (xy 167.64 45.72)
 		)
 		(stroke
@@ -3518,7 +3484,7 @@
 	)
 	(wire
 		(pts
-			(xy 114.3 93.98) (xy 120.65 93.98)
+			(xy 102.87 93.98) (xy 120.65 93.98)
 		)
 		(stroke
 			(width 0)
@@ -3668,16 +3634,6 @@
 	)
 	(wire
 		(pts
-			(xy 241.3 121.92) (xy 241.3 119.38)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5fef6b80-32e2-4079-bef5-d25922ca80d9")
-	)
-	(wire
-		(pts
 			(xy 170.18 106.68) (xy 170.18 109.22)
 		)
 		(stroke
@@ -3758,16 +3714,6 @@
 	)
 	(wire
 		(pts
-			(xy 227.33 121.92) (xy 232.41 121.92)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6d0306bf-a24a-44ba-860f-d7f882a6f7e1")
-	)
-	(wire
-		(pts
 			(xy 60.96 81.28) (xy 60.96 83.82)
 		)
 		(stroke
@@ -3818,16 +3764,6 @@
 	)
 	(wire
 		(pts
-			(xy 100.33 96.52) (xy 105.41 96.52)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "749cd30e-194d-4f65-a044-fe19d86265bf")
-	)
-	(wire
-		(pts
 			(xy 252.73 116.84) (xy 252.73 119.38)
 		)
 		(stroke
@@ -3858,7 +3794,7 @@
 	)
 	(wire
 		(pts
-			(xy 229.87 119.38) (xy 241.3 119.38)
+			(xy 229.87 119.38) (xy 247.65 119.38)
 		)
 		(stroke
 			(width 0)
@@ -3875,16 +3811,6 @@
 			(type default)
 		)
 		(uuid "7dcf754f-b137-431c-ac7d-2c14493cf285")
-	)
-	(wire
-		(pts
-			(xy 240.03 121.92) (xy 241.3 121.92)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7e712f3e-cf79-40ed-86bc-c659f63836f3")
 	)
 	(wire
 		(pts
@@ -5463,85 +5389,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
-		(at 109.22 96.52 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "187f1aeb-dda5-4552-a007-f8c7803b4739")
-		(property "Reference" "R3"
-			(at 105.918 98.806 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "100k"
-			(at 110.236 98.806 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 109.22 98.298 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 109.22 96.52 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 109.22 96.52 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "83502b8b-cf0f-432e-9674-e56022d63fdb")
-		)
-		(pin "2"
-			(uuid "8b575591-0b57-4da0-b5cb-11b8b02dd53a")
-		)
-		(instances
-			(project "SSI Summer Balloons"
-				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
-					(reference "R3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 125.73 81.28 180)
 		(unit 1)
@@ -5733,7 +5580,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 61.9252 91.44 0)
 			(hide yes)
 			(show_name no)
@@ -5782,85 +5629,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
-		(at 236.22 121.92 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "28b13f64-bc49-4f90-9049-d19ee359b6c7")
-		(property "Reference" "R8"
-			(at 232.918 124.206 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "100k"
-			(at 237.236 124.206 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 236.22 123.698 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 236.22 121.92 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 236.22 121.92 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "d3281b3c-a113-4a31-9033-126ac7586d58")
-		)
-		(pin "2"
-			(uuid "45fd9490-3fe0-4e12-b3a9-106ddfe75e90")
-		)
-		(instances
-			(project "SSI Summer Balloons"
-				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
-					(reference "R8")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:C")
 		(at 229.87 113.03 0)
 		(unit 1)
@@ -5893,7 +5661,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 230.8352 116.84 0)
 			(hide yes)
 			(show_name no)
@@ -8862,7 +8630,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 188.9252 116.84 0)
 			(hide yes)
 			(show_name no)
@@ -9846,7 +9614,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 103.8352 91.44 0)
 			(hide yes)
 			(show_name no)
