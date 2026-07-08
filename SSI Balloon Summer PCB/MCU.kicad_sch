@@ -2923,16 +2923,6 @@
 		)
 		(uuid "8e174df4-df8a-488d-86b8-9b6d112996bf")
 	)
-	(text "NEED TO DETERMINE WHAT BUTTON\nFOR A MORE ACCURATE FOOTPRINT\n"
-		(exclude_from_sim no)
-		(at 251.968 109.474 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "d7c2d1d3-a998-499a-8699-c44f037340c1")
-	)
 	(text "Arducam Mini 2MP Plus, SKU B0067"
 		(exclude_from_sim no)
 		(at 147.574 156.21 0)
@@ -3024,10 +3014,10 @@
 		(uuid "8e5d1710-71c7-4470-adc8-1a8253e1c8b4")
 	)
 	(junction
-		(at 101.6 26.67)
+		(at 100.33 26.67)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "91212790-b156-4c37-9c65-740af61febe6")
+		(uuid "900d8594-d22b-4eba-8a85-354df3868ec6")
 	)
 	(junction
 		(at 53.34 26.67)
@@ -3070,12 +3060,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "adeabdab-b522-4eb8-84e6-69f31734422a")
-	)
-	(junction
-		(at 115.57 26.67)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "c56eeeb9-8657-423e-b02e-057d5c012950")
 	)
 	(junction
 		(at 76.2 26.67)
@@ -3663,16 +3647,6 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 26.67) (xy 115.57 26.67)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "58802349-f503-45dd-b827-30d73e86e4ca")
-	)
-	(wire
-		(pts
 			(xy 40.64 26.67) (xy 53.34 26.67)
 		)
 		(stroke
@@ -4043,7 +4017,7 @@
 	)
 	(wire
 		(pts
-			(xy 132.08 26.67) (xy 115.57 26.67)
+			(xy 132.08 26.67) (xy 100.33 26.67)
 		)
 		(stroke
 			(width 0)
@@ -4393,7 +4367,7 @@
 	)
 	(wire
 		(pts
-			(xy 86.36 26.67) (xy 101.6 26.67)
+			(xy 100.33 26.67) (xy 86.36 26.67)
 		)
 		(stroke
 			(width 0)
@@ -5397,7 +5371,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 27.6352 34.29 0)
 			(hide yes)
 			(show_name no)
@@ -5567,7 +5541,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 144.018 124.46 90)
 			(hide yes)
 			(show_name no)
@@ -5649,7 +5623,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 38.608 101.6 90)
 			(hide yes)
 			(show_name no)
@@ -5729,7 +5703,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 54.61 152.7048 0)
 			(hide yes)
 			(show_name no)
@@ -5966,7 +5940,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 136.8552 52.07 0)
 			(hide yes)
 			(show_name no)
@@ -6126,7 +6100,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 54.3052 34.29 0)
 			(hide yes)
 			(show_name no)
@@ -6208,7 +6182,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" ""
 			(at 46.6852 128.27 0)
 			(hide yes)
 			(show_name no)
@@ -6446,7 +6420,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Button_Switch_SMD:SW_Push_1P1T-MP_NO_Horizontal_Alps_SKRTLAE010"
+		(property "Footprint" ""
 			(at 237.49 138.43 0)
 			(hide yes)
 			(show_name no)
@@ -6606,7 +6580,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm"
+		(property "Footprint" "ABM8W-12.0000MHZ-8-K1Z-T3:XTAL_ABM8W-12.0000MHZ-8-K1Z-T3"
 			(at 58.42 166.37 0)
 			(hide yes)
 			(show_name no)
@@ -6891,7 +6865,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 128.27 44.958 90)
 			(hide yes)
 			(show_name no)
@@ -7049,7 +7023,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 71.12 187.198 90)
 			(hide yes)
 			(show_name no)
@@ -7131,7 +7105,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 225.7552 142.24 0)
 			(hide yes)
 			(show_name no)
@@ -7181,7 +7155,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 115.57 30.48 0)
+		(at 100.33 30.48 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -7192,7 +7166,7 @@
 		(fields_autoplaced yes)
 		(uuid "662a8dac-76d2-478a-a9cd-f12e88a711f7")
 		(property "Reference" "C30"
-			(at 119.38 29.2099 0)
+			(at 104.14 29.2099 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7203,7 +7177,7 @@
 			)
 		)
 		(property "Value" "1uF"
-			(at 119.38 31.7499 0)
+			(at 104.14 31.7499 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7213,8 +7187,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
-			(at 116.5352 34.29 0)
+		(property "Footprint" ""
+			(at 101.2952 34.29 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7225,7 +7199,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 115.57 30.48 0)
+			(at 100.33 30.48 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7236,7 +7210,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 115.57 30.48 0)
+			(at 100.33 30.48 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7292,7 +7266,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 55.88 184.4548 0)
 			(hide yes)
 			(show_name no)
@@ -7341,88 +7315,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 101.6 30.48 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "71cfbcd8-d2d1-4da7-9d51-b2cd3f59837d")
-		(property "Reference" "C49"
-			(at 105.41 29.2099 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "100nF"
-			(at 105.41 31.7499 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
-			(at 102.5652 34.29 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 101.6 30.48 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Unpolarized capacitor"
-			(at 101.6 30.48 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "7356c109-a00a-4e9e-bcca-bf29153ca4e8")
-		)
-		(pin "2"
-			(uuid "eb7f4061-1239-4181-bff6-a7f06cb23946")
-		)
-		(instances
-			(project "SSI Summer Balloons"
-				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
-					(reference "C49")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R")
 		(at 237.49 127 0)
 		(unit 1)
@@ -7456,7 +7348,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 235.712 127 90)
 			(hide yes)
 			(show_name no)
@@ -7535,7 +7427,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 102.87 44.958 90)
 			(hide yes)
 			(show_name no)
@@ -7617,7 +7509,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 266.192 140.97 90)
 			(hide yes)
 			(show_name no)
@@ -7699,7 +7591,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical"
+		(property "Footprint" ""
 			(at 151.13 138.43 0)
 			(hide yes)
 			(show_name no)
@@ -7798,7 +7690,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 116.5352 52.07 0)
 			(hide yes)
 			(show_name no)
@@ -8081,84 +7973,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 101.6 34.29 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "9ce16e11-597b-404e-a1b9-a3356d40f07b")
-		(property "Reference" "#PWR059"
-			(at 101.6 40.64 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 101.6 39.37 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 101.6 34.29 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 101.6 34.29 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 101.6 34.29 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "e82e4564-d3fc-43cb-a29b-0577968cc65b")
-		)
-		(instances
-			(project "SSI Summer Balloons"
-				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
-					(reference "#PWR059")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:C")
 		(at 86.36 30.48 0)
 		(unit 1)
@@ -8192,7 +8006,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 87.3252 34.29 0)
 			(hide yes)
 			(show_name no)
@@ -8353,7 +8167,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" ""
 			(at 133.0452 34.29 0)
 			(hide yes)
 			(show_name no)
@@ -8435,7 +8249,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 41.6052 34.29 0)
 			(hide yes)
 			(show_name no)
@@ -8595,7 +8409,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Button_Switch_SMD:SW_Push_1P1T-MP_NO_Horizontal_Alps_SKRTLAE010"
+		(property "Footprint" ""
 			(at 267.97 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -8755,7 +8569,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 27.178 99.06 90)
 			(hide yes)
 			(show_name no)
@@ -9354,7 +9168,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 115.57 34.29 0)
+		(at 100.33 34.29 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -9365,7 +9179,7 @@
 		(fields_autoplaced yes)
 		(uuid "fec3b7b9-aeea-42da-bc97-e95b3ba56db2")
 		(property "Reference" "#PWR049"
-			(at 115.57 40.64 0)
+			(at 100.33 40.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9376,7 +9190,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 115.57 39.37 0)
+			(at 100.33 39.37 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9386,7 +9200,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 115.57 34.29 0)
+			(at 100.33 34.29 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9397,7 +9211,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 115.57 34.29 0)
+			(at 100.33 34.29 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9408,7 +9222,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 115.57 34.29 0)
+			(at 100.33 34.29 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)

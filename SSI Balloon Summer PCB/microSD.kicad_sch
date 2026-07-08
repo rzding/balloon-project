@@ -1184,7 +1184,7 @@
 	)
 	(text "Indicator LED for SD card detection"
 		(exclude_from_sim no)
-		(at 227.076 110.49 0)
+		(at 177.546 88.9 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1314,7 +1314,7 @@
 	)
 	(wire
 		(pts
-			(xy 194.31 119.38) (xy 194.31 121.92)
+			(xy 144.78 97.79) (xy 144.78 100.33)
 		)
 		(stroke
 			(width 0)
@@ -1384,23 +1384,13 @@
 	)
 	(wire
 		(pts
-			(xy 194.31 100.33) (xy 194.31 104.14)
+			(xy 144.78 78.74) (xy 144.78 82.55)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "ff65593c-1167-4cb3-8c27-2bc1dde9b567")
-	)
-	(label "microSD_detect"
-		(at 194.31 100.33 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "0990d974-e553-45bf-95ee-2ee64fe8d08f")
 	)
 	(label "SCK"
 		(at 240.03 31.75 180)
@@ -1600,7 +1590,7 @@
 	)
 	(symbol
 		(lib_id "Device:LED")
-		(at 194.31 115.57 90)
+		(at 144.78 93.98 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1611,7 +1601,7 @@
 		(fields_autoplaced yes)
 		(uuid "01ccb73c-8d66-4644-895c-3b5b1ddd951f")
 		(property "Reference" "D1"
-			(at 198.12 115.8874 90)
+			(at 148.59 94.2974 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1622,7 +1612,7 @@
 			)
 		)
 		(property "Value" "LED"
-			(at 198.12 118.4274 90)
+			(at 148.59 96.8374 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1632,8 +1622,8 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 194.31 115.57 0)
+		(property "Footprint" ""
+			(at 144.78 93.98 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1644,7 +1634,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 194.31 115.57 0)
+			(at 144.78 93.98 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1655,7 +1645,7 @@
 			)
 		)
 		(property "Description" "Light emitting diode"
-			(at 194.31 115.57 0)
+			(at 144.78 93.98 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1666,7 +1656,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 194.31 115.57 0)
+			(at 144.78 93.98 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1724,7 +1714,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 64.008 72.39 90)
 			(hide yes)
 			(show_name no)
@@ -1774,7 +1764,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 194.31 121.92 0)
+		(at 144.78 100.33 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1785,7 +1775,7 @@
 		(fields_autoplaced yes)
 		(uuid "2edfbac6-ef31-40dc-a7c5-e8901950e93e")
 		(property "Reference" "#PWR080"
-			(at 194.31 128.27 0)
+			(at 144.78 106.68 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1796,7 +1786,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 194.31 127 0)
+			(at 144.78 105.41 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1806,7 +1796,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 194.31 121.92 0)
+			(at 144.78 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1817,7 +1807,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 194.31 121.92 0)
+			(at 144.78 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1828,7 +1818,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 194.31 121.92 0)
+			(at 144.78 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1923,88 +1913,6 @@
 			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/0df234a1-8d04-4ff9-99d5-3634fc842029"
 					(reference "#PWR079")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 144.78 82.55 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "4df409fe-9fe6-4ff7-b9e7-8ca7812cae9d")
-		(property "Reference" "R16"
-			(at 147.32 81.2799 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10k"
-			(at 147.32 83.8199 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 143.002 82.55 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 144.78 82.55 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 144.78 82.55 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "f5bbcc5e-7347-4e9a-a4d7-b1b8b912de8e")
-		)
-		(pin "2"
-			(uuid "1017b48f-d2a4-46ab-9f3a-8aba91fb9084")
-		)
-		(instances
-			(project "SSI Summer Balloons"
-				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/0df234a1-8d04-4ff9-99d5-3634fc842029"
-					(reference "R16")
 					(unit 1)
 				)
 			)
@@ -2336,7 +2244,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 42.8752 91.44 0)
 			(hide yes)
 			(show_name no)
@@ -2463,86 +2371,8 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 144.78 86.36 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "a60fc9cd-2c9c-46bf-9890-b8e3bda7f5eb")
-		(property "Reference" "#PWR078"
-			(at 144.78 92.71 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 144.78 91.44 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 144.78 86.36 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 144.78 86.36 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 144.78 86.36 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "40db2206-10ff-439d-94b2-c2da9241f251")
-		)
-		(instances
-			(project "SSI Summer Balloons"
-				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/0df234a1-8d04-4ff9-99d5-3634fc842029"
-					(reference "#PWR078")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R")
-		(at 194.31 107.95 0)
+		(at 144.78 86.36 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2553,7 +2383,7 @@
 		(fields_autoplaced yes)
 		(uuid "ae6fe7ac-32dc-4bba-a253-9b261c44b6a2")
 		(property "Reference" "R17"
-			(at 196.85 106.6799 0)
+			(at 147.32 85.0899 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2564,7 +2394,7 @@
 			)
 		)
 		(property "Value" "330R"
-			(at 196.85 109.2199 0)
+			(at 147.32 87.6299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2574,8 +2404,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 192.532 107.95 90)
+		(property "Footprint" ""
+			(at 143.002 86.36 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2586,7 +2416,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 194.31 107.95 0)
+			(at 144.78 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2597,7 +2427,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 194.31 107.95 0)
+			(at 144.78 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)

@@ -2047,16 +2047,6 @@
 		)
 		(uuid "a94b8f21-c428-42ac-aadd-09622b4b926c")
 	)
-	(text "10M is large in case PT100\nconnector snaps and then it reads\na very high resistance indicating it\nsnapped"
-		(exclude_from_sim no)
-		(at 146.812 113.538 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "bae8d7be-4abb-4cba-b636-32a201fa3c05")
-	)
 	(text "Input:"
 		(exclude_from_sim no)
 		(at 232.41 24.13 0)
@@ -4455,7 +4445,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 220.218 97.79 90)
 			(hide yes)
 			(show_name no)
@@ -4536,7 +4526,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 37.338 101.6 90)
 			(hide yes)
 			(show_name no)
@@ -4616,7 +4606,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 153.67 79.248 90)
 			(hide yes)
 			(show_name no)
@@ -4698,7 +4688,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 116.5352 81.28 0)
 			(hide yes)
 			(show_name no)
@@ -4779,7 +4769,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 105.1052 81.28 0)
 			(hide yes)
 			(show_name no)
@@ -4859,7 +4849,7 @@
 				)
 			)
 		)
-		(property "Footprint" "ICM-42688-P 2:PQFN50P300X250X97-14N"
+		(property "Footprint" "ICM-42688-P:PQFN50P300X250X97-14N"
 			(at 77.47 96.52 0)
 			(hide yes)
 			(show_name no)
@@ -5188,7 +5178,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 97.028 156.21 90)
 			(hide yes)
 			(show_name no)
@@ -5582,7 +5572,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(property "Footprint" ""
 			(at 165.862 110.49 90)
 			(hide yes)
 			(show_name no)
@@ -5742,7 +5732,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 152.0952 140.97 0)
 			(hide yes)
 			(show_name no)
@@ -5823,7 +5813,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 229.5652 68.58 0)
 			(hide yes)
 			(show_name no)
@@ -5904,7 +5894,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 159.7152 101.6 0)
 			(hide yes)
 			(show_name no)
@@ -5985,7 +5975,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 229.5652 81.28 0)
 			(hide yes)
 			(show_name no)
@@ -6067,7 +6057,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" ""
 			(at 124.1552 95.25 0)
 			(hide yes)
 			(show_name no)
@@ -6225,7 +6215,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_JST:JST_PH_B3B-PH-K_1x03_P2.00mm_Vertical"
+		(property "Footprint" ""
 			(at 151.13 92.71 0)
 			(hide yes)
 			(show_name no)
