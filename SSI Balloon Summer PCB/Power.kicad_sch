@@ -2892,12 +2892,6 @@
 		(uuid "656ad9fd-3f46-4093-9857-10d7068ef4d5")
 	)
 	(junction
-		(at 189.23 45.72)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "7a6ff21f-b21b-47fd-8bff-32743416cd54")
-	)
-	(junction
 		(at 247.65 128.27)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2920,6 +2914,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "890fab21-d515-471e-8e44-88efcdf86616")
+	)
+	(junction
+		(at 189.23 45.72)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "92a59e27-14b5-424e-aa51-481f88ae4bc5")
 	)
 	(junction
 		(at 120.65 102.87)
@@ -3947,7 +3947,7 @@
 	)
 	(wire
 		(pts
-			(xy 189.23 45.72) (xy 193.04 45.72)
+			(xy 189.23 45.72) (xy 205.74 45.72)
 		)
 		(stroke
 			(width 0)
@@ -4436,7 +4436,7 @@
 		(uuid "9fe988cd-d2de-4a0f-90d3-57dabba3cf94")
 	)
 	(label "VBAT_PROT"
-		(at 193.04 45.72 0)
+		(at 205.74 45.72 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6632,7 +6632,7 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
