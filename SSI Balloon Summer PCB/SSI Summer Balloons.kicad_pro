@@ -888,7 +888,7 @@
       "include_excluded_from_bom": true,
       "name": "",
       "sort_asc": true,
-      "sort_field": "${QUANTITY}"
+      "sort_field": "Datasheet"
     },
     "bus_aliases": {},
     "connection_grid_size": 50.0,
@@ -931,7 +931,7 @@
         "uuid": "3c45a535-6e6b-4825-ad52-82c10cbe7866"
       }
     ],
-    "used_designators": "J2,R3,R8",
+    "used_designators": "#PWR110,J2,C49,R3,R8",
     "variants": []
   },
   "sheets": [
