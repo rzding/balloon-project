@@ -1162,16 +1162,6 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "Passive:"
-		(exclude_from_sim no)
-		(at 246.38 52.832 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "6c997856-e463-4737-b158-741ee52a64f8")
-	)
 	(text "microSD_detect: \nhigh if SD card detected\nlow if no SD card"
 		(exclude_from_sim no)
 		(at 140.208 65.278 0)
@@ -1241,16 +1231,6 @@
 			(type default)
 		)
 		(uuid "192c88e6-cb91-4b19-857e-beffbcdc69aa")
-	)
-	(wire
-		(pts
-			(xy 241.3 57.15) (xy 247.65 57.15)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3ec3419e-1423-4786-b844-ffd308ed427f")
 	)
 	(wire
 		(pts
@@ -1402,16 +1382,6 @@
 		)
 		(uuid "0da95298-b59a-4741-bf6a-0cd963d13f1c")
 	)
-	(label "+3V3"
-		(at 41.91 81.28 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "1d831c2b-114d-451f-941d-62e587132163")
-	)
 	(label "SCK"
 		(at 66.04 86.36 180)
 		(effects
@@ -1451,16 +1421,6 @@
 			(justify right bottom)
 		)
 		(uuid "30473e65-82ce-452d-8349-ba16aeefe1a7")
-	)
-	(label "GND"
-		(at 241.3 57.15 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "72ac696c-f758-4789-a7b2-5c14988da413")
 	)
 	(label "microSD_detect"
 		(at 144.78 78.74 180)
@@ -1511,27 +1471,6 @@
 			(justify right bottom)
 		)
 		(uuid "d6b1c122-9abb-4fb4-86bd-428e713ba9f4")
-	)
-	(label "+3V3"
-		(at 62.23 66.04 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "db0b817b-5eb3-46b1-bded-6e11dac2db0a")
-	)
-	(hierarchical_label "GND"
-		(shape passive)
-		(at 247.65 57.15 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "27fcfaf6-d183-4f69-94eb-4ab98be4052f")
 	)
 	(hierarchical_label "MISO"
 		(shape output)
@@ -2293,6 +2232,84 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+3V3")
+		(at 41.91 81.28 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7da9e205-a52e-4821-946f-326366adf48d")
+		(property "Reference" "#PWR0109"
+			(at 41.91 85.09 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 41.91 76.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 41.91 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 41.91 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 41.91 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "33468f86-3dcb-4f76-b363-06993326b0ed")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/0df234a1-8d04-4ff9-99d5-3634fc842029"
+					(reference "#PWR0109")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 125.73 86.36 0)
 		(unit 1)
@@ -2447,6 +2464,84 @@
 			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/0df234a1-8d04-4ff9-99d5-3634fc842029"
 					(reference "R17")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 62.23 66.04 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c5a61d23-42e2-4155-a3ca-5480fead587f")
+		(property "Reference" "#PWR0108"
+			(at 62.23 69.85 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 62.23 60.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 62.23 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 62.23 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 62.23 66.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "866993cb-2b24-4e68-8a30-d7220dfa52c3")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/0df234a1-8d04-4ff9-99d5-3634fc842029"
+					(reference "#PWR0108")
 					(unit 1)
 				)
 			)
