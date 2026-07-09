@@ -3662,10 +3662,6 @@
 		(uuid "4d375e88-c88a-493a-8296-6c98d348b101")
 	)
 	(no_connect
-		(at 134.62 50.8)
-		(uuid "50d0f58b-e966-475c-b6e8-6bb5d4d9807c")
-	)
-	(no_connect
 		(at 100.33 96.52)
 		(uuid "63e9eb5b-11e6-4e93-87b2-b29f9e5f9b26")
 	)
