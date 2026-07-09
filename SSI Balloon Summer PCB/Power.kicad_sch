@@ -1877,196 +1877,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Switch:SW_SPDT"
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "SW"
-				(at 0 5.08 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "SW_SPDT"
-				(at 0 -5.08 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 -7.62 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" "Switch, single pole double throw"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "switch single-pole double-throw spdt ON-ON"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "SW_SPDT_0_1"
-				(circle
-					(center -2.032 0)
-					(radius 0.4572)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.651 0.254) (xy 1.651 2.286)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.032 2.54)
-					(radius 0.4572)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.032 -2.54)
-					(radius 0.4572)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "SW_SPDT_1_1"
-				(rectangle
-					(start -3.175 3.81)
-					(end 3.175 -3.81)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(pin passive line
-					(at 5.08 2.54 180)
-					(length 2.54)
-					(name "A"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name "B"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 -2.54 180)
-					(length 2.54)
-					(name "C"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "TPS63070RNMR_1"
 			(pin_names
 				(offset 1.016)
@@ -3605,7 +3415,7 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "-Switch to turn power ON/OFF\n-Battery protection IC will come with battery\n-MF and DMG protect against incorrect polarity and large current spikes\n-Delivers VBAT PROTECTED\n"
+	(text "-Connector 01x02 to connect to Switch to turn power ON/OFF\n-Battery protection IC will come with battery\n-MF and DMG protect against incorrect polarity and large current spikes\n-Delivers VBAT PROTECTED\n"
 		(exclude_from_sim no)
 		(at 119.126 29.21 0)
 		(effects
@@ -4062,16 +3872,6 @@
 			(type default)
 		)
 		(uuid "376add39-5498-406a-a336-d67df9fbd36a")
-	)
-	(wire
-		(pts
-			(xy 134.62 45.72) (xy 143.51 45.72)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3780cfec-27b2-44c5-b21a-21c7b8422fea")
 	)
 	(wire
 		(pts
@@ -4645,16 +4445,6 @@
 	)
 	(wire
 		(pts
-			(xy 121.92 44.45) (xy 121.92 48.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a202a5c3-f6b1-440e-92c7-617dc6ba43ff")
-	)
-	(wire
-		(pts
 			(xy 173.99 119.38) (xy 173.99 127)
 		)
 		(stroke
@@ -4682,6 +4472,16 @@
 			(type default)
 		)
 		(uuid "ab32b1c4-d89a-4909-8342-53c18e71fcd4")
+	)
+	(wire
+		(pts
+			(xy 129.54 45.72) (xy 129.54 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ac8c5bac-5eac-458d-9fea-cf8ff426c39b")
 	)
 	(wire
 		(pts
@@ -4865,6 +4665,16 @@
 	)
 	(wire
 		(pts
+			(xy 127 44.45) (xy 127 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d92a4ba3-adde-4c6a-a376-51ec933cd106")
+	)
+	(wire
+		(pts
 			(xy 170.18 116.84) (xy 170.18 119.38)
 		)
 		(stroke
@@ -4872,16 +4682,6 @@
 			(type default)
 		)
 		(uuid "da686662-9bb0-4f21-bf4f-a2adc74ff9e7")
-	)
-	(wire
-		(pts
-			(xy 121.92 48.26) (xy 124.46 48.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "db42600d-4ae9-485d-8d99-c7f7782c11a1")
 	)
 	(wire
 		(pts
@@ -4905,7 +4705,7 @@
 	)
 	(wire
 		(pts
-			(xy 97.79 44.45) (xy 121.92 44.45)
+			(xy 97.79 44.45) (xy 127 44.45)
 		)
 		(stroke
 			(width 0)
@@ -5012,6 +4812,16 @@
 			(type default)
 		)
 		(uuid "f40458ac-8f95-4156-8f64-24d4728fa2ee")
+	)
+	(wire
+		(pts
+			(xy 129.54 45.72) (xy 143.51 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f42f3652-8545-4ebd-b67d-c4a825d9d0ca")
 	)
 	(wire
 		(pts
@@ -7084,89 +6894,6 @@
 			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "#PWR035")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Switch:SW_SPDT")
-		(at 129.54 48.26 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "6037d1f6-5199-49b1-bc8f-c9ac2ad3ced7")
-		(property "Reference" "SW1"
-			(at 129.54 39.37 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "SW_SPDT"
-			(at 129.54 41.91 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 129.54 48.26 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 129.54 55.88 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Switch, single pole double throw"
-			(at 129.54 48.26 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "659b700c-3f6d-47aa-a55a-ce93ac333f1d")
-		)
-		(pin "3"
-			(uuid "fdb1cdc1-e61c-401f-bc22-a85d477fef9a")
-		)
-		(pin "2"
-			(uuid "68e207f5-b012-40ef-871d-f716c03539b8")
-		)
-		(instances
-			(project "SSI Summer Balloons"
-				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
-					(reference "SW1")
 					(unit 1)
 				)
 			)
@@ -10375,6 +10102,88 @@
 			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
 					(reference "R7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Generic:Conn_01x02")
+		(at 127 38.1 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d60f3818-4ff0-42d7-8be7-c609914e02fa")
+		(property "Reference" "J2"
+			(at 132.08 36.8299 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "Conn_01x02"
+			(at 132.08 39.3699 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Connector_JST:JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical"
+			(at 127 38.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 127 38.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 127 38.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "1fcd446e-11dd-4dca-851d-b8f737e86324")
+		)
+		(pin "1"
+			(uuid "10fc32bf-d646-479e-91b0-86c45b45911f")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/1b5737e2-4399-496a-b942-ad94430e2078"
+					(reference "J2")
 					(unit 1)
 				)
 			)
