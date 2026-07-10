@@ -734,12 +734,6 @@
         },
         {
           "group_by": false,
-          "label": "AVAILABILITY",
-          "name": "AVAILABILITY",
-          "show": false
-        },
-        {
-          "group_by": false,
           "label": "Availability",
           "name": "Availability",
           "show": false
@@ -812,12 +806,6 @@
         },
         {
           "group_by": false,
-          "label": "PACKAGE",
-          "name": "PACKAGE",
-          "show": false
-        },
-        {
-          "group_by": false,
           "label": "PARTREV",
           "name": "PARTREV",
           "show": false
@@ -826,12 +814,6 @@
           "group_by": false,
           "label": "PART_REV",
           "name": "PART_REV",
-          "show": false
-        },
-        {
-          "group_by": false,
-          "label": "PRICE",
-          "name": "PRICE",
           "show": false
         },
         {
@@ -931,7 +913,7 @@
         "uuid": "3c45a535-6e6b-4825-ad52-82c10cbe7866"
       }
     ],
-    "used_designators": "C49",
+    "used_designators": "",
     "variants": []
   },
   "sheets": [
