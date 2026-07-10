@@ -2205,16 +2205,16 @@
 		(uuid "1bf47590-46ba-46fb-b095-30b3199207a2")
 	)
 	(junction
+		(at 77.47 151.13)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "21a962f1-9816-4579-ab45-e4906ef4678b")
+	)
+	(junction
 		(at 35.56 96.52)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "2bf5a0c4-957f-4eb7-9ba1-a70ae2be0e3b")
-	)
-	(junction
-		(at 77.47 151.13)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "2fde57de-64c2-4821-b10e-6bfa89ad1eb7")
 	)
 	(junction
 		(at 123.19 86.36)
@@ -2365,6 +2365,16 @@
 			(type default)
 		)
 		(uuid "0cdbca97-3ad4-45aa-a81b-c1cf1ab9556c")
+	)
+	(wire
+		(pts
+			(xy 77.47 151.13) (xy 111.76 151.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0ebfeb28-f750-4dc2-980e-0797b2e85e8f")
 	)
 	(wire
 		(pts
@@ -3185,16 +3195,6 @@
 			(type default)
 		)
 		(uuid "f78b1050-6a2d-432b-9275-162d34f3428e")
-	)
-	(wire
-		(pts
-			(xy 77.47 151.13) (xy 111.76 151.13)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fa26c657-b7f8-49b5-9c03-edce9bab24bc")
 	)
 	(wire
 		(pts
@@ -5385,7 +5385,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 77.47 147.32 180)
+		(at 77.47 147.32 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -5395,7 +5395,7 @@
 		(dnp no)
 		(uuid "83391855-07cb-4714-902d-0a87f88a5e21")
 		(property "Reference" "R25"
-			(at 75.438 148.59 0)
+			(at 79.502 146.05 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5406,7 +5406,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 75.438 146.05 0)
+			(at 79.502 148.59 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5417,7 +5417,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 79.248 147.32 90)
+			(at 75.692 147.32 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
