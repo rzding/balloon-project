@@ -375,6 +375,129 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Connector:TestPoint"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.762)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "TP"
+				(at 0 6.858 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TestPoint"
+				(at 0 5.08 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 5.08 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 5.08 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "test point"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "test point tp"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "Pin* Test*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "TestPoint_0_1"
+				(circle
+					(center 0 3.302)
+					(radius 0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "TestPoint_1_1"
+				(pin passive line
+					(at 0 0 90)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Connector_Generic:Conn_01x05"
 			(pin_names
 				(offset 1.016)
@@ -3125,6 +3248,12 @@
 		(uuid "4cce73a5-f3bb-471f-82c0-d16d4e784882")
 	)
 	(junction
+		(at 199.39 88.9)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4dd0e616-9979-40a3-8e9f-bc1448c6e1f8")
+	)
+	(junction
 		(at 158.75 64.77)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3143,10 +3272,10 @@
 		(uuid "790309ce-4ab2-47e2-b51e-623140c4ca13")
 	)
 	(junction
-		(at 208.28 88.9)
+		(at 175.26 88.9)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "7a4d29e9-b3ab-4816-b728-97cec5a7d675")
+		(uuid "81621c0d-f375-4168-93da-04aa431bb910")
 	)
 	(junction
 		(at 146.05 64.77)
@@ -3171,12 +3300,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "9570870c-a662-4217-a81a-6b3ee6d5f944")
-	)
-	(junction
-		(at 228.6 88.9)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "98f74a10-e08f-4c88-870f-bf38c03b260a")
 	)
 	(junction
 		(at 100.33 224.79)
@@ -3262,7 +3385,7 @@
 	)
 	(wire
 		(pts
-			(xy 208.28 88.9) (xy 208.28 90.17)
+			(xy 199.39 88.9) (xy 199.39 90.17)
 		)
 		(stroke
 			(width 0)
@@ -3332,7 +3455,7 @@
 	)
 	(wire
 		(pts
-			(xy 163.83 88.9) (xy 191.77 88.9)
+			(xy 163.83 88.9) (xy 175.26 88.9)
 		)
 		(stroke
 			(width 0)
@@ -3442,16 +3565,6 @@
 	)
 	(wire
 		(pts
-			(xy 228.6 97.79) (xy 228.6 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "266c0c8a-3646-4aec-99ba-45aac306ed2d")
-	)
-	(wire
-		(pts
 			(xy 114.3 209.55) (xy 137.16 209.55)
 		)
 		(stroke
@@ -3472,6 +3585,16 @@
 	)
 	(wire
 		(pts
+			(xy 175.26 85.09) (xy 175.26 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "29af2a62-c930-4926-8166-f4b7ab6eaaf8")
+	)
+	(wire
+		(pts
 			(xy 335.28 226.06) (xy 347.98 226.06)
 		)
 		(stroke
@@ -3489,16 +3612,6 @@
 			(type default)
 		)
 		(uuid "2a0a7313-9a12-48a1-adea-611f17c3f62e")
-	)
-	(wire
-		(pts
-			(xy 224.79 88.9) (xy 228.6 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2a28192b-9491-43f1-bd46-f53d188feb90")
 	)
 	(wire
 		(pts
@@ -3532,7 +3645,7 @@
 	)
 	(wire
 		(pts
-			(xy 208.28 97.79) (xy 208.28 101.6)
+			(xy 199.39 97.79) (xy 199.39 101.6)
 		)
 		(stroke
 			(width 0)
@@ -3589,6 +3702,16 @@
 			(type default)
 		)
 		(uuid "35c88775-2c53-4961-a204-1d238db65b72")
+	)
+	(wire
+		(pts
+			(xy 327.66 123.19) (xy 327.66 129.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "374a186d-6c3b-4c16-98eb-20895619c21a")
 	)
 	(wire
 		(pts
@@ -3712,7 +3835,7 @@
 	)
 	(wire
 		(pts
-			(xy 208.28 88.9) (xy 217.17 88.9)
+			(xy 199.39 88.9) (xy 210.82 88.9)
 		)
 		(stroke
 			(width 0)
@@ -3799,6 +3922,16 @@
 			(type default)
 		)
 		(uuid "69021ada-ab0a-4480-bfa1-5876a1b536ad")
+	)
+	(wire
+		(pts
+			(xy 175.26 88.9) (xy 186.69 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "691264b3-21a8-4819-a282-32fe8468563e")
 	)
 	(wire
 		(pts
@@ -3889,6 +4022,16 @@
 			(type default)
 		)
 		(uuid "7eaccba7-e23f-4e2b-9181-3025d99202f5")
+	)
+	(wire
+		(pts
+			(xy 267.97 124.46) (xy 267.97 128.27)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7f77112f-0ead-4a49-91b0-268bb824da11")
 	)
 	(wire
 		(pts
@@ -4012,6 +4155,16 @@
 	)
 	(wire
 		(pts
+			(xy 288.29 124.46) (xy 288.29 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "97947ad7-6360-4dfd-82af-ad78d45f47c7")
+	)
+	(wire
+		(pts
 			(xy 90.17 132.08) (xy 90.17 130.81)
 		)
 		(stroke
@@ -4092,7 +4245,7 @@
 	)
 	(wire
 		(pts
-			(xy 199.39 88.9) (xy 208.28 88.9)
+			(xy 194.31 88.9) (xy 199.39 88.9)
 		)
 		(stroke
 			(width 0)
@@ -4249,16 +4402,6 @@
 			(type default)
 		)
 		(uuid "d2132ecc-f80c-4d01-9dbf-4919b3c3e091")
-	)
-	(wire
-		(pts
-			(xy 228.6 88.9) (xy 238.76 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d2691839-eb7c-454c-b4bd-ca21097add5c")
 	)
 	(wire
 		(pts
@@ -4422,6 +4565,16 @@
 	)
 	(wire
 		(pts
+			(xy 308.61 124.46) (xy 308.61 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f7ec0680-0d7c-458e-b131-778385b119c1")
+	)
+	(wire
+		(pts
 			(xy 158.75 64.77) (xy 172.72 64.77)
 		)
 		(stroke
@@ -4429,16 +4582,6 @@
 			(type default)
 		)
 		(uuid "f9cef2f3-9d90-4be4-b95d-9d337710a5f3")
-	)
-	(wire
-		(pts
-			(xy 228.6 88.9) (xy 228.6 90.17)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fb12b098-b4c2-423a-af32-632929c8f07e")
 	)
 	(wire
 		(pts
@@ -4580,6 +4723,16 @@
 		)
 		(uuid "2aea3d71-b758-432d-b511-df17c6dd6b3c")
 	)
+	(label "APRS_AUDIO"
+		(at 210.82 88.9 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2ec0933b-8d0a-4263-9bd7-914cd196eb70")
+	)
 	(label "MOSI"
 		(at 246.38 214.63 0)
 		(effects
@@ -4599,6 +4752,16 @@
 			(justify left bottom)
 		)
 		(uuid "398dcab7-8913-4bfa-9ea8-cc94e58289ca")
+	)
+	(label "NRST"
+		(at 327.66 129.54 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4181b319-8a53-47f2-b0ed-58aa2a809be0")
 	)
 	(label "LoRa_RESET"
 		(at 100.33 147.32 180)
@@ -4649,6 +4812,16 @@
 			(justify right bottom)
 		)
 		(uuid "505621cf-f902-497d-accc-f4e07aecb158")
+	)
+	(label "APRS_PWM"
+		(at 175.26 85.09 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "50bfc4f5-728c-433e-aff7-a7d063ba3334")
 	)
 	(label "GPS_RX"
 		(at 180.34 111.76 0)
@@ -4739,16 +4912,6 @@
 			(justify left bottom)
 		)
 		(uuid "6a7f26ee-26c0-4307-a05d-edd3126b2bf2")
-	)
-	(label "APRS_AUDIO"
-		(at 238.76 88.9 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "6d335876-5e10-4508-a624-b37df6e79ac3")
 	)
 	(label "Cam_CS"
 		(at 240.03 212.09 0)
@@ -4909,6 +5072,26 @@
 			(justify right bottom)
 		)
 		(uuid "bb11abe2-6117-41b5-9b34-f89e959dd370")
+	)
+	(label "APRS_PWM"
+		(at 308.61 130.81 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "bccd1cb5-e8fc-4f56-992e-9b2cabd48866")
+	)
+	(label "APRS_AUDIO"
+		(at 288.29 130.81 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "bf89b629-29b9-41b8-8646-8a3e3073425f")
 	)
 	(label "SDA"
 		(at 60.96 134.62 180)
@@ -5366,6 +5549,17 @@
 				)
 			)
 		)
+		(property "PART_REV" ""
+			(at 99.06 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "c2833c02-c8ab-43e4-9bbe-8ecd3f136ac7")
 		)
@@ -5436,6 +5630,17 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 292.1 219.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
 			(at 292.1 219.71 0)
 			(hide yes)
 			(show_name no)
@@ -5526,6 +5731,17 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 252.73 205.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
 			(at 252.73 205.74 0)
 			(hide yes)
 			(show_name no)
@@ -5696,6 +5912,17 @@
 				)
 			)
 		)
+		(property "PART_REV" ""
+			(at 69.85 130.81 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "925fa3a6-49a6-4dd5-b356-422e200e6c27")
 		)
@@ -5706,6 +5933,96 @@
 			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
 					(reference "R29")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 327.66 123.19 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "13cc0fc0-f3dd-4fe8-a14c-0e720799896c")
+		(property "Reference" "TP10"
+			(at 330.2 118.6179 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 330.2 121.1579 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
+			(at 332.74 123.19 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 332.74 123.19 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "test point"
+			(at 327.66 123.19 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
+			(at 327.66 123.19 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "f105d407-17fe-4773-8bab-79630f7cd373")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
+					(reference "TP10")
 					(unit 1)
 				)
 			)
@@ -5767,6 +6084,17 @@
 		)
 		(property "Description" "Unpolarized capacitor"
 			(at 106.68 209.55 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
+			(at 106.68 209.55 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5948,8 +6276,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 228.6 93.98 0)
+		(lib_id "power:GND")
+		(at 267.97 128.27 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -5957,31 +6285,31 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "2c01ca75-d236-4f62-9f46-70307b99b1a9")
-		(property "Reference" "C48"
-			(at 231.394 92.456 0)
+		(fields_autoplaced yes)
+		(uuid "2a9d47f9-b5a0-4f17-8647-c355b29e20e2")
+		(property "Reference" "#PWR027"
+			(at 267.97 134.62 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Value" "1nF"
-			(at 231.394 94.996 0)
+		(property "Value" "GND"
+			(at 267.97 133.35 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
-			(at 229.5652 97.79 0)
+		(property "Footprint" ""
+			(at 267.97 128.27 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5992,7 +6320,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 228.6 93.98 0)
+			(at 267.97 128.27 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6002,8 +6330,8 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
-			(at 228.6 93.98 0)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 267.97 128.27 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6014,15 +6342,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "06fb4bf0-27ec-404b-989f-65381225e5f3")
-		)
-		(pin "2"
-			(uuid "e986cffb-1c5f-487d-98fa-1dcd06b9dd97")
+			(uuid "1f9b6025-4f6c-4518-83eb-d848d2724c43")
 		)
 		(instances
 			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
-					(reference "C48")
+					(reference "#PWR027")
 					(unit 1)
 				)
 			)
@@ -6173,6 +6498,17 @@
 				)
 			)
 		)
+		(property "PART_REV" ""
+			(at 125.73 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "e8d30800-5d4f-43b3-99b0-ba5b44e81ddc")
 		)
@@ -6245,6 +6581,17 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 118.11 162.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
 			(at 118.11 162.56 0)
 			(hide yes)
 			(show_name no)
@@ -6493,6 +6840,17 @@
 				)
 			)
 		)
+		(property "PART_REV" ""
+			(at 347.98 219.71 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "2856033f-0250-4d16-8e57-4e5d902222ca")
 		)
@@ -6510,7 +6868,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 208.28 101.6 0)
+		(at 199.39 101.6 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -6521,7 +6879,7 @@
 		(fields_autoplaced yes)
 		(uuid "3a84c6dd-664a-47d3-922a-8c9d068a2de1")
 		(property "Reference" "#PWR021"
-			(at 208.28 107.95 0)
+			(at 199.39 107.95 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6532,7 +6890,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 208.28 106.68 0)
+			(at 199.39 106.68 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6542,7 +6900,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 208.28 101.6 0)
+			(at 199.39 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6553,7 +6911,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 208.28 101.6 0)
+			(at 199.39 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6564,7 +6922,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 208.28 101.6 0)
+			(at 199.39 101.6 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6775,6 +7133,17 @@
 				(justify bottom)
 			)
 		)
+		(property "PART_REV" ""
+			(at 114.3 222.25 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "4"
 			(uuid "6c6a24e4-9dbd-42cf-bab9-60ab8713bb99")
 		)
@@ -6953,85 +7322,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
-		(at 220.98 88.9 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "4865a966-41d2-43e8-834d-70686aea2391")
-		(property "Reference" "R31"
-			(at 220.98 91.44 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "47k"
-			(at 220.98 93.98 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 220.98 90.678 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 220.98 88.9 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 220.98 88.9 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "ccfd7f13-e74f-4683-a574-d4eb90816456")
-		)
-		(pin "2"
-			(uuid "9f5b17c4-46d1-469f-a5ef-fdec17b9b6b3")
-		)
-		(instances
-			(project "SSI Summer Balloons"
-				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
-					(reference "R31")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 109.22 229.87 0)
 		(unit 1)
@@ -7174,6 +7464,17 @@
 				)
 			)
 		)
+		(property "PART_REV" ""
+			(at 127 241.3 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "20dc12d3-87ec-449f-928a-c9157e36edc2")
 		)
@@ -7256,6 +7557,17 @@
 				)
 			)
 		)
+		(property "PART_REV" ""
+			(at 172.72 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "35abdf49-2ca5-43f3-bb48-dfd2c5ec2ab2")
 		)
@@ -7328,6 +7640,17 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 335.28 219.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
 			(at 335.28 219.71 0)
 			(hide yes)
 			(show_name no)
@@ -7498,6 +7821,17 @@
 				)
 			)
 		)
+		(property "PART_REV" ""
+			(at 191.77 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "8f906626-a228-46eb-abbc-e8aae441a964")
 		)
@@ -7655,6 +7989,17 @@
 				)
 			)
 		)
+		(property "PART_REV" ""
+			(at 107.95 241.3 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "3159244e-5418-4510-8044-7ab6d48fc3c4")
 		)
@@ -7737,6 +8082,17 @@
 				)
 			)
 		)
+		(property "PART_REV" ""
+			(at 347.98 208.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "c52b157e-f989-4936-8034-95b83cc1e6af")
 		)
@@ -7753,8 +8109,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
-		(at 195.58 88.9 90)
+		(lib_id "Connector:TestPoint")
+		(at 267.97 124.46 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -7762,29 +8118,32 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "7e705039-14fb-4e1e-9ef3-29000ca00b87")
-		(property "Reference" "R30"
-			(at 195.58 91.44 90)
+		(fields_autoplaced yes)
+		(uuid "7d95f450-2366-458e-9f18-496c52692323")
+		(property "Reference" "TP5"
+			(at 270.51 119.8879 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
-		(property "Value" "4.7k"
-			(at 195.58 93.98 90)
+		(property "Value" "TestPoint"
+			(at 270.51 122.4279 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 195.58 90.678 90)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
+			(at 273.05 124.46 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7795,7 +8154,94 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 195.58 88.9 0)
+			(at 273.05 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "test point"
+			(at 267.97 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
+			(at 267.97 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "7ff191db-d076-414c-859a-993fc29108f1")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
+					(reference "TP5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 190.5 88.9 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "7e705039-14fb-4e1e-9ef3-29000ca00b87")
+		(property "Reference" "R30"
+			(at 190.5 91.44 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 190.5 93.98 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 190.5 90.678 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 190.5 88.9 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7806,7 +8252,18 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 195.58 88.9 0)
+			(at 190.5 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
+			(at 190.5 88.9 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7888,6 +8345,17 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 378.46 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
 			(at 378.46 222.25 0)
 			(hide yes)
 			(show_name no)
@@ -7980,6 +8448,17 @@
 				)
 			)
 		)
+		(property "PART_REV" ""
+			(at 261.62 219.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "7"
 			(uuid "aaa32c51-b860-4fe5-be44-15844bce65aa")
 		)
@@ -8014,8 +8493,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 208.28 93.98 0)
+		(lib_id "Connector:TestPoint")
+		(at 288.29 124.46 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -8023,9 +8502,10 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "901670b0-ec00-401f-b389-bef525aaba2a")
-		(property "Reference" "C47"
-			(at 211.074 92.456 0)
+		(fields_autoplaced yes)
+		(uuid "8777b64b-9fe1-423b-8546-170b78c8371e")
+		(property "Reference" "TP6"
+			(at 290.83 119.8879 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -8035,8 +8515,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10nF"
-			(at 211.074 94.996 0)
+		(property "Value" "TestPoint"
+			(at 290.83 122.4279 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -8046,8 +8526,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
-			(at 209.2452 97.79 0)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
+			(at 293.37 124.46 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8058,7 +8538,96 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 208.28 93.98 0)
+			(at 293.37 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "test point"
+			(at 288.29 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
+			(at 288.29 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "81fdf7f1-879b-4473-9857-3965af049ae1")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
+					(reference "TP6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 199.39 93.98 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "901670b0-ec00-401f-b389-bef525aaba2a")
+		(property "Reference" "C47"
+			(at 202.184 92.456 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22nF"
+			(at 202.184 94.996 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 200.3552 97.79 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 199.39 93.98 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8069,7 +8638,18 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 208.28 93.98 0)
+			(at 199.39 93.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
+			(at 199.39 93.98 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8395,6 +8975,17 @@
 				)
 			)
 		)
+		(property "PART_REV" ""
+			(at 158.75 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "140a9dfc-d454-48b5-9c32-3d014c4f4465")
 		)
@@ -8555,6 +9146,17 @@
 				)
 			)
 		)
+		(property "PART_REV" ""
+			(at 204.47 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "b2baae52-9f23-41fd-a6af-25b3733bf44a")
 		)
@@ -8627,6 +9229,17 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 113.03 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
 			(at 113.03 68.58 0)
 			(hide yes)
 			(show_name no)
@@ -8788,6 +9401,17 @@
 		)
 		(property "Description" "Single Pole Single Throw (SPST) switch"
 			(at 378.46 210.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
+			(at 378.46 210.82 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9025,6 +9649,17 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 90.17 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
 			(at 90.17 127 0)
 			(hide yes)
 			(show_name no)
@@ -9274,6 +9909,17 @@
 				)
 			)
 		)
+		(property "PART_REV" ""
+			(at 146.05 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "39"
 			(uuid "942b033c-31b7-499f-9fda-340faeb4ff23")
 		)
@@ -9444,84 +10090,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 228.6 101.6 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "f4c247f6-5e48-4efa-b4ea-b5ca569260e0")
-		(property "Reference" "#PWR069"
-			(at 228.6 107.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 228.6 106.68 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 228.6 101.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 228.6 101.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 228.6 101.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "d19c5528-fc67-4c0c-a97d-329c07739eef")
-		)
-		(instances
-			(project "SSI Summer Balloons"
-				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
-					(reference "#PWR069")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:+3V3")
 		(at 347.98 203.2 0)
 		(unit 1)
@@ -9594,6 +10162,96 @@
 			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
 					(reference "#PWR056")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 308.61 124.46 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f970f0b6-72e8-4d42-8580-f3e495fc21ff")
+		(property "Reference" "TP9"
+			(at 311.15 119.8879 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 311.15 122.4279 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
+			(at 313.69 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 313.69 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "test point"
+			(at 308.61 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
+			(at 308.61 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "12df2a15-033e-4877-9f1a-a4e8ecafc386")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
+					(reference "TP9")
 					(unit 1)
 				)
 			)

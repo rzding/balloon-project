@@ -1605,6 +1605,17 @@
 				)
 			)
 		)
+		(property "PART_REV" ""
+			(at 144.78 93.98 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "80270b44-07a3-45ed-9458-6294ce621d0f")
 		)
@@ -1676,6 +1687,17 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 62.23 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
 			(at 62.23 72.39 0)
 			(hide yes)
 			(show_name no)
@@ -2110,6 +2132,17 @@
 				(justify bottom)
 			)
 		)
+		(property "PART_REV" ""
+			(at 69.85 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "7"
 			(uuid "0841bdb0-2d76-428e-81e4-e99069884d79")
 		)
@@ -2206,6 +2239,17 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 41.91 87.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
 			(at 41.91 87.63 0)
 			(hide yes)
 			(show_name no)
@@ -2444,6 +2488,17 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 144.78 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
 			(at 144.78 86.36 0)
 			(hide yes)
 			(show_name no)
