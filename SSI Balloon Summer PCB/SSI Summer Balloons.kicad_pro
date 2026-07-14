@@ -146,7 +146,7 @@
       },
       "rules": {
         "max_error": 0.005,
-        "min_clearance": 0.0,
+        "min_clearance": 0.15,
         "min_connection": 0.0,
         "min_copper_edge_clearance": 0.5,
         "min_groove_width": 0.0,
@@ -532,20 +532,20 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "SSI APRS.kicad_pro",
+    "filename": "SSI Summer Balloons.kicad_pro",
     "version": 3
   },
   "net_settings": {
     "classes": [
       {
         "bus_width": 12,
-        "clearance": 0.2,
-        "diff_pair_gap": 0.25,
+        "clearance": 0.15,
+        "diff_pair_gap": 0.2,
         "diff_pair_via_gap": 0.25,
         "diff_pair_width": 0.2,
         "line_style": 0,
         "microvia_diameter": 0.3,
-        "microvia_drill": 0.1,
+        "microvia_drill": 0.15,
         "name": "Default",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2147483647,
@@ -555,6 +555,96 @@
         "via_diameter": 0.6,
         "via_drill": 0.3,
         "wire_width": 6
+      },
+      {
+        "clearance": 0.15,
+        "diff_pair_gap": 0.2,
+        "diff_pair_width": 0.5,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.15,
+        "name": "GND",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 0,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.5,
+        "tuning_profile": "",
+        "via_diameter": 0.6,
+        "via_drill": 0.3
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.2,
+        "diff_pair_width": 0.3,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.15,
+        "name": "Power_3V3",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 4,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.3,
+        "tuning_profile": "",
+        "via_diameter": 0.6,
+        "via_drill": 0.3
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.2,
+        "diff_pair_width": 0.5,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.15,
+        "name": "Power_4V1",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 2,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.5,
+        "tuning_profile": "",
+        "via_diameter": 0.7,
+        "via_drill": 0.4
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.2,
+        "diff_pair_width": 0.6,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.15,
+        "name": "Power_HV",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 3,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 1.0,
+        "tuning_profile": "",
+        "via_diameter": 0.8,
+        "via_drill": 0.4
+      },
+      {
+        "clearance": 0.3,
+        "diff_pair_gap": 0.3,
+        "diff_pair_width": 0.35,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.15,
+        "name": "RF_50R",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 1,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.35,
+        "tuning_profile": "",
+        "via_diameter": 0.6,
+        "via_drill": 0.3
+      },
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.2,
+        "diff_pair_width": 0.2,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.15,
+        "name": "Signal_Fast",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 5,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.2,
+        "tuning_profile": "",
+        "via_diameter": 0.6,
+        "via_drill": 0.3
       }
     ],
     "meta": {
@@ -645,14 +735,44 @@
         },
         {
           "group_by": false,
+          "label": "Availability",
+          "name": "Availability",
+          "show": false
+        },
+        {
+          "group_by": false,
           "label": "Check_prices",
           "name": "Check_prices",
           "show": false
         },
         {
           "group_by": false,
+          "label": "Comment",
+          "name": "Comment",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "DIGIKEY-PURCHASE-URL",
+          "name": "DIGIKEY-PURCHASE-URL",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "DigiKey_Part_Number",
+          "name": "DigiKey_Part_Number",
+          "show": false
+        },
+        {
+          "group_by": false,
           "label": "MANUFACTURER",
           "name": "MANUFACTURER",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "MANUFACTURER_PART_NUMBER",
+          "name": "MANUFACTURER_PART_NUMBER",
           "show": false
         },
         {
@@ -665,6 +785,18 @@
           "group_by": false,
           "label": "MF",
           "name": "MF",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "MFR_NAME",
+          "name": "MFR_NAME",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "MOUSER-PURCHASE-URL",
+          "name": "MOUSER-PURCHASE-URL",
           "show": false
         },
         {
@@ -705,14 +837,20 @@
         },
         {
           "group_by": false,
+          "label": "Sim.Pins",
+          "name": "Sim.Pins",
+          "show": false
+        },
+        {
+          "group_by": false,
           "label": "SnapEDA_Link",
           "name": "SnapEDA_Link",
           "show": false
         },
         {
           "group_by": false,
-          "label": "Availability",
-          "name": "Availability",
+          "label": "ARROW_ELECTRONICS-PURCHASE-URL",
+          "name": "ARROW_ELECTRONICS-PURCHASE-URL",
           "show": false
         },
         {
@@ -726,6 +864,24 @@
           "label": "#",
           "name": "${ITEM_NUMBER}",
           "show": false
+        },
+        {
+          "group_by": false,
+          "label": "PRICE",
+          "name": "PRICE",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "AVAILABILITY",
+          "name": "AVAILABILITY",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "PACKAGE",
+          "name": "PACKAGE",
+          "show": false
         }
       ],
       "filter_string": "",
@@ -733,7 +889,7 @@
       "include_excluded_from_bom": true,
       "name": "",
       "sort_asc": true,
-      "sort_field": "Reference"
+      "sort_field": "Datasheet"
     },
     "bus_aliases": {},
     "connection_grid_size": 50.0,
@@ -771,18 +927,42 @@
     "subpart_id_separator": 0,
     "top_level_sheets": [
       {
-        "filename": "SSI APRS.kicad_sch",
-        "name": "SSI APRS",
-        "uuid": "6fdc2a63-d166-4024-986d-dc464eaf1c4d"
+        "filename": "SSI Summer Balloons.kicad_sch",
+        "name": "SSI Summer Balloons",
+        "uuid": "3c45a535-6e6b-4825-ad52-82c10cbe7866"
       }
     ],
-    "used_designators": "R13-14,#PWR74-75",
+    "used_designators": "",
     "variants": []
   },
   "sheets": [
     [
-      "6fdc2a63-d166-4024-986d-dc464eaf1c4d",
-      "SSI APRS"
+      "3c45a535-6e6b-4825-ad52-82c10cbe7866",
+      "SSI Summer Balloons"
+    ],
+    [
+      "1b5737e2-4399-496a-b942-ad94430e2078",
+      "Power"
+    ],
+    [
+      "b11ef58b-98ba-47ea-88cc-0eee30828228",
+      "MCU (STM)"
+    ],
+    [
+      "0dfa70d3-600a-4378-88cc-26e3fb39b4f5",
+      "GPS"
+    ],
+    [
+      "2467bfc8-9a58-45c6-9683-5b5ac73ee36d",
+      "Radio"
+    ],
+    [
+      "98c67578-63cf-4cdd-a22b-0d2ebd53e276",
+      "Sensor"
+    ],
+    [
+      "0df234a1-8d04-4ff9-99d5-3634fc842029",
+      "microSD"
     ]
   ],
   "text_variables": {},

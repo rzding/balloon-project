@@ -2273,7 +2273,7 @@
 		)
 		(uuid "b97f2896-24cc-4a84-b653-70ba7e03760f")
 	)
-	(text "ADD PULL UP RESISTORS ON MAINBOARD"
+	(text "ADD PULL UP RESISTORS ON MAINBOARD (DONE!)"
 		(exclude_from_sim no)
 		(at 180.848 115.062 0)
 		(effects
@@ -2326,12 +2326,6 @@
 		(uuid "57bd6a62-f126-4cfd-96cd-aa896c4aabbd")
 	)
 	(junction
-		(at 184.15 109.22)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "649bab3d-be97-4f78-96dd-e17c89d37866")
-	)
-	(junction
 		(at 57.15 85.09)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2378,12 +2372,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "be49a042-79ac-4d16-9c12-eefeced7d05e")
-	)
-	(junction
-		(at 207.01 106.68)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "c8041081-ebcc-4891-bb98-7fce2e4ebd52")
 	)
 	(junction
 		(at 116.84 85.09)
@@ -2659,16 +2647,6 @@
 	)
 	(wire
 		(pts
-			(xy 184.15 109.22) (xy 215.9 109.22)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "488d78f9-38c0-41d7-b4e9-1ebe88285de1")
-	)
-	(wire
-		(pts
 			(xy 99.06 85.09) (xy 116.84 85.09)
 		)
 		(stroke
@@ -2929,16 +2907,6 @@
 	)
 	(wire
 		(pts
-			(xy 172.72 109.22) (xy 184.15 109.22)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "86a34c52-67c9-4333-8736-8f29f1ebc882")
-	)
-	(wire
-		(pts
 			(xy 58.42 92.71) (xy 60.96 92.71)
 		)
 		(stroke
@@ -3059,16 +3027,6 @@
 	)
 	(wire
 		(pts
-			(xy 207.01 106.68) (xy 215.9 106.68)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c96eb704-f48f-4395-8329-fd7e3f81e7cd")
-	)
-	(wire
-		(pts
 			(xy 31.75 72.39) (xy 31.75 74.93)
 		)
 		(stroke
@@ -3176,16 +3134,6 @@
 			(type default)
 		)
 		(uuid "dd68f2d9-9950-4ffd-89ec-79e1cb99de90")
-	)
-	(wire
-		(pts
-			(xy 195.58 106.68) (xy 207.01 106.68)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dda3fd99-19a3-4ad5-b5a8-6c61fe410d67")
 	)
 	(wire
 		(pts
@@ -3318,12 +3266,12 @@
 		(uuid "592c3d9b-585f-4c50-9b7f-e80d86a8609b")
 	)
 	(label "APRS_PD"
-		(at 172.72 109.22 0)
+		(at 215.9 109.22 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
 		(uuid "91b6ea3b-258f-42a9-a508-519131f2f05c")
 	)
@@ -3358,12 +3306,12 @@
 		(uuid "ab838204-135c-493e-9419-c70856a5abed")
 	)
 	(label "APRS_PTT"
-		(at 195.58 106.68 0)
+		(at 215.9 106.68 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
 		(uuid "df039d6e-7fbd-454e-b782-0e4f59f69286")
 	)
@@ -4088,84 +4036,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+3V3")
-		(at 184.15 101.6 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "31a0fd8a-45f9-4ab2-a646-20f9e3189da8")
-		(property "Reference" "#PWR072"
-			(at 184.15 105.41 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "+3V3"
-			(at 184.15 96.52 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 184.15 101.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 184.15 101.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+3V3\""
-			(at 184.15 101.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "aba8820f-cf8d-4cf1-a1af-573ab1bd000b")
-		)
-		(instances
-			(project "SSI APRS"
-				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
-					(reference "#PWR072")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 57.15 35.56 90)
 		(unit 1)
@@ -4319,84 +4189,6 @@
 			(project "SSI APRS"
 				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
 					(reference "C36")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+3V3")
-		(at 207.01 99.06 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "42dd86f8-fa87-4ae4-bf95-992a0907bb4b")
-		(property "Reference" "#PWR073"
-			(at 207.01 102.87 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "+3V3"
-			(at 207.01 93.98 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 207.01 99.06 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 207.01 99.06 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+3V3\""
-			(at 207.01 99.06 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "90840003-9792-4511-b22f-0faf1977965e")
-		)
-		(instances
-			(project "SSI APRS"
-				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
-					(reference "#PWR073")
 					(unit 1)
 				)
 			)
@@ -5030,87 +4822,6 @@
 			(project "SSI APRS"
 				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
 					(reference "#PWR040")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 184.15 105.41 180)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "67bad601-424e-4594-8319-f3a38b897271")
-		(property "Reference" "R12"
-			(at 186.69 104.1399 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "10k"
-			(at 186.69 106.6799 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 185.928 105.41 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 184.15 105.41 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 184.15 105.41 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "a4a74904-51a6-449b-af85-c1588a3f07c4")
-		)
-		(pin "2"
-			(uuid "cbf0a35c-60ee-4e55-a9e0-9053a42b0a2b")
-		)
-		(instances
-			(project "SSI APRS"
-				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
-					(reference "R12")
 					(unit 1)
 				)
 			)
@@ -6887,88 +6598,6 @@
 			(project "SSI APRS"
 				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
 					(reference "C16")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 207.01 102.87 180)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "d21a3e8e-34ed-41b2-95e1-83853c6aa75e")
-		(property "Reference" "R11"
-			(at 209.55 101.5999 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "10k"
-			(at 209.55 104.1399 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 208.788 102.87 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 207.01 102.87 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 207.01 102.87 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "76662e39-5afb-445c-a5bb-ca0519c0d122")
-		)
-		(pin "2"
-			(uuid "31a2af49-8a8e-4f81-acfa-e1848e79cacc")
-		)
-		(instances
-			(project "SSI APRS"
-				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
-					(reference "R11")
 					(unit 1)
 				)
 			)

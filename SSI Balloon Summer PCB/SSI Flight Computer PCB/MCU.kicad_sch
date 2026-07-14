@@ -5403,7 +5403,7 @@
 				)
 			)
 		)
-		(property "Value" "Conn_01x05"
+		(property "Value" "SWDIO"
 			(at 292.1 210.82 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6438,7 +6438,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3a235b10-5bdf-4517-a7fa-176b93a897df")
-		(property "Reference" "SW2"
+		(property "Reference" "SW1"
 			(at 349.25 218.4399 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6449,7 +6449,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "SW_SPST"
+		(property "Value" "NRST"
 			(at 349.25 220.9799 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6502,7 +6502,7 @@
 		(instances
 			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
-					(reference "SW2")
+					(reference "SW1")
 					(unit 1)
 				)
 			)
@@ -8742,7 +8742,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c56b102e-9dee-41b0-910b-c607223816b0")
-		(property "Reference" "SW3"
+		(property "Reference" "SW2"
 			(at 379.73 209.5499 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8753,7 +8753,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "SW_SPST"
+		(property "Value" "BOOT0"
 			(at 379.73 212.0899 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8806,7 +8806,7 @@
 		(instances
 			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
-					(reference "SW3")
+					(reference "SW2")
 					(unit 1)
 				)
 			)
