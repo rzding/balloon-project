@@ -4425,7 +4425,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "36c8ff06-cc92-4bbf-a290-a3e5b622307f")
-		(property "Reference" "TP7"
+		(property "Reference" "APRS_PTT1"
 			(at 149.86 34.7979 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4486,7 +4486,7 @@
 		(instances
 			(project "SSI APRS"
 				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
-					(reference "TP7")
+					(reference "APRS_PTT1")
 					(unit 1)
 				)
 			)
@@ -4897,7 +4897,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "5ac4be52-1704-4e12-999a-e947edcd2bab")
-		(property "Reference" "TP4"
+		(property "Reference" "GND2"
 			(at 241.3 34.7979 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4958,7 +4958,7 @@
 		(instances
 			(project "SSI APRS"
 				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
-					(reference "TP4")
+					(reference "GND2")
 					(unit 1)
 				)
 			)
@@ -5296,7 +5296,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "68cb9c15-558c-462c-8024-367a48bbe401")
-		(property "Reference" "TP2"
+		(property "Reference" "+5V_TEST1"
 			(at 207.01 36.0679 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5357,7 +5357,7 @@
 		(instances
 			(project "SSI APRS"
 				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
-					(reference "TP2")
+					(reference "+5V_TEST1")
 					(unit 1)
 				)
 			)
@@ -6829,7 +6829,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ad2ae8c7-ef42-4c37-a44f-bd5548184017")
-		(property "Reference" "TP6"
+		(property "Reference" "APRS_PD1"
 			(at 167.64 34.7979 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6890,7 +6890,7 @@
 		(instances
 			(project "SSI APRS"
 				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
-					(reference "TP6")
+					(reference "APRS_PD1")
 					(unit 1)
 				)
 			)
@@ -7309,7 +7309,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c6973b16-674d-454b-8657-ea24c8f34335")
-		(property "Reference" "TP3"
+		(property "Reference" "GND1"
 			(at 223.52 34.7979 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7370,7 +7370,7 @@
 		(instances
 			(project "SSI APRS"
 				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
-					(reference "TP3")
+					(reference "GND1")
 					(unit 1)
 				)
 			)
@@ -8097,7 +8097,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f6139fdb-90d0-4930-b54e-b9a89a465f97")
-		(property "Reference" "TP5"
+		(property "Reference" "+4V1"
 			(at 256.54 34.7979 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8158,7 +8158,7 @@
 		(instances
 			(project "SSI APRS"
 				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
-					(reference "TP5")
+					(reference "+4V1")
 					(unit 1)
 				)
 			)
@@ -8255,7 +8255,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fd824290-8fcb-4d3e-9de7-072599e2a07d")
-		(property "Reference" "TP1"
+		(property "Reference" "APRS_AUDIO1"
 			(at 186.69 36.0679 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8316,7 +8316,7 @@
 		(instances
 			(project "SSI APRS"
 				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
-					(reference "TP1")
+					(reference "APRS_AUDIO1")
 					(unit 1)
 				)
 			)

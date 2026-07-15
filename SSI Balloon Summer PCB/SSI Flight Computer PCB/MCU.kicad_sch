@@ -4395,6 +4395,16 @@
 	)
 	(wire
 		(pts
+			(xy 306.07 144.78) (xy 306.07 151.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d0e26a20-e7ca-45f6-b384-a1360eed000e")
+	)
+	(wire
+		(pts
 			(xy 334.01 34.29) (xy 340.36 34.29)
 		)
 		(stroke
@@ -4532,6 +4542,16 @@
 			(type default)
 		)
 		(uuid "ea9e5cd0-cb81-4dfc-ace7-92c051e1f318")
+	)
+	(wire
+		(pts
+			(xy 289.56 144.78) (xy 289.56 151.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ecaecde7-279e-49c0-bf51-59cb727579c1")
 	)
 	(wire
 		(pts
@@ -4712,6 +4732,16 @@
 			(justify right bottom)
 		)
 		(uuid "249845d6-845c-4449-b3fd-6ed128b76062")
+	)
+	(label "APRS_PD"
+		(at 289.56 151.13 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "28eeb12b-4772-4cb1-9896-79d98062cd82")
 	)
 	(label "SCK"
 		(at 180.34 101.6 0)
@@ -5272,6 +5302,16 @@
 			(justify right bottom)
 		)
 		(uuid "fb050ec9-7cec-4589-bd44-323f06075b2f")
+	)
+	(label "APRS_PTT"
+		(at 306.07 151.13 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ff0b8a24-979f-45b5-845f-967d3e17feee")
 	)
 	(hierarchical_label "MOSI"
 		(shape output)
@@ -7755,6 +7795,96 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 289.56 144.78 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "61f3e206-98a7-4689-a9a0-aa0c36ab1b33")
+		(property "Reference" "TP14"
+			(at 292.1 140.2079 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 292.1 142.7479 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
+			(at 294.64 144.78 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 294.64 144.78 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "test point"
+			(at 289.56 144.78 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
+			(at 289.56 144.78 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "97b00f93-c9f4-4859-95e5-b935630d4b85")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
+					(reference "TP14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 191.77 68.58 0)
 		(mirror y)
@@ -10084,6 +10214,96 @@
 			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
 					(reference "U7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 306.07 144.78 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f2969212-1167-4a5d-85c9-80a5237e71cf")
+		(property "Reference" "TP15"
+			(at 308.61 140.2079 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 308.61 142.7479 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
+			(at 311.15 144.78 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 311.15 144.78 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "test point"
+			(at 306.07 144.78 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
+			(at 306.07 144.78 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "dc423036-9982-41a1-8c89-82354914ccea")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
+					(reference "TP15")
 					(unit 1)
 				)
 			)
