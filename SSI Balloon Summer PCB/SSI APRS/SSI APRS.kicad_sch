@@ -191,12 +191,9 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Connector:TestPoint"
-			(pin_numbers
-				(hide yes)
-			)
+		(symbol "Connector_Generic:Conn_01x01"
 			(pin_names
-				(offset 0.762)
+				(offset 1.016)
 				(hide yes)
 			)
 			(exclude_from_sim no)
@@ -204,8 +201,8 @@
 			(on_board yes)
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "TP"
-				(at 0 6.858 0)
+			(property "Reference" "J"
+				(at 0 2.54 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -214,8 +211,8 @@
 					)
 				)
 			)
-			(property "Value" "TestPoint"
-				(at 0 5.08 0)
+			(property "Value" "Conn_01x01"
+				(at 0 -2.54 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -225,7 +222,7 @@
 				)
 			)
 			(property "Footprint" ""
-				(at 5.08 0 0)
+				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(hide yes)
@@ -236,17 +233,6 @@
 				)
 			)
 			(property "Datasheet" ""
-				(at 5.08 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" "test point"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -257,7 +243,7 @@
 					)
 				)
 			)
-			(property "ki_keywords" "test point tp"
+			(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -268,7 +254,7 @@
 					)
 				)
 			)
-			(property "ki_fp_filters" "Pin* Test*"
+			(property "ki_keywords" "connector"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -279,24 +265,44 @@
 					)
 				)
 			)
-			(symbol "TestPoint_0_1"
-				(circle
-					(center 0 3.302)
-					(radius 0.762)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "Conn_01x01_1_1"
+				(rectangle
+					(start -1.27 1.27)
+					(end 1.27 -1.27)
 					(stroke
-						(width 0)
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(rectangle
+					(start -1.27 0.127)
+					(end 0 -0.127)
+					(stroke
+						(width 0.1524)
 						(type default)
 					)
 					(fill
 						(type none)
 					)
 				)
-			)
-			(symbol "TestPoint_1_1"
 				(pin passive line
-					(at 0 0 90)
-					(length 2.54)
-					(name "1"
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2566,7 +2572,7 @@
 	)
 	(wire
 		(pts
-			(xy 238.76 39.37) (xy 238.76 44.45)
+			(xy 229.87 35.56) (xy 229.87 40.64)
 		)
 		(stroke
 			(width 0)
@@ -2576,7 +2582,7 @@
 	)
 	(wire
 		(pts
-			(xy 204.47 40.64) (xy 204.47 46.99)
+			(xy 187.96 36.83) (xy 187.96 43.18)
 		)
 		(stroke
 			(width 0)
@@ -2636,7 +2642,7 @@
 	)
 	(wire
 		(pts
-			(xy 254 39.37) (xy 254 45.72)
+			(xy 251.46 35.56) (xy 251.46 41.91)
 		)
 		(stroke
 			(width 0)
@@ -3066,7 +3072,7 @@
 	)
 	(wire
 		(pts
-			(xy 147.32 39.37) (xy 147.32 45.72)
+			(xy 123.19 36.83) (xy 123.19 43.18)
 		)
 		(stroke
 			(width 0)
@@ -3136,7 +3142,7 @@
 	)
 	(wire
 		(pts
-			(xy 220.98 39.37) (xy 220.98 44.45)
+			(xy 208.28 35.56) (xy 208.28 40.64)
 		)
 		(stroke
 			(width 0)
@@ -3316,7 +3322,7 @@
 	)
 	(wire
 		(pts
-			(xy 165.1 39.37) (xy 165.1 45.72)
+			(xy 144.78 36.83) (xy 144.78 43.18)
 		)
 		(stroke
 			(width 0)
@@ -3326,7 +3332,7 @@
 	)
 	(wire
 		(pts
-			(xy 184.15 40.64) (xy 184.15 46.99)
+			(xy 165.1 36.83) (xy 165.1 43.18)
 		)
 		(stroke
 			(width 0)
@@ -3495,7 +3501,7 @@
 		(uuid "1fb0e15d-7e2d-456e-bf02-b9f432df87b6")
 	)
 	(label "APRS_PD"
-		(at 165.1 45.72 0)
+		(at 144.78 43.18 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3505,7 +3511,7 @@
 		(uuid "2c59d3df-14c6-4ef6-a754-4d11cac7a955")
 	)
 	(label "APRS_AUDIO"
-		(at 184.15 46.99 0)
+		(at 165.1 43.18 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3515,7 +3521,7 @@
 		(uuid "2ec2f143-dae3-4ca5-8ba6-e3da661474c6")
 	)
 	(label "APRS_PTT"
-		(at 147.32 45.72 0)
+		(at 123.19 43.18 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3535,7 +3541,7 @@
 		(uuid "48d9ef84-cab7-4434-91d7-a1749785c62a")
 	)
 	(label "+5V"
-		(at 204.47 46.99 0)
+		(at 187.96 43.18 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3595,7 +3601,7 @@
 		(uuid "ab838204-135c-493e-9419-c70856a5abed")
 	)
 	(label "+4V1"
-		(at 254 45.72 0)
+		(at 251.46 41.91 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -4335,6 +4341,85 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector_Generic:Conn_01x01")
+		(at 256.54 35.56 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "2b307c80-f6a3-470c-8759-d6f387ad3317")
+		(property "Reference" "TP7"
+			(at 259.08 34.2899 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Conn_01x01"
+			(at 259.08 36.8299 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical"
+			(at 256.54 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 256.54 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 256.54 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "ea7204f8-a619-4d00-bf5a-2fba6796c0d9")
+		)
+		(instances
+			(project "SSI APRS"
+				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
+					(reference "TP7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 57.15 35.56 90)
 		(unit 1)
@@ -4408,85 +4493,6 @@
 			(project "SSI APRS"
 				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
 					(reference "#PWR02")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 147.32 39.37 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "36c8ff06-cc92-4bbf-a290-a3e5b622307f")
-		(property "Reference" "APRS_PTT1"
-			(at 149.86 34.7979 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 149.86 37.3379 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
-			(at 152.4 39.37 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 152.4 39.37 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "test point"
-			(at 147.32 39.37 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "f160c90f-3130-4507-8c0c-f72e52be7003")
-		)
-		(instances
-			(project "SSI APRS"
-				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
-					(reference "APRS_PTT1")
 					(unit 1)
 				)
 			)
@@ -4645,6 +4651,85 @@
 			(project "SSI APRS"
 				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
 					(reference "#PWR033")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Generic:Conn_01x01")
+		(at 128.27 36.83 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "4f7911cb-5bda-4a49-a7c8-2e18776ec215")
+		(property "Reference" "TP1"
+			(at 130.81 35.5599 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Conn_01x01"
+			(at 130.81 38.0999 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical"
+			(at 128.27 36.83 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 128.27 36.83 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 128.27 36.83 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "6e864e3b-9950-4836-9c7f-905ed79698e8")
+		)
+		(instances
+			(project "SSI APRS"
+				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
+					(reference "TP1")
 					(unit 1)
 				)
 			)
@@ -4886,8 +4971,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 238.76 39.37 0)
+		(lib_id "Connector_Generic:Conn_01x01")
+		(at 149.86 36.83 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4896,9 +4981,9 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "5ac4be52-1704-4e12-999a-e947edcd2bab")
-		(property "Reference" "GND2"
-			(at 241.3 34.7979 0)
+		(uuid "5f619962-100f-4115-989f-534118e58d19")
+		(property "Reference" "TP2"
+			(at 152.4 35.5599 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4908,8 +4993,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 241.3 37.3379 0)
+		(property "Value" "Conn_01x01"
+			(at 152.4 38.0999 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4919,8 +5004,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
-			(at 243.84 39.37 0)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical"
+			(at 149.86 36.83 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4931,7 +5016,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 243.84 39.37 0)
+			(at 149.86 36.83 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4941,8 +5026,8 @@
 				)
 			)
 		)
-		(property "Description" "test point"
-			(at 238.76 39.37 0)
+		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 149.86 36.83 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4953,12 +5038,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "87f87d0d-a06e-4c22-bb09-2897b9229f43")
+			(uuid "23943929-521d-4a7b-8a80-10165c611a49")
 		)
 		(instances
 			(project "SSI APRS"
 				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
-					(reference "GND2")
+					(reference "TP2")
 					(unit 1)
 				)
 			)
@@ -5279,85 +5364,6 @@
 			(project "SSI APRS"
 				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
 					(reference "#PWR040")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 204.47 40.64 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "68cb9c15-558c-462c-8024-367a48bbe401")
-		(property "Reference" "+5V_TEST1"
-			(at 207.01 36.0679 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 207.01 38.6079 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
-			(at 209.55 40.64 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 209.55 40.64 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "test point"
-			(at 204.47 40.64 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "df3ccb98-4e0a-4212-b0b4-f25f37f1bde2")
-		)
-		(instances
-			(project "SSI APRS"
-				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
-					(reference "+5V_TEST1")
 					(unit 1)
 				)
 			)
@@ -6268,7 +6274,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 238.76 44.45 0)
+		(at 229.87 40.64 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -6279,7 +6285,7 @@
 		(fields_autoplaced yes)
 		(uuid "9d93b36e-a336-4a4d-8c7b-e6b2bbf4ac24")
 		(property "Reference" "#PWR04"
-			(at 238.76 50.8 0)
+			(at 229.87 46.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6290,7 +6296,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 238.76 49.53 0)
+			(at 229.87 45.72 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6300,7 +6306,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 238.76 44.45 0)
+			(at 229.87 40.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6311,7 +6317,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 238.76 44.45 0)
+			(at 229.87 40.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6322,7 +6328,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 238.76 44.45 0)
+			(at 229.87 40.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6818,85 +6824,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 165.1 39.37 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "ad2ae8c7-ef42-4c37-a44f-bd5548184017")
-		(property "Reference" "APRS_PD1"
-			(at 167.64 34.7979 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 167.64 37.3379 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
-			(at 170.18 39.37 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 170.18 39.37 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "test point"
-			(at 165.1 39.37 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "3f42b340-7069-46a1-89ba-09002a86ce13")
-		)
-		(instances
-			(project "SSI APRS"
-				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
-					(reference "APRS_PD1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R")
 		(at 116.84 100.33 0)
 		(unit 1)
@@ -7298,8 +7225,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 220.98 39.37 0)
+		(lib_id "Connector_Generic:Conn_01x01")
+		(at 234.95 35.56 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -7308,9 +7235,9 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "c6973b16-674d-454b-8657-ea24c8f34335")
-		(property "Reference" "GND1"
-			(at 223.52 34.7979 0)
+		(uuid "cb3cc90e-b3db-4369-a9a3-663a0a278565")
+		(property "Reference" "TP6"
+			(at 237.49 34.2899 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7320,8 +7247,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 223.52 37.3379 0)
+		(property "Value" "Conn_01x01"
+			(at 237.49 36.8299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7331,8 +7258,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
-			(at 226.06 39.37 0)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical"
+			(at 234.95 35.56 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7343,7 +7270,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 226.06 39.37 0)
+			(at 234.95 35.56 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7353,8 +7280,8 @@
 				)
 			)
 		)
-		(property "Description" "test point"
-			(at 220.98 39.37 0)
+		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 234.95 35.56 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7365,12 +7292,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "0b64d0d1-9a3a-4eed-9df7-f2245d3de71c")
+			(uuid "82383698-5379-4ca5-9f06-ac04ba4ef1b7")
 		)
 		(instances
 			(project "SSI APRS"
 				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
-					(reference "GND1")
+					(reference "TP6")
 					(unit 1)
 				)
 			)
@@ -7697,7 +7624,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 220.98 44.45 0)
+		(at 208.28 40.64 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -7708,7 +7635,7 @@
 		(fields_autoplaced yes)
 		(uuid "e6de4c2d-e6d8-4cbe-9d83-b4942cd4b1da")
 		(property "Reference" "#PWR03"
-			(at 220.98 50.8 0)
+			(at 208.28 46.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7719,7 +7646,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 220.98 49.53 0)
+			(at 208.28 45.72 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7729,7 +7656,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 220.98 44.45 0)
+			(at 208.28 40.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7740,7 +7667,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 220.98 44.45 0)
+			(at 208.28 40.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7751,7 +7678,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 220.98 44.45 0)
+			(at 208.28 40.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7930,6 +7857,164 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector_Generic:Conn_01x01")
+		(at 213.36 35.56 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f07053cd-4846-428d-909f-117795ad4117")
+		(property "Reference" "TP5"
+			(at 215.9 34.2899 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Conn_01x01"
+			(at 215.9 36.8299 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical"
+			(at 213.36 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 213.36 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 213.36 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "183dc7b9-0cd2-43ec-abc8-3b6854ba192a")
+		)
+		(instances
+			(project "SSI APRS"
+				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
+					(reference "TP5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Generic:Conn_01x01")
+		(at 170.18 36.83 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f0fb3eb3-ca76-495a-a13a-12a3e8c36da6")
+		(property "Reference" "TP3"
+			(at 172.72 35.5599 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Conn_01x01"
+			(at 172.72 38.0999 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical"
+			(at 170.18 36.83 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 170.18 36.83 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 170.18 36.83 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d9515a07-d478-4b93-b5d3-560f96b0774d")
+		)
+		(instances
+			(project "SSI APRS"
+				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
+					(reference "TP3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 99.06 72.39 180)
 		(unit 1)
@@ -8086,8 +8171,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 254 39.37 0)
+		(lib_id "Connector_Generic:Conn_01x01")
+		(at 193.04 36.83 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -8096,9 +8181,9 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "f6139fdb-90d0-4930-b54e-b9a89a465f97")
-		(property "Reference" "+4V1"
-			(at 256.54 34.7979 0)
+		(uuid "f477dcb7-9957-478e-8891-af98294ea67a")
+		(property "Reference" "TP4"
+			(at 195.58 35.5599 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -8108,8 +8193,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TestPoint"
-			(at 256.54 37.3379 0)
+		(property "Value" "Conn_01x01"
+			(at 195.58 38.0999 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -8119,8 +8204,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
-			(at 259.08 39.37 0)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical"
+			(at 193.04 36.83 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8131,7 +8216,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 259.08 39.37 0)
+			(at 193.04 36.83 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8141,8 +8226,8 @@
 				)
 			)
 		)
-		(property "Description" "test point"
-			(at 254 39.37 0)
+		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 193.04 36.83 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8153,12 +8238,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "e8d7b63e-a051-464f-956e-592035005904")
+			(uuid "c25baae1-2234-4f6c-b819-755ca24a2e09")
 		)
 		(instances
 			(project "SSI APRS"
 				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
-					(reference "+4V1")
+					(reference "TP4")
 					(unit 1)
 				)
 			)
@@ -8238,85 +8323,6 @@
 			(project "SSI APRS"
 				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
 					(reference "C19")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 184.15 40.64 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "fd824290-8fcb-4d3e-9de7-072599e2a07d")
-		(property "Reference" "APRS_AUDIO1"
-			(at 186.69 36.0679 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 186.69 38.6079 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
-			(at 189.23 40.64 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 189.23 40.64 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "test point"
-			(at 184.15 40.64 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "7121c59d-8b3a-4f6d-95a6-e79a5b18fd52")
-		)
-		(instances
-			(project "SSI APRS"
-				(path "/6fdc2a63-d166-4024-986d-dc464eaf1c4d"
-					(reference "APRS_AUDIO1")
 					(unit 1)
 				)
 			)
