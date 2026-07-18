@@ -594,7 +594,7 @@
 		(at 136.5 95)
 		(descr "Through hole straight pin header, 1x01, 2.54mm pitch, single row")
 		(tags "Through hole pin header THT 1x01 2.54mm single row")
-		(property "Reference" "TP2"
+		(property "Reference" "APRS_PD"
 			(at 0 -2.38 0)
 			(layer "F.SilkS")
 			(uuid "2fda3c6b-1ebe-4d60-b3d1-d8c83d218189")
@@ -1104,7 +1104,7 @@
 		(at 120.5 123)
 		(descr "Through hole straight pin header, 1x01, 2.54mm pitch, single row")
 		(tags "Through hole pin header THT 1x01 2.54mm single row")
-		(property "Reference" "TP6"
+		(property "Reference" "GND"
 			(at 0 -3 0)
 			(layer "F.SilkS")
 			(uuid "300332e9-e721-49c9-87ff-11b0c7de1095")
@@ -3036,7 +3036,7 @@
 		(at 136.5 86)
 		(descr "Through hole straight pin header, 1x01, 2.54mm pitch, single row")
 		(tags "Through hole pin header THT 1x01 2.54mm single row")
-		(property "Reference" "TP3"
+		(property "Reference" "APRS_AUDIO"
 			(at 0 -2.38 0)
 			(layer "F.SilkS")
 			(uuid "9c3d2cb4-26d5-484b-9971-efd3e8baa540")
@@ -4716,7 +4716,7 @@
 		(at 125 123)
 		(descr "Through hole straight pin header, 1x01, 2.54mm pitch, single row")
 		(tags "Through hole pin header THT 1x01 2.54mm single row")
-		(property "Reference" "TP5"
+		(property "Reference" "GND"
 			(at 0 -3 0)
 			(layer "F.SilkS")
 			(uuid "13265028-4ace-436f-9d6a-830c5daeb8f3")
@@ -5080,7 +5080,7 @@
 		(at 136.5 90.5)
 		(descr "Through hole straight pin header, 1x01, 2.54mm pitch, single row")
 		(tags "Through hole pin header THT 1x01 2.54mm single row")
-		(property "Reference" "TP1"
+		(property "Reference" "APRS_PTT"
 			(at 0 -2.38 0)
 			(layer "F.SilkS")
 			(uuid "d7f84984-50e0-4f91-82c4-b45ca3aae58f")
@@ -5298,7 +5298,7 @@
 		(at 115.5 123)
 		(descr "Through hole straight pin header, 1x01, 2.54mm pitch, single row")
 		(tags "Through hole pin header THT 1x01 2.54mm single row")
-		(property "Reference" "TP7"
+		(property "Reference" "+4V1"
 			(at 0 -3 0)
 			(layer "F.SilkS")
 			(uuid "17d8fee4-0500-4989-bf88-18e0e5d7963e")
@@ -7388,7 +7388,7 @@
 		(at 110.5 123)
 		(descr "Through hole straight pin header, 1x01, 2.54mm pitch, single row")
 		(tags "Through hole pin header THT 1x01 2.54mm single row")
-		(property "Reference" "TP4"
+		(property "Reference" "+5V"
 			(at 0 -3 0)
 			(layer "F.SilkS")
 			(uuid "91f2f44a-0820-4af6-9a2b-1f0bf15cdd29")
@@ -8668,6 +8668,46 @@
 		(uuid "ce0ea727-99e2-47e9-bf7e-ab583c1ee18f")
 	)
 	(segment
+		(start 136.5 97)
+		(end 148.775 97)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/APRS_PD")
+		(uuid "51450c76-1f21-4920-bf0a-f48705e7e1cd")
+	)
+	(segment
+		(start 146.975 96.84)
+		(end 147.375 96.44)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/APRS_PD")
+		(uuid "69d873b0-cfeb-4b82-b1c6-1bfe5568f363")
+	)
+	(segment
+		(start 136.5 95)
+		(end 136.5 97)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/APRS_PD")
+		(uuid "a6b7a196-ac08-4732-beb3-12d5366a4922")
+	)
+	(segment
+		(start 128.5 94.5)
+		(end 131 97)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/APRS_PD")
+		(uuid "adbef357-1dae-491f-88b5-93b8e7fac5b8")
+	)
+	(segment
+		(start 131 97)
+		(end 136.5 97)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/APRS_PD")
+		(uuid "e6033316-5bd8-4eed-8f21-49719a6be022")
+	)
+	(segment
 		(start 171.425 118.84)
 		(end 169.7 118.84)
 		(width 0.2)
@@ -8722,46 +8762,6 @@
 		(layer "F.Cu")
 		(net "Net-(U5-MIC_IN)")
 		(uuid "c4cf571c-e027-4761-a67e-088567715a5f")
-	)
-	(segment
-		(start 136.5 97)
-		(end 148.775 97)
-		(width 0.2)
-		(layer "F.Cu")
-		(net "/APRS_PD")
-		(uuid "51450c76-1f21-4920-bf0a-f48705e7e1cd")
-	)
-	(segment
-		(start 146.975 96.84)
-		(end 147.375 96.44)
-		(width 0.2)
-		(layer "F.Cu")
-		(net "/APRS_PD")
-		(uuid "69d873b0-cfeb-4b82-b1c6-1bfe5568f363")
-	)
-	(segment
-		(start 136.5 95)
-		(end 136.5 97)
-		(width 0.2)
-		(layer "F.Cu")
-		(net "/APRS_PD")
-		(uuid "a6b7a196-ac08-4732-beb3-12d5366a4922")
-	)
-	(segment
-		(start 128.5 94.5)
-		(end 131 97)
-		(width 0.2)
-		(layer "F.Cu")
-		(net "/APRS_PD")
-		(uuid "adbef357-1dae-491f-88b5-93b8e7fac5b8")
-	)
-	(segment
-		(start 131 97)
-		(end 136.5 97)
-		(width 0.2)
-		(layer "F.Cu")
-		(net "/APRS_PD")
-		(uuid "e6033316-5bd8-4eed-8f21-49719a6be022")
 	)
 	(segment
 		(start 111.5 107.6)
