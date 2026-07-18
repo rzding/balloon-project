@@ -3921,7 +3921,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_01x01"
+		(property "Value" "GND"
 			(at 143.51 40.6399 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5361,7 +5361,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_01x01"
+		(property "Value" "Temp_CS"
 			(at 63.5 52.0699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6353,7 +6353,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_01x01"
+		(property "Value" "IMU_INT1"
 			(at 91.44 39.3699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7206,7 +7206,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_01x01"
+		(property "Value" "IMU_CS"
 			(at 62.23 39.3699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7285,7 +7285,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_01x01"
+		(property "Value" "BARO_CS"
 			(at 96.52 52.0699 0)
 			(show_name no)
 			(do_not_autoplace no)

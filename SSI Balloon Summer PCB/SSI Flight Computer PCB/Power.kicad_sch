@@ -5668,7 +5668,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_01x01"
+		(property "Value" "GND"
 			(at 222.25 113.0299 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5747,7 +5747,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_01x01"
+		(property "Value" "VBAT_PROT"
 			(at 229.87 90.1699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5826,7 +5826,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Battery connector"
+		(property "Value" "BATT_CONN"
 			(at 105.41 49.5299 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6011,7 +6011,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_01x01"
+		(property "Value" "+3V3"
 			(at 200.66 110.4899 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8441,7 +8441,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_01x01"
+		(property "Value" "+5V"
 			(at 203.2 91.4399 0)
 			(show_name no)
 			(do_not_autoplace no)

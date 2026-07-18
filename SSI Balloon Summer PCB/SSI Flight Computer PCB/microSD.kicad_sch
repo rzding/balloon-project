@@ -2051,7 +2051,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_01x01"
+		(property "Value" "microSD_CS"
 			(at 116.84 43.1799 0)
 			(show_name no)
 			(do_not_autoplace no)

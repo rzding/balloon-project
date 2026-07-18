@@ -2558,7 +2558,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_01x01"
+		(property "Value" "GND"
 			(at 238.76 124.4599 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2637,7 +2637,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_01x01"
+		(property "Value" "LoRa_RESET"
 			(at 237.49 88.8999 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3042,7 +3042,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_01x01"
+		(property "Value" "LoRa_DIO0"
 			(at 238.76 109.2199 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3121,7 +3121,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_01x01"
+		(property "Value" "LoRa_CS"
 			(at 238.76 140.9699 0)
 			(show_name no)
 			(do_not_autoplace no)
