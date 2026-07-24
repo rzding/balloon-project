@@ -1535,6 +1535,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C157914"
+			(at 147.32 20.32 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "4"
 			(uuid "eece4dce-0605-4116-bdb2-c2fe98efed5a")
 		)
@@ -1881,6 +1892,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C25804"
+			(at 127 25.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "cce44025-2d00-4c96-9ccf-9fc88a133ffa")
 		)
@@ -2120,6 +2142,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 119.38 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C25804"
 			(at 119.38 29.21 0)
 			(hide yes)
 			(show_name no)

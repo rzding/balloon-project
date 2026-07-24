@@ -3705,6 +3705,16 @@
 	)
 	(wire
 		(pts
+			(xy 129.54 45.72) (xy 129.54 46.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9c197316-892d-4273-909e-12393fbf8f06")
+	)
+	(wire
+		(pts
 			(xy 52.07 109.22) (xy 64.77 109.22)
 		)
 		(stroke
@@ -3742,16 +3752,6 @@
 			(type default)
 		)
 		(uuid "ab32b1c4-d89a-4909-8342-53c18e71fcd4")
-	)
-	(wire
-		(pts
-			(xy 129.54 45.72) (xy 129.54 43.18)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ac8c5bac-5eac-458d-9fea-cf8ff426c39b")
 	)
 	(wire
 		(pts
@@ -3895,16 +3895,6 @@
 	)
 	(wire
 		(pts
-			(xy 127 44.45) (xy 127 43.18)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d92a4ba3-adde-4c6a-a376-51ec933cd106")
-	)
-	(wire
-		(pts
 			(xy 54.61 101.6) (xy 62.23 101.6)
 		)
 		(stroke
@@ -3962,6 +3952,16 @@
 			(type default)
 		)
 		(uuid "e577a7ec-a7ba-4fe7-99f6-835772894144")
+	)
+	(wire
+		(pts
+			(xy 127 44.45) (xy 127 46.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e5847a0e-8099-4ac5-9c9d-baa9bbae6c80")
 	)
 	(wire
 		(pts
@@ -4140,6 +4140,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C92009"
+			(at 35.56 87.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "1631daa5-b3ba-478d-9d61-c6bf05d4341f")
 		)
@@ -4222,6 +4233,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 43.18 87.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C92009"
 			(at 43.18 87.63 0)
 			(hide yes)
 			(show_name no)
@@ -4559,6 +4581,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C25822"
+			(at 120.65 99.06 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "4ab6e0ca-1cde-43a4-acbb-a5002f46b7a0")
 		)
@@ -4807,6 +4840,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C92806"
+			(at 113.03 160.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "fcc14505-37b5-4514-8339-4fc2a41745df")
 		)
@@ -4889,6 +4933,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 60.96 87.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C344022"
 			(at 60.96 87.63 0)
 			(hide yes)
 			(show_name no)
@@ -4982,6 +5037,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 175.26 58.42 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C25803"
 			(at 175.26 58.42 0)
 			(hide yes)
 			(show_name no)
@@ -5396,6 +5462,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C48986262"
+			(at 125.73 87.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "faa26cc6-7c66-4bf6-afb7-545d4eaa8291")
 		)
@@ -5690,7 +5767,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "C81276"
 			(at 219.71 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -5702,6 +5779,17 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 219.71 111.76 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C81276"
 			(at 219.71 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -5781,6 +5869,17 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 227.33 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C81276"
 			(at 227.33 88.9 0)
 			(hide yes)
 			(show_name no)
@@ -5871,6 +5970,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 102.87 46.99 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C265283"
 			(at 102.87 46.99 0)
 			(hide yes)
 			(show_name no)
@@ -5973,6 +6083,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C48986262"
+			(at 140.97 87.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "808a4809-5d2b-49ae-acd8-baea65c0d4f5")
 		)
@@ -6033,7 +6154,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "C81276"
 			(at 198.12 109.22 0)
 			(hide yes)
 			(show_name no)
@@ -6045,6 +6166,17 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 198.12 109.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C81276"
 			(at 198.12 109.22 0)
 			(hide yes)
 			(show_name no)
@@ -6298,6 +6430,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C25804"
+			(at 50.8 101.6 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "d8f94cda-aa5e-4226-8886-9d824e4efc8c")
 		)
@@ -6459,6 +6602,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 189.23 50.8 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2117"
 			(at 189.23 50.8 90)
 			(hide yes)
 			(show_name no)
@@ -6851,6 +7005,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C109322"
+			(at 82.55 106.68 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "15"
 			(uuid "241f06b7-b7b1-4e05-9ef5-81ed455474bd")
 		)
@@ -7186,6 +7351,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C5261054"
+			(at 172.72 48.26 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "d1b5feac-7a30-4cf8-bfd2-92571df519a4")
 		)
@@ -7225,7 +7401,7 @@
 				)
 			)
 		)
-		(property "Value" "100 nF"
+		(property "Value" "100nF"
 			(at 110.998 110.744 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7269,6 +7445,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 110.49 114.3 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C519438"
 			(at 110.49 114.3 90)
 			(hide yes)
 			(show_name no)
@@ -7361,6 +7548,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 82.55 160.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C92806"
 			(at 82.55 160.02 0)
 			(hide yes)
 			(show_name no)
@@ -7620,6 +7818,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C22795"
+			(at 120.65 109.22 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "52beb826-824d-45c8-91cf-550eca239378")
 		)
@@ -7811,6 +8020,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 97.79 171.45 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C51118"
 			(at 97.79 171.45 0)
 			(hide yes)
 			(show_name no)
@@ -8232,6 +8452,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C210838"
+			(at 151.13 45.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "632def31-28eb-47b8-856f-a0cde412a455")
 		)
@@ -8249,7 +8480,7 @@
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_01x02")
-		(at 127 38.1 90)
+		(at 129.54 52.07 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -8260,29 +8491,29 @@
 		(fields_autoplaced yes)
 		(uuid "d60f3818-4ff0-42d7-8be7-c609914e02fa")
 		(property "Reference" "J2"
-			(at 132.08 36.8299 90)
+			(at 132.08 50.7999 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(property "Value" "Conn_01x02"
-			(at 132.08 39.3699 90)
+			(at 132.08 53.3399 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_JST:JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical"
-			(at 127 38.1 0)
+		(property "Footprint" "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical"
+			(at 129.54 52.07 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8293,7 +8524,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 127 38.1 0)
+			(at 129.54 52.07 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8304,7 +8535,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 127 38.1 0)
+			(at 129.54 52.07 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8315,7 +8546,18 @@
 			)
 		)
 		(property "PART_REV" ""
-			(at 127 38.1 90)
+			(at 129.54 52.07 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C265283"
+			(at 129.54 52.07 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8485,6 +8727,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C81276"
+			(at 200.66 90.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "0a545159-6c6e-45fe-87d0-8890101ad087")
 		)
@@ -8564,6 +8817,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 102.87 87.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C344022"
 			(at 102.87 87.63 0)
 			(hide yes)
 			(show_name no)
@@ -8654,6 +8918,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 55.88 111.76 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C18547833"
 			(at 55.88 111.76 90)
 			(hide yes)
 			(show_name no)
@@ -9215,6 +9490,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 133.35 87.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C48986262"
 			(at 133.35 87.63 0)
 			(hide yes)
 			(show_name no)

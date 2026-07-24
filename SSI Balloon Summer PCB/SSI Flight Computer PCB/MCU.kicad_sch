@@ -6001,6 +6001,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C519438"
+			(at 99.06 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "c2833c02-c8ab-43e4-9bbe-8ecd3f136ac7")
 		)
@@ -6082,6 +6093,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 292.1 219.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C5156614"
 			(at 292.1 219.71 0)
 			(hide yes)
 			(show_name no)
@@ -6183,6 +6205,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 252.73 205.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C25804"
 			(at 252.73 205.74 0)
 			(hide yes)
 			(show_name no)
@@ -6364,6 +6397,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C23162"
+			(at 69.85 130.81 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "925fa3a6-49a6-4dd5-b356-422e200e6c27")
 		)
@@ -6445,6 +6489,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 106.68 209.55 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C1685"
 			(at 106.68 209.55 90)
 			(hide yes)
 			(show_name no)
@@ -6860,6 +6915,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C519438"
+			(at 125.73 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "e8d30800-5d4f-43b3-99b0-ba5b44e81ddc")
 		)
@@ -6943,6 +7009,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 118.11 162.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C76639"
 			(at 118.11 162.56 0)
 			(hide yes)
 			(show_name no)
@@ -7192,6 +7269,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 347.98 219.71 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C110293"
 			(at 347.98 219.71 90)
 			(hide yes)
 			(show_name no)
@@ -7495,6 +7583,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C1985370"
+			(at 114.3 222.25 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "4"
 			(uuid "6c6a24e4-9dbd-42cf-bab9-60ab8713bb99")
 		)
@@ -7561,7 +7660,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "C81276"
 			(at 288.29 143.51 0)
 			(hide yes)
 			(show_name no)
@@ -7573,6 +7672,17 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 288.29 143.51 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C81276"
 			(at 288.29 143.51 0)
 			(hide yes)
 			(show_name no)
@@ -7818,6 +7928,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C168673"
+			(at 288.29 165.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "cf41b5ae-35c4-4f1a-951e-97b1de76e73f")
 		)
@@ -7933,7 +8054,7 @@
 				)
 			)
 		)
-		(property "Value" "R_EXT"
+		(property "Value" "0"
 			(at 127 237.49 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7977,6 +8098,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 127 241.3 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C21189"
 			(at 127 241.3 90)
 			(hide yes)
 			(show_name no)
@@ -8047,7 +8179,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "C81276"
 			(at 273.05 124.46 0)
 			(hide yes)
 			(show_name no)
@@ -8059,6 +8191,17 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 273.05 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C81276"
 			(at 273.05 124.46 0)
 			(hide yes)
 			(show_name no)
@@ -8126,7 +8269,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "C81276"
 			(at 332.74 123.19 0)
 			(hide yes)
 			(show_name no)
@@ -8138,6 +8281,17 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 332.74 123.19 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C81276"
 			(at 332.74 123.19 0)
 			(hide yes)
 			(show_name no)
@@ -8205,7 +8359,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "C81276"
 			(at 311.15 144.78 0)
 			(hide yes)
 			(show_name no)
@@ -8217,6 +8371,17 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 311.15 144.78 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C81276"
 			(at 311.15 144.78 0)
 			(hide yes)
 			(show_name no)
@@ -8317,6 +8482,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C519438"
+			(at 172.72 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "35abdf49-2ca5-43f3-bb48-dfd2c5ec2ab2")
 		)
@@ -8355,7 +8531,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "0.1uF"
+		(property "Value" "100nF"
 			(at 339.09 220.9799 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8400,6 +8576,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 335.28 219.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C519438"
 			(at 335.28 219.71 0)
 			(hide yes)
 			(show_name no)
@@ -8581,6 +8768,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C92806"
+			(at 191.77 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "8f906626-a228-46eb-abbc-e8aae441a964")
 		)
@@ -8749,6 +8947,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C1685"
+			(at 107.95 241.3 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "3159244e-5418-4510-8044-7ab6d48fc3c4")
 		)
@@ -8842,6 +9051,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C25804"
+			(at 347.98 208.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "c52b157e-f989-4936-8034-95b83cc1e6af")
 		)
@@ -8922,6 +9142,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 190.5 88.9 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C21190"
 			(at 190.5 88.9 90)
 			(hide yes)
 			(show_name no)
@@ -9025,6 +9256,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C25804"
+			(at 378.46 222.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "270d8bc8-8bc6-454f-a5b3-eceb3920a0b2")
 		)
@@ -9074,7 +9316,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical"
+		(property "Footprint" "Connector_JST:JST_XH_B8B-XH-A_1x08_P2.50mm_Vertical"
 			(at 261.62 219.71 0)
 			(hide yes)
 			(show_name no)
@@ -9108,6 +9350,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 261.62 219.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C161875"
 			(at 261.62 219.71 0)
 			(hide yes)
 			(show_name no)
@@ -9196,7 +9449,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "C81276"
 			(at 313.69 124.46 0)
 			(hide yes)
 			(show_name no)
@@ -9208,6 +9461,17 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 313.69 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C81276"
 			(at 313.69 124.46 0)
 			(hide yes)
 			(show_name no)
@@ -9297,6 +9561,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 199.39 93.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C5128373"
 			(at 199.39 93.98 0)
 			(hide yes)
 			(show_name no)
@@ -9634,6 +9909,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C519438"
+			(at 158.75 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "140a9dfc-d454-48b5-9c32-3d014c4f4465")
 		)
@@ -9805,6 +10091,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C76639"
+			(at 204.47 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "b2baae52-9f23-41fd-a6af-25b3733bf44a")
 		)
@@ -9898,6 +10195,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C519438"
+			(at 113.03 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "0ac888e1-b039-44b7-a032-299f176a33c6")
 		)
@@ -9958,7 +10266,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "C81276"
 			(at 293.37 124.46 0)
 			(hide yes)
 			(show_name no)
@@ -9970,6 +10278,17 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 293.37 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C81276"
 			(at 293.37 124.46 0)
 			(hide yes)
 			(show_name no)
@@ -10138,6 +10457,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 378.46 210.82 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C110293"
 			(at 378.46 210.82 90)
 			(hide yes)
 			(show_name no)
@@ -10387,6 +10717,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 90.17 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C23162"
 			(at 90.17 127 0)
 			(hide yes)
 			(show_name no)
@@ -10647,6 +10988,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C190642"
+			(at 146.05 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "39"
 			(uuid "942b033c-31b7-499f-9fda-340faeb4ff23")
 		)
@@ -10873,6 +11225,17 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 320.04 167.64 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C49257"
 			(at 320.04 167.64 0)
 			(hide yes)
 			(show_name no)

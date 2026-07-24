@@ -1579,6 +1579,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C5189822"
+			(at 182.88 69.85 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "2b69ee42-ddb5-4c9b-be6a-e14d58fb82b5")
 		)
@@ -1983,6 +1994,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C519438"
+			(at 171.45 69.85 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "d71c706a-2f01-4ac9-aea0-fca7a1145c4e")
 		)
@@ -2043,7 +2065,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "HAND SOLDER THIS"
 			(at 97.79 99.06 0)
 			(hide yes)
 			(show_name no)
@@ -2066,6 +2088,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 97.79 99.06 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C376663"
 			(at 97.79 99.06 90)
 			(hide yes)
 			(show_name no)
@@ -2236,6 +2269,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 204.47 95.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C519438"
 			(at 204.47 95.25 0)
 			(hide yes)
 			(show_name no)
@@ -2494,6 +2538,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C519438"
+			(at 222.25 83.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "d3bac181-5f0a-48c3-aeca-50284d617974")
 		)
@@ -2709,6 +2764,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 146.05 92.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C4153167"
 			(at 146.05 92.71 0)
 			(hide yes)
 			(show_name no)

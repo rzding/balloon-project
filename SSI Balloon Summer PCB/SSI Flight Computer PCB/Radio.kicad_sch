@@ -2082,6 +2082,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C5189822"
+			(at 181.61 67.31 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "df4443b8-db65-432d-8857-74c87b4a755d")
 		)
@@ -2142,7 +2153,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "HAND SOLDER THIS"
 			(at 107.95 91.44 0)
 			(hide yes)
 			(show_name no)
@@ -2165,6 +2176,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 107.95 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C376663"
 			(at 107.95 91.44 0)
 			(hide yes)
 			(show_name no)
@@ -2312,7 +2334,7 @@
 				(justify bottom)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "slightly dif module"
 			(at 151.13 93.98 0)
 			(hide yes)
 			(show_name no)
@@ -2478,6 +2500,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C2844473"
+			(at 151.13 93.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "3"
 			(uuid "c5302300-70de-45ad-96d0-64855667bd78")
 		)
@@ -2580,7 +2613,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "C81276"
 			(at 236.22 123.19 0)
 			(hide yes)
 			(show_name no)
@@ -2592,6 +2625,17 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 236.22 123.19 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C81276"
 			(at 236.22 123.19 0)
 			(hide yes)
 			(show_name no)
@@ -2659,7 +2703,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "C81276"
 			(at 234.95 87.63 0)
 			(hide yes)
 			(show_name no)
@@ -2671,6 +2715,17 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 234.95 87.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C81276"
 			(at 234.95 87.63 0)
 			(hide yes)
 			(show_name no)
@@ -2760,6 +2815,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 120.65 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C25804"
 			(at 120.65 78.74 0)
 			(hide yes)
 			(show_name no)
@@ -3064,7 +3130,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "C81276"
 			(at 236.22 107.95 0)
 			(hide yes)
 			(show_name no)
@@ -3076,6 +3142,17 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 236.22 107.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C81276"
 			(at 236.22 107.95 0)
 			(hide yes)
 			(show_name no)
@@ -3143,7 +3220,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "C81276"
 			(at 236.22 139.7 0)
 			(hide yes)
 			(show_name no)
@@ -3155,6 +3232,17 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 236.22 139.7 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C81276"
 			(at 236.22 139.7 0)
 			(hide yes)
 			(show_name no)
@@ -3400,6 +3488,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 171.45 67.31 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C519438"
 			(at 171.45 67.31 0)
 			(hide yes)
 			(show_name no)

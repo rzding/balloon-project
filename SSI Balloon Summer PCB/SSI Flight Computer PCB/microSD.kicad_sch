@@ -1765,6 +1765,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C2292"
+			(at 144.78 93.98 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "80270b44-07a3-45ed-9458-6294ce621d0f")
 		)
@@ -1847,6 +1858,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 62.23 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C25804"
 			(at 62.23 72.39 0)
 			(hide yes)
 			(show_name no)
@@ -2073,7 +2095,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "C81276"
 			(at 114.3 41.91 0)
 			(hide yes)
 			(show_name no)
@@ -2085,6 +2107,17 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 114.3 41.91 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C81276"
 			(at 114.3 41.91 0)
 			(hide yes)
 			(show_name no)
@@ -2371,6 +2404,17 @@
 				)
 			)
 		)
+		(property "LCSC" "C585350"
+			(at 69.85 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "7"
 			(uuid "0841bdb0-2d76-428e-81e4-e99069884d79")
 		)
@@ -2478,6 +2522,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 41.91 87.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C519438"
 			(at 41.91 87.63 0)
 			(hide yes)
 			(show_name no)
@@ -2682,7 +2737,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "330R"
+		(property "Value" "330"
 			(at 147.32 87.6299 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2727,6 +2782,17 @@
 			)
 		)
 		(property "PART_REV" ""
+			(at 144.78 86.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C23138"
 			(at 144.78 86.36 0)
 			(hide yes)
 			(show_name no)
