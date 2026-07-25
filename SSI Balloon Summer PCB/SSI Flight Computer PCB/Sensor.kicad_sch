@@ -3047,6 +3047,16 @@
 	)
 	(wire
 		(pts
+			(xy 36.83 87.63) (xy 36.83 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a06ab8a7-94a7-4b4f-b94a-9768b69e6f2b")
+	)
+	(wire
+		(pts
 			(xy 228.6 92.71) (xy 236.22 92.71)
 		)
 		(stroke
@@ -3124,6 +3134,16 @@
 			(type default)
 		)
 		(uuid "b659e5e3-30fc-4af1-ae81-2e797e127a6b")
+	)
+	(wire
+		(pts
+			(xy 36.83 77.47) (xy 36.83 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b7429990-5d91-442d-8956-b01e219b55f0")
 	)
 	(wire
 		(pts
@@ -5582,7 +5602,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C519438"
+		(property "LCSC" "C14663"
 			(at 104.14 77.47 0)
 			(hide yes)
 			(show_name no)
@@ -6374,6 +6394,107 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R")
+		(at 36.83 83.82 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "9536b3e3-e236-407e-9341-781312ccbbac")
+		(property "Reference" "R31"
+			(at 34.29 83.82 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 31.75 83.82 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 35.052 83.82 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 36.83 83.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 36.83 83.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
+			(at 36.83 83.82 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C21190"
+			(at 36.83 83.82 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "c3c162ca-e550-401e-9221-13265e16db95")
+		)
+		(pin "2"
+			(uuid "bc98685e-fb46-4b22-8cea-4e133d942376")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/98c67578-63cf-4cdd-a22b-0d2ebd53e276"
+					(reference "R31")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+3V3")
 		(at 35.56 107.95 180)
 		(unit 1)
@@ -6614,85 +6735,6 @@
 			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/98c67578-63cf-4cdd-a22b-0d2ebd53e276"
 					(reference "#PWR091")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 36.83 91.44 180)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "aa0cb99f-0637-4964-af21-eda800d8827e")
-		(property "Reference" "#PWR020"
-			(at 36.83 85.09 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 39.37 90.1699 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" ""
-			(at 36.83 91.44 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 36.83 91.44 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 36.83 91.44 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "1c558628-8285-4c64-a2ff-98db5261a679")
-		)
-		(instances
-			(project "SSI Summer Balloons"
-				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/98c67578-63cf-4cdd-a22b-0d2ebd53e276"
-					(reference "#PWR020")
 					(unit 1)
 				)
 			)
@@ -6957,7 +6999,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C519438"
+		(property "LCSC" "C14663"
 			(at 151.13 137.16 0)
 			(hide yes)
 			(show_name no)
@@ -7138,7 +7180,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C519438"
+		(property "LCSC" "C14663"
 			(at 224.79 57.15 0)
 			(hide yes)
 			(show_name no)
@@ -7159,6 +7201,84 @@
 			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/98c67578-63cf-4cdd-a22b-0d2ebd53e276"
 					(reference "C43")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 36.83 77.47 180)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "cae40848-db4e-4e23-b5db-02f8cc5850c5")
+		(property "Reference" "#PWR020"
+			(at 36.83 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 36.83 72.39 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 36.83 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 36.83 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 36.83 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "cebd0829-8a20-45ad-bb5f-2e9fd14932d6")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/98c67578-63cf-4cdd-a22b-0d2ebd53e276"
+					(reference "#PWR020")
 					(unit 1)
 				)
 			)
@@ -7344,7 +7464,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C519438"
+		(property "LCSC" "C14663"
 			(at 251.46 77.47 0)
 			(hide yes)
 			(show_name no)
@@ -7628,7 +7748,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C36911415"
+		(property "LCSC" "C163179"
 			(at 123.19 91.44 0)
 			(hide yes)
 			(show_name no)

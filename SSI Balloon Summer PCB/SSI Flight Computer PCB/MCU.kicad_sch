@@ -1581,6 +1581,207 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Device:LED"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "LED"
+				(at 0 -2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Light emitting diode"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Sim.Pins" "1=K 2=A"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "LED diode"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "LED* LED_SMD:* LED_THT:*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "LED_0_1"
+				(polyline
+					(pts
+						(xy -3.048 -0.762) (xy -4.572 -2.286) (xy -3.81 -2.286) (xy -4.572 -2.286) (xy -4.572 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 -0.762) (xy -3.302 -2.286) (xy -2.54 -2.286) (xy -3.302 -2.286) (xy -3.302 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy 1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -1.27) (xy -1.27 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -1.27) (xy 1.27 1.27) (xy -1.27 0) (xy 1.27 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "LED_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Device:R"
 			(pin_numbers
 				(hide yes)
@@ -3699,10 +3900,6 @@
 		(uuid "03e4aa2d-28d5-4b38-adec-d5b2810b1a4f")
 	)
 	(no_connect
-		(at 128.27 129.54)
-		(uuid "132a416f-9b32-4f4c-8290-ad5a60a75a7d")
-	)
-	(no_connect
 		(at 128.27 142.24)
 		(uuid "56b86d82-f7ee-40f7-8284-9162f88ec9bb")
 	)
@@ -4356,6 +4553,16 @@
 	)
 	(wire
 		(pts
+			(xy 123.19 129.54) (xy 128.27 129.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "75ca5f14-e7a3-46c0-a37a-0440f1d31334")
+	)
+	(wire
+		(pts
 			(xy 347.98 224.79) (xy 347.98 226.06)
 		)
 		(stroke
@@ -4583,6 +4790,16 @@
 			(type default)
 		)
 		(uuid "a6922101-b9ec-4655-af20-e71abe7c679d")
+	)
+	(wire
+		(pts
+			(xy 104.14 129.54) (xy 107.95 129.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "abf2951b-fc23-4e14-b176-edb1731546c2")
 	)
 	(wire
 		(pts
@@ -6001,7 +6218,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C519438"
+		(property "LCSC" "C14663"
 			(at 99.06 68.58 0)
 			(hide yes)
 			(show_name no)
@@ -6397,7 +6614,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C23162"
+		(property "LCSC" "C98195"
 			(at 69.85 130.81 0)
 			(hide yes)
 			(show_name no)
@@ -6915,7 +7132,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C519438"
+		(property "LCSC" "C14663"
 			(at 125.73 68.58 0)
 			(hide yes)
 			(show_name no)
@@ -8482,7 +8699,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C519438"
+		(property "LCSC" "C14663"
 			(at 172.72 68.58 0)
 			(hide yes)
 			(show_name no)
@@ -8586,7 +8803,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C519438"
+		(property "LCSC" "C14663"
 			(at 335.28 219.71 0)
 			(hide yes)
 			(show_name no)
@@ -8768,7 +8985,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C92806"
+		(property "LCSC" "C29936"
 			(at 191.77 68.58 0)
 			(hide yes)
 			(show_name no)
@@ -8867,6 +9084,120 @@
 			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
 					(reference "#PWR0110")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 111.76 129.54 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "6d5e51e2-4344-449a-8c91-ea7c8f6ada29")
+		(property "Reference" "D1"
+			(at 109.982 128.016 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 113.538 131.826 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
+			(at 111.76 129.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 111.76 129.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 111.76 129.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 111.76 129.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
+			(at 111.76 129.54 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C84256"
+			(at 111.76 129.54 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "2ef8e12f-add2-4f2a-9d6d-fe5162717cc6")
+		)
+		(pin "1"
+			(uuid "5b662fae-9254-4130-a75e-c245ab6c8ebd")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
+					(reference "D1")
 					(unit 1)
 				)
 			)
@@ -9495,6 +9826,109 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R")
+		(at 119.38 129.54 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "8f1b6324-c9ae-4f5a-8e98-636f9e73a2c2")
+		(property "Reference" "R18"
+			(at 117.348 131.572 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "330"
+			(at 118.11 127.762 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 119.38 127.762 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 119.38 129.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 119.38 129.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
+			(at 119.38 129.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C23138"
+			(at 119.38 129.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "ce649810-4393-4840-9aaa-cd6c07c87cf4")
+		)
+		(pin "1"
+			(uuid "de68f9dd-2368-47b8-bd49-96038132c7f6")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
+					(reference "R18")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 199.39 93.98 0)
 		(unit 1)
@@ -9909,7 +10343,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C519438"
+		(property "LCSC" "C14663"
 			(at 158.75 68.58 0)
 			(hide yes)
 			(show_name no)
@@ -10195,7 +10629,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C519438"
+		(property "LCSC" "C14663"
 			(at 113.03 68.58 0)
 			(hide yes)
 			(show_name no)
@@ -10727,7 +11161,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C23162"
+		(property "LCSC" "C98195"
 			(at 90.17 127 0)
 			(hide yes)
 			(show_name no)
@@ -10748,6 +11182,85 @@
 			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
 					(reference "R28")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 104.14 129.54 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ce0d5ed0-7060-4705-a310-d57787219be9")
+		(property "Reference" "#PWR030"
+			(at 97.79 129.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 100.33 129.5399 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 104.14 129.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 104.14 129.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 104.14 129.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "84ef5500-783f-4213-a0b3-27dada62f397")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
+					(reference "#PWR030")
 					(unit 1)
 				)
 			)
@@ -10988,7 +11501,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C190642"
+		(property "LCSC" "C60420"
 			(at 146.05 124.46 0)
 			(hide yes)
 			(show_name no)

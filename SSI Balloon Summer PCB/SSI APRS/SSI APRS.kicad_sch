@@ -2392,26 +2392,6 @@
 		)
 		(uuid "7781d83c-d23c-495c-b5a1-4e275c6c4c28")
 	)
-	(text "APRS_AUDIO unconnected so far"
-		(exclude_from_sim no)
-		(at 184.404 67.818 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "b97f2896-24cc-4a84-b653-70ba7e03760f")
-	)
-	(text "ADD PULL UP RESISTORS ON MAINBOARD (DONE!)"
-		(exclude_from_sim no)
-		(at 180.848 115.062 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "d7187c01-42ba-4617-b5f3-dac3ffab92ba")
-	)
 	(junction
 		(at 43.18 85.09)
 		(diameter 0)
@@ -4088,7 +4068,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C519438"
+		(property "LCSC" "C14663"
 			(at 248.92 93.98 0)
 			(hide yes)
 			(show_name no)
@@ -4596,7 +4576,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C519438"
+		(property "LCSC" "C14663"
 			(at 198.12 78.74 90)
 			(hide yes)
 			(show_name no)
@@ -6120,7 +6100,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C92009"
+		(property "LCSC" "C15850"
 			(at 257.81 93.98 0)
 			(hide yes)
 			(show_name no)
@@ -6510,7 +6490,7 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
@@ -7689,7 +7669,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C92009"
+		(property "LCSC" "C15850"
 			(at 39.37 78.74 0)
 			(hide yes)
 			(show_name no)
@@ -8621,7 +8601,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C519438"
+		(property "LCSC" "C14663"
 			(at 106.68 105.41 90)
 			(hide yes)
 			(show_name no)
@@ -8806,7 +8786,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C92009"
+		(property "LCSC" "C15850"
 			(at 31.75 78.74 0)
 			(hide yes)
 			(show_name no)
