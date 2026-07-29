@@ -1,0 +1,2 @@
+18:02:04: Unknown image data format.
+18:02:04: Failed to load image from file "/Users/gabrielirazabal/Desktop/SSI Balloon Summer Project/Balloon Project Github/balloon-project/SSI Balloon Summer PCB/SSI.png".

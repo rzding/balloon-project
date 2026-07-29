@@ -4113,6 +4113,26 @@
 	)
 	(wire
 		(pts
+			(xy 193.04 195.58) (xy 193.04 199.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "24f733ff-0505-49a8-9e04-38c08f5a2637")
+	)
+	(wire
+		(pts
+			(xy 193.04 217.17) (xy 193.04 220.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "25c1e579-924c-47f5-bd8c-09fef881b4ec")
+	)
+	(wire
+		(pts
 			(xy 114.3 209.55) (xy 137.16 209.55)
 		)
 		(stroke
@@ -4700,6 +4720,16 @@
 			(type default)
 		)
 		(uuid "94bdf8cf-618c-458f-bbb7-958026dcb266")
+	)
+	(wire
+		(pts
+			(xy 193.04 207.01) (xy 193.04 209.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "96969d79-c51b-4fa1-a5ae-c8ce406ff9fa")
 	)
 	(wire
 		(pts
@@ -5531,6 +5561,16 @@
 		)
 		(uuid "6a7f26ee-26c0-4307-a05d-edd3126b2bf2")
 	)
+	(label "+3V3"
+		(at 193.04 195.58 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6cefdb1d-d3f0-47d1-8755-40595779b86e")
+	)
 	(label "Cam_CS"
 		(at 240.03 212.09 0)
 		(effects
@@ -6250,10 +6290,10 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "060b2d5a-8a4a-4bee-ae60-835cbde7dcb0")
 		(property "Reference" "J5"
@@ -7341,6 +7381,107 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R")
+		(at 193.04 213.36 180)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "338b3f3c-7354-40c2-96f8-c9aaee406765")
+		(property "Reference" "R32"
+			(at 195.58 213.36 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 198.12 213.36 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 194.818 213.36 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 193.04 213.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 193.04 213.36 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
+			(at 193.04 213.36 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C21190"
+			(at 193.04 213.36 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "65a47813-2ae9-4a2a-9b63-75adad03d351")
+		)
+		(pin "2"
+			(uuid "2a427997-e396-476c-8028-313457bf05c4")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
+					(reference "R32")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 204.47 72.39 0)
 		(unit 1)
@@ -7452,7 +7593,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Button_Switch_SMD:SW_Push_1P1T-MP_NO_Horizontal_Alps_SKRTLAE010"
+		(property "Footprint" "Button_Switch_SMD:SW_SPST_B3U-1000P"
 			(at 347.98 219.71 0)
 			(hide yes)
 			(show_name no)
@@ -7496,7 +7637,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C110293"
+		(property "LCSC" "C720477"
 			(at 347.98 219.71 90)
 			(hide yes)
 			(show_name no)
@@ -7595,6 +7736,84 @@
 			(project "SSI Summer Balloons"
 				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
 					(reference "#PWR021")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 193.04 220.98 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3ed3625d-24aa-417b-9016-e299aa97911f")
+		(property "Reference" "#PWR032"
+			(at 193.04 227.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 193.04 226.06 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 193.04 220.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 193.04 220.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 193.04 220.98 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "2b718f59-4ac5-4eed-ab4a-2483d7ee00d0")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
+					(reference "#PWR032")
 					(unit 1)
 				)
 			)
@@ -7838,10 +8057,10 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "41ba1b80-b0d8-49ac-826a-b98fd350e778")
 		(property "Reference" "TP14"
@@ -8084,10 +8303,10 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "4af423b5-1847-4086-8aad-643e43d4d47b")
 		(property "Reference" "J4"
@@ -8357,10 +8576,10 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "56351d2f-c710-4bba-8b87-cf67e6f58017")
 		(property "Reference" "TP5"
@@ -8447,10 +8666,10 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "566f6c8e-267d-4cdc-8393-1f51dcf57a85")
 		(property "Reference" "TP10"
@@ -8537,10 +8756,10 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "581c3433-56d4-4705-8bac-ad42bf23eff6")
 		(property "Reference" "TP15"
@@ -9177,7 +9396,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C84256"
+		(property "LCSC" "C2297"
 			(at 111.76 129.54 90)
 			(hide yes)
 			(show_name no)
@@ -9741,10 +9960,10 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "83e146f5-07bd-4484-809e-a8729b5856e2")
 		(property "Reference" "TP7"
@@ -9847,7 +10066,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "330"
+		(property "Value" "150"
 			(at 118.11 127.762 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9902,7 +10121,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C23138"
+		(property "LCSC" "C22808"
 			(at 119.38 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -10005,7 +10224,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C5128373"
+		(property "LCSC" "C49326627"
 			(at 199.39 93.98 0)
 			(hide yes)
 			(show_name no)
@@ -10448,6 +10667,120 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:LED")
+		(at 193.04 203.2 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "b5df17f6-6f78-4d8c-b926-473db1206e2c")
+		(property "Reference" "D3"
+			(at 191.516 204.978 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 195.326 201.422 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
+			(at 193.04 203.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 193.04 203.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 193.04 203.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 193.04 203.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PART_REV" ""
+			(at 193.04 203.2 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C84256"
+			(at 193.04 203.2 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "bce01b13-69d5-40d2-94bd-a0414f35b0b8")
+		)
+		(pin "1"
+			(uuid "da819b4e-3b68-4dd7-9826-12c2a12b2a03")
+		)
+		(instances
+			(project "SSI Summer Balloons"
+				(path "/3c45a535-6e6b-4825-ad52-82c10cbe7866/b11ef58b-98ba-47ea-88cc-0eee30828228"
+					(reference "D3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 204.47 68.58 0)
 		(unit 1)
@@ -10661,10 +10994,10 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "bf76434e-6c0e-4f2a-9f71-2c9520148ca2")
 		(property "Reference" "TP6"
@@ -10857,7 +11190,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Button_Switch_SMD:SW_Push_1P1T-MP_NO_Horizontal_Alps_SKRTLAE010"
+		(property "Footprint" "Button_Switch_SMD:SW_SPST_B3U-1000P"
 			(at 378.46 210.82 0)
 			(hide yes)
 			(show_name no)
@@ -10901,7 +11234,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C110293"
+		(property "LCSC" "C720477"
 			(at 378.46 210.82 90)
 			(hide yes)
 			(show_name no)
@@ -11687,10 +12020,10 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "edd2cd64-ffe7-4a18-b19d-86168c69c7c1")
 		(property "Reference" "J11"

@@ -1658,10 +1658,10 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "48a8b6e0-9994-4a86-9f87-dc712ddc0b85")
 		(property "Reference" "TP24"

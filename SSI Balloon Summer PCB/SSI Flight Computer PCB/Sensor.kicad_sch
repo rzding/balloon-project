@@ -3924,10 +3924,10 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "082f10e2-aaf4-4922-b334-ca8cc1a6d269")
 		(property "Reference" "TP8"
@@ -5441,10 +5441,10 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "622dc7e7-71d0-4a3c-9c67-06ff4f2869fe")
 		(property "Reference" "TP21"
@@ -6578,10 +6578,10 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "9bf0e2b1-51d0-4c25-a885-26bae3a69f8c")
 		(property "Reference" "TP11"
@@ -7361,7 +7361,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C49326291"
+		(property "LCSC" "C57112"
 			(at 158.75 97.79 0)
 			(hide yes)
 			(show_name no)
@@ -7496,10 +7496,10 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "de92d5d8-56b8-4719-a152-298649116c87")
 		(property "Reference" "TP20"
@@ -7586,10 +7586,10 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "e33fac2e-5bf5-4666-87a7-4c157c1c1e88")
 		(property "Reference" "TP22"
@@ -7748,7 +7748,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C163179"
+		(property "LCSC" "C57112"
 			(at 123.19 91.44 0)
 			(hide yes)
 			(show_name no)
