@@ -23,6 +23,7 @@
 | 0.3 | 2026-08-05 | Firmware | F0.2 complete: Makefile `C_SOURCES` + `-IApp/Inc`; clean rebuild verified |
 | 0.4 | 2026-08-05 | Firmware | F0.3 complete: USART1 @ 9600 (USER CODE re-init + `.ioc`) |
 | 0.5 | 2026-08-05 | Firmware | F0.4 complete: error-flag framework (`*_ok` accessors; fail-soft `app_run`) |
+| 0.6 | 2026-08-05 | Firmware | F0.5 complete: coding-standard README + F0 entry/exit sync |
 
 ### How to use this document
 
@@ -210,6 +211,8 @@ A phase is done only when:
 
 ## 5. Phase F0 — Foundation and tooling
 
+**Phase status:** complete pending bench flash (2026-08-05) — all work packages done; physical ST-Link flash not yet verified on hardware.
+
 ### 5.0 Objective
 
 Establish a safe, regeneratable project structure and correct base peripheral config so later phases only add modules.
@@ -217,8 +220,8 @@ Establish a safe, regeneratable project structure and correct base peripheral co
 ### 5.1 Entry criteria
 
 - [x] Repo builds with existing Makefile (or known build errors documented)
-- [ ] SWD programming path identified (ST-Link / Nucleo)
-- [ ] Team agrees modular `App/` layout (flexible per Q13; this roadmap mandates it)
+- [x] SWD programming path identified (ST-Link / Nucleo) — documented in `balloon-project-stm32mx/README.md`
+- [x] Team agrees modular `App/` layout (flexible per Q13; this roadmap mandates it)
 
 ### 5.2 Work packages
 
@@ -260,8 +263,10 @@ Establish a safe, regeneratable project structure and correct base peripheral co
 
 #### F0.5 — Coding standard note in repo (short)
 
-- Point developers to this roadmap §3
-- Optional: `.clang-format` later (not required to exit F0)
+**Status:** complete (2026-08-05)
+
+- [x] Point developers to this roadmap §3 (`balloon-project-stm32mx/README.md` + root `README.md` pointer)
+- [x] Optional: `.clang-format` later (deferred; not required to exit F0)
 
 ### 5.3 Deliverables
 
@@ -271,10 +276,10 @@ Establish a safe, regeneratable project structure and correct base peripheral co
 
 ### 5.4 Verification / exit criteria
 
-- [x] Project builds without errors
-- [ ] Firmware flashes and reaches `while(1)`
+- [x] Project builds without errors (verified 2026-08-05)
+- [ ] Firmware flashes and reaches `while(1)` — flash procedure documented 2026-08-05; physical flash pending bench ST-Link (no probe detected during F0.5)
 - [x] Baud change present for USART1
-- [ ] Another engineer can add `App/Src/foo.c` using the documented steps
+- [x] Another engineer can add `App/Src/foo.c` using the documented steps (`balloon-project-stm32mx/README.md` + §5.2 F0.2)
 
 ---
 
