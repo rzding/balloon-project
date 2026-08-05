@@ -324,7 +324,12 @@ static void MX_USART1_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART1_Init 2 */
-
+  /* GPS (MAX-M10S) default NMEA is 9600 8N1 — CubeMX generated 115200. */
+  huart1.Init.BaudRate = 9600;
+  if (HAL_UART_Init(&huart1) != HAL_OK)
+  {
+    Error_Handler();
+  }
   /* USER CODE END USART1_Init 2 */
 
 }
