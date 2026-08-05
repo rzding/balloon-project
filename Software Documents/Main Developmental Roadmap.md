@@ -19,6 +19,7 @@
 | Rev | Date | Author | Notes |
 |---|---|---|---|
 | 0.1 | 2026-08-05 | Firmware planning | Initial roadmap from as-built HW + team Q&A |
+| 0.2 | 2026-08-05 | Firmware | F0.1 complete: `App/` stubs (`app`, `error_flags`) + `main.c` wiring |
 
 ### How to use this document
 
@@ -220,9 +221,11 @@ Establish a safe, regeneratable project structure and correct base peripheral co
 
 #### F0.1 — Create `App/` tree
 
-- Create `App/Inc/` and `App/Src/`
-- Add stub files: `app.c/h`, `error_flags.c/h`
-- Wire `main.c` USER CODE to call `app_init()` / `app_run()`
+**Status:** complete (2026-08-05)
+
+- [x] Create `App/Inc/` and `App/Src/` (directories pre-existed; populated with stubs)
+- [x] Add stub files: `app.c/h`, `error_flags.c/h`
+- [x] Wire `main.c` USER CODE to call `app_init()` / `app_run()`
 
 #### F0.2 — Makefile integration
 
