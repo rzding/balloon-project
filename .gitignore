@@ -49,3 +49,15 @@ fp-info-cache
 
 # Local project settings
 *.kicad_prl
+
+# STM32 firmware — build artifacts (regenerate with `make` in balloon-project-stm32mx/)
+balloon-project-stm32mx/build/
+
+# GNU Arm embedded toolchain outputs (if emitted outside build/)
+*.o
+*.d
+*.elf
+*.hex
+*.bin
+*.map
+*.lst

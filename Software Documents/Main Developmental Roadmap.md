@@ -20,6 +20,7 @@
 |---|---|---|---|
 | 0.1 | 2026-08-05 | Firmware planning | Initial roadmap from as-built HW + team Q&A |
 | 0.2 | 2026-08-05 | Firmware | F0.1 complete: `App/` stubs (`app`, `error_flags`) + `main.c` wiring |
+| 0.3 | 2026-08-05 | Firmware | F0.2 complete: Makefile `C_SOURCES` + `-IApp/Inc`; clean rebuild verified |
 
 ### How to use this document
 
@@ -213,7 +214,7 @@ Establish a safe, regeneratable project structure and correct base peripheral co
 
 ### 5.1 Entry criteria
 
-- [ ] Repo builds with existing Makefile (or known build errors documented)
+- [x] Repo builds with existing Makefile (or known build errors documented)
 - [ ] SWD programming path identified (ST-Link / Nucleo)
 - [ ] Team agrees modular `App/` layout (flexible per Q13; this roadmap mandates it)
 
@@ -229,9 +230,17 @@ Establish a safe, regeneratable project structure and correct base peripheral co
 
 #### F0.2 — Makefile integration
 
-- Add all new `.c` files to `C_SOURCES`
-- Add `-IApp/Inc` to includes
-- Confirm clean rebuild
+**Status:** complete (2026-08-05)
+
+- [x] Add all new `.c` files to `C_SOURCES`
+- [x] Add `-IApp/Inc` to includes
+- [x] Confirm clean rebuild
+
+**How to add a new App module (3 steps):**
+
+1. Add `App/Inc/foo.h` and `App/Src/foo.c` (one module = one `.c` / `.h` pair).
+2. List `App/Src/foo.c` in Makefile `C_SOURCES` (re-add App entries after CubeMX Makefile regen).
+3. `#include "foo.h"` from callers; `-IApp/Inc` is already in `C_INCLUDES` after F0.2.
 
 #### F0.3 — Fix USART1 baud to 9600
 
@@ -256,7 +265,7 @@ Establish a safe, regeneratable project structure and correct base peripheral co
 
 ### 5.4 Verification / exit criteria
 
-- [ ] Project builds without errors
+- [x] Project builds without errors
 - [ ] Firmware flashes and reaches `while(1)`
 - [ ] Baud change present for USART1
 - [ ] Another engineer can add `App/Src/foo.c` using the documented steps
