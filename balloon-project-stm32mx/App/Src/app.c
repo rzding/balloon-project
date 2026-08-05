@@ -15,5 +15,6 @@ bool app_init(void)
 
 void app_run(void)
 {
-  /* Mission tick and driver polling arrive in later phases (F8+). */
+  /* Subsystem faults must not stop the superloop; F8+ mission tick runs regardless. */
+  (void)error_flags_get();
 }

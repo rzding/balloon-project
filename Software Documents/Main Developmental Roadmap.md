@@ -22,6 +22,7 @@
 | 0.2 | 2026-08-05 | Firmware | F0.1 complete: `App/` stubs (`app`, `error_flags`) + `main.c` wiring |
 | 0.3 | 2026-08-05 | Firmware | F0.2 complete: Makefile `C_SOURCES` + `-IApp/Inc`; clean rebuild verified |
 | 0.4 | 2026-08-05 | Firmware | F0.3 complete: USART1 @ 9600 (USER CODE re-init + `.ioc`) |
+| 0.5 | 2026-08-05 | Firmware | F0.4 complete: error-flag framework (`*_ok` accessors; fail-soft `app_run`) |
 
 ### How to use this document
 
@@ -252,8 +253,10 @@ Establish a safe, regeneratable project structure and correct base peripheral co
 
 #### F0.4 — Error flag framework
 
-- Bitflags or bools: `imu_ok`, `baro_ok`, `temp_ok`, `gps_ok`, `sd_ok`, `lora_ok`, `cam_ok`, `aprs_ok`
-- `app_run` must continue even if flags are false
+**Status:** complete (2026-08-05)
+
+- [x] Bitflags for `imu_ok`, `baro_ok`, `temp_ok`, `gps_ok`, `sd_ok`, `lora_ok`, `cam_ok`, `aprs_ok` via `error_flags_*_ok()` / `error_flags_set_*_ok()` (ERR_FLAG bit set = fault)
+- [x] `app_run` must continue even if flags are false (queries `error_flags_get()`; no blocking on faults)
 
 #### F0.5 — Coding standard note in repo (short)
 
