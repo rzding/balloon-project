@@ -27,6 +27,7 @@
 | 0.7 | 2026-08-06 | Firmware | F1.1 complete: `spi_bus` clock policy (DIV128 ~0.78 MHz), `spi_bus_init` / `spi_bus_set_prescaler`, max-clock comment block |
 | 0.8 | 2026-08-06 | Firmware | F1.2 complete: `spi_bus_transfer` CS assert/release, timeout/error CS restore + `HAL_SPI_Abort` |
 | 0.9 | 2026-08-06 | Firmware | F1.3 complete: `spi_bus_read_reg8` / `spi_bus_write_reg8` (IMU/LoRa bit-7 R/W convention) |
+| 0.10 | 2026-08-06 | Firmware | F2.1 complete: `imu` WHO_AM_I (`0x75`→`0x47`), `imu_init` / `imu_is_ok`, fail-soft `error_flags` |
 
 ### How to use this document
 
@@ -344,14 +345,18 @@ Prove SPI + first sensor; provide motion data for burst detection later.
 
 ### 7.1 Entry criteria
 
-- [ ] F1 complete
+- [x] F1 complete
 
 ### 7.2 Work packages
 
 #### F2.1 — Identity
 
-- Read WHO_AM_I; compare to datasheet expected ID
-- Fail `imu_init` if mismatch
+**Status:** complete (2026-08-06)
+
+- [x] Read WHO_AM_I (`0x75`); compare to ICM-42688-P expected ID (`0x47`)
+- [x] Fail `imu_init` on SPI error or ID mismatch
+- [x] `error_flags_set_imu_ok` + `imu_is_ok()` on init path
+- [x] `imu.c` / `imu.h`; Makefile `C_SOURCES`; called from `app_init` fail-soft
 
 #### F2.2 — Configuration
 
@@ -369,9 +374,9 @@ Prove SPI + first sensor; provide motion data for burst detection later.
 
 ### 7.3 Verification / exit criteria
 
-- [ ] WHO_AM_I passes on hardware
+- [ ] WHO_AM_I passes on hardware — software verified 2026-08-06; bench flash/SWD pending
 - [ ] Values change when board is moved/tilted
-- [ ] Init failure does not hang MCU
+- [x] Init failure does not hang MCU — `(void)imu_init()` in `app_init`; `app_run` continues; code-path verified (2026-08-06)
 
 ---
 

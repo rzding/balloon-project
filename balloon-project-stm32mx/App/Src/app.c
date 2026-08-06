@@ -6,10 +6,12 @@
 #include "app.h"
 
 #include "error_flags.h"
+#include "imu.h"
 
 bool app_init(void)
 {
   error_flags_init();
+  (void)imu_init(); /* fail-soft: false does not abort app_init */
   return true;
 }
 
