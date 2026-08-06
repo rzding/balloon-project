@@ -1,6 +1,6 @@
 /**
  * @file spi_bus.h
- * @brief Shared SPI1 bus owner — clock policy (F1.1) and CS-aware transfer (F1.2).
+ * @brief Shared SPI1 bus owner — clock policy (F1.1), transfer (F1.2), register helpers (F1.3).
  *
  * SPI1 slaves and datasheet max SPI clocks (bring-up stays ~0.78 MHz until proven):
  *   - ICM-42688-P (IMU):     up to 24 MHz
@@ -12,6 +12,9 @@
  *
  * Default bring-up: SPI_BAUDRATEPRESCALER_128 on 100 MHz APB2 -> ~781 kHz (roadmap §2.3).
  * Callers pass Cube CS macros (e.g. IMU_CS_GPIO_Port, IMU_CS_Pin from main.h).
+ *
+ * Register helpers use bit-7 R/W convention (read = reg|0x80, write = reg&0x7F) for
+ * ICM-42688-P and SX1276/RFM95W. Other slaves use spi_bus_transfer directly.
  */
 
 #pragma once
@@ -56,3 +59,24 @@ bool spi_bus_set_prescaler(uint32_t baudrate_prescaler);
 bool spi_bus_transfer(GPIO_TypeDef *cs_port, uint16_t cs_pin,
                       const uint8_t *tx, uint8_t *rx,
                       uint16_t len, uint32_t timeout_ms);
+
+/**
+ * @brief Read one 8-bit register (IMU/LoRa bit-7 read convention).
+ *
+ * Sends (reg | 0x80) then a dummy byte; stores the second received byte in @p value.
+ *
+ * @param value Out pointer for register data; must not be NULL.
+ * @return true on success; false on invalid args or transfer failure.
+ */
+bool spi_bus_read_reg8(GPIO_TypeDef *cs_port, uint16_t cs_pin,
+                       uint8_t reg, uint8_t *value, uint32_t timeout_ms);
+
+/**
+ * @brief Write one 8-bit register (IMU/LoRa bit-7 write convention).
+ *
+ * Sends (reg & 0x7F) then @p value in one CS-framed transfer.
+ *
+ * @return true on success; false on invalid args or transfer failure.
+ */
+bool spi_bus_write_reg8(GPIO_TypeDef *cs_port, uint16_t cs_pin,
+                        uint8_t reg, uint8_t value, uint32_t timeout_ms);

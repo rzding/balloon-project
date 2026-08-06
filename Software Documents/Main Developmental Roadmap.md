@@ -26,6 +26,7 @@
 | 0.6 | 2026-08-05 | Firmware | F0.5 complete: coding-standard README + F0 entry/exit sync |
 | 0.7 | 2026-08-06 | Firmware | F1.1 complete: `spi_bus` clock policy (DIV128 ~0.78 MHz), `spi_bus_init` / `spi_bus_set_prescaler`, max-clock comment block |
 | 0.8 | 2026-08-06 | Firmware | F1.2 complete: `spi_bus_transfer` CS assert/release, timeout/error CS restore + `HAL_SPI_Abort` |
+| 0.9 | 2026-08-06 | Firmware | F1.3 complete: `spi_bus_read_reg8` / `spi_bus_write_reg8` (IMU/LoRa bit-7 R/W convention) |
 
 ### How to use this document
 
@@ -287,7 +288,7 @@ Establish a safe, regeneratable project structure and correct base peripheral co
 
 ## 6. Phase F1 — SPI bus services
 
-**Phase status:** software complete pending bench analyzer (2026-08-06) — F1.1–F1.2 done; F1.3 register helpers optional; meter/analyzer verification pending.
+**Phase status:** all work packages complete (2026-08-06) — F1.1–F1.3 done; meter/analyzer verification pending bench.
 
 ### 6.0 Objective
 
@@ -317,7 +318,10 @@ Own the shared SPI1 bus safely for six slaves.
 
 #### F1.3 — Register helpers (optional but recommended)
 
-- `spi_read_reg8` / `spi_write_reg8` patterns for IMU/LoRa-style devices
+**Status:** complete (2026-08-06)
+
+- [x] `spi_bus_read_reg8` — IMU/LoRa-style read (reg | 0x80, dummy byte, value in second RX byte)
+- [x] `spi_bus_write_reg8` — IMU/LoRa-style write (reg & 0x7F, value)
 
 ### 6.3 Deliverables
 

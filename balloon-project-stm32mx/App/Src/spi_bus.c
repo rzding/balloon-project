@@ -1,9 +1,11 @@
 /**
  * @file spi_bus.c
- * @brief Shared SPI1 bus owner — clock policy (F1.1) and transfer API (F1.2).
+ * @brief Shared SPI1 bus owner — clock policy (F1.1), transfer (F1.2), register helpers (F1.3).
  */
 
 #include "spi_bus.h"
+
+#define SPI_BUS_REG_READ_BIT (1u << 7)
 
 static SPI_HandleTypeDef *spi_bus_hspi;
 static bool spi_bus_busy;
@@ -95,4 +97,38 @@ bool spi_bus_transfer(GPIO_TypeDef *cs_port, uint16_t cs_pin,
 
   spi_bus_busy = false;
   return true;
+}
+
+bool spi_bus_read_reg8(GPIO_TypeDef *cs_port, uint16_t cs_pin,
+                       uint8_t reg, uint8_t *value, uint32_t timeout_ms)
+{
+  uint8_t tx[2];
+  uint8_t rx[2];
+
+  if (value == NULL)
+  {
+    return false;
+  }
+
+  tx[0] = (uint8_t)(reg | SPI_BUS_REG_READ_BIT);
+  tx[1] = 0U;
+
+  if (!spi_bus_transfer(cs_port, cs_pin, tx, rx, 2U, timeout_ms))
+  {
+    return false;
+  }
+
+  *value = rx[1];
+  return true;
+}
+
+bool spi_bus_write_reg8(GPIO_TypeDef *cs_port, uint16_t cs_pin,
+                        uint8_t reg, uint8_t value, uint32_t timeout_ms)
+{
+  uint8_t tx[2];
+
+  tx[0] = (uint8_t)(reg & (uint8_t)~SPI_BUS_REG_READ_BIT);
+  tx[1] = value;
+
+  return spi_bus_transfer(cs_port, cs_pin, tx, NULL, 2U, timeout_ms);
 }
