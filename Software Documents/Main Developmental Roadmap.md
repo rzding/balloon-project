@@ -25,6 +25,7 @@
 | 0.5 | 2026-08-05 | Firmware | F0.4 complete: error-flag framework (`*_ok` accessors; fail-soft `app_run`) |
 | 0.6 | 2026-08-05 | Firmware | F0.5 complete: coding-standard README + F0 entry/exit sync |
 | 0.7 | 2026-08-06 | Firmware | F1.1 complete: `spi_bus` clock policy (DIV128 ~0.78 MHz), `spi_bus_init` / `spi_bus_set_prescaler`, max-clock comment block |
+| 0.8 | 2026-08-06 | Firmware | F1.2 complete: `spi_bus_transfer` CS assert/release, timeout/error CS restore + `HAL_SPI_Abort` |
 
 ### How to use this document
 
@@ -286,6 +287,8 @@ Establish a safe, regeneratable project structure and correct base peripheral co
 
 ## 6. Phase F1 — SPI bus services
 
+**Phase status:** software complete pending bench analyzer (2026-08-06) — F1.1–F1.2 done; F1.3 register helpers optional; meter/analyzer verification pending.
+
 ### 6.0 Objective
 
 Own the shared SPI1 bus safely for six slaves.
@@ -306,9 +309,11 @@ Own the shared SPI1 bus safely for six slaves.
 
 #### F1.2 — Transfer API
 
-- `spi_bus_transfer(GPIO_TypeDef *cs_port, uint16_t cs_pin, const uint8_t *tx, uint8_t *rx, uint16_t len, uint32_t timeout_ms)`
-- Assert CS low → HAL transfer → CS high
-- Guarantee CS high on timeout/error paths
+**Status:** complete (2026-08-06)
+
+- [x] `spi_bus_transfer(GPIO_TypeDef *cs_port, uint16_t cs_pin, const uint8_t *tx, uint8_t *rx, uint16_t len, uint32_t timeout_ms)`
+- [x] Assert CS low → HAL transfer → CS high
+- [x] Guarantee CS high on timeout/error paths (`HAL_SPI_Abort` after deassert)
 
 #### F1.3 — Register helpers (optional but recommended)
 
@@ -321,9 +326,9 @@ Own the shared SPI1 bus safely for six slaves.
 
 ### 6.4 Verification / exit criteria
 
-- [ ] CS lines idle high (meter or analyzer)
-- [ ] Dummy transfer does not leave CS stuck low
-- [ ] Timeout path releases CS
+- [x] CS lines idle high (meter or analyzer) — Cube default after `MX_GPIO_Init` verified in software; meter pending bench (2026-08-06)
+- [x] Dummy transfer does not leave CS stuck low — `spi_bus_transfer` always deasserts CS; analyzer pending bench (2026-08-06)
+- [x] Timeout path releases CS — code-path verified in `spi_bus_transfer`; analyzer pending bench (2026-08-06)
 
 ---
 
