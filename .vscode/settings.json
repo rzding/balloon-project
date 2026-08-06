@@ -1,0 +1,7 @@
+{
+  "clangd.arguments": [
+    "--compile-commands-dir=${workspaceFolder}/balloon-project-stm32mx",
+    "--query-driver=**/arm-none-eabi-*"
+  ],
+  "C_Cpp.default.compileCommands": "${workspaceFolder}/balloon-project-stm32mx/compile_commands.json"
+}

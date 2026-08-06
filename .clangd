@@ -1,0 +1,6 @@
+# Repo-root clangd: firmware under balloon-project-stm32mx/.
+# Machine-local compile_commands.json is gitignored; regenerate with make compile_commands.
+CompileFlags:
+  CompilationDatabase: balloon-project-stm32mx
+  Add:
+    - --target=arm-none-eabi

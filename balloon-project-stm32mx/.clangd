@@ -1,0 +1,5 @@
+# clangd for STM32 firmware — matches Makefile via local compile_commands.json.
+CompileFlags:
+  CompilationDatabase: .
+  Add:
+    - --target=arm-none-eabi
