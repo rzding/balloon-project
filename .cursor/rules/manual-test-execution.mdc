@@ -1,0 +1,11 @@
+---
+description: Manual test execution — agents write tests; user runs them
+alwaysApply: true
+---
+
+# Manual test execution
+
+- Agents may create or update host unit tests under `balloon-project-stm32mx/tests/host/` and document run commands in `tests/host/README.md`.
+- Agents must **not** execute host unit tests, HIL scripts, Renode, or flash-and-verify loops unless the user explicitly asks in that message.
+- After adding or changing tests, tell the user the exact manual run command (from `tests/host/README.md` or the guidelines doc).
+- Firmware build (`make clean && make` in `balloon-project-stm32mx/`) is fine for agents when verifying compile.
