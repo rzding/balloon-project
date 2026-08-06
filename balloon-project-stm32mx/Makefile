@@ -62,7 +62,8 @@ Core/Src/system_stm32f4xx.c \
 Core/Src/sysmem.c \
 Core/Src/syscalls.c \
 App/Src/app.c \
-App/Src/error_flags.c
+App/Src/error_flags.c \
+App/Src/spi_bus.c
 
 # Application modules (App/Src/*.c) are manual — re-add after CubeMX Makefile regen
 
@@ -200,7 +201,13 @@ $(BUILD_DIR):
 #######################################
 clean:
 	-rm -fR $(BUILD_DIR)
-  
+
+#######################################
+# IDE: regenerate compile_commands.json (clangd / IntelliSense)
+#######################################
+compile_commands:
+	python3 ../scripts/gen_compile_commands.py
+
 #######################################
 # dependencies
 #######################################

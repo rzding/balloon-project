@@ -1,15 +1,56 @@
-# General
+# =============================================================================
+# Balloon project — .gitignore
+# =============================================================================
+
+# --- OS / junk ---
 .DS_Store
 .localized
 __MACOSX/
 .AppleDouble
 .LSOverride
+Thumbs.db
+Desktop.ini
 Icon[]
 
-# For PCBs designed using KiCad: https://www.kicad.org/
-# Format documentation: https://kicad.org/help/file-formats/
+# --- Editors / IDE (local caches & personal overrides) ---
+# Clangd index cache (regenerated automatically; do not commit)
+.cache/
+**/.cache/
 
-# Temporary files
+# Generated IntelliSense DB — absolute machine paths; regenerate with:
+#   make -C balloon-project-stm32mx compile_commands
+compile_commands.json
+**/compile_commands.json
+
+# JetBrains / Eclipse / CubeIDE local state
+.idea/
+*.user
+*.suo
+*.workspace
+*.launch
+.settings/
+RemoteSystemsTempFiles/
+
+# Optional: keep shared team VS Code / clangd configs committed (.vscode/, .clangd).
+# Uncomment the next line only if you want IDE settings to stay fully local:
+# .vscode/
+
+# --- STM32 firmware build artifacts ---
+# Regenerate with `make` in balloon-project-stm32mx/
+balloon-project-stm32mx/build/
+*.o
+*.d
+*.elf
+*.hex
+*.bin
+*.map
+*.lst
+*.srec
+*.a
+*.lib
+
+# --- KiCad (https://www.kicad.org/help/file-formats/) ---
+# Temporary / backup files
 *.000
 *.bak
 *.bck
@@ -28,36 +69,19 @@ _autosave-*
 *-save.kicad_pcb
 fp-info-cache
 ~*.lck
-\#auto_saved_files#
 
-# Netlist files (exported from Eeschema)
+# Local project / history
+.history
+*.kicad_prl
+
+# Netlists / autorouter exports
 *.net
-
-# Autorouter files (exported from Pcbnew)
 *.dsn
 *.ses
 
-# Exported BOM files
+# Exported BOM / reports (re-export from KiCad as needed)
 *.xml
 *.csv
 
-# Archived Backups (KiCad 6.0)
+# Archived backups (KiCad 6+)
 **/*-backups/*.zip
-
-# Local git-based history (KiCad 9.0+)
-.history
-
-# Local project settings
-*.kicad_prl
-
-# STM32 firmware — build artifacts (regenerate with `make` in balloon-project-stm32mx/)
-balloon-project-stm32mx/build/
-
-# GNU Arm embedded toolchain outputs (if emitted outside build/)
-*.o
-*.d
-*.elf
-*.hex
-*.bin
-*.map
-*.lst

@@ -1,0 +1,24 @@
+{
+  "configurations": [
+    {
+      "name": "STM32F411 (balloon-project-stm32mx)",
+      "includePath": [
+        "${workspaceFolder}/balloon-project-stm32mx/Core/Inc",
+        "${workspaceFolder}/balloon-project-stm32mx/App/Inc",
+        "${workspaceFolder}/balloon-project-stm32mx/Drivers/STM32F4xx_HAL_Driver/Inc",
+        "${workspaceFolder}/balloon-project-stm32mx/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy",
+        "${workspaceFolder}/balloon-project-stm32mx/Drivers/CMSIS/Device/ST/STM32F4xx/Include",
+        "${workspaceFolder}/balloon-project-stm32mx/Drivers/CMSIS/Include"
+      ],
+      "defines": [
+        "USE_HAL_DRIVER",
+        "STM32F411xE"
+      ],
+      "compilerPath": "arm-none-eabi-gcc",
+      "cStandard": "c11",
+      "intelliSenseMode": "gcc-arm",
+      "compileCommands": "${workspaceFolder}/balloon-project-stm32mx/compile_commands.json"
+    }
+  ],
+  "version": 4
+}

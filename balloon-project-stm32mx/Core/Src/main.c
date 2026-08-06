@@ -22,6 +22,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "app.h"
+#include "spi_bus.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -105,6 +106,7 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
+  (void)spi_bus_init(&hspi1);
   (void)app_init();
   /* USER CODE END 2 */
 
@@ -232,7 +234,7 @@ static void MX_SPI1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN SPI1_Init 2 */
-
+  /* Bring-up clock (~0.78 MHz) applied by spi_bus_init() after MX_SPI1_Init — see §2.3. */
   /* USER CODE END SPI1_Init 2 */
 
 }

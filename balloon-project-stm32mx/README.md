@@ -28,11 +28,22 @@ Requires `arm-none-eabi-gcc` (e.g. STM32CubeCLT). Artifacts are written to `buil
 - `build/balloon-project-stm32mx.hex`
 - `build/balloon-project-stm32mx.bin`
 
-## Add a new App module (3 steps)
+## Add a new App module
 
 1. Add `App/Inc/foo.h` and `App/Src/foo.c` (one module = one `.c` / `.h` pair).
 2. List `App/Src/foo.c` in Makefile `C_SOURCES` (re-add App entries after CubeMX Makefile regen).
 3. `#include "foo.h"` from callers; `-IApp/Inc` is already in `C_INCLUDES`.
+4. Regenerate IDE IntelliSense DB: `make compile_commands`.
+
+## IDE IntelliSense (Cursor / VS Code)
+
+Repo-root workspace config (keeps editor diagnostics aligned with the Makefile):
+
+- `compile_commands.json` — same defines/includes as `make`
+- `.clangd` — clangd + `arm-none-eabi-gcc` query-driver
+- Repo `.vscode/c_cpp_properties.json` + `.vscode/settings.json`
+
+After adding App sources, run `make compile_commands`, then **Developer: Reload Window** if squiggles remain.
 
 ## SWD / flash
 

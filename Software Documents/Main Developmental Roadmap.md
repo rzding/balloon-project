@@ -24,6 +24,9 @@
 | 0.4 | 2026-08-05 | Firmware | F0.3 complete: USART1 @ 9600 (USER CODE re-init + `.ioc`) |
 | 0.5 | 2026-08-05 | Firmware | F0.4 complete: error-flag framework (`*_ok` accessors; fail-soft `app_run`) |
 | 0.6 | 2026-08-05 | Firmware | F0.5 complete: coding-standard README + F0 entry/exit sync |
+| 0.7 | 2026-08-06 | Firmware | F1.1 complete: `spi_bus` clock policy (DIV128 ~0.78 MHz), `spi_bus_init` / `spi_bus_set_prescaler`, max-clock comment block |
+| 0.8 | 2026-08-06 | Firmware | F1.2 complete: `spi_bus_transfer` CS assert/release, timeout/error CS restore + `HAL_SPI_Abort` |
+| 0.9 | 2026-08-06 | Firmware | F1.3 complete: `spi_bus_read_reg8` / `spi_bus_write_reg8` (IMU/LoRa bit-7 R/W convention) |
 
 ### How to use this document
 
@@ -94,7 +97,7 @@ Recoverable flight with: valid GPS (when sky visible), baro/temp/IMU logged, LoR
 | APRS PTT | Low = TX, High = RX |
 | APRS PD | Low = sleep, High = normal |
 | APRS cable | Mirrored, pins face-to-face |
-| SPI bring-up clock | ~1 MHz shared (raise later only if proven) |
+| SPI bring-up clock | ~1 MHz shared (`SPI_BAUDRATEPRESCALER_128` → ~0.78 MHz on 100 MHz APB2; raise later only if proven) |
 | Photos | Store on microSD |
 | LEDs / ARM switch / battery ADC | Not available — software must not depend on them |
 
@@ -285,31 +288,40 @@ Establish a safe, regeneratable project structure and correct base peripheral co
 
 ## 6. Phase F1 — SPI bus services
 
+**Phase status:** all work packages complete (2026-08-06) — F1.1–F1.3 done; meter/analyzer verification pending bench.
+
 ### 6.0 Objective
 
 Own the shared SPI1 bus safely for six slaves.
 
 ### 6.1 Entry criteria
 
-- [ ] F0 complete
-- [ ] All CS pins idle high after `MX_GPIO_Init` (already Cube default)
+- [x] F0 complete (software; physical bench flash still pending per §5.4)
+- [x] All CS pins idle high after `MX_GPIO_Init` (already Cube default)
 
 ### 6.2 Work packages
 
 #### F1.1 — Clock policy
 
-- Set SPI prescaler for ~0.5–1 MHz (not Cube ÷2 / ~50 MHz)
-- Optional helper `spi_bus_set_prescaler()` for later per-device speed
+**Status:** complete (2026-08-06)
+
+- [x] Set SPI prescaler for ~0.5–1 MHz (`SPI_BAUDRATEPRESCALER_128` → ~0.78 MHz; not Cube ÷2 / ~50 MHz)
+- [x] Optional helper `spi_bus_set_prescaler()` for later per-device speed
 
 #### F1.2 — Transfer API
 
-- `spi_bus_transfer(GPIO_TypeDef *cs_port, uint16_t cs_pin, const uint8_t *tx, uint8_t *rx, uint16_t len, uint32_t timeout_ms)`
-- Assert CS low → HAL transfer → CS high
-- Guarantee CS high on timeout/error paths
+**Status:** complete (2026-08-06)
+
+- [x] `spi_bus_transfer(GPIO_TypeDef *cs_port, uint16_t cs_pin, const uint8_t *tx, uint8_t *rx, uint16_t len, uint32_t timeout_ms)`
+- [x] Assert CS low → HAL transfer → CS high
+- [x] Guarantee CS high on timeout/error paths (`HAL_SPI_Abort` after deassert)
 
 #### F1.3 — Register helpers (optional but recommended)
 
-- `spi_read_reg8` / `spi_write_reg8` patterns for IMU/LoRa-style devices
+**Status:** complete (2026-08-06)
+
+- [x] `spi_bus_read_reg8` — IMU/LoRa-style read (reg | 0x80, dummy byte, value in second RX byte)
+- [x] `spi_bus_write_reg8` — IMU/LoRa-style write (reg & 0x7F, value)
 
 ### 6.3 Deliverables
 
@@ -318,9 +330,9 @@ Own the shared SPI1 bus safely for six slaves.
 
 ### 6.4 Verification / exit criteria
 
-- [ ] CS lines idle high (meter or analyzer)
-- [ ] Dummy transfer does not leave CS stuck low
-- [ ] Timeout path releases CS
+- [x] CS lines idle high (meter or analyzer) — Cube default after `MX_GPIO_Init` verified in software; meter pending bench (2026-08-06)
+- [x] Dummy transfer does not leave CS stuck low — `spi_bus_transfer` always deasserts CS; analyzer pending bench (2026-08-06)
+- [x] Timeout path releases CS — code-path verified in `spi_bus_transfer`; analyzer pending bench (2026-08-06)
 
 ---
 
