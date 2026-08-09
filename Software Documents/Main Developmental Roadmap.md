@@ -32,6 +32,8 @@
 | 0.12 | 2026-08-06 | Firmware | Guidelines doc + §21 bench backlog + Cursor rules; deferred-HW / host-test / manual-run policy |
 | 0.13 | 2026-08-06 | Firmware | F2.3 sample read (`imu_read`, scale helpers) + F2.4 ongoing health; host `test_imu_scale`; F2 software complete, HW → §21 |
 | 0.14 | 2026-08-09 | Firmware | F2 software verification closed: host `test_imu_scale` manual pass; HW exit remains §7.3 / §21 |
+| 0.15 | 2026-08-09 | Firmware | F3.1 complete: `baro` reset + PROM C1–C6 + CRC4, `baro_init` / `baro_is_ok`, host `test_ms5611_crc`; F3.2–F3.4 open; HW → §21 |
+| 0.16 | 2026-08-09 | Firmware | F3.1 host `test_ms5611_crc` fix — AN520 test vector; manual pass |
 
 ### How to use this document
 
@@ -407,21 +409,29 @@ Prove SPI + first sensor; provide motion data for burst detection later.
 
 ## 8. Phase F3 — Barometer (MS5611)
 
+**Phase status:** F3.1 software complete (2026-08-09); F3.2–F3.4 open; hardware exit criteria open (§8.3 / §21).
+
 ### 8.0 Objective
 
 Pressure and barometric altitude for ascent/float/descent logic.
 
 ### 8.1 Entry criteria
 
-- [ ] F1 complete (can parallel F2 after F1)
+- [x] F1 complete (can parallel F2 after F1)
 
 ### 8.2 Work packages
 
 #### F3.1 — Reset and PROM
 
-- SPI reset command
-- Read calibration coefficients C1–C6 from PROM
-- CRC4 check if implementing datasheet CRC (recommended)
+**Status:** complete (2026-08-09)
+
+- [x] SPI reset command (`0x1E`) via `spi_bus_transfer` + `BARO_CS`
+- [x] Read calibration coefficients C1–C6 from PROM (all eight words; cache for F3.2+)
+- [x] CRC4 check per AN520 / datasheet (recommended — implemented)
+- [x] Fail `baro_init` on SPI error, zero PROM word, or CRC mismatch
+- [x] `error_flags_set_baro_ok` + `baro_is_ok()` on init path
+- [x] `baro.c` / `baro.h`; Makefile `C_SOURCES`; called from `app_init` fail-soft
+- [x] Host test `tests/host/test_ms5611_crc` pass (manual, 2026-08-09; AN520 vector)
 
 #### F3.2 — Conversion sequence
 
@@ -440,9 +450,17 @@ Pressure and barometric altitude for ascent/float/descent logic.
 
 ### 8.3 Verification / exit criteria
 
+**Software verification (F3.1 — 2026-08-09):**
+
+- [x] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
+- [x] Host `tests/host/test_ms5611_crc` pass (manual, 2026-08-09; AN520 vector)
+- [x] Init failure does not hang MCU — `(void)baro_init()` in `app_init`; `app_run` continues; PROM/CRC fail path sets `error_flags_set_baro_ok(false)`
+
+**Hardware exit (pending bench — tick when §21 F3 procedure passes):**
+
 - [ ] Indoor pressure ~980–1040 hPa (site-dependent)
 - [ ] Raising board ~1–2 m shows altitude change directionally
-- [ ] PROM/CRC failure handled cleanly
+- [ ] PROM/CRC failure handled cleanly on hardware (CRC pass on silicon; inject fault optional)
 
 ---
 
@@ -895,9 +913,28 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 
 **On failure:** do not tick exit — check SPI/CS/power, IMU variant (`-V` WHO_AM_I = `0xDB`), and `PWR_MGMT0` if samples are static.
 
-### F3–F7 — Future sensors (add when software WP completes)
+### F3 — Barometer (MS5611)
 
-- [ ] **F3 Baro:** indoor pressure plausible (~980–1040 hPa); altitude responds to ~1–2 m lift
+**Checklist (tick with pass date when bench complete):**
+
+- [ ] Reset + PROM read on hardware; CRC4 passes
+- [ ] After `baro_init`: `baro_init()` returns true, `baro_is_ok()` true, `error_flags_baro_ok()` true
+- [ ] Indoor pressure plausible (~980–1040 hPa) — requires F3.2–F3.3
+- [ ] Altitude responds to ~1–2 m lift — requires F3.2–F3.4
+
+**Bench procedure (when PCB + ST-Link available):**
+
+1. Flash `build/balloon-project-stm32mx.elf` (see `balloon-project-stm32mx/README.md` § SWD / flash).
+2. Confirm `app_init` → `while(1)` / `app_run` after reset.
+3. After `baro_init`: `baro_init()` returns true, `baro_is_ok()` true, `error_flags_baro_ok()` true.
+4. When F3.2–F3.4 complete: indoor pressure ~980–1040 hPa; raise board ~1–2 m and confirm altitude direction.
+5. Tick checklist above + §8.3 hardware exit items; add roadmap rev with bench date.
+6. PR title: `firmware: complete Phase F3 — Barometer` (roadmap §20).
+
+**On failure:** do not tick exit — check SPI/CS/power, `BARO_CS` (PB2), and PROM/CRC (`error_flags_baro_ok` false on CRC mismatch).
+
+### F4–F7 — Future sensors (add when software WP completes)
+
 - [ ] **F4 Temp:** RTD reading plausible at room temp; fault handling on disconnect
 - [ ] **F5 GPS:** NMEA bytes at 9600 on bench or outdoor sky view
 - [ ] **F6 SD:** card detect, mount, append log survives power cycle
