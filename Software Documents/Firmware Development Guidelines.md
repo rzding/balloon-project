@@ -112,7 +112,7 @@ See [`balloon-project-stm32mx/tests/host/README.md`](../balloon-project-stm32mx/
 
 | Phase | Good host-test targets |
 |---|---|
-| F2.3 | Accel/gyro raw → SI scale at ±16 g / ±2000 dps |
+| F2.3 | Accel/gyro raw → SI scale at ±16 g / ±2000 dps — `test_imu_scale` verified pass 2026-08-09 (manual) |
 | F3 | MS5611 compensation from known PROM + ADC values |
 | F5 | NMEA sentence parse, fix extraction |
 | F8 | Packetizer CRC16, field packing |

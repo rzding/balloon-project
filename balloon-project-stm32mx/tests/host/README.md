@@ -6,7 +6,7 @@ Examples: IMU LSB→SI scale, MS5611 compensation math, NMEA parsing, telemetry 
 
 ## Status
 
-**Harness not yet added.** When the first host test lands (e.g. F2.3 scale helpers or F3 compensation), add a `Makefile` or `run_tests.sh` here and document the exact run command below.
+**Harness active** — `test_imu_scale` (F2.3 accel/gyro scale + endian unpack).
 
 ## Manual execution policy
 
@@ -14,16 +14,27 @@ Examples: IMU LSB→SI scale, MS5611 compensation math, NMEA parsing, telemetry 
 - **Cursor agents** may create and update tests and this README, but **must not execute** the test suite unless the user explicitly asks in that message.
 - After adding tests, agents must tell you the exact command to run (copied from this file).
 
-## How to run (template — update when harness exists)
-
-When a harness is added, replace this section with real commands. Expected pattern:
+## How to run
 
 ```bash
 cd balloon-project-stm32mx/tests/host
-make          # or: ./run_tests.sh
+make
+./test_imu_scale
 ```
 
-Requirements will be documented here (e.g. host `gcc`, Unity, or Python).
+Clean:
+
+```bash
+make clean
+```
+
+Requirements: host `cc` (clang/gcc) and `libm`.
+
+## Verification log
+
+| Test | Result | Date | Notes |
+|---|---|---|---|
+| `test_imu_scale` | pass | 2026-08-09 | Manual run by developer (`make` + `./test_imu_scale`) |
 
 ## What belongs here vs on the bench
 
