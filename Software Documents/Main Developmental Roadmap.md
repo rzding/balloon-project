@@ -11,7 +11,7 @@
 | Location | `Software Documents/Main Developmental Roadmap.md` |
 | Status | Draft for team review → Active after approval |
 | Audience | Firmware engineers (including first-time embedded), hardware, ops |
-| Related | HAB systems plan; KiCad schematics; `balloon-project-stm32mx.ioc`; datasheets |
+| Related | HAB systems plan; KiCad schematics; `balloon-project-stm32mx.ioc`; datasheets; [Firmware Development Guidelines.md](Firmware%20Development%20Guidelines.md) |
 | Source of truth (HW) | KiCad + CubeMX (not early `Balloon Project.md` part tables) |
 
 ### Revision history
@@ -27,14 +27,20 @@
 | 0.7 | 2026-08-06 | Firmware | F1.1 complete: `spi_bus` clock policy (DIV128 ~0.78 MHz), `spi_bus_init` / `spi_bus_set_prescaler`, max-clock comment block |
 | 0.8 | 2026-08-06 | Firmware | F1.2 complete: `spi_bus_transfer` CS assert/release, timeout/error CS restore + `HAL_SPI_Abort` |
 | 0.9 | 2026-08-06 | Firmware | F1.3 complete: `spi_bus_read_reg8` / `spi_bus_write_reg8` (IMU/LoRa bit-7 R/W convention) |
+| 0.10 | 2026-08-06 | Firmware | F2.1 complete: `imu` WHO_AM_I (`0x75`→`0x47`), `imu_init` / `imu_is_ok`, fail-soft `error_flags` |
+| 0.11 | 2026-08-06 | Firmware | F2.2 complete: soft reset, SPI-only + AFSR off, FS/ODR 100 Hz ±16 g/±2000 dps, LN power, read-back verify |
+| 0.12 | 2026-08-06 | Firmware | Guidelines doc + §21 bench backlog + Cursor rules; deferred-HW / host-test / manual-run policy |
+| 0.13 | 2026-08-06 | Firmware | F2.3 sample read (`imu_read`, scale helpers) + F2.4 ongoing health; host `test_imu_scale`; F2 software complete, HW → §21 |
+| 0.14 | 2026-08-09 | Firmware | F2 software verification closed: host `test_imu_scale` manual pass; HW exit remains §7.3 / §21 |
 
 ### How to use this document
 
 1. Pick a phase whose **entry criteria** are met.  
 2. Implement only that phase’s **work packages** (subsections).  
-3. Complete **verification** and tick **exit criteria** before starting the next phase.  
+3. Complete **verification** and tick **exit criteria** before starting the next phase — software verification can close a *work package*; hardware exit criteria without a board go to **§21** until the board is available (see [Firmware Development Guidelines.md](Firmware%20Development%20Guidelines.md)).  
 4. Do not skip phases that share the SPI bus (F1 before F2–F4, F6, F7, F9).  
-5. Record open defects in a simple issue list; blockers stay in §18.
+5. Record open defects in a simple issue list; blockers stay in §18.  
+6. F11 (HIL) and F12 (flight readiness) still require real hardware — deferred §21 items do not substitute.
 
 ---
 
@@ -280,7 +286,7 @@ Establish a safe, regeneratable project structure and correct base peripheral co
 ### 5.4 Verification / exit criteria
 
 - [x] Project builds without errors (verified 2026-08-05)
-- [ ] Firmware flashes and reaches `while(1)` — flash procedure documented 2026-08-05; physical flash pending bench ST-Link (no probe detected during F0.5)
+- [ ] Firmware flashes and reaches `while(1)` — flash procedure documented 2026-08-05; physical flash pending bench ST-Link (see §21)
 - [x] Baud change present for USART1
 - [x] Another engineer can add `App/Src/foo.c` using the documented steps (`balloon-project-stm32mx/README.md` + §5.2 F0.2)
 
@@ -330,13 +336,15 @@ Own the shared SPI1 bus safely for six slaves.
 
 ### 6.4 Verification / exit criteria
 
-- [x] CS lines idle high (meter or analyzer) — Cube default after `MX_GPIO_Init` verified in software; meter pending bench (2026-08-06)
-- [x] Dummy transfer does not leave CS stuck low — `spi_bus_transfer` always deasserts CS; analyzer pending bench (2026-08-06)
-- [x] Timeout path releases CS — code-path verified in `spi_bus_transfer`; analyzer pending bench (2026-08-06)
+- [x] CS lines idle high (meter or analyzer) — Cube default after `MX_GPIO_Init` verified in software; meter pending bench (see §21)
+- [x] Dummy transfer does not leave CS stuck low — `spi_bus_transfer` always deasserts CS; analyzer pending bench (see §21)
+- [x] Timeout path releases CS — code-path verified in `spi_bus_transfer`; analyzer pending bench (see §21)
 
 ---
 
 ## 7. Phase F2 — IMU (ICM-42688-P)
+
+**Phase status:** software verification complete (2026-08-09 — host `test_imu_scale` manual pass); hardware exit criteria open (§7.3 / §21). Full phase exit pending bench — see §21 F2 procedure; then rev 0.15 + tick §7.3 HW items.
 
 ### 7.0 Objective
 
@@ -344,34 +352,56 @@ Prove SPI + first sensor; provide motion data for burst detection later.
 
 ### 7.1 Entry criteria
 
-- [ ] F1 complete
+- [x] F1 complete
 
 ### 7.2 Work packages
 
 #### F2.1 — Identity
 
-- Read WHO_AM_I; compare to datasheet expected ID
-- Fail `imu_init` if mismatch
+**Status:** complete (2026-08-06)
+
+- [x] Read WHO_AM_I (`0x75`); compare to ICM-42688-P expected ID (`0x47`)
+- [x] Fail `imu_init` on SPI error or ID mismatch
+- [x] `error_flags_set_imu_ok` + `imu_is_ok()` on init path
+- [x] `imu.c` / `imu.h`; Makefile `C_SOURCES`; called from `app_init` fail-soft
 
 #### F2.2 — Configuration
 
-- Soft reset if required by datasheet
-- Set accel/gyro full-scale and ODR suitable for HAB (e.g. 50–200 Hz ODR for logging; not mandatory 1 kHz)
+**Status:** complete (2026-08-06)
+
+- [x] Soft reset via `DEVICE_CONFIG` (`0x11`); post-reset WHO_AM_I re-check
+- [x] SPI-only interface (`INTF_CONFIG0`); disable AFSR (`INTF_CONFIG1`)
+- [x] Accel ±16 g / gyro ±2000 dps at 100 Hz ODR (`GYRO_CONFIG0` / `ACCEL_CONFIG0` = `0x08`)
+- [x] Low-noise power (`PWR_MGMT0` = `0x0F`); register read-back verify
 
 #### F2.3 — Sample read
 
-- Read accel XYZ + gyro XYZ into `imu_sample_t` (SI or raw + scale helpers)
-- Optional: use `IMU_INT1` later; polling OK for v1
+**Status:** complete (2026-08-06)
+
+- [x] `imu_sample_t` with raw accel/gyro XYZ (16-bit LSB)
+- [x] Burst SPI read `ACCEL_DATA_X1`..`GYRO_DATA_Z0` (12 bytes) via `spi_bus_transfer`
+- [x] `imu_read()` polling API; scale helpers `imu_accel_raw_to_mps2` / `imu_gyro_raw_to_dps`
+- [x] Host test `tests/host/test_imu_scale` pass (manual, 2026-08-09)
 
 #### F2.4 — Health
 
-- Update `imu_ok`; expose `imu_is_ok()`
+**Status:** complete (2026-08-06)
+
+- [x] `imu_read` success/failure updates `error_flags_set_imu_ok` and `imu_is_ok()`
+- [x] `imu_is_ok()` reflects last init or read outcome
 
 ### 7.3 Verification / exit criteria
 
-- [ ] WHO_AM_I passes on hardware
-- [ ] Values change when board is moved/tilted
-- [ ] Init failure does not hang MCU
+**Software verification (closed 2026-08-09):**
+
+- [x] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
+- [x] Host `tests/host/test_imu_scale` pass (manual, 2026-08-09)
+- [x] Init failure does not hang MCU — `(void)imu_init()` in `app_init`; `app_run` continues; code-path verified (2026-08-06)
+
+**Hardware exit (pending bench — tick when §21 F2 procedure passes; then add rev 0.15):**
+
+- [ ] WHO_AM_I passes on hardware (see §21 F2)
+- [ ] Values change when board is moved/tilted (see §21 F2)
 
 ---
 
@@ -818,13 +848,65 @@ Ship a known binary to the pad.
 ## 20. Quick-start for a new implementer
 
 1. Read §2 (system) and §3 (standards).  
-2. Find the lowest phase with unmet exit criteria.  
-3. Confirm that phase’s entry criteria.  
-4. Implement only listed work packages.  
-5. Run verification; check exit boxes.  
-6. Open PR titled `firmware: complete Phase Fx — <name>`.  
+2. Read [Firmware Development Guidelines.md](Firmware%20Development%20Guidelines.md) (verification, deferred HW, host tests).  
+3. Find the lowest phase with unmet exit criteria.  
+4. Confirm that phase’s entry criteria.  
+5. Implement only listed work packages.  
+6. Run verification; check exit boxes; add deferred HW items to **§21** when no board.  
+7. Open PR titled `firmware: complete Phase Fx — <name>`.  
 
 **First coding task for the project:** Phase **F0**, then **F1**, then **F2** (IMU WHO_AM_I).
+
+---
+
+## 21. Bench verification backlog
+
+Hardware checks deferred when no board or bench tools are available. **Tick here during bring-up week** when the flight computer PCB is powered and SWD is connected. This list does not replace **F11 system HIL** — it tracks per-subsystem bench validation.
+
+**Process:** When a work package completes in software, add matching HW checks below if not already listed. Clear ticks with date and pass/fail note.
+
+### F0 — Foundation
+
+- [ ] Firmware flashes via ST-Link and reaches `while(1)` / `app_run` after reset
+
+### F1 — SPI bus
+
+- [ ] CS lines idle high (meter or logic analyzer on IMU/BARO/Temp/LoRa/SD CS)
+- [ ] Dummy SPI transfer does not leave any CS stuck low
+- [ ] Timeout path releases CS (analyzer or fault injection)
+
+### F2 — IMU (ICM-42688-P)
+
+**Checklist (tick with pass date when bench complete):**
+
+- [ ] WHO_AM_I reads `0x47` on hardware (SWD watch or debugger)
+- [ ] Post-init register read-back: `GYRO_CONFIG0` / `ACCEL_CONFIG0` = `0x08`, `PWR_MGMT0` = `0x0F`
+- [ ] After F2.3 sample read: accel/gyro values change when board is moved or tilted
+
+**Bench procedure (when PCB + ST-Link available):**
+
+1. Flash `build/balloon-project-stm32mx.elf` (see `balloon-project-stm32mx/README.md` § SWD / flash).
+2. Confirm `app_init` → `while(1)` / `app_run` after reset.
+3. After `imu_init`: `imu_init()` returns true, `imu_is_ok()` true, `error_flags_imu_ok()` true; optional WHO_AM_I reg read = `0x47`.
+4. Read-back via SPI/debugger: `GYRO_CONFIG0` / `ACCEL_CONFIG0` = `0x08`, `PWR_MGMT0` = `0x0F`.
+5. Call `imu_read(&sample)` repeatedly (GDB or debug loop): flat rest ~1 g on one accel axis (orientation-dependent); tilt/rotate changes ax/ay/az and gx/gy/gz; `imu_is_ok()` stays true on success.
+6. Tick checklist above + §7.3 hardware exit items; add roadmap rev **0.15** with bench date; update §7 phase status to `complete (bench YYYY-MM-DD)`.
+7. PR title: `firmware: complete Phase F2 — IMU` (roadmap §20).
+
+**On failure:** do not tick exit — check SPI/CS/power, IMU variant (`-V` WHO_AM_I = `0xDB`), and `PWR_MGMT0` if samples are static.
+
+### F3–F7 — Future sensors (add when software WP completes)
+
+- [ ] **F3 Baro:** indoor pressure plausible (~980–1040 hPa); altitude responds to ~1–2 m lift
+- [ ] **F4 Temp:** RTD reading plausible at room temp; fault handling on disconnect
+- [ ] **F5 GPS:** NMEA bytes at 9600 on bench or outdoor sky view
+- [ ] **F6 SD:** card detect, mount, append log survives power cycle
+- [ ] **F7 LoRa:** packet heard on ground station at expected rate
+
+### Notes
+
+- Full-stack integration remains **§16 Phase F11 (HIL)**.
+- Host unit tests (scale, parse, CRC) run on developer machine — see [Firmware Development Guidelines.md](Firmware%20Development%20Guidelines.md) and `balloon-project-stm32mx/tests/host/README.md`.
 
 ---
 

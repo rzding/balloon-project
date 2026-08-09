@@ -4,13 +4,16 @@ STM32F411CEU6 firmware for the SSI high-altitude balloon flight computer. CubeMX
 
 ## Coding standards
 
-Follow [Software Documents/Main Developmental Roadmap.md](../Software%20Documents/Main%20Developmental%20Roadmap.md) **§3** (architecture and coding practices). In short:
+Follow [Software Documents/Main Developmental Roadmap.md](../Software%20Documents/Main%20Developmental%20Roadmap.md) **§3** (architecture and coding practices) and [Firmware Development Guidelines.md](../Software%20Documents/Firmware%20Development%20Guidelines.md) (verification, deferred HW, host tests). In short:
 
 - Layered design: `main` → `app_init` / `app_run` → drivers → `spi_bus` → HAL
 - Edit CubeMX output only inside `/* USER CODE BEGIN/END */` blocks
 - One device = one module (`foo.c` / `foo.h`); public APIs use `bool *_init(void)` and read/poll functions
 - Fail-operational: set `error_flags`; never block the mission loop on subsystem faults
 - No `malloc` in the flight loop; fixed-size buffers; finite HAL timeouts
+- Deferred hardware checks: track in roadmap **§21 Bench verification backlog** until the board is available
+
+**Host unit tests** (pure logic, no HAL): `tests/host/` — run manually; see `tests/host/README.md`. Cursor agents document run commands but do not execute tests by default.
 
 `.clang-format` is deferred (not required for Phase F0).
 
