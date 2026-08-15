@@ -36,12 +36,14 @@
 | 0.16 | 2026-08-09 | Firmware | F3.1 host `test_ms5611_crc` fix — AN520 test vector; manual pass |
 | 0.17 | 2026-08-15 | Firmware | F3.2 complete: D1/D2 OSR 4096 conversion, `baro_read_raw`, host `test_ms5611_adc`; F3.3–F3.4 open; HW → §21 |
 | 0.18 | 2026-08-15 | Firmware | F3.3 complete: compensation (1st/2nd order), ISA altitude helper, host `test_ms5611_comp`; F3.4 open; HW → §21 |
+| 0.19 | 2026-08-15 | Firmware | F3.4 complete: `baro_sample_t`, `baro_read` (raw + compensate + ISA), host composition in `test_ms5611_comp`; F3 software complete; HW → §21 |
+| 0.20 | 2026-08-15 | Firmware | Software vs HW gate wording aligned across phases; proceed-rule explicit in §3.5, §4, §20, F0–F10, §21 |
 
 ### How to use this document
 
 1. Pick a phase whose **entry criteria** are met.  
 2. Implement only that phase’s **work packages** (subsections).  
-3. Complete **verification** and tick **exit criteria** before starting the next phase — software verification can close a *work package*; hardware exit criteria without a board go to **§21** until the board is available (see [Firmware Development Guidelines.md](Firmware%20Development%20Guidelines.md)).  
+3. Tick **software** verification before starting the next sequential phase. Do **not** wait on hardware exit — those items go to **§21** until bring-up week (see [Firmware Development Guidelines.md](Firmware%20Development%20Guidelines.md)). Still honor **entry criteria** (F1 before SPI slaves; F5 parallel after F0; F9 ArduCAM SKU; F10 license for on-air; F11/F12 require hardware).  
 4. Do not skip phases that share the SPI bus (F1 before F2–F4, F6, F7, F9).  
 5. Record open defects in a simple issue list; blockers stay in §18.  
 6. F11 (HIL) and F12 (flight readiness) still require real hardware — deferred §21 items do not substitute.
@@ -187,13 +189,21 @@ bool imu_is_ok(void);                /* last known health */
 
 ### 3.5 Definition of Done (all phases)
 
-A phase is done only when:
+Two levels — do not conflate them.
+
+**Software-complete (unblocks next coding phase):**
 
 1. Code merged (or committed) under `App/` with Makefile updated  
-2. Entry/exit criteria checklist completed  
-3. Verification steps executed and noted (pass/fail + date)  
+2. Work-package checklists ticked  
+3. Software verification executed and noted (pass/fail + date): clean `make clean && make`; host tests authored when the phase has pure logic; fail-soft paths documented — **does not require a board**  
 4. No critical defect open that blocks the next phase’s entry criteria  
 5. Public header documented enough for another engineer to call the API  
+
+**Phase exit complete (full close):**
+
+- Software-complete **and** hardware exit criteria ticked after bench, **or** hardware exit still open in §21 — in that case phase status must say “HW exit open” and the phase must **not** be claimed fully complete.
+
+**Entry-criteria shorthand:** when a later phase says “F1 complete” or “F3 software-complete,” that means **software-complete** of that dependency, not bench verification ticked.
 
 ---
 
@@ -217,6 +227,12 @@ A phase is done only when:
 
 **Parallelism:** F5 (GPS/UART) can proceed in parallel with F2–F4 after F0. F9/F10 can be prepared offline but must not block F7/F8 for chase-critical path.
 
+**Proceed rule (software vs bench):**
+
+- Sequential driver work **F2–F7** proceeds when dependencies are **software-complete**; bench validation is §21 bring-up week, not a coding blocker.
+- **F8** may start when F3 and/or F5 altitude **APIs** exist (software); live TX needs F7 software-complete; ops RX node is for HW exit.
+- **F11/F12** require real hardware; §21 per-subsystem bench does not substitute for F11.
+
 **Chase-critical MVP path:** F0 → F1 → F2 → F3 → F4 → F5 → F6 → F7 → F8  
 **Full mission path:** MVP + F9 + F10 + F11 + F12  
 
@@ -224,7 +240,7 @@ A phase is done only when:
 
 ## 5. Phase F0 — Foundation and tooling
 
-**Phase status:** complete pending bench flash (2026-08-05) — all work packages done; physical ST-Link flash not yet verified on hardware.
+**Phase status:** software verification complete (2026-08-05); hardware exit open (§5.4 / §21). Full phase exit pending bench — see §21 F0.
 
 ### 5.0 Objective
 
@@ -289,16 +305,21 @@ Establish a safe, regeneratable project structure and correct base peripheral co
 
 ### 5.4 Verification / exit criteria
 
+**Software verification (closed 2026-08-05):**
+
 - [x] Project builds without errors (verified 2026-08-05)
-- [ ] Firmware flashes and reaches `while(1)` — flash procedure documented 2026-08-05; physical flash pending bench ST-Link (see §21)
 - [x] Baud change present for USART1
 - [x] Another engineer can add `App/Src/foo.c` using the documented steps (`balloon-project-stm32mx/README.md` + §5.2 F0.2)
+
+**Hardware exit (pending bench — tick when §21 F0 procedure passes):**
+
+- [ ] Firmware flashes and reaches `while(1)` — flash procedure documented 2026-08-05; physical flash pending bench ST-Link (see §21)
 
 ---
 
 ## 6. Phase F1 — SPI bus services
 
-**Phase status:** all work packages complete (2026-08-06) — F1.1–F1.3 done; meter/analyzer verification pending bench.
+**Phase status:** software verification complete (2026-08-06); hardware exit open (§6.4 / §21). Full phase exit pending bench — see §21 F1.
 
 ### 6.0 Objective
 
@@ -340,6 +361,14 @@ Own the shared SPI1 bus safely for six slaves.
 
 ### 6.4 Verification / exit criteria
 
+**Software verification (closed 2026-08-06):**
+
+- [x] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
+- [x] `spi_bus_transfer` always deasserts CS on success and error paths (code-path verified)
+- [x] Timeout path calls `HAL_SPI_Abort` after CS release (code-path verified)
+
+**Hardware exit (pending bench — tick when §21 F1 procedure passes):**
+
 - [x] CS lines idle high (meter or analyzer) — Cube default after `MX_GPIO_Init` verified in software; meter pending bench (see §21)
 - [x] Dummy transfer does not leave CS stuck low — `spi_bus_transfer` always deasserts CS; analyzer pending bench (see §21)
 - [x] Timeout path releases CS — code-path verified in `spi_bus_transfer`; analyzer pending bench (see §21)
@@ -348,7 +377,7 @@ Own the shared SPI1 bus safely for six slaves.
 
 ## 7. Phase F2 — IMU (ICM-42688-P)
 
-**Phase status:** software verification complete (2026-08-09 — host `test_imu_scale` manual pass); hardware exit criteria open (§7.3 / §21). Full phase exit pending bench — see §21 F2 procedure; then rev 0.15 + tick §7.3 HW items.
+**Phase status:** software verification complete (2026-08-09 — host `test_imu_scale` manual pass); hardware exit criteria open (§7.3 / §21). Full phase exit pending bench — see §21 F2 procedure; then tick §7.3 HW items.
 
 ### 7.0 Objective
 
@@ -411,7 +440,7 @@ Prove SPI + first sensor; provide motion data for burst detection later.
 
 ## 8. Phase F3 — Barometer (MS5611)
 
-**Phase status:** F3.1–F3.3 software complete (2026-08-15); F3.4 open; hardware exit criteria open (§8.3 / §21).
+**Phase status:** software verification complete (2026-08-15); hardware exit criteria open (§8.3 / §21). Full phase exit pending bench — see §21 F3 procedure; then tick §8.3 HW items.
 
 ### 8.0 Objective
 
@@ -460,7 +489,14 @@ Pressure and barometric altitude for ascent/float/descent logic.
 
 #### F3.4 — API
 
-- `baro_init`, `baro_read`, altitude helper used by mission later
+**Status:** complete (2026-08-15)
+
+- [x] `baro_sample_t` with `pressure_pa`, `temp_centi_c`, `alt_m` (mission / telemetry units)
+- [x] `baro_read` = `baro_read_raw` + compensate cached PROM + ISA altitude (`baro_sample_from_raw`)
+- [x] Fail-soft health: invalid PROM, SPI, or compensate failure → `baro_set_ok(false)`; success → `baro_set_ok(true)`
+- [x] `baro_init` already wired in `app_init` (F3.1); `baro_read` not called from `app_run` until mission (F8)
+- [x] Altitude helper `baro_pressure_pa_to_alt_m` exposed for mission via `baro_sample_t.alt_m`
+- [x] Host-testable `baro_sample_from_raw` in `baro.h`; host test in `test_ms5611_comp` (manual run pending)
 
 ### 8.3 Verification / exit criteria
 
@@ -482,6 +518,12 @@ Pressure and barometric altitude for ascent/float/descent logic.
 - [x] Host `tests/host/test_ms5611_comp` authored (manual run pending; datasheet B3 golden vector)
 - [x] Compensation helpers pure / host-testable; no SPI or `app_run` changes
 
+**Software verification (F3.4 — 2026-08-15):**
+
+- [x] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
+- [x] Host `tests/host/test_ms5611_comp` extended with `baro_sample_from_raw` datasheet vector (manual run pending)
+- [x] `baro_read` fail path does not hang MCU — not called from `app_run`; health updated on read like `imu_read`
+
 **Hardware exit (pending bench — tick when §21 F3 procedure passes):**
 
 - [ ] Indoor pressure ~980–1040 hPa (site-dependent)
@@ -492,14 +534,16 @@ Pressure and barometric altitude for ascent/float/descent logic.
 
 ## 9. Phase F4 — Temperature (MAX31865 + PT1000)
 
+**Phase status:** not started — software work unblocked by F1 software-complete; HW → §21.
+
 ### 9.0 Objective
 
 Outside-air temperature via RTD.
 
 ### 9.1 Entry criteria
 
-- [ ] F1 complete
-- [ ] Confirm PT1000 3-wire (team: yes per PCB; Gabe BOM confirm)
+- [ ] F1 software-complete
+- [ ] PT1000 3-wire confirmed (team: yes per PCB; Gabe BOM confirm for confidence — not a coding blocker)
 
 ### 9.2 Work packages
 
@@ -519,6 +563,14 @@ Outside-air temperature via RTD.
 
 ### 9.3 Verification / exit criteria
 
+**Software verification (tick when work packages land):**
+
+- [ ] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
+- [ ] Host tests for RTD resistance → °C conversion if extracted as pure logic (optional)
+- [ ] `temp_read` fail path does not hang MCU — fail-soft `temp_ok` / `error_flags`; not called from `app_run` until mission (F8)
+
+**Hardware exit (pending bench — tick when §21 F4 procedure passes):**
+
 - [ ] Room-temp reading plausible (~15–30 °C)
 - [ ] Hand on probe moves reading
 - [ ] Disconnect fault (if safe to test) sets fault flag
@@ -527,14 +579,17 @@ Outside-air temperature via RTD.
 
 ## 10. Phase F5 — GPS (MAX-M10S)
 
+**Phase status:** not started — software work unblocked by F0 software-complete; HW → §21.
+
 ### 10.0 Objective
 
 Non-blocking NMEA parser providing fix for recovery and APRS/LoRa.
 
 ### 10.1 Entry criteria
 
-- [ ] F0 complete (USART1 @ 9600)
-- [ ] Antenna connected for outdoor fix tests
+- [ ] F0 software-complete (USART1 @ 9600)
+
+**Hardware exit (not a coding start blocker):** antenna connected for outdoor fix validation — see §10.3.
 
 ### 10.2 Work packages
 
@@ -560,13 +615,23 @@ Non-blocking NMEA parser providing fix for recovery and APRS/LoRa.
 
 ### 10.3 Verification / exit criteria
 
+**Software verification (tick when work packages land):**
+
+- [ ] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
+- [ ] Host tests for NMEA parse / fix extraction from golden sentences (recommended)
+- [ ] Main loop never blocks waiting on GPS — `gps_poll()` non-blocking; fail-soft `gps_ok`
+
+**Hardware exit (pending bench — tick when §21 F5 procedure passes):**
+
 - [ ] Bytes received at 9600 on bench/outdoor
 - [ ] Outdoor: valid lat/lon within expected region
-- [ ] Main loop never blocks waiting on GPS
+- [ ] Antenna connected for outdoor fix tests
 
 ---
 
 ## 11. Phase F6 — microSD logging (FatFS)
+
+**Phase status:** not started — software work unblocked by F1 software-complete; HW → §21.
 
 ### 11.0 Objective
 
@@ -574,9 +639,9 @@ Black-box telemetry log; foundation for image storage.
 
 ### 11.1 Entry criteria
 
-- [ ] F1 complete
-- [ ] Industrial microSD available
-- [ ] Detect polarity known (high = present)
+- [ ] F1 software-complete
+
+**Known facts (not coding blockers):** industrial microSD for flight; detect polarity high = present (see §2).
 
 ### 11.2 Work packages
 
@@ -602,13 +667,23 @@ Black-box telemetry log; foundation for image storage.
 
 ### 11.3 Verification / exit criteria
 
+**Software verification (tick when work packages land):**
+
+- [ ] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
+- [ ] No hang when card absent — fail-soft `sd_ok`; mission continues
+- [ ] `sdlog_write_sample` non-fatal on failure
+
+**Hardware exit (pending bench — tick when §21 F6 procedure passes):**
+
 - [ ] File visible on PC after flight-sim loop
 - [ ] Pull-power mid-write test: document corruption mitigations (flush policy)
-- [ ] No hang when card absent
+- [ ] Industrial microSD exercised on hardware
 
 ---
 
 ## 12. Phase F7 — LoRa telemetry (RFM95W)
+
+**Phase status:** not started — software work unblocked by F1 software-complete; HW → §21.
 
 ### 12.0 Objective
 
@@ -616,9 +691,10 @@ Ground-receivable telemetry (primary recovery link).
 
 ### 12.1 Entry criteria
 
-- [ ] F1 complete
-- [ ] Second RFM95W + Nucleo (or equiv.) for RX — **schedule with ops (Q20)**
+- [ ] F1 software-complete
 - [ ] Interim RF + packet proposal accepted or frozen (see §12.2.3)
+
+**Hardware exit / ops (not a coding start blocker):** second RFM95W + Nucleo (or equiv.) for RX — schedule with ops (Q20); see §12.4.
 
 ### 12.2 Work packages
 
@@ -663,13 +739,24 @@ Ground-receivable telemetry (primary recovery link).
 
 ### 12.4 Verification / exit criteria
 
+**Software verification (tick when work packages land):**
+
+- [ ] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
+- [ ] Host tests for packet v1 pack / CRC16 if extracted as pure logic (recommended)
+- [ ] TX fail path does not hang MCU — timeout on DIO0 wait; fail-soft health
+
+**Hardware exit (pending bench — tick when §21 F7 procedure passes):**
+
 - [ ] Bench: RX node receives packets with increasing `seq`
 - [ ] CRC validated on ground
 - [ ] TX rate limited (e.g. ≤0.5 Hz) during test
+- [ ] Second RFM95W + Nucleo (or equiv.) for RX available (ops Q20)
 
 ---
 
 ## 13. Phase F8 — Mission state machine and packetizer
+
+**Phase status:** not started — software work unblocked when F3 and/or F5 altitude APIs are software-complete; HW → §21.
 
 ### 13.0 Objective
 
@@ -677,8 +764,8 @@ Autonomous flight behavior and unified telemetry packing.
 
 ### 13.1 Entry criteria
 
-- [ ] At least baro **or** GPS providing altitude (prefer both)
-- [ ] F7 available for live TX (can unit-test SM without radio)
+- [ ] F3 and/or F5 software-complete (altitude API available)
+- [ ] F7 software-complete for live TX (state machine host-testable without radio)
 
 ### 13.2 Work packages
 
@@ -715,13 +802,23 @@ Rules:
 
 ### 13.3 Verification / exit criteria
 
-- [ ] Simulated profile walks PAD→…→BEACON correctly
-- [ ] BURST does not clear when descent slows
-- [ ] Live: rates match table within tolerance
+**Software verification (tick when work packages land):**
+
+- [ ] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
+- [ ] Host tests: simulated altitude profiles walk PAD→…→BEACON correctly
+- [ ] BURST does not clear when descent slows (host or unit test)
+- [ ] Packetizer CRC16 host-testable against golden vectors
+
+**Hardware exit (pending bench — tick when §21 F8 procedure passes):**
+
+- [ ] Live: LoRa rates match scheduler table within tolerance
+- [ ] End-to-end state transitions with real sensors on hardware
 
 ---
 
 ## 14. Phase F9 — ArduCAM imaging → SD
+
+**Phase status:** not started — software work unblocked by F1 + F6 software-complete; **blocked on ArduCAM SKU** (Gabe); HW → §21.
 
 ### 14.0 Objective
 
@@ -729,8 +826,8 @@ Capture flight imagery to microSD without breaking telemetry deadlines.
 
 ### 14.1 Entry criteria
 
-- [ ] F1 + F6 complete
-- [ ] **Gabe confirms ArduCAM SKU** (2MP Mini B0067 vs 5MP OV5642) — **blocker for correct driver**
+- [ ] F1 + F6 software-complete
+- [ ] **Gabe confirms ArduCAM SKU** (2MP Mini B0067 vs 5MP OV5642) — **hard coding blocker** for correct driver
 - [ ] Interim assumption if forced: schematic Mini 2MP
 
 ### 14.2 Work packages
@@ -753,13 +850,22 @@ Capture flight imagery to microSD without breaking telemetry deadlines.
 
 ### 14.3 Verification / exit criteria
 
+**Software verification (tick when work packages land):**
+
+- [ ] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
+- [ ] Failure sets `cam_ok = false` without reboot loop — fail-soft
+- [ ] Chunked capture does not allocate full-frame RAM beyond chip capacity
+
+**Hardware exit (pending bench — tick when §21 F9 procedure passes):**
+
 - [ ] Valid image file opens on PC
 - [ ] During capture, LoRa still meets minimum beacon rate (measure)
-- [ ] Failure sets `cam_ok = false` without reboot loop
 
 ---
 
 ## 15. Phase F10 — APRS (DRA818V)
+
+**Phase status:** not started — software dry-run unblocked by F5 software-complete; on-air blocked by license; HW → §21.
 
 ### 15.0 Objective
 
@@ -767,10 +873,11 @@ Backup VHF position beacons.
 
 ### 15.1 Entry criteria
 
-- [ ] F5 GPS fix available for payload
-- [ ] APRS cable correct (mirrored face-to-face)
-- [ ] Audio path connected (team confirmed)
-- [ ] **Amateur callsign + license** (Q19) before on-air RF
+- [ ] F5 software-complete (GPS fix API for payload encoding)
+- [ ] APRS cable correct (mirrored face-to-face) — bench validation in §21
+- [ ] Audio path connected (team confirmed) — bench validation in §21
+
+**On-air blocker (not a software dry-run blocker):** amateur callsign + license (Q19) before RF TX — use `APRS_RF_ENABLE=0` until confirmed.
 
 ### 15.2 Work packages
 
@@ -795,6 +902,14 @@ Backup VHF position beacons.
 
 ### 15.3 Verification / exit criteria
 
+**Software verification (tick when work packages land):**
+
+- [ ] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
+- [ ] `APRS_RF_ENABLE=0` dry-run: AX.25 frame build host-testable or logged without RF
+- [ ] PTT sequencing does not block mission loop
+
+**Hardware exit (pending bench — tick when §21 F10 procedure passes):**
+
 - [ ] AT commands ACK
 - [ ] Audio tones verified on scope before RF
 - [ ] On-air only with license: received on APRS client / HT
@@ -818,6 +933,8 @@ Prove combined stack under realistic conditions.
 
 - ≥1 hour continuous run; SD log continuous; LoRa RX count
 - Inject GPS loss / SD remove; confirm fail-soft
+
+§21 per-subsystem bench backlog does **not** satisfy F11 — F11 is full-stack HIL on hardware.
 
 #### F11.2 — RF range smoke test
 
@@ -893,11 +1010,11 @@ Ship a known binary to the pad.
 
 1. Read §2 (system) and §3 (standards).  
 2. Read [Firmware Development Guidelines.md](Firmware%20Development%20Guidelines.md) (verification, deferred HW, host tests).  
-3. Find the lowest phase with unmet exit criteria.  
-4. Confirm that phase’s entry criteria.  
+3. Find the lowest phase that is **not software-complete**.  
+4. Confirm that phase’s **entry criteria** (software-complete of dependencies; open §21 HW items do not block coding).  
 5. Implement only listed work packages.  
-6. Run verification; check exit boxes; add deferred HW items to **§21** when no board.  
-7. Open PR titled `firmware: complete Phase Fx — <name>`.  
+6. Run software verification; tick software boxes; add deferred HW items to **§21** when no board.  
+7. PR title `firmware: complete Phase Fx — <name>` **only after §21 HW pass** for that phase. Software-only milestones use work-package titles (e.g. `firmware: F3.4 baro_read API`).  
 
 **First coding task for the project:** Phase **F0**, then **F1**, then **F2** (IMU WHO_AM_I).
 
@@ -906,6 +1023,8 @@ Ship a known binary to the pad.
 ## 21. Bench verification backlog
 
 Hardware checks deferred when no board or bench tools are available. **Tick here during bring-up week** when the flight computer PCB is powered and SWD is connected. This list does not replace **F11 system HIL** — it tracks per-subsystem bench validation.
+
+**Clearing §21 is required for full phase exit, not for starting the next driver phase.** Software-complete of a phase unblocks the next sequential coding phase; bench items stay here until bring-up week.
 
 **Process:** When a work package completes in software, add matching HW checks below if not already listed. Clear ticks with date and pass/fail note.
 
@@ -955,18 +1074,111 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 2. Confirm `app_init` → `while(1)` / `app_run` after reset.
 3. After `baro_init`: `baro_init()` returns true, `baro_is_ok()` true, `error_flags_baro_ok()` true.
 4. After F3.2: call `baro_read_raw(&raw)` repeatedly (GDB or debug loop): non-zero `raw.d1` / `raw.d2`; `baro_is_ok()` true; D1 changes when board lifted ~1–2 m.
-5. When F3.4 `baro_read` complete: indoor pressure ~980–1040 hPa; raise board ~1–2 m and confirm compensated altitude direction.
+5. Call `baro_read(&sample)` repeatedly (GDB or debug loop): indoor `sample.pressure_pa / 100` ≈ 980–1040 hPa (site-dependent); `baro_is_ok()` true on success; raise board ~1–2 m and confirm `sample.alt_m` increases directionally.
 6. Tick checklist above + §8.3 hardware exit items; add roadmap rev with bench date.
 7. PR title: `firmware: complete Phase F3 — Barometer` (roadmap §20).
 
 **On failure:** do not tick exit — check SPI/CS/power, `BARO_CS` (PB2), and PROM/CRC (`error_flags_baro_ok` false on CRC mismatch).
 
-### F4–F7 — Future sensors (add when software WP completes)
+### F4 — Temperature (MAX31865 + PT1000)
 
-- [ ] **F4 Temp:** RTD reading plausible at room temp; fault handling on disconnect
-- [ ] **F5 GPS:** NMEA bytes at 9600 on bench or outdoor sky view
-- [ ] **F6 SD:** card detect, mount, append log survives power cycle
-- [ ] **F7 LoRa:** packet heard on ground station at expected rate
+**Checklist (tick with pass date when bench complete):**
+
+- [ ] Room-temp reading plausible (~15–30 °C)
+- [ ] Hand on probe moves reading
+- [ ] Disconnect fault (if safe to test) sets fault flag
+
+**Bench procedure (when PCB + ST-Link available):**
+
+1. Flash `build/balloon-project-stm32mx.elf`.
+2. After `temp_init`: `temp_init()` returns true, `temp_is_ok()` true on success path.
+3. Call `temp_read(&sample)` repeatedly: room-temp plausible; hand on probe changes reading.
+4. Tick checklist above + §9.3 hardware exit items; add roadmap rev with bench date.
+
+### F5 — GPS (MAX-M10S)
+
+**Checklist (tick with pass date when bench complete):**
+
+- [ ] Bytes received at 9600 on bench/outdoor
+- [ ] Outdoor: valid lat/lon within expected region
+- [ ] Antenna connected for outdoor fix tests
+
+**Bench procedure (when PCB + ST-Link available):**
+
+1. Flash firmware; confirm `app_init` → `app_run`.
+2. Indoor: `gps_poll()` receives NMEA sentences; `gps_has_fix()` may be false (expected).
+3. Outdoor with antenna: valid lat/lon; `gps_has_fix()` true when sky visible.
+4. Tick checklist above + §10.3 hardware exit items; add roadmap rev with bench date.
+
+### F6 — microSD logging (FatFS)
+
+**Checklist (tick with pass date when bench complete):**
+
+- [ ] File visible on PC after flight-sim loop
+- [ ] Pull-power mid-write test: document corruption mitigations (flush policy)
+- [ ] Industrial microSD exercised on hardware
+
+**Bench procedure (when PCB + ST-Link available):**
+
+1. Insert industrial microSD (detect high = present).
+2. Run flight-sim append loop; pull card; verify CSV on PC.
+3. Optional: power-loss during write; document flush policy outcome.
+4. Tick checklist above + §11.3 hardware exit items; add roadmap rev with bench date.
+
+### F7 — LoRa telemetry (RFM95W)
+
+**Checklist (tick with pass date when bench complete):**
+
+- [ ] Bench: RX node receives packets with increasing `seq`
+- [ ] CRC validated on ground
+- [ ] TX rate limited (e.g. ≤0.5 Hz) during test
+- [ ] Second RFM95W + Nucleo (or equiv.) for RX available (ops Q20)
+
+**Bench procedure (when PCB + ST-Link + ground RX available):**
+
+1. Flash TX node; match modem settings to ground RX (SF/BW/freq per §12.2).
+2. TX packets; ground station logs increasing `seq`, valid CRC.
+3. Tick checklist above + §12.4 hardware exit items; add roadmap rev with bench date.
+
+### F8 — Mission state machine and packetizer
+
+**Checklist (tick with pass date when bench complete):**
+
+- [ ] Live: LoRa rates match scheduler table within tolerance
+- [ ] End-to-end state transitions with real sensors on hardware
+
+**Bench procedure (when chase-critical path on hardware):**
+
+1. Run mission SM with real baro/GPS/IMU inputs.
+2. Verify state transitions and LoRa rates per §13.2 scheduler.
+3. Tick checklist above + §13.3 hardware exit items; add roadmap rev with bench date.
+
+### F9 — ArduCAM imaging → SD
+
+**Checklist (tick with pass date when bench complete):**
+
+- [ ] Valid image file opens on PC
+- [ ] During capture, LoRa still meets minimum beacon rate (measure)
+
+**Bench procedure (when ArduCAM SKU confirmed + hardware available):**
+
+1. Capture to SD via `camera_capture_to_sd`.
+2. Verify image on PC; measure LoRa beacon rate during capture.
+3. Tick checklist above + §14.3 hardware exit items; add roadmap rev with bench date.
+
+### F10 — APRS (DRA818V)
+
+**Checklist (tick with pass date when bench complete):**
+
+- [ ] AT commands ACK
+- [ ] Audio tones verified on scope before RF
+- [ ] On-air only with license: received on APRS client / HT
+
+**Bench procedure (when APRS hardware + license available):**
+
+1. Dry-run with `APRS_RF_ENABLE=0`: AT ACK, scope on audio tones.
+2. On-air only with license: verify decode on APRS client / HT.
+3. Tick checklist above + §15.3 hardware exit items; add roadmap rev with bench date.
 
 ### Notes
 

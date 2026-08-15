@@ -5,7 +5,7 @@
  * F3.1: SPI reset, PROM read (C1–C6), datasheet CRC4 (AN520).
  * F3.2: D1/D2 conversion @ OSR 4096, timed wait, 24-bit ADC read (baro_read_raw).
  * F3.3: first-/second-order compensation, ISA altitude helper (host-testable).
- * F3.4: baro_read — not yet implemented.
+ * F3.4: `baro_read` compensated sample API for mission use.
  *
  * Locked conversion default (F3.2): OSR 4096 (D1 0x48, D2 0x58); max conversion 9.04 ms.
  *
@@ -294,6 +294,44 @@ static inline float baro_pressure_pa_to_alt_m(float pressure_pa)
   return h;
 }
 
+/** Compensated barometer sample for mission / telemetry. */
+typedef struct
+{
+  int32_t pressure_pa;   /**< Pressure in Pa (datasheet P). */
+  int32_t temp_centi_c;  /**< Chip temperature in 0.01 °C. */
+  float alt_m;           /**< Barometric altitude (ICAO ISA), meters. */
+} baro_sample_t;
+
+/**
+ * @brief Build compensated sample from PROM and raw ADC (host-testable).
+ *
+ * @param prom Eight PROM words (uses C1–C6).
+ * @param raw  Raw D1/D2 from baro_read_raw.
+ * @param out  Out sample; must not be NULL.
+ * @return false on NULL @p prom/@p raw/@p out or compensate failure; true on success.
+ */
+static inline bool baro_sample_from_raw(const uint16_t prom[BARO_PROM_WORD_COUNT],
+                                        const baro_raw_t *raw,
+                                        baro_sample_t *out)
+{
+  baro_comp_t comp;
+
+  if (prom == NULL || raw == NULL || out == NULL)
+  {
+    return false;
+  }
+
+  if (!baro_compensate(prom, raw->d1, raw->d2, &comp))
+  {
+    return false;
+  }
+
+  out->pressure_pa = comp.pressure_pa;
+  out->temp_centi_c = comp.temp_centi_c;
+  out->alt_m = baro_pressure_pa_to_alt_m((float)comp.pressure_pa);
+  return true;
+}
+
 /**
  * @brief Reset MS5611, read PROM, verify CRC4, cache calibration coefficients.
  *
@@ -317,7 +355,18 @@ bool baro_init(void);
 bool baro_read_raw(baro_raw_t *out);
 
 /**
- * @brief Last known barometer health after baro_init or last baro_read_raw.
+ * @brief Poll compensated pressure, temperature, and ISA altitude.
+ *
+ * Calls baro_read_raw, then compensates using cached PROM and computes altitude.
+ * Updates health on success or failure. Not called from app_run until mission (F8).
+ *
+ * @param out Out sample; must not be NULL.
+ * @return false on NULL @p out, invalid PROM, SPI failure, or compensation failure; true on success.
+ */
+bool baro_read(baro_sample_t *out);
+
+/**
+ * @brief Last known barometer health after baro_init, baro_read_raw, or baro_read.
  * @return true if last init/read succeeded; false otherwise.
  */
 bool baro_is_ok(void);

@@ -1,6 +1,6 @@
 /**
  * @file test_ms5611_comp.c
- * @brief Host unit tests for MS5611 compensation and ISA altitude (F3.3).
+ * @brief Host unit tests for MS5611 compensation, ISA altitude, and sample API (F3.3–F3.4).
  */
 
 #include <math.h>
@@ -85,6 +85,25 @@ int main(void)
   /* Reject invalid inputs. */
   assert_bool(baro_compensate(prom_ds, 0u, d2_ds, &comp), false, "reject d1 zero");
   assert_bool(baro_compensate(prom_ds, d1_ds, d2_ds, NULL), false, "reject null out");
+
+  /* F3.4: sample-from-raw composition (datasheet B3 vector). */
+  {
+    const baro_raw_t raw_ds = {d1_ds, d2_ds};
+    baro_sample_t sample;
+    const float expected_alt_m = baro_pressure_pa_to_alt_m(100009.0f);
+
+    assert_bool(baro_sample_from_raw(prom_ds, &raw_ds, &sample), true, "sample from raw ok");
+    assert_i32(sample.pressure_pa, 100009, "sample pressure_pa");
+    assert_i32(sample.temp_centi_c, 2007, "sample temp_centi_c");
+    assert_near(sample.alt_m, expected_alt_m, 5.0f, "sample alt_m ISA");
+
+    assert_bool(baro_sample_from_raw(prom_ds, &raw_ds, NULL), false, "reject null sample out");
+    {
+      const baro_raw_t raw_bad = {0u, d2_ds};
+      assert_bool(baro_sample_from_raw(prom_ds, &raw_bad, &sample), false,
+                  "reject d1 zero in sample");
+    }
+  }
 
   if (failures == 0)
   {

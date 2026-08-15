@@ -9,6 +9,7 @@ Read `Software Documents/Firmware Development Guidelines.md` and roadmap §3 / �
 
 - Continue work packages without blocking on physical board or Renode.
 - Software-complete + roadmap WP ticks are OK when build passes and code review standards met.
+- Next sequential driver phase (F2–F7) unblocks when current phase is software-complete and entry criteria are met — do not treat open §21 items as a coding blocker.
 - Hardware exit criteria without a board → roadmap **§21 Bench verification backlog** (do not tick phase HW exit).
 - Prefer host-testable pure logic (scale, parse, CRC) over early Renode models for new sensors.
 - F11 (HIL) and F12 (flight readiness) require real hardware; §21 does not substitute for F11.

@@ -1,7 +1,7 @@
 /**
  * @file baro.c
  * @brief MS5611-01BA03 barometer driver — reset/PROM (F3.1), conversion (F3.2),
- * compensation helpers in baro.h (F3.3).
+ * compensation helpers in baro.h (F3.3), baro_read API (F3.4).
  */
 
 #include "baro.h"
@@ -229,6 +229,36 @@ bool baro_read_raw(baro_raw_t *out)
   }
 
   if (!baro_convert_and_read_adc(BARO_CMD_CONV_D2_OSR4096, &out->d2))
+  {
+    baro_set_ok(false);
+    return false;
+  }
+
+  baro_set_ok(true);
+  return true;
+}
+
+bool baro_read(baro_sample_t *out)
+{
+  baro_raw_t raw;
+
+  if (out == NULL)
+  {
+    return false;
+  }
+
+  if (!baro_coefficients_valid(s_prom))
+  {
+    baro_set_ok(false);
+    return false;
+  }
+
+  if (!baro_read_raw(&raw))
+  {
+    return false;
+  }
+
+  if (!baro_sample_from_raw(s_prom, &raw, out))
   {
     baro_set_ok(false);
     return false;
