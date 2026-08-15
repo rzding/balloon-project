@@ -6,7 +6,7 @@ Examples: IMU LSB→SI scale, MS5611 compensation math, NMEA parsing, telemetry 
 
 ## Status
 
-**Harness active** — `test_imu_scale` (F2.3 accel/gyro scale + endian unpack), `test_ms5611_crc` (F3.1 PROM CRC4).
+**Harness active** — `test_imu_scale` (F2.3 accel/gyro scale + endian unpack), `test_ms5611_crc` (F3.1 PROM CRC4), `test_ms5611_adc` (F3.2 24-bit ADC unpack).
 
 ## Manual execution policy
 
@@ -21,6 +21,7 @@ cd balloon-project-stm32mx/tests/host
 make
 ./test_imu_scale
 ./test_ms5611_crc
+./test_ms5611_adc
 ```
 
 Clean:
@@ -37,6 +38,7 @@ Requirements: host `cc` (clang/gcc) and `libm`.
 |---|---|---|---|
 | `test_imu_scale` | pass | 2026-08-09 | Manual run by developer (`make` + `./test_imu_scale`) |
 | `test_ms5611_crc` | pass | 2026-08-09 | Manual run (`make` + `./test_ms5611_crc`); AN520 golden vector |
+| `test_ms5611_adc` | pending | — | Run `make && ./test_ms5611_adc` after F3.2 changes |
 
 ## What belongs here vs on the bench
 

@@ -3,7 +3,10 @@
  * @brief MS5611-01BA03 barometer driver (SPI1 + BARO_CS).
  *
  * F3.1: SPI reset, PROM read (C1–C6), datasheet CRC4 (AN520).
- * F3.2–F3.4: conversion, compensation, baro_read — not yet implemented.
+ * F3.2: D1/D2 conversion @ OSR 4096, timed wait, 24-bit ADC read (baro_read_raw).
+ * F3.3–F3.4: compensation, baro_read, altitude helper — not yet implemented.
+ *
+ * Locked conversion default (F3.2): OSR 4096 (D1 0x48, D2 0x58); max conversion 9.04 ms.
  *
  * MS5611 uses command-byte SPI (not IMU bit-7 R/W); use spi_bus_transfer directly.
  */
@@ -24,6 +27,24 @@
 
 /** PROM index of serial/CRC word (low nibble = CRC4). */
 #define BARO_PROM_CRC_INDEX   7u
+
+/** Raw pressure (D1) and temperature (D2) ADC values (24-bit, MSB first from device). */
+typedef struct
+{
+  uint32_t d1;
+  uint32_t d2;
+} baro_raw_t;
+
+/**
+ * @brief Combine big-endian ADC bytes into unsigned 24-bit sample.
+ * @param b0 MSB (first data byte after command).
+ * @param b1 Middle byte.
+ * @param b2 LSB.
+ */
+static inline uint32_t baro_be_bytes_to_u24(uint8_t b0, uint8_t b1, uint8_t b2)
+{
+  return ((uint32_t)b0 << 16) | ((uint32_t)b1 << 8) | (uint32_t)b2;
+}
 
 /**
  * @brief Compute MS5611 PROM CRC4 nibble per AN520 / datasheet.
@@ -99,7 +120,19 @@ static inline bool baro_prom_crc_ok(const uint16_t prom[BARO_PROM_WORD_COUNT])
 bool baro_init(void);
 
 /**
- * @brief Last known barometer health after baro_init.
- * @return true if last baro_init succeeded; false otherwise.
+ * @brief Poll D1 (pressure) and D2 (temperature) ADCs at OSR 4096.
+ *
+ * Triggers D1 then D2 conversions with datasheet max wait (HAL_Delay 10 ms each),
+ * reads 24-bit results via ADC command 0x00. Updates health on success or failure.
+ * Compensation is F3.3; use baro_read_raw for raw ADC only.
+ *
+ * @param out Out sample; must not be NULL.
+ * @return false on NULL @p out, SPI failure, or zero ADC; true on success.
+ */
+bool baro_read_raw(baro_raw_t *out);
+
+/**
+ * @brief Last known barometer health after baro_init or last baro_read_raw.
+ * @return true if last init/read succeeded; false otherwise.
  */
 bool baro_is_ok(void);

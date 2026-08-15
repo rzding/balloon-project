@@ -114,6 +114,7 @@ See [`balloon-project-stm32mx/tests/host/README.md`](../balloon-project-stm32mx/
 |---|---|
 | F2.3 | Accel/gyro raw → SI scale at ±16 g / ±2000 dps — `test_imu_scale` verified pass 2026-08-09 (manual) |
 | F3.1 | MS5611 PROM CRC4 — `test_ms5611_crc` verified pass 2026-08-09 (manual; AN520 vector) |
+| F3.2 | MS5611 24-bit ADC big-endian unpack — `test_ms5611_adc` (manual run pending) |
 | F3.3 | MS5611 compensation from known PROM + ADC values |
 | F5 | NMEA sentence parse, fix extraction |
 | F8 | Packetizer CRC16, field packing |

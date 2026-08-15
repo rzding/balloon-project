@@ -34,6 +34,7 @@
 | 0.14 | 2026-08-09 | Firmware | F2 software verification closed: host `test_imu_scale` manual pass; HW exit remains §7.3 / §21 |
 | 0.15 | 2026-08-09 | Firmware | F3.1 complete: `baro` reset + PROM C1–C6 + CRC4, `baro_init` / `baro_is_ok`, host `test_ms5611_crc`; F3.2–F3.4 open; HW → §21 |
 | 0.16 | 2026-08-09 | Firmware | F3.1 host `test_ms5611_crc` fix — AN520 test vector; manual pass |
+| 0.17 | 2026-08-15 | Firmware | F3.2 complete: D1/D2 OSR 4096 conversion, `baro_read_raw`, host `test_ms5611_adc`; F3.3–F3.4 open; HW → §21 |
 
 ### How to use this document
 
@@ -409,7 +410,7 @@ Prove SPI + first sensor; provide motion data for burst detection later.
 
 ## 8. Phase F3 — Barometer (MS5611)
 
-**Phase status:** F3.1 software complete (2026-08-09); F3.2–F3.4 open; hardware exit criteria open (§8.3 / §21).
+**Phase status:** F3.1–F3.2 software complete (2026-08-15); F3.3–F3.4 open; hardware exit criteria open (§8.3 / §21).
 
 ### 8.0 Objective
 
@@ -435,9 +436,15 @@ Pressure and barometric altitude for ascent/float/descent logic.
 
 #### F3.2 — Conversion sequence
 
-- Trigger D1 (pressure) and D2 (temp) conversions with chosen OSR
-- Wait conversion time (or poll)
-- Read ADCs
+**Status:** complete (2026-08-15)
+
+- [x] D1 pressure conversion at OSR 4096 (`0x48`) via `spi_bus_transfer` + `BARO_CS`
+- [x] D2 temperature conversion at OSR 4096 (`0x58`)
+- [x] Wait max conversion time (`HAL_Delay(10)` ms; datasheet 9.04 ms @ OSR 4096)
+- [x] Read 24-bit ADC results via command `0x00` (`baro_be_bytes_to_u24`)
+- [x] `baro_raw_t` + `baro_read_raw()` polling API; reject zero ADC / SPI failure
+- [x] `baro_read_raw` success/failure updates `error_flags_set_baro_ok` and `baro_is_ok()`
+- [x] Host test `tests/host/test_ms5611_adc` (manual run pending)
 
 #### F3.3 — Compensation math
 
@@ -455,6 +462,12 @@ Pressure and barometric altitude for ascent/float/descent logic.
 - [x] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
 - [x] Host `tests/host/test_ms5611_crc` pass (manual, 2026-08-09; AN520 vector)
 - [x] Init failure does not hang MCU — `(void)baro_init()` in `app_init`; `app_run` continues; PROM/CRC fail path sets `error_flags_set_baro_ok(false)`
+
+**Software verification (F3.2 — 2026-08-15):**
+
+- [x] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
+- [x] Host `tests/host/test_ms5611_adc` authored (manual run pending)
+- [x] `baro_read_raw` fail path does not hang MCU — not called from `app_run`; health updated on read like `imu_read`
 
 **Hardware exit (pending bench — tick when §21 F3 procedure passes):**
 
@@ -919,17 +932,19 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 
 - [ ] Reset + PROM read on hardware; CRC4 passes
 - [ ] After `baro_init`: `baro_init()` returns true, `baro_is_ok()` true, `error_flags_baro_ok()` true
-- [ ] Indoor pressure plausible (~980–1040 hPa) — requires F3.2–F3.3
-- [ ] Altitude responds to ~1–2 m lift — requires F3.2–F3.4
+- [ ] After F3.2: `baro_read_raw` returns non-zero D1/D2; D1 changes directionally when board lifted ~1–2 m (raw ADC)
+- [ ] Indoor pressure plausible (~980–1040 hPa) — requires F3.3
+- [ ] Altitude responds to ~1–2 m lift — requires F3.3–F3.4
 
 **Bench procedure (when PCB + ST-Link available):**
 
 1. Flash `build/balloon-project-stm32mx.elf` (see `balloon-project-stm32mx/README.md` § SWD / flash).
 2. Confirm `app_init` → `while(1)` / `app_run` after reset.
 3. After `baro_init`: `baro_init()` returns true, `baro_is_ok()` true, `error_flags_baro_ok()` true.
-4. When F3.2–F3.4 complete: indoor pressure ~980–1040 hPa; raise board ~1–2 m and confirm altitude direction.
-5. Tick checklist above + §8.3 hardware exit items; add roadmap rev with bench date.
-6. PR title: `firmware: complete Phase F3 — Barometer` (roadmap §20).
+4. After F3.2: call `baro_read_raw(&raw)` repeatedly (GDB or debug loop): non-zero `raw.d1` / `raw.d2`; `baro_is_ok()` true; D1 changes when board lifted ~1–2 m.
+5. When F3.3–F3.4 complete: indoor pressure ~980–1040 hPa; raise board ~1–2 m and confirm altitude direction.
+6. Tick checklist above + §8.3 hardware exit items; add roadmap rev with bench date.
+7. PR title: `firmware: complete Phase F3 — Barometer` (roadmap §20).
 
 **On failure:** do not tick exit — check SPI/CS/power, `BARO_CS` (PB2), and PROM/CRC (`error_flags_baro_ok` false on CRC mismatch).
 

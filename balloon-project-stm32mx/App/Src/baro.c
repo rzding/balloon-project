@@ -1,6 +1,6 @@
 /**
  * @file baro.c
- * @brief MS5611-01BA03 barometer driver — reset and PROM (F3.1).
+ * @brief MS5611-01BA03 barometer driver — reset/PROM (F3.1), conversion (F3.2).
  */
 
 #include "baro.h"
@@ -20,6 +20,21 @@
 
 /** Bytes per PROM read transfer (command + 16-bit result, MSB first). */
 #define BARO_PROM_TRANSFER_BYTES    3u
+
+/** ADC read command (datasheet). */
+#define BARO_CMD_ADC_READ           0x00u
+
+/** D1 pressure conversion, OSR 4096 (0x40 | 0x08). */
+#define BARO_CMD_CONV_D1_OSR4096    0x48u
+
+/** D2 temperature conversion, OSR 4096 (0x50 | 0x08). */
+#define BARO_CMD_CONV_D2_OSR4096    0x58u
+
+/** Max conversion time OSR 4096 (datasheet 9.04 ms); rounded up for SysTick. */
+#define BARO_CONV_OSR4096_DELAY_MS  10u
+
+/** Bytes per ADC read transfer (command + 24-bit result, MSB first). */
+#define BARO_ADC_TRANSFER_BYTES     4u
 
 /** Finite HAL SPI timeout for barometer access. */
 #define BARO_SPI_TIMEOUT_MS         100u
@@ -106,6 +121,60 @@ static bool baro_coefficients_valid(const uint16_t prom[BARO_PROM_WORD_COUNT])
   return true;
 }
 
+static bool baro_send_command(uint8_t cmd)
+{
+  return spi_bus_transfer(BARO_CS_GPIO_Port, BARO_CS_Pin, &cmd, NULL, 1u,
+                          BARO_SPI_TIMEOUT_MS);
+}
+
+static bool baro_read_adc(uint32_t *adc)
+{
+  uint8_t tx[BARO_ADC_TRANSFER_BYTES];
+  uint8_t rx[BARO_ADC_TRANSFER_BYTES];
+  uint8_t i;
+
+  if (adc == NULL)
+  {
+    return false;
+  }
+
+  for (i = 0u; i < BARO_ADC_TRANSFER_BYTES; i++)
+  {
+    tx[i] = BARO_CMD_ADC_READ;
+  }
+
+  if (!spi_bus_transfer(BARO_CS_GPIO_Port, BARO_CS_Pin, tx, rx,
+                        BARO_ADC_TRANSFER_BYTES, BARO_SPI_TIMEOUT_MS))
+  {
+    return false;
+  }
+
+  *adc = baro_be_bytes_to_u24(rx[1], rx[2], rx[3]);
+  return true;
+}
+
+static bool baro_convert_and_read_adc(uint8_t conv_cmd, uint32_t *adc)
+{
+  if (adc == NULL)
+  {
+    return false;
+  }
+
+  if (!baro_send_command(conv_cmd))
+  {
+    return false;
+  }
+
+  HAL_Delay(BARO_CONV_OSR4096_DELAY_MS);
+
+  if (!baro_read_adc(adc))
+  {
+    return false;
+  }
+
+  return *adc != 0u;
+}
+
 bool baro_init(void)
 {
   uint8_t i;
@@ -136,6 +205,29 @@ bool baro_init(void)
   }
 
   if (!baro_prom_crc_ok(s_prom))
+  {
+    baro_set_ok(false);
+    return false;
+  }
+
+  baro_set_ok(true);
+  return true;
+}
+
+bool baro_read_raw(baro_raw_t *out)
+{
+  if (out == NULL)
+  {
+    return false;
+  }
+
+  if (!baro_convert_and_read_adc(BARO_CMD_CONV_D1_OSR4096, &out->d1))
+  {
+    baro_set_ok(false);
+    return false;
+  }
+
+  if (!baro_convert_and_read_adc(BARO_CMD_CONV_D2_OSR4096, &out->d2))
   {
     baro_set_ok(false);
     return false;
