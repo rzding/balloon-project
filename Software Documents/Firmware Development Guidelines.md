@@ -20,6 +20,7 @@
 | Rev | Date | Author | Notes |
 |---|---|---|---|
 | 0.1 | 2026-08-06 | Firmware | Initial guidelines: verification gates, deferred HW, host tests, bench backlog, agent policy |
+| 0.2 | 2026-08-15 | Firmware | Next-phase coding unblocked rule; FAQ rows; §21 does not block F2–F7 driver work |
 
 ---
 
@@ -47,6 +48,8 @@ Complement the roadmap’s phase gates with **how to verify and proceed** when h
 
 **Work package complete (software):** code merged under `App/`, Makefile updated, software verification noted, roadmap work-package checklist ticked.
 
+**Next-phase coding unblocked:** current phase is software-complete **and** the next phase’s entry criteria are met (software-complete of listed dependencies). Bench verification does **not** block sequential driver work F2–F7.
+
 **Phase exit complete:** all work packages done **and** hardware exit criteria cleared (or explicitly deferred to §21 with a bring-up plan).
 
 **Flight readiness (F12):** requires F11 HIL pass on real hardware. Deferred bench items do not substitute for HIL.
@@ -65,6 +68,7 @@ When hardware is unavailable:
 4. Add or update **hardware checks** in roadmap **§21 Bench verification backlog**.
 5. Do **not** tick phase hardware exit criteria until the board is exercised.
 6. Do **not** claim Phase F2 (or any phase) fully complete if HW exit criteria remain open — unless all work packages are done and HW is explicitly deferred in §21.
+7. **Do** start the next sequential driver phase (e.g. F4 after F3 software-complete) when entry criteria are met; open §21 items are not a coding blocker for F2–F7.
 
 This matches how F0 and F1 are already tracked: software complete, bench pending.
 
@@ -113,7 +117,10 @@ See [`balloon-project-stm32mx/tests/host/README.md`](../balloon-project-stm32mx/
 | Phase | Good host-test targets |
 |---|---|
 | F2.3 | Accel/gyro raw → SI scale at ±16 g / ±2000 dps — `test_imu_scale` verified pass 2026-08-09 (manual) |
-| F3 | MS5611 compensation from known PROM + ADC values |
+| F3.1 | MS5611 PROM CRC4 — `test_ms5611_crc` verified pass 2026-08-09 (manual; AN520 vector) |
+| F3.2 | MS5611 24-bit ADC big-endian unpack — `test_ms5611_adc` (manual run pending) |
+| F3.3 | MS5611 compensation from known PROM + ADC values — `test_ms5611_comp` (manual run pending; datasheet B3) |
+| F3.4 | `baro_sample_from_raw` composition (compensate + ISA) in `test_ms5611_comp`; `baro_read` on bench only |
 | F5 | NMEA sentence parse, fix extraction |
 | F8 | Packetizer CRC16, field packing |
 
@@ -153,7 +160,8 @@ After each sensor or subsystem work package:
 
 1. Add the hardware checks needed to validate that work (WHO_AM_I, register read-back, motion, pressure range, etc.).
 2. Clear ticks during **bring-up week** when the board is available.
-3. F11 (system HIL) remains the full-stack gate — §21 is per-subsystem bench, not a substitute for F11.
+3. Clearing §21 is required for **full phase exit**, not for starting the next driver phase.
+4. F11 (system HIL) remains the full-stack gate — §21 is per-subsystem bench, not a substitute for F11.
 
 ---
 
@@ -179,6 +187,10 @@ Project rules in `.cursor/rules/` reinforce these points for every session.
 |---|---|
 | Can I code F2.3 without a board? | Yes |
 | Can I tick F2 HW exit without a board? | No — use §21 backlog |
+| Can I start F4 after F3 software-complete with F3 HW still open? | Yes |
+| Can I start F11 without a board? | No |
+| What does “F1 complete” mean in F4 entry? | F1 software-complete |
+| When is bring-up week? | When PCB + ST-LINK are available; tick §21 then |
 | Can I claim F12 without F11? | No |
 | Should I set up Renode now? | No — defer unless models are owned |
 | Who runs tests? | Developer manually; not the agent by default |

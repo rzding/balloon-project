@@ -63,6 +63,7 @@ Core/Src/sysmem.c \
 Core/Src/syscalls.c \
 App/Src/app.c \
 App/Src/error_flags.c \
+App/Src/baro.c \
 App/Src/imu.c \
 App/Src/spi_bus.c
 
