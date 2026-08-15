@@ -1,6 +1,6 @@
 /**
  * @file temp.c
- * @brief MAX31865 RTD driver — configuration (F4.1).
+ * @brief MAX31865 RTD driver — configuration (F4.1), RTD read (F4.2).
  */
 
 #include "temp.h"
@@ -12,8 +12,18 @@
 /** Configuration register (datasheet address 0x00). */
 #define TEMP_REG_CONFIG             0x00u
 
+/** RTD MSB / LSB registers. */
+#define TEMP_REG_RTD_MSB            0x01u
+#define TEMP_REG_RTD_LSB            0x02u
+
+/** Fault status register. */
+#define TEMP_REG_FAULT_STATUS       0x07u
+
 /** VBIAS on (bit 7). */
 #define TEMP_CFG_VBIAS              0x80u
+
+/** 1-shot conversion trigger (bit 5; self-clearing). */
+#define TEMP_CFG_1SHOT              0x20u
 
 /** 3-wire RTD (bit 4). */
 #define TEMP_CFG_3WIRE              0x10u
@@ -24,6 +34,9 @@
 /** Write value: VBIAS | 3WIRE | FAULT_CLR (normally off, 60 Hz, no 1-shot). */
 #define TEMP_CFG_WRITE              (TEMP_CFG_VBIAS | TEMP_CFG_3WIRE | TEMP_CFG_FAULT_CLR)
 
+/** 1-shot trigger: VBIAS | 1SHOT | 3WIRE (no fault clear on each sample). */
+#define TEMP_CFG_ONESHOT_WRITE      (TEMP_CFG_VBIAS | TEMP_CFG_1SHOT | TEMP_CFG_3WIRE)
+
 /** Expected read-back sticky bits after init (VBIAS | 3WIRE). */
 #define TEMP_CFG_READBACK_EXPECT    (TEMP_CFG_VBIAS | TEMP_CFG_3WIRE)
 
@@ -32,6 +45,15 @@
 
 /** Bias settle after VBIAS on (datasheet ≥10.5τ; 10 ms typical). */
 #define TEMP_VBIAS_SETTLE_MS        10u
+
+/** Max 1-shot conversion time @ 60 Hz filter (datasheet 52 ms; rounded up). */
+#define TEMP_CONV_60HZ_DELAY_MS     60u
+
+/** Bytes per RTD burst read (addr | 0x80 + MSB + LSB). */
+#define TEMP_RTD_BURST_BYTES        3u
+
+/** SPI read bit for burst start address. */
+#define TEMP_SPI_REG_READ_BIT       0x80u
 
 /** Finite HAL SPI timeout for register access. */
 #define TEMP_SPI_TIMEOUT_MS         100u
@@ -75,9 +97,86 @@ static bool temp_configure(void)
   return (readback & TEMP_CFG_READBACK_MASK) == TEMP_CFG_READBACK_EXPECT;
 }
 
+static bool temp_trigger_oneshot(void)
+{
+  return temp_write_reg(TEMP_REG_CONFIG, TEMP_CFG_ONESHOT_WRITE);
+}
+
+static bool temp_burst_read_rtd(uint8_t *msb, uint8_t *lsb)
+{
+  uint8_t tx[TEMP_RTD_BURST_BYTES];
+  uint8_t rx[TEMP_RTD_BURST_BYTES];
+
+  if (msb == NULL || lsb == NULL)
+  {
+    return false;
+  }
+
+  tx[0] = (uint8_t)(TEMP_REG_RTD_MSB | TEMP_SPI_REG_READ_BIT);
+  tx[1] = 0u;
+  tx[2] = 0u;
+
+  if (!spi_bus_transfer(Temp_CS_GPIO_Port, Temp_CS_Pin, tx, rx, TEMP_RTD_BURST_BYTES,
+                        TEMP_SPI_TIMEOUT_MS))
+  {
+    return false;
+  }
+
+  *msb = rx[1];
+  *lsb = rx[2];
+  return true;
+}
+
 bool temp_init(void)
 {
   if (!temp_configure())
+  {
+    temp_set_ok(false);
+    return false;
+  }
+
+  temp_set_ok(true);
+  return true;
+}
+
+bool temp_read_raw(temp_raw_t *out)
+{
+  uint8_t msb = 0u;
+  uint8_t lsb = 0u;
+
+  if (out == NULL)
+  {
+    return false;
+  }
+
+  if (!temp_trigger_oneshot())
+  {
+    temp_set_ok(false);
+    return false;
+  }
+
+  HAL_Delay(TEMP_CONV_60HZ_DELAY_MS);
+
+  if (!temp_burst_read_rtd(&msb, &lsb))
+  {
+    temp_set_ok(false);
+    return false;
+  }
+
+  if (!temp_rtd_unpack(msb, lsb, out))
+  {
+    temp_set_ok(false);
+    return false;
+  }
+
+  if (out->fault)
+  {
+    (void)temp_read_reg(TEMP_REG_FAULT_STATUS, &out->fault_status);
+    temp_set_ok(false);
+    return false;
+  }
+
+  if (out->adc == 0u)
   {
     temp_set_ok(false);
     return false;

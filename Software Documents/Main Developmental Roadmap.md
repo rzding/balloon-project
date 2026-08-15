@@ -39,6 +39,8 @@
 | 0.19 | 2026-08-15 | Firmware | F3.4 complete: `baro_sample_t`, `baro_read` (raw + compensate + ISA), host composition in `test_ms5611_comp`; F3 software complete; HW → §21 |
 | 0.20 | 2026-08-15 | Firmware | Software vs HW gate wording aligned across phases; proceed-rule explicit in §3.5, §4, §20, F0–F10, §21 |
 | 0.21 | 2026-08-15 | Firmware | F4.1 complete: `temp` MAX31865 config (VBIAS, 3-wire, 60 Hz, normally off), `temp_init` / `temp_is_ok`; F4.2–F4.3 open; HW → §21 |
+| 0.22 | 2026-08-15 | Firmware | F4.2 complete: 1-shot RTD read, unpack/ohm/CVD helpers, `temp_read_raw`, host `test_max31865_cvd`; F4.3 open; HW → §21 |
+| 0.23 | 2026-08-15 | Firmware | F4.2 CVD inverse quadratic root fix (`temp_pt1000_ohm_to_c`); host `test_max31865_cvd` manual pass |
 
 ### How to use this document
 
@@ -535,7 +537,7 @@ Pressure and barometric altitude for ascent/float/descent logic.
 
 ## 9. Phase F4 — Temperature (MAX31865 + PT1000)
 
-**Phase status:** F4.1 software verification complete (2026-08-15); F4.2–F4.3 open; hardware exit open (§9.3 / §21). Full phase exit pending bench — see §21 F4.
+**Phase status:** F4.1–F4.2 software verification complete (2026-08-15); F4.3 open; hardware exit open (§9.3 / §21). Full phase exit pending bench — see §21 F4.
 
 ### 9.0 Objective
 
@@ -562,8 +564,16 @@ Outside-air temperature via RTD.
 
 #### F4.2 — Read RTD
 
-- Read RTD MSB/LSB; detect fault bits (open/short)
-- Convert resistance → °C (Callendar-Van Dusen or library-equivalent for PT1000)
+**Status:** complete (2026-08-15)
+
+- [x] 1-shot conversion (`CONFIG 0xA0`), `HAL_Delay(60)` ms @ 60 Hz filter
+- [x] Burst-read RTD MSB/LSB; `temp_rtd_unpack` (15-bit ADC + FAULT bit)
+- [x] On FAULT: read Fault Status `0x07` into `temp_raw_t.fault_status`; fail-soft
+- [x] `temp_rtd_adc_to_ohm` (RREF 4300 Ω); `temp_pt1000_ohm_to_c` (IEC CVD, Newton below 0 °C)
+- [x] `temp_raw_t` + `temp_read_raw()` polling API; reject zero ADC / SPI failure
+- [x] `temp_read_raw` success/failure updates `error_flags_set_temp_ok` and `temp_is_ok()`
+- [x] Host test `tests/host/test_max31865_cvd` (unpack + ohm + CVD vectors; manual pass 2026-08-15)
+- [x] Not called from `app_run` until mission (F8); `temp_read` deferred to F4.3
 
 #### F4.3 — API + faults
 
@@ -577,10 +587,16 @@ Outside-air temperature via RTD.
 - [x] Init failure does not hang MCU — `(void)temp_init()` in `app_init`; `app_run` continues; config read-back fail path sets `error_flags_set_temp_ok(false)`
 - [x] No `temp_read` in F4.1 — sample API deferred to F4.2/F4.3
 
-**Software verification (F4.2–F4.3 — tick when work packages land):**
+**Software verification (F4.2 — 2026-08-15):**
+
+- [x] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
+- [x] Host `tests/host/test_max31865_cvd` pass (manual, 2026-08-15; CVD inverse root fix)
+- [x] `temp_read_raw` fail path does not hang MCU — not called from `app_run`; health updated on read like `baro_read_raw`
+- [x] No `temp_read` in F4.2 — mission API deferred to F4.3
+
+**Software verification (F4.3 — tick when work package lands):**
 
 - [ ] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
-- [ ] Host tests for RTD resistance → °C conversion if extracted as pure logic (recommended for F4.2)
 - [ ] `temp_read` fail path does not hang MCU — fail-soft `temp_ok` / `error_flags`; not called from `app_run` until mission (F8)
 
 **Hardware exit (pending bench — tick when §21 F4 procedure passes):**
@@ -1099,16 +1115,18 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 **Checklist (tick with pass date when bench complete):**
 
 - [ ] After F4.1: `temp_init()` returns true, `temp_is_ok()` true, `error_flags_temp_ok()` true; CONFIG read-back `0x90`
-- [ ] Room-temp reading plausible (~15–30 °C) — requires F4.2/F4.3 `temp_read` on hardware
-- [ ] Hand on probe moves reading — requires F4.2/F4.3 `temp_read` on hardware
-- [ ] Disconnect fault (if safe to test) sets fault flag — requires F4.2/F4.3 on hardware
+- [ ] After F4.2: `temp_read_raw` returns non-zero ADC; room-temp ADC/°C plausible via helpers (~15–30 °C)
+- [ ] Room-temp reading plausible (~15–30 °C) — requires F4.3 `temp_read` on hardware
+- [ ] Hand on probe moves reading — requires F4.3 `temp_read` on hardware
+- [ ] Disconnect fault (if safe to test) sets fault flag — `temp_read_raw` FAULT bit / Fault Status on hardware
 
 **Bench procedure (when PCB + ST-Link available):**
 
 1. Flash `build/balloon-project-stm32mx.elf`.
 2. After `temp_init`: `temp_init()` returns true, `temp_is_ok()` true, `error_flags_temp_ok()` true; optional CONFIG reg read-back = `0x90`.
-3. After F4.2/F4.3: call `temp_read(&sample)` repeatedly — room-temp plausible; hand on probe changes reading.
-4. Tick checklist above + §9.3 hardware exit items; add roadmap rev with bench date.
+3. After F4.2: call `temp_read_raw(&raw)` repeatedly (GDB or debug loop): non-zero `raw.adc`; `temp_is_ok()` true on success; room-temp °C plausible via `temp_rtd_adc_to_ohm` + `temp_pt1000_ohm_to_c`.
+4. After F4.3: call `temp_read(&sample)` repeatedly — room-temp plausible; hand on probe changes reading.
+5. Tick checklist above + §9.3 hardware exit items; add roadmap rev with bench date.
 
 **On failure:** do not tick exit — check SPI/CS/power, `Temp_CS` (PA8), and CONFIG read-back (`error_flags_temp_ok` false on mismatch).
 
