@@ -1,6 +1,7 @@
 /**
  * @file baro.c
- * @brief MS5611-01BA03 barometer driver — reset/PROM (F3.1), conversion (F3.2).
+ * @brief MS5611-01BA03 barometer driver — reset/PROM (F3.1), conversion (F3.2),
+ * compensation helpers in baro.h (F3.3).
  */
 
 #include "baro.h"

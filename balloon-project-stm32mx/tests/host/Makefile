@@ -2,7 +2,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -std=c11 -I../../App/Inc
 LDFLAGS = -lm
 
-TARGETS = test_imu_scale test_ms5611_crc test_ms5611_adc
+TARGETS = test_imu_scale test_ms5611_crc test_ms5611_adc test_ms5611_comp
 
 .PHONY: all clean
 
@@ -16,6 +16,9 @@ test_ms5611_crc: test_ms5611_crc.c
 
 test_ms5611_adc: test_ms5611_adc.c
 	$(CC) $(CFLAGS) -o $@ $<
+
+test_ms5611_comp: test_ms5611_comp.c
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
 clean:
 	rm -f $(TARGETS)
