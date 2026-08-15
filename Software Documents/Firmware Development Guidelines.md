@@ -21,6 +21,7 @@
 |---|---|---|---|
 | 0.1 | 2026-08-06 | Firmware | Initial guidelines: verification gates, deferred HW, host tests, bench backlog, agent policy |
 | 0.2 | 2026-08-15 | Firmware | Next-phase coding unblocked rule; FAQ rows; §21 does not block F2–F7 driver work |
+| 0.3 | 2026-08-15 | Firmware | F4.1 host-test note (SPI config = bench); F4.2 CVD host-test target |
 
 ---
 
@@ -121,6 +122,8 @@ See [`balloon-project-stm32mx/tests/host/README.md`](../balloon-project-stm32mx/
 | F3.2 | MS5611 24-bit ADC big-endian unpack — `test_ms5611_adc` (manual run pending) |
 | F3.3 | MS5611 compensation from known PROM + ADC values — `test_ms5611_comp` (manual run pending; datasheet B3) |
 | F3.4 | `baro_sample_from_raw` composition (compensate + ISA) in `test_ms5611_comp`; `baro_read` on bench only |
+| F4.1 | MAX31865 CONFIG write/read-back — bench only (SPI glue; no host test) |
+| F4.2 | PT1000 resistance → °C (Callendar–Van Dusen) — `test_max31865_cvd` (recommended) |
 | F5 | NMEA sentence parse, fix extraction |
 | F8 | Packetizer CRC16, field packing |
 

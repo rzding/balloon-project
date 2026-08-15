@@ -38,6 +38,7 @@
 | 0.18 | 2026-08-15 | Firmware | F3.3 complete: compensation (1st/2nd order), ISA altitude helper, host `test_ms5611_comp`; F3.4 open; HW → §21 |
 | 0.19 | 2026-08-15 | Firmware | F3.4 complete: `baro_sample_t`, `baro_read` (raw + compensate + ISA), host composition in `test_ms5611_comp`; F3 software complete; HW → §21 |
 | 0.20 | 2026-08-15 | Firmware | Software vs HW gate wording aligned across phases; proceed-rule explicit in §3.5, §4, §20, F0–F10, §21 |
+| 0.21 | 2026-08-15 | Firmware | F4.1 complete: `temp` MAX31865 config (VBIAS, 3-wire, 60 Hz, normally off), `temp_init` / `temp_is_ok`; F4.2–F4.3 open; HW → §21 |
 
 ### How to use this document
 
@@ -534,7 +535,7 @@ Pressure and barometric altitude for ascent/float/descent logic.
 
 ## 9. Phase F4 — Temperature (MAX31865 + PT1000)
 
-**Phase status:** not started — software work unblocked by F1 software-complete; HW → §21.
+**Phase status:** F4.1 software verification complete (2026-08-15); F4.2–F4.3 open; hardware exit open (§9.3 / §21). Full phase exit pending bench — see §21 F4.
 
 ### 9.0 Objective
 
@@ -542,15 +543,22 @@ Outside-air temperature via RTD.
 
 ### 9.1 Entry criteria
 
-- [ ] F1 software-complete
-- [ ] PT1000 3-wire confirmed (team: yes per PCB; Gabe BOM confirm for confidence — not a coding blocker)
+- [x] F1 software-complete
+- [x] PT1000 3-wire confirmed (schematic J8 / team; Gabe BOM O2 for confidence — not a coding blocker)
 
 ### 9.2 Work packages
 
 #### F4.1 — Config
 
-- Bias on, 3-wire mode, 50/60 Hz filter choice, conversion mode
-- Keep SPI ≤ 5 MHz (already true if F1 ~1 MHz)
+**Status:** complete (2026-08-15)
+
+- [x] VBIAS on, 3-wire mode, 60 Hz filter, conversion mode normally off (1-shot ready for F4.2)
+- [x] CONFIG write `0x92` (VBIAS \| 3WIRE \| fault clear); read-back verify `0x90`
+- [x] 10 ms VBIAS settle after config write
+- [x] SPI ≤ 5 MHz (F1 ~0.78 MHz bring-up)
+- [x] Fail `temp_init` on SPI error or config read-back mismatch
+- [x] `error_flags_set_temp_ok` + `temp_is_ok()` on init path
+- [x] `temp.c` / `temp.h`; Makefile `C_SOURCES`; called from `app_init` fail-soft
 
 #### F4.2 — Read RTD
 
@@ -563,10 +571,16 @@ Outside-air temperature via RTD.
 
 ### 9.3 Verification / exit criteria
 
-**Software verification (tick when work packages land):**
+**Software verification (F4.1 — 2026-08-15):**
+
+- [x] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
+- [x] Init failure does not hang MCU — `(void)temp_init()` in `app_init`; `app_run` continues; config read-back fail path sets `error_flags_set_temp_ok(false)`
+- [x] No `temp_read` in F4.1 — sample API deferred to F4.2/F4.3
+
+**Software verification (F4.2–F4.3 — tick when work packages land):**
 
 - [ ] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
-- [ ] Host tests for RTD resistance → °C conversion if extracted as pure logic (optional)
+- [ ] Host tests for RTD resistance → °C conversion if extracted as pure logic (recommended for F4.2)
 - [ ] `temp_read` fail path does not hang MCU — fail-soft `temp_ok` / `error_flags`; not called from `app_run` until mission (F8)
 
 **Hardware exit (pending bench — tick when §21 F4 procedure passes):**
@@ -1084,16 +1098,19 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 
 **Checklist (tick with pass date when bench complete):**
 
-- [ ] Room-temp reading plausible (~15–30 °C)
-- [ ] Hand on probe moves reading
-- [ ] Disconnect fault (if safe to test) sets fault flag
+- [ ] After F4.1: `temp_init()` returns true, `temp_is_ok()` true, `error_flags_temp_ok()` true; CONFIG read-back `0x90`
+- [ ] Room-temp reading plausible (~15–30 °C) — requires F4.2/F4.3 `temp_read` on hardware
+- [ ] Hand on probe moves reading — requires F4.2/F4.3 `temp_read` on hardware
+- [ ] Disconnect fault (if safe to test) sets fault flag — requires F4.2/F4.3 on hardware
 
 **Bench procedure (when PCB + ST-Link available):**
 
 1. Flash `build/balloon-project-stm32mx.elf`.
-2. After `temp_init`: `temp_init()` returns true, `temp_is_ok()` true on success path.
-3. Call `temp_read(&sample)` repeatedly: room-temp plausible; hand on probe changes reading.
+2. After `temp_init`: `temp_init()` returns true, `temp_is_ok()` true, `error_flags_temp_ok()` true; optional CONFIG reg read-back = `0x90`.
+3. After F4.2/F4.3: call `temp_read(&sample)` repeatedly — room-temp plausible; hand on probe changes reading.
 4. Tick checklist above + §9.3 hardware exit items; add roadmap rev with bench date.
+
+**On failure:** do not tick exit — check SPI/CS/power, `Temp_CS` (PA8), and CONFIG read-back (`error_flags_temp_ok` false on mismatch).
 
 ### F5 — GPS (MAX-M10S)
 
