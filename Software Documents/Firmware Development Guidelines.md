@@ -26,6 +26,10 @@
 | 0.5 | 2026-08-15 | Firmware | F4.2 CVD inverse root fix; `test_max31865_cvd` manual pass |
 | 0.6 | 2026-08-15 | Firmware | F4.3 `temp_sample_from_raw` in `test_max31865_cvd`; `temp_read` on bench only |
 | 0.7 | 2026-08-15 | Firmware | F4.3 host test manual pass |
+| 0.8 | 2026-08-19 | Firmware | F5.1 `test_gps_rx` authored (ring + LF line extract; manual run pending) |
+| 0.9 | 2026-08-19 | Firmware | F5.1 `test_gps_rx` manual pass (test harness fix: sequential drain, wrap trailing line) |
+| 0.10 | 2026-08-19 | Firmware | F5.2 `test_gps_nmea` authored (GGA/RMC parse; manual pass 2026-08-19) |
+| 0.11 | 2026-08-19 | Firmware | F5.3 `gps_sample_has_fix` / `gps_has_fix`; `test_gps_nmea` fix-validity vectors (manual pass 2026-08-19) |
 
 ---
 
@@ -129,7 +133,9 @@ See [`balloon-project-stm32mx/tests/host/README.md`](../balloon-project-stm32mx/
 | F4.1 | MAX31865 CONFIG write/read-back — bench only (SPI glue; no host test) |
 | F4.2 | PT1000 resistance → °C (Callendar–Van Dusen) — `test_max31865_cvd` verified pass 2026-08-15 (manual) |
 | F4.3 | `temp_sample_from_raw` composition in `test_max31865_cvd`; `temp_read` on bench only — verified pass 2026-08-15 (manual) |
-| F5 | NMEA sentence parse, fix extraction |
+| F5.1 | USART RX ring + LF line extract — `test_gps_rx` verified pass 2026-08-19 (manual) |
+| F5.2 | NMEA GGA/RMC parse, `lat_e7`/`lon_e7`/alt/sats — `test_gps_nmea` verified pass 2026-08-19 (manual) |
+| F5.3 | `gps_sample_has_fix` / `gps_has_fix` from GGA quality + RMC status — `test_gps_nmea` fix-validity vectors verified pass 2026-08-19 (manual) |
 | F8 | Packetizer CRC16, field packing |
 
 ---
