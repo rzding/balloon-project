@@ -826,6 +826,22 @@ static inline void gps_nmea_merge_patch(gps_sample_t *state, const gps_sample_t 
 }
 
 /**
+ * @brief Test whether a parsed sample has a valid GPS fix (F5.3).
+ *
+ * True when lat/lon were parsed and (GGA fix quality >= 1 or RMC status A).
+ * Indoor no-lock: quality 0 and RMC V → false. gps_ok / bytes received ≠ fix.
+ */
+static inline bool gps_sample_has_fix(const gps_sample_t *s)
+{
+  if (s == NULL || !s->lat_lon_valid)
+  {
+    return false;
+  }
+
+  return (s->fix_quality >= 1u) || s->rmc_valid;
+}
+
+/**
  * @brief Arm USART1 RXNE interrupt path and set health flags.
  *
  * gps_ok means RX path armed, not fix acquired (F5.3).
@@ -863,6 +879,13 @@ bool gps_copy_line(char *out, size_t cap);
  * @return false on NULL @p out; true on success.
  */
 bool gps_get_sample(gps_sample_t *out);
+
+/**
+ * @brief True when merged sample has a valid fix from GGA quality or RMC status.
+ *
+ * Not the same as gps_is_ok() (RX path armed). Not called from app_run until F8.
+ */
+bool gps_has_fix(void);
 
 /**
  * @brief USART1 IRQ handler body — push RX bytes into ring; clear overrun.

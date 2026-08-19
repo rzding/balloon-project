@@ -46,6 +46,7 @@
 | 0.26 | 2026-08-19 | Firmware | F5.1 complete: USART1 RXNE IRQ ring, `gps_poll` LF line extract, `gps_init`/`gps_is_ok`, host `test_gps_rx`; F5.2–F5.4 open; HW → §21 |
 | 0.27 | 2026-08-19 | Firmware | F5.1 host `test_gps_rx` manual pass (test harness fix: sequential drain, wrap trailing line) |
 | 0.28 | 2026-08-19 | Firmware | F5.2 complete: GGA/RMC NMEA parse, `gps_sample_t`, `gps_get_sample`, host `test_gps_nmea`; F5.3–F5.4 open; HW → §21 |
+| 0.29 | 2026-08-19 | Firmware | F5.3 complete: `gps_sample_has_fix` / `gps_has_fix`; host `test_gps_nmea` extended; F5 software-complete; F5.4 optional/open; HW → §21 |
 
 ### How to use this document
 
@@ -621,7 +622,7 @@ Outside-air temperature via RTD.
 
 ## 10. Phase F5 — GPS (MAX-M10S)
 
-**Phase status:** F5.2 software-complete (2026-08-19); F5.3–F5.4 open; HW exit open (§10.3 / §21). Full phase exit pending bench — see §21 F5.
+**Phase status:** F5 software-complete (2026-08-19); F5.4 optional/open; HW exit open (§10.3 / §21). Full phase exit pending bench — see §21 F5.
 
 ### 10.0 Objective
 
@@ -663,8 +664,15 @@ Non-blocking NMEA parser providing fix for recovery and APRS/LoRa.
 
 #### F5.3 — Fix validity
 
-- `gps_has_fix()` based on status fields — not merely “bytes received”
-- Indoor: sentences OK without fix is expected
+**Status:** complete (2026-08-19)
+
+- [x] `gps_sample_has_fix()` host-testable inline in `gps.h` — `lat_lon_valid` AND (`fix_quality >= 1` OR `rmc_valid`)
+- [x] `gps_has_fix()` inspects merged `s_sample`; not tied to bytes received or `gps_ok`
+- [x] Indoor / no lock: quality 0 + RMC V → false even when sentences parse
+- [x] OR rule (not AND GGA+RMC) — either sentence type can assert fix
+- [x] `gps_ok` unchanged — RX armed only; no `error_flags` change on fix
+- [x] Not called from `app_run` until F8
+- [x] Host `test_gps_nmea` extended with fix-validity vectors (manual pass 2026-08-19)
 
 #### F5.4 — Optional UBX config (later)
 
@@ -688,10 +696,16 @@ Non-blocking NMEA parser providing fix for recovery and APRS/LoRa.
 - [x] No `gps_has_fix()` in F5.2 — deferred to F5.3
 - [x] `gps_get_sample` not called from `app_run` until mission (F8)
 
-**Software verification (F5.3–F5.4 — open):**
+**Software verification (F5.3 — 2026-08-19):**
 
-- [ ] `gps_has_fix()` from GGA fix quality and RMC status (F5.3)
-- [ ] Full F5 software-complete when F5.3 lands
+- [x] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
+- [x] Host `tests/host/test_gps_nmea` extended with fix-validity vectors (manual pass 2026-08-19)
+- [x] `gps_has_fix()` false without status; true on GGA quality ≥ 1 or RMC A (with parsed lat/lon)
+- [x] Full F5 software-complete ticked
+
+**Software verification (F5.4 — optional / open):**
+
+- [ ] UBX baud 115200 (optional; not required for F5 software-complete)
 
 **Hardware exit (pending bench — tick when §21 F5 procedure passes):**
 

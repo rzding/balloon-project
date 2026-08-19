@@ -6,7 +6,7 @@ Examples: IMU LSB→SI scale, MS5611 compensation math, NMEA parsing, telemetry 
 
 ## Status
 
-**Harness active** — `test_imu_scale` (F2.3), `test_ms5611_crc` (F3.1), `test_ms5611_adc` (F3.2), `test_ms5611_comp` (F3.3 compensation + ISA + F3.4 `baro_sample_from_raw`), `test_max31865_cvd` (F4.2 RTD unpack + CVD + F4.3 `temp_sample_from_raw`), `test_gps_rx` (F5.1 ring + LF line extract), `test_gps_nmea` (F5.2 GGA/RMC parse).
+**Harness active** — `test_imu_scale` (F2.3), `test_ms5611_crc` (F3.1), `test_ms5611_adc` (F3.2), `test_ms5611_comp` (F3.3 compensation + ISA + F3.4 `baro_sample_from_raw`), `test_max31865_cvd` (F4.2 RTD unpack + CVD + F4.3 `temp_sample_from_raw`), `test_gps_rx` (F5.1 ring + LF line extract), `test_gps_nmea` (F5.2 GGA/RMC parse + F5.3 fix validity).
 
 ## Manual execution policy
 
@@ -46,7 +46,7 @@ Requirements: host `cc` (clang/gcc) and `libm`.
 | `test_ms5611_comp` | pending | — | Run `make && ./test_ms5611_comp` after F3.3/F3.4 changes (comp + ISA + sample-from-raw) |
 | `test_max31865_cvd` | pass | 2026-08-15 | Manual run (`make` + `./test_max31865_cvd`); F4.2 CVD + F4.3 `temp_sample_from_raw` composition; clean build (no warnings) |
 | `test_gps_rx` | pass | 2026-08-19 | Manual run (`make` + `./test_gps_rx`); sequential two-line drain + last-line-wins; wrap uses valid trailing line |
-| `test_gps_nmea` | pass | 2026-08-19 | Manual run (`make` + `./test_gps_nmea`); GGA/RMC golden sentences, checksum, GN talker, merge |
+| `test_gps_nmea` | pass | 2026-08-19 | Manual run (`make` + `./test_gps_nmea`); F5.2 GGA/RMC parse + F5.3 fix validity (52 checks) |
 
 ## What belongs here vs on the bench
 

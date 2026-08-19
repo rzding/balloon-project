@@ -1,6 +1,6 @@
 /**
  * @file gps.c
- * @brief MAX-M10S GPS driver — USART1 RX ring, line extract (F5.1), NMEA parse (F5.2).
+ * @brief MAX-M10S GPS driver — USART1 RX ring, line extract (F5.1), NMEA parse (F5.2), fix validity (F5.3).
  */
 
 #include "gps.h"
@@ -111,6 +111,11 @@ bool gps_get_sample(gps_sample_t *out)
 
   memcpy(out, &s_sample, sizeof(*out));
   return true;
+}
+
+bool gps_has_fix(void)
+{
+  return gps_sample_has_fix(&s_sample);
 }
 
 void gps_usart1_irq(void)

@@ -1,6 +1,6 @@
 /**
  * @file test_gps_nmea.c
- * @brief Host unit tests for NMEA GGA/RMC parse (F5.2).
+ * @brief Host unit tests for NMEA GGA/RMC parse (F5.2) and fix validity (F5.3).
  */
 
 #include <stdio.h>
@@ -161,9 +161,91 @@ int main(void)
   assert_bool(state.rmc_valid, true, "merge rmc valid");
   assert_u32(state.date_ddmmyy, 130998u, "merge date");
 
+  /* F5.3 — fix validity (gps_sample_has_fix). */
+  memset(&state, 0, sizeof(state));
+  assert_bool(gps_sample_has_fix(&state), false, "fix empty sample");
+
+  memset(&state, 0, sizeof(state));
+  state.lat_lon_valid = true;
+  state.fix_quality = 0u;
+  state.rmc_valid = false;
+  assert_bool(gps_sample_has_fix(&state), false, "fix indoor no lock");
+
+  assert_bool(gps_sample_has_fix(NULL), false, "fix null sample");
+
+  memset(&patch, 0, sizeof(patch));
+  assert_bool(gps_nmea_parse_sentence(
+                  "$GPGGA,123519,4807.038,N,01131.000,E,1,08,0.9,545.4,M,46.9,M,,*47",
+                  &patch),
+              true,
+              "fix gga parse");
+  assert_bool(gps_sample_has_fix(&patch), true, "fix gga quality 1");
+
+  memset(&patch, 0, sizeof(patch));
+  assert_bool(gps_nmea_parse_sentence(
+                  "$GPRMC,081836,A,3751.65,S,14507.36,E,000.0,360.0,130998,011.3,E*62",
+                  &patch),
+              true,
+              "fix rmc A parse");
+  assert_bool(gps_sample_has_fix(&patch), true, "fix rmc A");
+
+  memset(&patch, 0, sizeof(patch));
+  assert_bool(gps_nmea_parse_sentence(
+                  "$GPRMC,081836,V,3751.65,S,14507.36,E,000.0,360.0,130998,011.3,E*75",
+                  &patch),
+              true,
+              "fix rmc V parse");
+  assert_bool(gps_sample_has_fix(&patch), false, "fix rmc V");
+
+  /* Indoor GGA: coords present but fix quality 0. */
+  memset(&patch, 0, sizeof(patch));
+  assert_bool(gps_nmea_parse_sentence(
+                  "$GPGGA,123519,4807.038,N,01131.000,E,0,08,0.9,545.4,M,46.9,M,,*46",
+                  &patch),
+              true,
+              "fix gga quality 0 parse");
+  assert_bool(gps_sample_has_fix(&patch), false, "fix gga quality 0");
+
+  /* Merge: GGA fix then RMC void — GGA quality still valid. */
+  memset(&state, 0, sizeof(state));
+  memset(&patch, 0, sizeof(patch));
+  assert_bool(gps_nmea_parse_gga("$GPGGA,123519,4807.038,N,01131.000,E,1,08,0.9,545.4,M,46.9,M,,*47", &patch),
+              true,
+              "fix merge gga");
+  gps_nmea_merge_patch(&state, &patch, true);
+  memset(&patch, 0, sizeof(patch));
+  assert_bool(gps_nmea_parse_rmc("$GPRMC,081836,V,3751.65,S,14507.36,E,000.0,360.0,130998,011.3,E*75", &patch),
+              true,
+              "fix merge rmc V");
+  gps_nmea_merge_patch(&state, &patch, false);
+  assert_bool(gps_sample_has_fix(&state), true, "fix merge gga1 rmcV");
+
+  /* Merge: GGA no fix then RMC valid. */
+  memset(&state, 0, sizeof(state));
+  memset(&patch, 0, sizeof(patch));
+  assert_bool(gps_nmea_parse_gga("$GPGGA,123519,4807.038,N,01131.000,E,0,08,0.9,545.4,M,46.9,M,,*46", &patch),
+              true,
+              "fix merge gga0");
+  gps_nmea_merge_patch(&state, &patch, true);
+  memset(&patch, 0, sizeof(patch));
+  assert_bool(gps_nmea_parse_rmc("$GPRMC,081836,A,3751.65,S,14507.36,E,000.0,360.0,130998,011.3,E*62", &patch),
+              true,
+              "fix merge rmc A");
+  gps_nmea_merge_patch(&state, &patch, false);
+  assert_bool(gps_sample_has_fix(&state), true, "fix merge gga0 rmcA");
+
+  /* Bad checksum does not produce fix. */
+  memset(&patch, 0, sizeof(patch));
+  assert_bool(gps_nmea_parse_sentence(
+                  "$GPGGA,123519,4807.038,N,01131.000,E,1,08,0.9,545.4,M,46.9,M,,*00",
+                  &patch),
+              false,
+              "fix bad checksum parse");
+  assert_bool(gps_sample_has_fix(&patch), false, "fix bad checksum");
+
   if (failures == 0)
   {
-    printf("PASS test_gps_nmea (%d checks)\n", 38);
+    printf("PASS test_gps_nmea (%d checks)\n", 52);
     return 0;
   }
 
