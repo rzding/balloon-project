@@ -43,6 +43,8 @@
 | 0.23 | 2026-08-15 | Firmware | F4.2 CVD inverse quadratic root fix (`temp_pt1000_ohm_to_c`); host `test_max31865_cvd` manual pass |
 | 0.24 | 2026-08-15 | Firmware | F4.3 complete: `temp_sample_t`, `temp_sample_from_raw`, `temp_read`; F4 software complete; HW → §21 |
 | 0.25 | 2026-08-15 | Firmware | F4.3 host `test_max31865_cvd` manual pass; remove unused `assert_i16` |
+| 0.26 | 2026-08-19 | Firmware | F5.1 complete: USART1 RXNE IRQ ring, `gps_poll` LF line extract, `gps_init`/`gps_is_ok`, host `test_gps_rx`; F5.2–F5.4 open; HW → §21 |
+| 0.27 | 2026-08-19 | Firmware | F5.1 host `test_gps_rx` manual pass (test harness fix: sequential drain, wrap trailing line) |
 
 ### How to use this document
 
@@ -618,7 +620,7 @@ Outside-air temperature via RTD.
 
 ## 10. Phase F5 — GPS (MAX-M10S)
 
-**Phase status:** not started — software work unblocked by F0 software-complete; HW → §21.
+**Phase status:** F5.1 software-complete (2026-08-19); F5.2–F5.4 open; HW exit open (§10.3 / §21). Full phase exit pending bench — see §21 F5.
 
 ### 10.0 Objective
 
@@ -626,7 +628,7 @@ Non-blocking NMEA parser providing fix for recovery and APRS/LoRa.
 
 ### 10.1 Entry criteria
 
-- [ ] F0 software-complete (USART1 @ 9600)
+- [x] F0 software-complete (USART1 @ 9600)
 
 **Hardware exit (not a coding start blocker):** antenna connected for outdoor fix validation — see §10.3.
 
@@ -634,8 +636,16 @@ Non-blocking NMEA parser providing fix for recovery and APRS/LoRa.
 
 #### F5.1 — RX path
 
-- Interrupt or DMA into **fixed ring buffer**
-- `gps_poll()` extracts lines ending in `\n`
+**Status:** complete (2026-08-19)
+
+- [x] USART1 RXNE IRQ → fixed 256-byte ring buffer (overwrite-oldest on overflow)
+- [x] `gps_poll()` extracts LF-terminated lines; strips CR; oversize lines discarded
+- [x] `gps_init()` / `gps_is_ok()` / `error_flags_set_gps_ok` — `gps_ok` = RX path armed (not fix)
+- [x] `gps_copy_line()` for bench/GDB; `gps_usart1_irq()` in `stm32f4xx_it.c` USER CODE
+- [x] NVIC USART1 priority 5 in MSP USER CODE; `.ioc` NVIC intent recorded
+- [x] `gps.c` / `gps.h`; Makefile `C_SOURCES`; `(void)gps_init()` fail-soft in `app_init`; `gps_poll()` in `app_run`
+- [x] Host-testable ring/line helpers in `gps.h`; host `test_gps_rx` (manual pass 2026-08-19)
+- [x] No NMEA parser, `gps_has_fix()`, or UBX/baud change in F5.1
 
 #### F5.2 — Sentence parser
 
@@ -654,11 +664,18 @@ Non-blocking NMEA parser providing fix for recovery and APRS/LoRa.
 
 ### 10.3 Verification / exit criteria
 
-**Software verification (tick when work packages land):**
+**Software verification (F5.1 — 2026-08-19):**
 
-- [ ] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
-- [ ] Host tests for NMEA parse / fix extraction from golden sentences (recommended)
-- [ ] Main loop never blocks waiting on GPS — `gps_poll()` non-blocking; fail-soft `gps_ok`
+- [x] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
+- [x] Host `tests/host/test_gps_rx` pass (manual, 2026-08-19; sequential two-line drain + last-line-wins; wrap trailing line)
+- [x] `gps_poll()` non-blocking — drains ring only; no UART blocking in superloop
+- [x] Fail-soft `gps_ok` / `error_flags_set_gps_ok` on init; `app_run` continues on fault
+- [x] No `gps_has_fix()` or NMEA golden-sentence parse in F5.1 — deferred to F5.2/F5.3
+
+**Software verification (F5.2–F5.4 — open):**
+
+- [ ] Host tests for NMEA parse / fix extraction from golden sentences (F5.2/F5.3)
+- [ ] Full F5 software-complete when F5.2–F5.3 land
 
 **Hardware exit (pending bench — tick when §21 F5 procedure passes):**
 
@@ -1143,16 +1160,18 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 
 **Checklist (tick with pass date when bench complete):**
 
+- [ ] After F5.1: USART1 IRQ fills ring; `gps_poll()` extracts NMEA lines indoor (fix not required); `gps_copy_line()` returns sentence text
 - [ ] Bytes received at 9600 on bench/outdoor
-- [ ] Outdoor: valid lat/lon within expected region
+- [ ] Outdoor: valid lat/lon within expected region (requires F5.2/F5.3 parser + `gps_has_fix()`)
 - [ ] Antenna connected for outdoor fix tests
 
 **Bench procedure (when PCB + ST-Link available):**
 
-1. Flash firmware; confirm `app_init` → `app_run`.
-2. Indoor: `gps_poll()` receives NMEA sentences; `gps_has_fix()` may be false (expected).
-3. Outdoor with antenna: valid lat/lon; `gps_has_fix()` true when sky visible.
-4. Tick checklist above + §10.3 hardware exit items; add roadmap rev with bench date.
+1. Flash firmware; confirm `app_init` → `app_run`; `gps_is_ok()` true after init (RX armed).
+2. Indoor (F5.1): confirm `gps_poll()` receives NMEA via `gps_copy_line()`; fix not required.
+3. After F5.2/F5.3: indoor sentences parse; `gps_has_fix()` may be false (expected).
+4. Outdoor with antenna: valid lat/lon; `gps_has_fix()` true when sky visible.
+5. Tick checklist above + §10.3 hardware exit items; add roadmap rev with bench date.
 
 ### F6 — microSD logging (FatFS)
 

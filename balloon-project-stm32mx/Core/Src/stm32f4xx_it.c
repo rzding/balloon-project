@@ -22,6 +22,7 @@
 #include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "gps.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -214,5 +215,12 @@ void EXTI15_10_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
-
+/**
+ * USART1 RX for GPS (MAX-M10S). If CubeMX regenerates a USART1_IRQHandler stub,
+ * move gps_usart1_irq() into USER CODE BEGIN USART1_IRQn 0 and remove this copy.
+ */
+void USART1_IRQHandler(void)
+{
+  gps_usart1_irq();
+}
 /* USER CODE END 1 */

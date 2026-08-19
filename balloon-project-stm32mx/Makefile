@@ -66,7 +66,8 @@ App/Src/error_flags.c \
 App/Src/baro.c \
 App/Src/imu.c \
 App/Src/spi_bus.c \
-App/Src/temp.c
+App/Src/temp.c \
+App/Src/gps.c
 
 # Application modules (App/Src/*.c) are manual — re-add after CubeMX Makefile regen
 
