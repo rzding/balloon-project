@@ -1,6 +1,6 @@
 /**
  * @file gps.c
- * @brief MAX-M10S GPS driver — USART1 RX ring and line extraction (F5.1).
+ * @brief MAX-M10S GPS driver — USART1 RX ring, line extract (F5.1), NMEA parse (F5.2).
  */
 
 #include "gps.h"
@@ -11,6 +11,7 @@
 static gps_ring_t s_ring;
 static gps_line_acc_t s_line_acc;
 static char s_last_line[GPS_LINE_MAX];
+static gps_sample_t s_sample;
 static bool s_have_line;
 static bool s_ok;
 
@@ -20,12 +21,33 @@ static void gps_set_ok(bool ok)
   error_flags_set_gps_ok(ok);
 }
 
+static void gps_handle_line(const char *line)
+{
+  gps_sample_t patch;
+  gps_nmea_sentence_type_t type;
+
+  type = gps_nmea_sentence_type(line);
+  if (type == GPS_NMEA_NONE)
+  {
+    return;
+  }
+
+  memset(&patch, 0, sizeof(patch));
+  if (!gps_nmea_parse_sentence(line, &patch))
+  {
+    return;
+  }
+
+  gps_nmea_merge_patch(&s_sample, &patch, type == GPS_NMEA_GGA);
+}
+
 bool gps_init(void)
 {
   s_ring.head = 0u;
   s_ring.tail = 0u;
   memset(&s_line_acc, 0, sizeof(s_line_acc));
   memset(s_last_line, 0, sizeof(s_last_line));
+  memset(&s_sample, 0, sizeof(s_sample));
   s_have_line = false;
 
   __HAL_UART_ENABLE_IT(&huart1, UART_IT_RXNE);
@@ -47,6 +69,7 @@ bool gps_poll(void)
     {
       memcpy(s_last_line, line_buf, sizeof(s_last_line));
       s_have_line = true;
+      gps_handle_line(line_buf);
       got_line = true;
     }
   }
@@ -76,6 +99,17 @@ bool gps_copy_line(char *out, size_t cap)
 
   memcpy(out, s_last_line, len);
   out[len] = '\0';
+  return true;
+}
+
+bool gps_get_sample(gps_sample_t *out)
+{
+  if (out == NULL)
+  {
+    return false;
+  }
+
+  memcpy(out, &s_sample, sizeof(*out));
   return true;
 }
 

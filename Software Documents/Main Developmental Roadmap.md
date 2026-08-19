@@ -45,6 +45,7 @@
 | 0.25 | 2026-08-15 | Firmware | F4.3 host `test_max31865_cvd` manual pass; remove unused `assert_i16` |
 | 0.26 | 2026-08-19 | Firmware | F5.1 complete: USART1 RXNE IRQ ring, `gps_poll` LF line extract, `gps_init`/`gps_is_ok`, host `test_gps_rx`; F5.2–F5.4 open; HW → §21 |
 | 0.27 | 2026-08-19 | Firmware | F5.1 host `test_gps_rx` manual pass (test harness fix: sequential drain, wrap trailing line) |
+| 0.28 | 2026-08-19 | Firmware | F5.2 complete: GGA/RMC NMEA parse, `gps_sample_t`, `gps_get_sample`, host `test_gps_nmea`; F5.3–F5.4 open; HW → §21 |
 
 ### How to use this document
 
@@ -620,7 +621,7 @@ Outside-air temperature via RTD.
 
 ## 10. Phase F5 — GPS (MAX-M10S)
 
-**Phase status:** F5.1 software-complete (2026-08-19); F5.2–F5.4 open; HW exit open (§10.3 / §21). Full phase exit pending bench — see §21 F5.
+**Phase status:** F5.2 software-complete (2026-08-19); F5.3–F5.4 open; HW exit open (§10.3 / §21). Full phase exit pending bench — see §21 F5.
 
 ### 10.0 Objective
 
@@ -649,9 +650,16 @@ Non-blocking NMEA parser providing fix for recovery and APRS/LoRa.
 
 #### F5.2 — Sentence parser
 
-- Accept `$GPxxx`, `$GNxxx`, etc.
-- Parse at least **GGA** (fix quality, alt, sats) and **RMC** (lat/lon, time, valid)
-- Store scaled integers (e.g. lat/lon ×1e7) for packet use
+**Status:** complete (2026-08-19)
+
+- [x] Talker-agnostic GGA/RMC detect (`$GP`, `$GN`, etc. via bytes 3–5)
+- [x] NMEA 0183 XOR checksum validation; reject on mismatch (fail-soft, keep last good sample)
+- [x] GGA: fix quality, sats, altitude (m), lat/lon → `lat_e7`/`lon_e7`, UTC time
+- [x] RMC: status A/V → `rmc_valid`, lat/lon, time, date
+- [x] `gps_sample_t` + `gps_get_sample()`; integer-only `ddmm` → e7 (no libm)
+- [x] `gps_poll()` parses **every** complete line (GGA + RMC in one poll cycle)
+- [x] Host-testable parse helpers in `gps.h`; host `test_gps_nmea` (manual pass 2026-08-19)
+- [x] No `gps_has_fix()` (F5.3); `gps_get_sample` not called from `app_run` until F8
 
 #### F5.3 — Fix validity
 
@@ -672,10 +680,18 @@ Non-blocking NMEA parser providing fix for recovery and APRS/LoRa.
 - [x] Fail-soft `gps_ok` / `error_flags_set_gps_ok` on init; `app_run` continues on fault
 - [x] No `gps_has_fix()` or NMEA golden-sentence parse in F5.1 — deferred to F5.2/F5.3
 
-**Software verification (F5.2–F5.4 — open):**
+**Software verification (F5.2 — 2026-08-19):**
 
-- [ ] Host tests for NMEA parse / fix extraction from golden sentences (F5.2/F5.3)
-- [ ] Full F5 software-complete when F5.2–F5.3 land
+- [x] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
+- [x] Host `tests/host/test_gps_nmea` pass (manual, 2026-08-19; GGA/RMC golden sentences, checksum, merge)
+- [x] `gps_poll()` parses every complete line; bad checksum does not clear merged sample
+- [x] No `gps_has_fix()` in F5.2 — deferred to F5.3
+- [x] `gps_get_sample` not called from `app_run` until mission (F8)
+
+**Software verification (F5.3–F5.4 — open):**
+
+- [ ] `gps_has_fix()` from GGA fix quality and RMC status (F5.3)
+- [ ] Full F5 software-complete when F5.3 lands
 
 **Hardware exit (pending bench — tick when §21 F5 procedure passes):**
 

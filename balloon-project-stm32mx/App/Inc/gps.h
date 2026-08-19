@@ -140,6 +140,691 @@ static inline bool gps_line_feed(gps_line_acc_t *acc, uint8_t byte, char *out, s
   return false;
 }
 
+/** NMEA sentence types recognized by the parser (F5.2). */
+typedef enum
+{
+  GPS_NMEA_NONE = 0,
+  GPS_NMEA_GGA,
+  GPS_NMEA_RMC
+} gps_nmea_sentence_type_t;
+
+/** Max comma-separated fields per NMEA line. */
+#define GPS_NMEA_MAX_FIELDS  16u
+
+/** Parsed GPS fix fields for LoRa packet v1 / mission use (F5.2). */
+typedef struct
+{
+  int32_t  lat_e7;         /**< Latitude degrees × 1e7 (S/W negative). */
+  int32_t  lon_e7;         /**< Longitude degrees × 1e7 (S/W negative). */
+  int16_t  alt_m;          /**< GGA altitude, meters. */
+  uint8_t  sats;           /**< GGA satellites in use. */
+  uint8_t  fix_quality;    /**< GGA fix quality (0 = invalid). */
+  bool     rmc_valid;      /**< RMC status field == 'A'. */
+  uint32_t time_hhmmss;    /**< UTC time as HHMMSS (no fractional seconds). */
+  uint32_t date_ddmmyy;    /**< RMC date DDMMYY; 0 if unknown. */
+  bool     lat_lon_valid;  /**< Lat/lon parsed from last GGA or RMC. */
+  bool     alt_valid;      /**< Altitude parsed from last GGA. */
+} gps_sample_t;
+
+/**
+ * @brief Parse two hex digits (0-9, A-F).
+ * @return false on invalid digits; true and *out set on success.
+ */
+static inline bool gps_nmea_hex2(const char *s, uint8_t *out)
+{
+  uint8_t v;
+  uint8_t hi;
+  uint8_t lo;
+
+  if (s == NULL || out == NULL || s[0] == '\0' || s[1] == '\0')
+  {
+    return false;
+  }
+
+  hi = (uint8_t)s[0];
+  lo = (uint8_t)s[1];
+
+  if (hi >= '0' && hi <= '9')
+  {
+    v = (uint8_t)(hi - '0');
+  }
+  else if (hi >= 'A' && hi <= 'F')
+  {
+    v = (uint8_t)(hi - 'A' + 10u);
+  }
+  else if (hi >= 'a' && hi <= 'f')
+  {
+    v = (uint8_t)(hi - 'a' + 10u);
+  }
+  else
+  {
+    return false;
+  }
+
+  v = (uint8_t)(v << 4);
+
+  if (lo >= '0' && lo <= '9')
+  {
+    v = (uint8_t)(v + (uint8_t)(lo - '0'));
+  }
+  else if (lo >= 'A' && lo <= 'F')
+  {
+    v = (uint8_t)(v + (uint8_t)(lo - 'A' + 10u));
+  }
+  else if (lo >= 'a' && lo <= 'f')
+  {
+    v = (uint8_t)(v + (uint8_t)(lo - 'a' + 10u));
+  }
+  else
+  {
+    return false;
+  }
+
+  *out = v;
+  return true;
+}
+
+/**
+ * @brief Compute NMEA 0183 XOR checksum (bytes after '$' until '*').
+ */
+static inline uint8_t gps_nmea_checksum_compute(const char *line)
+{
+  uint8_t cs = 0u;
+  const char *p;
+
+  if (line == NULL || line[0] != '$')
+  {
+    return 0u;
+  }
+
+  for (p = line + 1; *p != '\0' && *p != '*'; p++)
+  {
+    cs ^= (uint8_t)*p;
+  }
+
+  return cs;
+}
+
+/**
+ * @brief Verify NMEA line checksum (*HH).
+ */
+static inline bool gps_nmea_checksum_ok(const char *line)
+{
+  const char *star;
+  uint8_t expected;
+  uint8_t actual;
+
+  if (line == NULL || line[0] != '$')
+  {
+    return false;
+  }
+
+  star = strchr(line, '*');
+  if (star == NULL || star[1] == '\0')
+  {
+    return false;
+  }
+
+  if (!gps_nmea_hex2(star + 1, &expected))
+  {
+    return false;
+  }
+
+  actual = gps_nmea_checksum_compute(line);
+  return actual == expected;
+}
+
+/**
+ * @brief Identify GGA/RMC sentence type (talker-agnostic: $xxGGA / $xxRMC).
+ */
+static inline gps_nmea_sentence_type_t gps_nmea_sentence_type(const char *line)
+{
+  if (line == NULL || line[0] != '$' || strlen(line) < 7u)
+  {
+    return GPS_NMEA_NONE;
+  }
+
+  if (memcmp(line + 3, "GGA", 3) == 0)
+  {
+    return GPS_NMEA_GGA;
+  }
+
+  if (memcmp(line + 3, "RMC", 3) == 0)
+  {
+    return GPS_NMEA_RMC;
+  }
+
+  return GPS_NMEA_NONE;
+}
+
+/**
+ * @brief Locate comma-separated field @p index in @p line.
+ * @return false if field missing; true and sets @p start and @p len (may be empty).
+ */
+static inline bool gps_nmea_get_field(const char *line, uint8_t index, const char **start, uint16_t *len)
+{
+  const char *p;
+  const char *field_start;
+  uint8_t i;
+
+  if (line == NULL || start == NULL || len == NULL)
+  {
+    return false;
+  }
+
+  p = line;
+  field_start = p;
+  i = 0u;
+
+  while (true)
+  {
+    if (*p == ',' || *p == '*' || *p == '\0')
+    {
+      if (i == index)
+      {
+        *start = field_start;
+        *len = (uint16_t)(p - field_start);
+        return true;
+      }
+
+      if (*p == '\0' || *p == '*')
+      {
+        return false;
+      }
+
+      i++;
+      field_start = p + 1;
+    }
+
+    if (*p == '\0')
+    {
+      return false;
+    }
+
+    p++;
+  }
+}
+
+/**
+ * @brief Parse unsigned decimal field (empty => false).
+ */
+static inline bool gps_nmea_field_to_u32(const char *start, uint16_t len, uint32_t *out)
+{
+  uint32_t v = 0u;
+  uint16_t i;
+
+  if (start == NULL || out == NULL || len == 0u)
+  {
+    return false;
+  }
+
+  for (i = 0u; i < len; i++)
+  {
+    char c = start[i];
+
+    if (c < '0' || c > '9')
+    {
+      return false;
+    }
+
+    v = (v * 10u) + (uint32_t)(c - '0');
+  }
+
+  *out = v;
+  return true;
+}
+
+/**
+ * @brief Parse signed decimal meters from altitude field (integer part only).
+ */
+static inline bool gps_nmea_field_to_i16_m(const char *start, uint16_t len, int16_t *out)
+{
+  bool negative = false;
+  int32_t v = 0;
+  uint16_t i;
+  uint16_t begin = 0u;
+
+  if (start == NULL || out == NULL || len == 0u)
+  {
+    return false;
+  }
+
+  if (start[0] == '-')
+  {
+    negative = true;
+    begin = 1u;
+    if (len <= 1u)
+    {
+      return false;
+    }
+  }
+
+  for (i = begin; i < len; i++)
+  {
+    char c = start[i];
+
+    if (c == '.')
+    {
+      break;
+    }
+
+    if (c < '0' || c > '9')
+    {
+      return false;
+    }
+
+    v = (v * 10) + (c - '0');
+    if (v > 32767)
+    {
+      return false;
+    }
+  }
+
+  if (negative)
+  {
+    v = -v;
+  }
+
+  if (v < -32768 || v > 32767)
+  {
+    return false;
+  }
+
+  *out = (int16_t)v;
+  return true;
+}
+
+/**
+ * @brief Convert NMEA ddmm.mmmm (lat) or dddmm.mmmm (lon) to degrees × 1e7.
+ *
+ * Integer-only; no libm. @p hem must be N/S for latitude, E/W for longitude.
+ */
+static inline bool gps_nmea_ddmm_to_e7(const char *ddmm, bool is_lat, char hem, int32_t *out)
+{
+  const char *dot;
+  size_t deg_digits;
+  size_t ddmm_len;
+  int32_t deg = 0;
+  int32_t min_whole = 0;
+  int32_t min_frac = 0;
+  int32_t frac_digits = 0;
+  int64_t minutes_times_10000;
+  int64_t e7;
+  size_t i;
+
+  if (ddmm == NULL || out == NULL || ddmm[0] == '\0')
+  {
+    return false;
+  }
+
+  if (hem != 'N' && hem != 'S' && hem != 'E' && hem != 'W')
+  {
+    return false;
+  }
+
+  ddmm_len = strlen(ddmm);
+  dot = strchr(ddmm, '.');
+  if (dot == NULL)
+  {
+    return false;
+  }
+
+  deg_digits = is_lat ? 2u : 3u;
+  if ((size_t)(dot - ddmm) < deg_digits)
+  {
+    return false;
+  }
+
+  for (i = 0u; i < deg_digits; i++)
+  {
+    char c = ddmm[i];
+
+    if (c < '0' || c > '9')
+    {
+      return false;
+    }
+
+    deg = (deg * 10) + (c - '0');
+  }
+
+  for (i = deg_digits; i < (size_t)(dot - ddmm); i++)
+  {
+    char c = ddmm[i];
+
+    if (c < '0' || c > '9')
+    {
+      return false;
+    }
+
+    min_whole = (min_whole * 10) + (c - '0');
+  }
+
+  for (i = (size_t)(dot - ddmm) + 1u; i < ddmm_len && frac_digits < 4; i++)
+  {
+    char c = ddmm[i];
+
+    if (c < '0' || c > '9')
+    {
+      return false;
+    }
+
+    min_frac = (min_frac * 10) + (c - '0');
+    frac_digits++;
+  }
+
+  while (frac_digits < 4)
+  {
+    min_frac *= 10;
+    frac_digits++;
+  }
+
+  minutes_times_10000 = ((int64_t)min_whole * 10000LL) + (int64_t)min_frac;
+  e7 = ((int64_t)deg * 10000000LL) + ((minutes_times_10000 * 10000000LL) / 600000LL);
+
+  if (hem == 'S' || hem == 'W')
+  {
+    e7 = -e7;
+  }
+
+  if (e7 < (int64_t)INT32_MIN || e7 > (int64_t)INT32_MAX)
+  {
+    return false;
+  }
+
+  *out = (int32_t)e7;
+  return true;
+}
+
+/**
+ * @brief Convert a length-delimited NMEA coordinate field to degrees × 1e7.
+ */
+static inline bool gps_nmea_field_ddmm_to_e7(const char *start, uint16_t len, bool is_lat, char hem,
+                                             int32_t *out)
+{
+  char buf[16];
+
+  if (start == NULL || out == NULL || len == 0u || len >= sizeof(buf))
+  {
+    return false;
+  }
+
+  memcpy(buf, start, len);
+  buf[len] = '\0';
+  return gps_nmea_ddmm_to_e7(buf, is_lat, hem, out);
+}
+
+/**
+ * @brief Parse UTC time field HHMMSS[.sss] into HHMMSS integer.
+ */
+static inline bool gps_nmea_parse_time_hhmmss(const char *start, uint16_t len, uint32_t *out)
+{
+  uint32_t v = 0u;
+  uint16_t digits = 0u;
+  uint16_t i;
+
+  if (start == NULL || out == NULL || len == 0u)
+  {
+    return false;
+  }
+
+  for (i = 0u; i < len; i++)
+  {
+    char c = start[i];
+
+    if (c == '.')
+    {
+      break;
+    }
+
+    if (c < '0' || c > '9')
+    {
+      return false;
+    }
+
+    v = (v * 10u) + (uint32_t)(c - '0');
+    digits++;
+  }
+
+  if (digits < 6u)
+  {
+    return false;
+  }
+
+  *out = v;
+  return true;
+}
+
+/**
+ * @brief Parse GGA sentence into @p patch (partial update; does not clear other fields).
+ * @return false on wrong type, bad checksum, or parse error; true on success.
+ */
+static inline bool gps_nmea_parse_gga(const char *line, gps_sample_t *patch)
+{
+  const char *start;
+  uint16_t len;
+  uint32_t u32;
+
+  if (line == NULL || patch == NULL)
+  {
+    return false;
+  }
+
+  if (gps_nmea_sentence_type(line) != GPS_NMEA_GGA)
+  {
+    return false;
+  }
+
+  if (!gps_nmea_checksum_ok(line))
+  {
+    return false;
+  }
+
+  if (gps_nmea_get_field(line, 1u, &start, &len) &&
+      gps_nmea_parse_time_hhmmss(start, len, &u32))
+  {
+    patch->time_hhmmss = u32;
+  }
+
+  if (gps_nmea_get_field(line, 2u, &start, &len))
+  {
+    const char *lat_start = start;
+    uint16_t lat_len = len;
+    const char *hem_start;
+    uint16_t hem_len;
+
+    if (gps_nmea_get_field(line, 3u, &hem_start, &hem_len) && hem_len == 1u &&
+        gps_nmea_field_ddmm_to_e7(lat_start, lat_len, true, hem_start[0], &patch->lat_e7))
+    {
+      patch->lat_lon_valid = true;
+    }
+  }
+
+  if (gps_nmea_get_field(line, 4u, &start, &len))
+  {
+    const char *lon_start = start;
+    uint16_t lon_len = len;
+    const char *hem_start;
+    uint16_t hem_len;
+
+    if (gps_nmea_get_field(line, 5u, &hem_start, &hem_len) && hem_len == 1u &&
+        gps_nmea_field_ddmm_to_e7(lon_start, lon_len, false, hem_start[0], &patch->lon_e7))
+    {
+      patch->lat_lon_valid = true;
+    }
+  }
+
+  if (gps_nmea_get_field(line, 6u, &start, &len) &&
+      gps_nmea_field_to_u32(start, len, &u32) && u32 <= 255u)
+  {
+    patch->fix_quality = (uint8_t)u32;
+  }
+
+  if (gps_nmea_get_field(line, 7u, &start, &len) &&
+      gps_nmea_field_to_u32(start, len, &u32) && u32 <= 255u)
+  {
+    patch->sats = (uint8_t)u32;
+  }
+
+  if (gps_nmea_get_field(line, 9u, &start, &len) &&
+      gps_nmea_field_to_i16_m(start, len, &patch->alt_m))
+  {
+    patch->alt_valid = true;
+  }
+
+  return true;
+}
+
+/**
+ * @brief Parse RMC sentence into @p patch (partial update).
+ * @return false on wrong type, bad checksum, or parse error; true on success.
+ */
+static inline bool gps_nmea_parse_rmc(const char *line, gps_sample_t *patch)
+{
+  const char *start;
+  uint16_t len;
+  uint32_t u32;
+
+  if (line == NULL || patch == NULL)
+  {
+    return false;
+  }
+
+  if (gps_nmea_sentence_type(line) != GPS_NMEA_RMC)
+  {
+    return false;
+  }
+
+  if (!gps_nmea_checksum_ok(line))
+  {
+    return false;
+  }
+
+  if (gps_nmea_get_field(line, 1u, &start, &len) &&
+      gps_nmea_parse_time_hhmmss(start, len, &u32))
+  {
+    patch->time_hhmmss = u32;
+  }
+
+  if (gps_nmea_get_field(line, 2u, &start, &len) && len == 1u)
+  {
+    patch->rmc_valid = (start[0] == 'A');
+  }
+
+  if (gps_nmea_get_field(line, 3u, &start, &len))
+  {
+    const char *lat_start = start;
+    uint16_t lat_len = len;
+    const char *hem_start;
+    uint16_t hem_len;
+
+    if (gps_nmea_get_field(line, 4u, &hem_start, &hem_len) && hem_len == 1u &&
+        gps_nmea_field_ddmm_to_e7(lat_start, lat_len, true, hem_start[0], &patch->lat_e7))
+    {
+      patch->lat_lon_valid = true;
+    }
+  }
+
+  if (gps_nmea_get_field(line, 5u, &start, &len))
+  {
+    const char *lon_start = start;
+    uint16_t lon_len = len;
+    const char *hem_start;
+    uint16_t hem_len;
+
+    if (gps_nmea_get_field(line, 6u, &hem_start, &hem_len) && hem_len == 1u &&
+        gps_nmea_field_ddmm_to_e7(lon_start, lon_len, false, hem_start[0], &patch->lon_e7))
+    {
+      patch->lat_lon_valid = true;
+    }
+  }
+
+  if (gps_nmea_get_field(line, 9u, &start, &len) &&
+      gps_nmea_field_to_u32(start, len, &u32))
+  {
+    patch->date_ddmmyy = u32;
+  }
+
+  return true;
+}
+
+/**
+ * @brief Parse GGA or RMC sentence (checksum-validated).
+ * @return false if unknown type or bad checksum; true on success.
+ */
+static inline bool gps_nmea_parse_sentence(const char *line, gps_sample_t *patch)
+{
+  gps_nmea_sentence_type_t type;
+
+  if (line == NULL || patch == NULL)
+  {
+    return false;
+  }
+
+  type = gps_nmea_sentence_type(line);
+  if (type == GPS_NMEA_GGA)
+  {
+    return gps_nmea_parse_gga(line, patch);
+  }
+
+  if (type == GPS_NMEA_RMC)
+  {
+    return gps_nmea_parse_rmc(line, patch);
+  }
+
+  return false;
+}
+
+/**
+ * @brief Merge parsed patch into accumulated fix state (F5.2).
+ *
+ * @param is_gga true if patch came from GGA; false for RMC.
+ */
+static inline void gps_nmea_merge_patch(gps_sample_t *state, const gps_sample_t *patch, bool is_gga)
+{
+  if (state == NULL || patch == NULL)
+  {
+    return;
+  }
+
+  if (patch->lat_lon_valid)
+  {
+    state->lat_e7 = patch->lat_e7;
+    state->lon_e7 = patch->lon_e7;
+    state->lat_lon_valid = true;
+  }
+
+  if (is_gga)
+  {
+    if (patch->alt_valid)
+    {
+      state->alt_m = patch->alt_m;
+      state->alt_valid = true;
+    }
+
+    state->sats = patch->sats;
+    state->fix_quality = patch->fix_quality;
+
+    if (patch->time_hhmmss != 0u)
+    {
+      state->time_hhmmss = patch->time_hhmmss;
+    }
+  }
+  else
+  {
+    state->rmc_valid = patch->rmc_valid;
+
+    if (patch->time_hhmmss != 0u)
+    {
+      state->time_hhmmss = patch->time_hhmmss;
+    }
+
+    if (patch->date_ddmmyy != 0u)
+    {
+      state->date_ddmmyy = patch->date_ddmmyy;
+    }
+  }
+}
+
 /**
  * @brief Arm USART1 RXNE interrupt path and set health flags.
  *
@@ -170,6 +855,14 @@ bool gps_is_ok(void);
  * @return false on NULL @p out, zero @p cap, or no line received yet; true on success.
  */
 bool gps_copy_line(char *out, size_t cap);
+
+/**
+ * @brief Copy the merged GPS sample (GGA/RMC fields accumulated in gps_poll).
+ *
+ * @param out Out sample; must not be NULL.
+ * @return false on NULL @p out; true on success.
+ */
+bool gps_get_sample(gps_sample_t *out);
 
 /**
  * @brief USART1 IRQ handler body — push RX bytes into ring; clear overrun.

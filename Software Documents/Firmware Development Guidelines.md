@@ -28,6 +28,7 @@
 | 0.7 | 2026-08-15 | Firmware | F4.3 host test manual pass |
 | 0.8 | 2026-08-19 | Firmware | F5.1 `test_gps_rx` authored (ring + LF line extract; manual run pending) |
 | 0.9 | 2026-08-19 | Firmware | F5.1 `test_gps_rx` manual pass (test harness fix: sequential drain, wrap trailing line) |
+| 0.10 | 2026-08-19 | Firmware | F5.2 `test_gps_nmea` authored (GGA/RMC parse; manual pass 2026-08-19) |
 
 ---
 
@@ -132,7 +133,8 @@ See [`balloon-project-stm32mx/tests/host/README.md`](../balloon-project-stm32mx/
 | F4.2 | PT1000 resistance → °C (Callendar–Van Dusen) — `test_max31865_cvd` verified pass 2026-08-15 (manual) |
 | F4.3 | `temp_sample_from_raw` composition in `test_max31865_cvd`; `temp_read` on bench only — verified pass 2026-08-15 (manual) |
 | F5.1 | USART RX ring + LF line extract — `test_gps_rx` verified pass 2026-08-19 (manual) |
-| F5.2/F5.3 | NMEA sentence parse (GGA/RMC), fix extraction |
+| F5.2 | NMEA GGA/RMC parse, `lat_e7`/`lon_e7`/alt/sats — `test_gps_nmea` verified pass 2026-08-19 (manual) |
+| F5.3 | `gps_has_fix()` from fix quality / RMC status |
 | F8 | Packetizer CRC16, field packing |
 
 ---
