@@ -13,7 +13,7 @@
 | Location | `Software Documents/Firmware Development Guidelines.md` |
 | Status | Active |
 | Audience | Firmware engineers, Cursor agents, reviewers |
-| Related | [Main Developmental Roadmap.md](Main%20Developmental%20Roadmap.md) §3, §21; [`balloon-project-stm32mx/README.md`](../balloon-project-stm32mx/README.md) |
+| Related | [Main Developmental Roadmap.md](Main%20Developmental%20Roadmap.md) §3, §21; [`balloon-project-stm32mx/README.md`](../balloon-project-stm32mx/README.md); [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md) |
 
 ### Revision history
 
@@ -30,6 +30,7 @@
 | 0.9 | 2026-08-19 | Firmware | F5.1 `test_gps_rx` manual pass (test harness fix: sequential drain, wrap trailing line) |
 | 0.10 | 2026-08-19 | Firmware | F5.2 `test_gps_nmea` authored (GGA/RMC parse; manual pass 2026-08-19) |
 | 0.11 | 2026-08-19 | Firmware | F5.3 `gps_sample_has_fix` / `gps_has_fix`; `test_gps_nmea` fix-validity vectors (manual pass 2026-08-19) |
+| 0.12 | 2026-08-19 | Firmware | Logic analyzer bench: `make BENCH=1` / `APP_BENCH_BUS_EXERCISE`; [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md) |
 
 ---
 
@@ -209,3 +210,4 @@ Project rules in `.cursor/rules/` reinforce these points for every session.
 | Should I set up Renode now? | No — defer unless models are owned |
 | Who runs tests? | Developer manually; not the agent by default |
 | Where is deferred HW tracked? | Roadmap §21 |
+| How do I get live SPI for a logic analyzer? | `make BENCH=1` in `balloon-project-stm32mx/` — see [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md). Default `make` keeps SPI quiet after boot; GPS UART still runs. Do not ship `BENCH=1` as flight firmware. |

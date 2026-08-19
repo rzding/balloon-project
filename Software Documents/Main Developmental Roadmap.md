@@ -47,6 +47,7 @@
 | 0.27 | 2026-08-19 | Firmware | F5.1 host `test_gps_rx` manual pass (test harness fix: sequential drain, wrap trailing line) |
 | 0.28 | 2026-08-19 | Firmware | F5.2 complete: GGA/RMC NMEA parse, `gps_sample_t`, `gps_get_sample`, host `test_gps_nmea`; F5.3–F5.4 open; HW → §21 |
 | 0.29 | 2026-08-19 | Firmware | F5.3 complete: `gps_sample_has_fix` / `gps_has_fix`; host `test_gps_nmea` extended; F5 software-complete; F5.4 optional/open; HW → §21 |
+| 0.30 | 2026-08-19 | Firmware | Gated `APP_BENCH_BUS_EXERCISE` (`make BENCH=1`) + [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md); §21 F1–F5 procedures updated; F2–F5 HW exit still open |
 
 ### How to use this document
 
@@ -1114,6 +1115,8 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 
 **Process:** When a work package completes in software, add matching HW checks below if not already listed. Clear ticks with date and pass/fail note.
 
+**Logic analyzer:** For SPI/UART wire-level checks on IMU, baro, temp, and GPS, flash `make BENCH=1` firmware and follow [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md) (Captures A–C). GDB remains available for functional checks listed in each phase procedure below.
+
 ### F0 — Foundation
 
 - [ ] Firmware flashes via ST-Link and reaches `while(1)` / `app_run` after reset
@@ -1123,6 +1126,8 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 - [ ] CS lines idle high (meter or logic analyzer on IMU/BARO/Temp/LoRa/SD CS)
 - [ ] Dummy SPI transfer does not leave any CS stuck low
 - [ ] Timeout path releases CS (analyzer or fault injection)
+
+**Logic analyzer:** [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md) Capture B with `make BENCH=1` firmware (idle CS + single-slave activity during IMU/baro/temp reads).
 
 ### F2 — IMU (ICM-42688-P)
 
@@ -1134,13 +1139,14 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 
 **Bench procedure (when PCB + ST-Link available):**
 
-1. Flash `build/balloon-project-stm32mx.elf` (see `balloon-project-stm32mx/README.md` § SWD / flash).
+1. Flash `build/balloon-project-stm32mx.elf` built with `make BENCH=1` (see `balloon-project-stm32mx/README.md` § SWD / flash and [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md) Capture A).
 2. Confirm `app_init` → `while(1)` / `app_run` after reset.
-3. After `imu_init`: `imu_init()` returns true, `imu_is_ok()` true, `error_flags_imu_ok()` true; optional WHO_AM_I reg read = `0x47`.
-4. Read-back via SPI/debugger: `GYRO_CONFIG0` / `ACCEL_CONFIG0` = `0x08`, `PWR_MGMT0` = `0x0F`.
-5. Call `imu_read(&sample)` repeatedly (GDB or debug loop): flat rest ~1 g on one accel axis (orientation-dependent); tilt/rotate changes ax/ay/az and gx/gy/gz; `imu_is_ok()` stays true on success.
-6. Tick checklist above + §7.3 hardware exit items; add roadmap rev **0.15** with bench date; update §7 phase status to `complete (bench YYYY-MM-DD)`.
-7. PR title: `firmware: complete Phase F2 — IMU` (roadmap §20).
+3. Logic analyzer: SPI on J11 + IMU_CS (TP20); WHO_AM_I MISO byte `0x47`; with `BENCH=1`, ~1 Hz `imu_read` bursts (MOSI first byte `0x9F`).
+4. After `imu_init`: `imu_init()` returns true, `imu_is_ok()` true, `error_flags_imu_ok()` true; optional WHO_AM_I reg read = `0x47` (SWD/GDB).
+5. Read-back via SPI/debugger: `GYRO_CONFIG0` / `ACCEL_CONFIG0` = `0x08`, `PWR_MGMT0` = `0x0F`.
+6. `imu_read(&sample)` repeatedly (bench loop or GDB): flat rest ~1 g on one accel axis (orientation-dependent); tilt/rotate changes ax/ay/az and gx/gy/gz; `imu_is_ok()` stays true on success.
+7. Tick checklist above + §7.3 hardware exit items; add roadmap rev with bench date; update §7 phase status to `complete (bench YYYY-MM-DD)`.
+8. PR title: `firmware: complete Phase F2 — IMU` (roadmap §20).
 
 **On failure:** do not tick exit — check SPI/CS/power, IMU variant (`-V` WHO_AM_I = `0xDB`), and `PWR_MGMT0` if samples are static.
 
@@ -1156,13 +1162,14 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 
 **Bench procedure (when PCB + ST-Link available):**
 
-1. Flash `build/balloon-project-stm32mx.elf` (see `balloon-project-stm32mx/README.md` § SWD / flash).
+1. Flash `build/balloon-project-stm32mx.elf` built with `make BENCH=1` (see README § SWD / flash and [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md) Capture A — move CS clip to TP22).
 2. Confirm `app_init` → `while(1)` / `app_run` after reset.
-3. After `baro_init`: `baro_init()` returns true, `baro_is_ok()` true, `error_flags_baro_ok()` true.
-4. After F3.2: call `baro_read_raw(&raw)` repeatedly (GDB or debug loop): non-zero `raw.d1` / `raw.d2`; `baro_is_ok()` true; D1 changes when board lifted ~1–2 m.
-5. Call `baro_read(&sample)` repeatedly (GDB or debug loop): indoor `sample.pressure_pa / 100` ≈ 980–1040 hPa (site-dependent); `baro_is_ok()` true on success; raise board ~1–2 m and confirm `sample.alt_m` increases directionally.
-6. Tick checklist above + §8.3 hardware exit items; add roadmap rev with bench date.
-7. PR title: `firmware: complete Phase F3 — Barometer` (roadmap §20).
+3. Logic analyzer: SPI on J11 + BARO_CS (TP22); PROM/ADC frames; quiet gaps during conversions normal; CS not stuck low.
+4. After `baro_init`: `baro_init()` returns true, `baro_is_ok()` true, `error_flags_baro_ok()` true.
+5. `baro_read_raw(&raw)` repeatedly (bench loop or GDB): non-zero `raw.d1` / `raw.d2`; `baro_is_ok()` true; D1 changes when board lifted ~1–2 m.
+6. `baro_read(&sample)` repeatedly: indoor `sample.pressure_pa / 100` ≈ 980–1040 hPa (site-dependent); `baro_is_ok()` true on success; raise board ~1–2 m and confirm `sample.alt_m` increases directionally.
+7. Tick checklist above + §8.3 hardware exit items; add roadmap rev with bench date.
+8. PR title: `firmware: complete Phase F3 — Barometer` (roadmap §20).
 
 **On failure:** do not tick exit — check SPI/CS/power, `BARO_CS` (PB2), and PROM/CRC (`error_flags_baro_ok` false on CRC mismatch).
 
@@ -1178,11 +1185,12 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 
 **Bench procedure (when PCB + ST-Link available):**
 
-1. Flash `build/balloon-project-stm32mx.elf`.
-2. After `temp_init`: `temp_init()` returns true, `temp_is_ok()` true, `error_flags_temp_ok()` true; optional CONFIG reg read-back = `0x90`.
-3. After F4.2: call `temp_read_raw(&raw)` repeatedly (GDB or debug loop): non-zero `raw.adc`; `temp_is_ok()` true on success; room-temp °C plausible via `temp_rtd_adc_to_ohm` + `temp_pt1000_ohm_to_c`.
-4. After F4.3: call `temp_read(&sample)` repeatedly — room-temp plausible; `temp_is_ok()` true on success; hand on probe changes reading.
-5. Tick checklist above + §9.3 hardware exit items; add roadmap rev with bench date.
+1. Flash `build/balloon-project-stm32mx.elf` built with `make BENCH=1` (see README and [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md) Capture A — move CS clip to TP21).
+2. Logic analyzer: SPI on J11 + Temp_CS (TP21); CONFIG read-back `0x90` at init; with `BENCH=1`, ~60 ms conversion gap then RTD burst.
+3. After `temp_init`: `temp_init()` returns true, `temp_is_ok()` true, `error_flags_temp_ok()` true; optional CONFIG reg read-back = `0x90` (SWD/GDB).
+4. `temp_read_raw(&raw)` repeatedly (bench loop or GDB): non-zero `raw.adc`; `temp_is_ok()` true on success; room-temp °C plausible via `temp_rtd_adc_to_ohm` + `temp_pt1000_ohm_to_c`.
+5. `temp_read(&sample)` repeatedly — room-temp plausible; `temp_is_ok()` true on success; hand on probe changes reading.
+6. Tick checklist above + §9.3 hardware exit items; add roadmap rev with bench date.
 
 **On failure:** do not tick exit — check SPI/CS/power, `Temp_CS` (PA8), and CONFIG read-back (`error_flags_temp_ok` false on mismatch).
 
@@ -1197,11 +1205,12 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 
 **Bench procedure (when PCB + ST-Link available):**
 
-1. Flash firmware; confirm `app_init` → `app_run`; `gps_is_ok()` true after init (RX armed).
-2. Indoor (F5.1): confirm `gps_poll()` receives NMEA via `gps_copy_line()`; fix not required.
-3. After F5.2/F5.3: indoor sentences parse; `gps_has_fix()` may be false (expected).
-4. Outdoor with antenna: valid lat/lon; `gps_has_fix()` true when sky visible.
-5. Tick checklist above + §10.3 hardware exit items; add roadmap rev with bench date.
+1. Flash firmware (`make` or `make BENCH=1` — GPS needs no bench flag); confirm `app_init` → `app_run`; `gps_is_ok()` true after init (RX armed).
+2. Logic analyzer: [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md) Capture C — UART on PA10 (`GPS_TX` → MCU RX), 9600 8N1; NMEA visible; fix not required indoors.
+3. Indoor (F5.1): confirm `gps_poll()` receives NMEA via `gps_copy_line()` (SWD/GDB optional).
+4. After F5.2/F5.3: indoor sentences parse; `gps_has_fix()` may be false (expected).
+5. Outdoor with antenna: valid lat/lon; `gps_has_fix()` true when sky visible.
+6. Tick checklist above + §10.3 hardware exit items; add roadmap rev with bench date.
 
 ### F6 — microSD logging (FatFS)
 
