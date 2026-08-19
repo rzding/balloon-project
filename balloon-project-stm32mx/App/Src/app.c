@@ -9,6 +9,7 @@
 #include "error_flags.h"
 #include "gps.h"
 #include "imu.h"
+#include "stm32f4xx_hal.h"
 #include "temp.h"
 
 bool app_init(void)
@@ -23,6 +24,23 @@ bool app_init(void)
 
 void app_run(void)
 {
+#ifdef APP_BENCH_BUS_EXERCISE
+  static uint32_t s_bench_last_ms;
+
+  uint32_t now = HAL_GetTick();
+  if ((now - s_bench_last_ms) >= 1000u)
+  {
+    imu_sample_t imu;
+    baro_sample_t baro;
+    temp_sample_t temp;
+
+    s_bench_last_ms = now;
+    (void)imu_read(&imu);
+    (void)baro_read(&baro);
+    (void)temp_read(&temp);
+  }
+#endif
+
   /* Subsystem faults must not stop the superloop; F8+ mission tick runs regardless. */
   (void)gps_poll();
   (void)error_flags_get();

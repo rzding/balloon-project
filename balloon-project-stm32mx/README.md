@@ -31,6 +31,18 @@ Requires `arm-none-eabi-gcc` (e.g. STM32CubeCLT). Artifacts are written to `buil
 - `build/balloon-project-stm32mx.hex`
 - `build/balloon-project-stm32mx.bin`
 
+### Bench / logic analyzer build
+
+For ongoing SPI traffic on IMU, baro, and temp (not flight firmware):
+
+```bash
+make clean && make BENCH=1
+```
+
+Then flash as below. See [Software Documents/Logic Analyzer Bench Guide.md](../Software%20Documents/Logic%20Analyzer%20Bench%20Guide.md) for probe map, decoder settings, and pass criteria.
+
+**Do not ship `BENCH=1` builds for flight** — default `make` keeps SPI quiet after boot; GPS UART still runs.
+
 ## Add a new App module
 
 1. Add `App/Inc/foo.h` and `App/Src/foo.c` (one module = one `.c` / `.h` pair).

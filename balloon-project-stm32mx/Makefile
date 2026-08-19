@@ -124,6 +124,12 @@ C_DEFS =  \
 -DUSE_HAL_DRIVER \
 -DSTM32F411xE
 
+# Optional logic-analyzer bench loop (APP_BENCH_BUS_EXERCISE in app_run). Default off.
+# Rebuild: make clean && make BENCH=1
+# Re-add this block after CubeMX Makefile regen.
+ifeq ($(BENCH),1)
+C_DEFS += -DAPP_BENCH_BUS_EXERCISE
+endif
 
 # AS includes
 AS_INCLUDES = 
