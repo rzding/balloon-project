@@ -1,6 +1,6 @@
 /**
  * @file test_max31865_cvd.c
- * @brief Host unit tests for MAX31865 RTD unpack, resistance, and CVD (F4.2).
+ * @brief Host unit tests for MAX31865 RTD unpack, resistance, CVD, and sample API (F4.2–F4.3).
  */
 
 #include <math.h>
@@ -37,9 +37,25 @@ static void assert_near(float got, float expected, float tol, const char *msg)
   }
 }
 
+static void assert_near_i16(int16_t got, int16_t expected, int16_t tol, const char *msg)
+{
+  int32_t diff = (int32_t)got - (int32_t)expected;
+  if (diff < 0)
+  {
+    diff = -diff;
+  }
+
+  if (diff > (int32_t)tol)
+  {
+    printf("FAIL %s: got %d expected %d (tol %d)\n", msg, (int)got, (int)expected, (int)tol);
+    failures++;
+  }
+}
+
 int main(void)
 {
   temp_raw_t raw;
+  temp_sample_t sample;
 
   /* RTD unpack: MSB 0x12, LSB 0x34 → adc 0x091A, no fault. */
   assert_bool(temp_rtd_unpack(0x12u, 0x34u, &raw), true, "unpack ok");
@@ -74,6 +90,35 @@ int main(void)
 
     assert_bool(temp_pt1000_ohm_to_c(rt, &temp_c), true, "round-trip -60C ok");
     assert_near(temp_c, -60.0f, 0.05f, "round-trip -60C");
+  }
+
+  /* F4.3: temp_sample_from_raw composition. */
+  {
+    const uint16_t adc_0c = (uint16_t)lroundf((TEMP_PT1000_R0_OHM / TEMP_RREF_OHM) *
+                                              TEMP_RTD_ADC_FULL_SCALE);
+    const float rt_100c = temp_pt1000_c_to_ohm(100.0f);
+    const uint16_t adc_100c =
+        (uint16_t)lroundf((rt_100c / TEMP_RREF_OHM) * TEMP_RTD_ADC_FULL_SCALE);
+
+    raw.adc = adc_0c;
+    raw.fault = false;
+    raw.fault_status = 0u;
+    assert_bool(temp_sample_from_raw(&raw, &sample), true, "sample 0C ok");
+    assert_near_i16(sample.temp_centi_c, 0, 5, "sample 0C centi");
+
+    raw.adc = adc_100c;
+    assert_bool(temp_sample_from_raw(&raw, &sample), true, "sample 100C ok");
+    assert_near_i16(sample.temp_centi_c, 10000, 5, "sample 100C centi");
+
+    raw.fault = true;
+    assert_bool(temp_sample_from_raw(&raw, &sample), false, "sample fault");
+
+    raw.fault = false;
+    raw.adc = 0u;
+    assert_bool(temp_sample_from_raw(&raw, &sample), false, "sample zero adc");
+
+    assert_bool(temp_sample_from_raw(NULL, &sample), false, "sample null raw");
+    assert_bool(temp_sample_from_raw(&raw, NULL), false, "sample null out");
   }
 
   if (failures == 0)

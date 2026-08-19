@@ -156,6 +156,51 @@ static inline bool temp_pt1000_ohm_to_c(float rt_ohm, float *temp_c)
   return true;
 }
 
+/** Compensated temperature sample for mission / telemetry (packet temp_c_x100). */
+typedef struct
+{
+  int16_t temp_centi_c; /**< Temperature in 0.01 °C (LoRa packet v1 field). */
+} temp_sample_t;
+
+/**
+ * @brief Build compensated sample from raw RTD ADC (host-testable).
+ *
+ * @param raw Raw sample from temp_read_raw (must not be faulted).
+ * @param out Out sample; must not be NULL.
+ * @return false on NULL @p raw/@p out, fault, zero ADC, CVD failure, or overflow; true on success.
+ */
+static inline bool temp_sample_from_raw(const temp_raw_t *raw, temp_sample_t *out)
+{
+  float rt_ohm;
+  float temp_c;
+  long centi;
+
+  if (raw == NULL || out == NULL)
+  {
+    return false;
+  }
+
+  if (raw->fault || raw->adc == 0u)
+  {
+    return false;
+  }
+
+  rt_ohm = temp_rtd_adc_to_ohm(raw->adc);
+  if (!temp_pt1000_ohm_to_c(rt_ohm, &temp_c))
+  {
+    return false;
+  }
+
+  centi = lroundf(temp_c * 100.0f);
+  if (centi < (long)INT16_MIN || centi > (long)INT16_MAX)
+  {
+    return false;
+  }
+
+  out->temp_centi_c = (int16_t)centi;
+  return true;
+}
+
 /**
  * @brief Configure MAX31865 for 3-wire PT1000 and verify register read-back.
  *
@@ -179,7 +224,18 @@ bool temp_init(void);
 bool temp_read_raw(temp_raw_t *out);
 
 /**
- * @brief Last known temperature driver health after init or last temp_read_raw.
+ * @brief Poll compensated outside-air temperature in centi-degrees Celsius.
+ *
+ * Calls temp_read_raw, then converts RTD resistance to °C via CVD.
+ * Updates health on success or failure. Not called from app_run until mission (F8).
+ *
+ * @param out Out sample; must not be NULL.
+ * @return false on NULL @p out, SPI failure, fault, zero ADC, or conversion failure; true on success.
+ */
+bool temp_read(temp_sample_t *out);
+
+/**
+ * @brief Last known temperature driver health after init, temp_read_raw, or temp_read.
  * @return true if last init/read succeeded; false otherwise.
  */
 bool temp_is_ok(void);

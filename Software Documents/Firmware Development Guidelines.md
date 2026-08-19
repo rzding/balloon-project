@@ -24,6 +24,8 @@
 | 0.3 | 2026-08-15 | Firmware | F4.1 host-test note (SPI config = bench); F4.2 CVD host-test target |
 | 0.4 | 2026-08-15 | Firmware | F4.2 `test_max31865_cvd` authored (manual run pending) |
 | 0.5 | 2026-08-15 | Firmware | F4.2 CVD inverse root fix; `test_max31865_cvd` manual pass |
+| 0.6 | 2026-08-15 | Firmware | F4.3 `temp_sample_from_raw` in `test_max31865_cvd`; `temp_read` on bench only |
+| 0.7 | 2026-08-15 | Firmware | F4.3 host test manual pass |
 
 ---
 
@@ -126,6 +128,7 @@ See [`balloon-project-stm32mx/tests/host/README.md`](../balloon-project-stm32mx/
 | F3.4 | `baro_sample_from_raw` composition (compensate + ISA) in `test_ms5611_comp`; `baro_read` on bench only |
 | F4.1 | MAX31865 CONFIG write/read-back — bench only (SPI glue; no host test) |
 | F4.2 | PT1000 resistance → °C (Callendar–Van Dusen) — `test_max31865_cvd` verified pass 2026-08-15 (manual) |
+| F4.3 | `temp_sample_from_raw` composition in `test_max31865_cvd`; `temp_read` on bench only — verified pass 2026-08-15 (manual) |
 | F5 | NMEA sentence parse, fix extraction |
 | F8 | Packetizer CRC16, field packing |
 

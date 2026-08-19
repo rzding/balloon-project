@@ -6,7 +6,7 @@ Examples: IMU LSB→SI scale, MS5611 compensation math, NMEA parsing, telemetry 
 
 ## Status
 
-**Harness active** — `test_imu_scale` (F2.3), `test_ms5611_crc` (F3.1), `test_ms5611_adc` (F3.2), `test_ms5611_comp` (F3.3 compensation + ISA + F3.4 `baro_sample_from_raw`), `test_max31865_cvd` (F4.2 RTD unpack + CVD).
+**Harness active** — `test_imu_scale` (F2.3), `test_ms5611_crc` (F3.1), `test_ms5611_adc` (F3.2), `test_ms5611_comp` (F3.3 compensation + ISA + F3.4 `baro_sample_from_raw`), `test_max31865_cvd` (F4.2 RTD unpack + CVD + F4.3 `temp_sample_from_raw`).
 
 ## Manual execution policy
 
@@ -42,7 +42,7 @@ Requirements: host `cc` (clang/gcc) and `libm`.
 | `test_ms5611_crc` | pass | 2026-08-09 | Manual run (`make` + `./test_ms5611_crc`); AN520 golden vector |
 | `test_ms5611_adc` | pending | — | Run `make && ./test_ms5611_adc` after F3.2 changes |
 | `test_ms5611_comp` | pending | — | Run `make && ./test_ms5611_comp` after F3.3/F3.4 changes (comp + ISA + sample-from-raw) |
-| `test_max31865_cvd` | pass | 2026-08-15 | Manual run (`make` + `./test_max31865_cvd`); CVD inverse root fix |
+| `test_max31865_cvd` | pass | 2026-08-15 | Manual run (`make` + `./test_max31865_cvd`); F4.2 CVD + F4.3 `temp_sample_from_raw` composition; clean build (no warnings) |
 
 ## What belongs here vs on the bench
 

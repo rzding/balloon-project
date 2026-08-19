@@ -1,6 +1,6 @@
 /**
  * @file temp.c
- * @brief MAX31865 RTD driver — configuration (F4.1), RTD read (F4.2).
+ * @brief MAX31865 RTD driver — configuration (F4.1), RTD read (F4.2), API (F4.3).
  */
 
 #include "temp.h"
@@ -177,6 +177,30 @@ bool temp_read_raw(temp_raw_t *out)
   }
 
   if (out->adc == 0u)
+  {
+    temp_set_ok(false);
+    return false;
+  }
+
+  temp_set_ok(true);
+  return true;
+}
+
+bool temp_read(temp_sample_t *out)
+{
+  temp_raw_t raw;
+
+  if (out == NULL)
+  {
+    return false;
+  }
+
+  if (!temp_read_raw(&raw))
+  {
+    return false;
+  }
+
+  if (!temp_sample_from_raw(&raw, out))
   {
     temp_set_ok(false);
     return false;
