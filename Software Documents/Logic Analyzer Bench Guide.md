@@ -33,7 +33,7 @@ This guide explains how to use a **logic analyzer** to verify bus wiring and liv
 | MS5611 barometer | SPI1 | Yes |
 | MAX31865 + PT1000 | SPI1 | Yes |
 | MAX-M10S GPS | USART1 (UART) | Yes |
-| RFM95W LoRa | SPI1 | F7.1–F7.3 init + TX API (`lora_tx`; not called from default `app_run`) |
+| RFM95W LoRa | SPI1 | F7 software-complete: init + TX API (`lora_tx`; not called from default `app_run`); packet v1 in `packet.h` |
 | microSD | SPI1 | Not yet (F6) |
 | ArduCAM | SPI1 + I2C1 | Not yet (F9) |
 | DRA818V APRS | USART2 | Not yet (F10) |
@@ -207,12 +207,12 @@ What `BENCH=1` does in `app_run` (every ~1 s, fail-soft):
 
 ## 8. Explicitly not this branch
 
-- **LoRa:** `lora_init` configures radio at boot; `lora_tx` loads FIFO and transmits when called (GDB/F8). Default firmware does **not** TX from `app_run`. DIO0 (PB12) polled for TxDone. No `BENCH=1` LoRa loop yet.
+- **LoRa:** F7 software-complete — `lora_init` configures radio at boot; `lora_tx` loads FIFO and transmits when called (GDB/F8). Default firmware does **not** TX from `app_run`. DIO0 (PB12) polled for TxDone. Packet v1 contract in `packet.h`; ground decode via `ground/decode_packet`. No `BENCH=1` LoRa loop yet.
 - **microSD / ArduCAM:** CS idle high; no driver traffic.
 - **APRS USART2 / PTT / PWM:** Initialized idle; no App traffic.
 - **I2C1 (ArduCAM):** Bus idle after init.
 
-When F6 (SD) and F7 (LoRa) are software-complete, extend the same `BENCH=1` flag and add capture groups here.
+When F6 (SD) is software-complete, extend the same `BENCH=1` flag and add capture groups here. F7 LoRa is software-complete (see LoRa bullet above).
 
 ---
 

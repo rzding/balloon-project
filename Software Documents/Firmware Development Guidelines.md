@@ -34,6 +34,7 @@
 | 0.13 | 2026-08-20 | Firmware | F7.1 SX1276 VERSION probe — bench only (SPI/GPIO; no host test) |
 | 0.14 | 2026-08-20 | Firmware | F7.2 Hz → Frf (`test_lora_frf` authored); modem SPI config = bench |
 | 0.15 | 2026-08-20 | Firmware | F7.3 FIFO TX + DIO0 wait — bench/GDB only (SPI/GPIO; no host test) |
+| 0.16 | 2026-08-20 | Firmware | F7.4 / F7 exit: packet v1 pack/CRC16 — `test_packet_v1`; ground decode = host CLI; on-air RX = bench |
 
 ---
 
@@ -143,7 +144,8 @@ See [`balloon-project-stm32mx/tests/host/README.md`](../balloon-project-stm32mx/
 | F7.1 | SX1276 VERSION probe (`0x42`→`0x12`) — bench only (SPI/GPIO; no host test) |
 | F7.2 | Hz → Frf (`test_lora_frf` verified pass 2026-08-20; 915 MHz `0xE4C000`); modem SPI config = bench |
 | F7.3 | FIFO TX + DIO0 wait — bench/GDB only (SPI/GPIO; no host test) |
-| F8 | Packetizer CRC16, field packing |
+| F7.4 / F7 exit | Packet v1 pack/CRC16 — `test_packet_v1` (authored; manual run pending); ground decode = host CLI (`ground/decode_packet`); on-air RX = bench |
+| F8 | Packetizer field fill from sensors + `lora_tx` scheduler (reuses `packet.h`) |
 
 ---
 

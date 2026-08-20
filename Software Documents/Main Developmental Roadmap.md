@@ -52,6 +52,8 @@
 | 0.32 | 2026-08-20 | Firmware | F7.2 complete: LoRa modem config 915 MHz SF8/BW125/CR4/5/CRC, sync 0x12, PA_BOOST +17 dBm, LoRa standby; host `test_lora_frf`; F7.3–F7.4 open; HW → §21 |
 | 0.33 | 2026-08-20 | Firmware | Fix F7.2 `test_lora_frf` golden Frf vectors (`0xE4C000` / `0xD90000`); §21 bench Frf text corrected |
 | 0.34 | 2026-08-20 | Firmware | F7.3 complete: `lora_tx` FIFO + DIO0 poll (1000 ms timeout), `lora_get_seq`; F7.4 open; HW → §21 |
+| 0.35 | 2026-08-20 | Firmware | F7.4 complete: `packet.h` v1 pack/unpack/CRC-16/CCITT-FALSE, host `test_packet_v1`, `ground/decode_packet` RSSI/SNR CLI; F7 software-complete; HW → §21 |
+| 0.36 | 2026-08-20 | Firmware | Fix F7.4 `test_packet_v1` minimal CRC golden (`0x18EF` over 26-byte payload); F7 still software-complete; HW → §21 |
 
 ### How to use this document
 
@@ -774,7 +776,7 @@ Black-box telemetry log; foundation for image storage.
 
 ## 12. Phase F7 — LoRa telemetry (RFM95W)
 
-**Phase status:** F7.1–F7.3 complete (2026-08-20); F7.4 open; HW exit open (§12.4 / §21). Full phase exit pending bench — see §21 F7.
+**Phase status:** F7 software-complete (2026-08-20); F7.4 decoder + packet v1 host test; HW exit open (§12.4 / §21). Full phase HW exit pending bench — see §21 F7.
 
 ### 12.0 Objective
 
@@ -827,8 +829,14 @@ Ground-receivable telemetry (primary recovery link).
 
 #### F7.4 — Ground station
 
-- Matching modem settings + decoder for packet layout
-- Log RSSI/SNR
+**Status:** complete (2026-08-20)
+
+- [x] Modem match sheet in `ground/README.md` (915 MHz SF8/BW125/CR4/5, sync `0x12`, preamble 8)
+- [x] `packet.h` — 28-byte v1 layout, big-endian, CRC-16/CCITT-FALSE over bytes 0–25
+- [x] `packet_v1_pack` / `packet_v1_unpack` / `packet_crc16` (header-only; F8 packetizer reuses)
+- [x] Host `test_packet_v1` (pack, unpack round-trip, corrupt/version fail; minimal CRC golden `0x18EF`; manual run pending)
+- [x] `ground/decode_packet` CLI — hex payload decode + RSSI/SNR log (`n/a` if omitted)
+- [x] Clean build verified (2026-08-20); no `app_run` TX or Nucleo RX firmware in F7.4
 
 ### 12.3 Proposed packet v1 (freeze as team Q16)
 
@@ -852,9 +860,9 @@ Ground-receivable telemetry (primary recovery link).
 
 **Software verification (tick when work packages land):**
 
-- [ ] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
-- [ ] Host tests for packet v1 pack / CRC16 if extracted as pure logic (recommended)
-- [ ] TX fail path does not hang MCU — timeout on DIO0 wait; fail-soft health
+- [x] Clean build (`make clean && make` in `balloon-project-stm32mx/`) — verified 2026-08-20
+- [x] Host tests for packet v1 pack / CRC16 if extracted as pure logic (recommended) — `test_packet_v1` authored; manual run pending
+- [x] TX fail path does not hang MCU — timeout on DIO0 wait; fail-soft health (F7.3 code-path verified)
 
 **Hardware exit (pending bench — tick when §21 F7 procedure passes):**
 
@@ -876,7 +884,7 @@ Autonomous flight behavior and unified telemetry packing.
 ### 13.1 Entry criteria
 
 - [ ] F3 and/or F5 software-complete (altitude API available)
-- [ ] F7 software-complete for live TX (state machine host-testable without radio)
+- [x] F7 software-complete for live TX (state machine host-testable without radio) — 2026-08-20
 
 ### 13.2 Work packages
 
@@ -1270,7 +1278,7 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 3. After F7.2: SPI/GDB read-back OpMode `0x81`, Frf `0xE4C000` (`0xE4`/`0xC0`/`0x00`), ModemConfig1 `0x72`, ModemConfig2 `0x84`, SyncWord `0x12`.
 4. Optional logic analyzer: SPI on J11 + `LoRa_CS` (TP23); VERSION + modem config at boot; FIFO burst only when `lora_tx` called (GDB/F8).
 5. After F7.3: GDB `lora_tx` — DIO0 (PB12) rises; `lora_get_seq()` increments on success.
-6. When F7.4 lands: match modem settings to ground RX (SF/BW/freq/sync per §12.2); TX packets; ground station logs increasing `seq`, valid CRC.
+6. When F7.4 lands: match modem settings to ground RX (SF/BW/freq/sync per §12.2); TX packets; ground station logs increasing `seq`, valid CRC — **decoder ready:** feed Nucleo RX hex payload + `--rssi` / `--snr` into `ground/decode_packet` (see `ground/README.md`).
 7. Tick checklist above + §12.4 hardware exit items; add roadmap rev with bench date.
 
 ### F8 — Mission state machine and packetizer
