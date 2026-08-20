@@ -49,6 +49,30 @@ bool spi_bus_set_prescaler(uint32_t baudrate_prescaler)
   return spi_bus_apply_prescaler(baudrate_prescaler);
 }
 
+static bool spi_bus_apply_mode(uint32_t polarity, uint32_t phase)
+{
+  if (spi_bus_hspi == NULL)
+  {
+    return false;
+  }
+
+  __HAL_SPI_DISABLE(spi_bus_hspi);
+  spi_bus_hspi->Init.CLKPolarity = polarity;
+  spi_bus_hspi->Init.CLKPhase = phase;
+
+  if (HAL_SPI_Init(spi_bus_hspi) != HAL_OK)
+  {
+    return false;
+  }
+
+  return true;
+}
+
+bool spi_bus_set_mode(uint32_t polarity, uint32_t phase)
+{
+  return spi_bus_apply_mode(polarity, phase);
+}
+
 bool spi_bus_transfer(GPIO_TypeDef *cs_port, uint16_t cs_pin,
                       const uint8_t *tx, uint8_t *rx,
                       uint16_t len, uint32_t timeout_ms)

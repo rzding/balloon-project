@@ -27,6 +27,14 @@
 /** Default SPI1 bring-up prescaler (APB2 100 MHz / 128 ~ 0.781 MHz). */
 #define SPI_BUS_DEFAULT_PRESCALER SPI_BAUDRATEPRESCALER_128
 
+/** SPI Mode 0 (CPOL=0, CPHA=0) — bus default; used by IMU and baro. */
+#define SPI_BUS_MODE0_POLARITY SPI_POLARITY_LOW
+#define SPI_BUS_MODE0_PHASE    SPI_PHASE_1EDGE
+
+/** SPI Mode 1 (CPOL=0, CPHA=1) — required by MAX31865 (datasheet excludes Mode 0). */
+#define SPI_BUS_MODE1_POLARITY SPI_POLARITY_LOW
+#define SPI_BUS_MODE1_PHASE    SPI_PHASE_2EDGE
+
 /**
  * @brief Bind SPI1 handle and apply bring-up clock policy.
  * @param hspi CubeMX SPI1 handle (e.g. &hspi1).
@@ -40,6 +48,15 @@ bool spi_bus_init(SPI_HandleTypeDef *hspi);
  * @return false if bus not initialized or HAL re-init fails.
  */
 bool spi_bus_set_prescaler(uint32_t baudrate_prescaler);
+
+/**
+ * @brief Change SPI clock polarity/phase for a slave that needs a mode other
+ *        than the SPI1 default (e.g. MAX31865, which requires Mode 1 or 3).
+ * @param polarity HAL SPI_POLARITY_* constant.
+ * @param phase    HAL SPI_PHASE_* constant.
+ * @return false if bus not initialized or HAL re-init fails.
+ */
+bool spi_bus_set_mode(uint32_t polarity, uint32_t phase);
 
 /**
  * @brief SPI transfer with chip-select ownership (one CS low at a time).
