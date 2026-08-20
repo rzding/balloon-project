@@ -2,7 +2,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -std=c11 -I../../App/Inc
 LDFLAGS = -lm
 
-TARGETS = test_imu_scale test_ms5611_crc test_ms5611_adc test_ms5611_comp test_max31865_cvd test_gps_rx test_gps_nmea
+TARGETS = test_imu_scale test_ms5611_crc test_ms5611_adc test_ms5611_comp test_max31865_cvd test_gps_rx test_gps_nmea test_lora_frf
 
 .PHONY: all clean
 
@@ -27,6 +27,9 @@ test_gps_rx: test_gps_rx.c
 	$(CC) $(CFLAGS) -o $@ $<
 
 test_gps_nmea: test_gps_nmea.c
+	$(CC) $(CFLAGS) -o $@ $<
+
+test_lora_frf: test_lora_frf.c
 	$(CC) $(CFLAGS) -o $@ $<
 
 clean:

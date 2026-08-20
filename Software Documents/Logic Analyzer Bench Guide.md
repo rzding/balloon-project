@@ -33,7 +33,7 @@ This guide explains how to use a **logic analyzer** to verify bus wiring and liv
 | MS5611 barometer | SPI1 | Yes |
 | MAX31865 + PT1000 | SPI1 | Yes |
 | MAX-M10S GPS | USART1 (UART) | Yes |
-| RFM95W LoRa | SPI1 | F7.1 init only (VERSION probe at boot) |
+| RFM95W LoRa | SPI1 | F7.1–F7.2 init (VERSION + modem config at boot) |
 | microSD | SPI1 | Not yet (F6) |
 | ArduCAM | SPI1 + I2C1 | Not yet (F9) |
 | DRA818V APRS | USART2 | Not yet (F10) |
@@ -60,7 +60,7 @@ All three SPI sensors share SCLK/MOSI/MISO. Only **one** CS line goes low per tr
 | `IMU_CS` | PB0 | TP20 |
 | `BARO_CS` | PB2 | TP22 |
 | `Temp_CS` | PA8 | TP21 |
-| `LoRa_CS` | PB1 | TP23 (one VERSION read at boot; idle after init) |
+| `LoRa_CS` | PB1 | TP23 (VERSION + modem config SPI at boot; idle after init) |
 | `microSD_CS` | PB3 | TP24 (idle — no driver) |
 | `Cam_CS` | PA4 | (idle — no driver) |
 
@@ -207,7 +207,7 @@ What `BENCH=1` does in `app_run` (every ~1 s, fail-soft):
 
 ## 8. Explicitly not this branch
 
-- **LoRa:** `lora_init` pulses `LoRa_RESET` then reads VERSION on `LoRa_CS` (TP23) once at boot; CS idle high afterward. No `BENCH=1` LoRa loop yet; no TX until F7.3.
+- **LoRa:** `lora_init` pulses `LoRa_RESET`, reads VERSION, writes modem config on `LoRa_CS` (TP23) at boot; CS idle high afterward. No `BENCH=1` LoRa loop yet; no TX until F7.3.
 - **microSD / ArduCAM:** CS idle high; no driver traffic.
 - **APRS USART2 / PTT / PWM:** Initialized idle; no App traffic.
 - **I2C1 (ArduCAM):** Bus idle after init.

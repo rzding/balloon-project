@@ -49,6 +49,8 @@
 | 0.29 | 2026-08-19 | Firmware | F5.3 complete: `gps_sample_has_fix` / `gps_has_fix`; host `test_gps_nmea` extended; F5 software-complete; F5.4 optional/open; HW → §21 |
 | 0.30 | 2026-08-19 | Firmware | Gated `APP_BENCH_BUS_EXERCISE` (`make BENCH=1`) + [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md); §21 F1–F5 procedures updated; F2–F5 HW exit still open |
 | 0.31 | 2026-08-20 | Firmware | F7.1 complete: `lora` RESET + VERSION (`0x42`→`0x12`), `lora_init` / `lora_is_ok`, fail-soft `error_flags`; F7.2–F7.4 open; HW → §21 |
+| 0.32 | 2026-08-20 | Firmware | F7.2 complete: LoRa modem config 915 MHz SF8/BW125/CR4/5/CRC, sync 0x12, PA_BOOST +17 dBm, LoRa standby; host `test_lora_frf`; F7.3–F7.4 open; HW → §21 |
+| 0.33 | 2026-08-20 | Firmware | Fix F7.2 `test_lora_frf` golden Frf vectors (`0xE4C000` / `0xD90000`); §21 bench Frf text corrected |
 
 ### How to use this document
 
@@ -771,7 +773,7 @@ Black-box telemetry log; foundation for image storage.
 
 ## 12. Phase F7 — LoRa telemetry (RFM95W)
 
-**Phase status:** F7.1 complete (2026-08-20); F7.2–F7.4 open; HW exit open (§12.4 / §21). Full phase exit pending bench — see §21 F7.
+**Phase status:** F7.1–F7.2 complete (2026-08-20); F7.3–F7.4 open; HW exit open (§12.4 / §21). Full phase exit pending bench — see §21 F7.
 
 ### 12.0 Objective
 
@@ -800,9 +802,16 @@ Ground-receivable telemetry (primary recovery link).
 
 #### F7.2 — Radio config
 
-- Frequency 915.x MHz (US ISM), mode LoRa
-- Starting proposal: **SF8, BW125 kHz, CR4/5**, CRC on, sync word documented
-- TX power within module/legal limits; thermal/duty awareness
+**Status:** complete (2026-08-20)
+
+- [x] Sleep+LoRa → program modem/PA → LoRa standby (no TX)
+- [x] Frequency 915.0 MHz US ISM (`Frf` = `0xE4C000` via `lora_hz_to_frf`; MSB/MID/LSB `0xE4`/`0xC0`/`0x00`)
+- [x] SF8, BW125 kHz, CR4/5, explicit header, CRC on (`ModemConfig1`/`2`/`3`)
+- [x] Private sync word `0x12` documented in `lora.h` (ground RX must match)
+- [x] PA_BOOST +17 dBm, OCP on; no TxContinuousMode, no +20 dBm PaDac overdrive
+- [x] Register read-back verify on OpMode, Frf, ModemConfig1/2, SyncWord
+- [x] Host `test_lora_frf` pass (915 MHz `0xE4C000`, 868 MHz `0xD90000`; manual, 2026-08-20)
+- [x] Clean build verified (2026-08-20); no FIFO TX or DIO0 in F7.2
 
 #### F7.3 — Packet TX
 
@@ -1240,6 +1249,7 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 **Checklist (tick with pass date when bench complete):**
 
 - [ ] After `lora_init`: VERSION `0x12`, `lora_is_ok()` true, `error_flags_lora_ok()` true (SWD/GDB)
+- [ ] After F7.2: OpMode LoRa+standby (`0x81`), Frf `0xE4C000`, ModemConfig1 `0x72`, ModemConfig2 `0x84`, SyncWord `0x12` (SWD/GDB or SPI read-back)
 - [ ] Bench: RX node receives packets with increasing `seq`
 - [ ] CRC validated on ground
 - [ ] TX rate limited (e.g. ≤0.5 Hz) during test
@@ -1249,9 +1259,10 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 
 1. Flash firmware; confirm `app_init` → `app_run` after reset.
 2. After `lora_init`: `lora_init()` returns true, `lora_is_ok()` true, `lora_get_version()` = `0x12` (SWD/GDB optional).
-3. Optional logic analyzer: SPI on J11 + `LoRa_CS` (TP23); one VERSION read at boot; CS idle high afterward.
-4. When F7.2/F7.3 land: match modem settings to ground RX (SF/BW/freq per §12.2); TX packets; ground station logs increasing `seq`, valid CRC.
-5. Tick checklist above + §12.4 hardware exit items; add roadmap rev with bench date.
+3. After F7.2: SPI/GDB read-back OpMode `0x81`, Frf `0xE4C000` (`0xE4`/`0xC0`/`0x00`), ModemConfig1 `0x72`, ModemConfig2 `0x84`, SyncWord `0x12`.
+4. Optional logic analyzer: SPI on J11 + `LoRa_CS` (TP23); VERSION + modem config writes at boot; CS idle high afterward.
+5. When F7.3 lands: match modem settings to ground RX (SF/BW/freq/sync per §12.2); TX packets; ground station logs increasing `seq`, valid CRC.
+6. Tick checklist above + §12.4 hardware exit items; add roadmap rev with bench date.
 
 ### F8 — Mission state machine and packetizer
 
