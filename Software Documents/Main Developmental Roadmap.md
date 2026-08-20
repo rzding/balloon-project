@@ -48,6 +48,12 @@
 | 0.28 | 2026-08-19 | Firmware | F5.2 complete: GGA/RMC NMEA parse, `gps_sample_t`, `gps_get_sample`, host `test_gps_nmea`; F5.3–F5.4 open; HW → §21 |
 | 0.29 | 2026-08-19 | Firmware | F5.3 complete: `gps_sample_has_fix` / `gps_has_fix`; host `test_gps_nmea` extended; F5 software-complete; F5.4 optional/open; HW → §21 |
 | 0.30 | 2026-08-19 | Firmware | Gated `APP_BENCH_BUS_EXERCISE` (`make BENCH=1`) + [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md); §21 F1–F5 procedures updated; F2–F5 HW exit still open |
+| 0.31 | 2026-08-20 | Firmware | F7.1 complete: `lora` RESET + VERSION (`0x42`→`0x12`), `lora_init` / `lora_is_ok`, fail-soft `error_flags`; F7.2–F7.4 open; HW → §21 |
+| 0.32 | 2026-08-20 | Firmware | F7.2 complete: LoRa modem config 915 MHz SF8/BW125/CR4/5/CRC, sync 0x12, PA_BOOST +17 dBm, LoRa standby; host `test_lora_frf`; F7.3–F7.4 open; HW → §21 |
+| 0.33 | 2026-08-20 | Firmware | Fix F7.2 `test_lora_frf` golden Frf vectors (`0xE4C000` / `0xD90000`); §21 bench Frf text corrected |
+| 0.34 | 2026-08-20 | Firmware | F7.3 complete: `lora_tx` FIFO + DIO0 poll (1000 ms timeout), `lora_get_seq`; F7.4 open; HW → §21 |
+| 0.35 | 2026-08-20 | Firmware | F7.4 complete: `packet.h` v1 pack/unpack/CRC-16/CCITT-FALSE, host `test_packet_v1`, `ground/decode_packet` RSSI/SNR CLI; F7 software-complete; HW → §21 |
+| 0.36 | 2026-08-20 | Firmware | Fix F7.4 `test_packet_v1` minimal CRC golden (`0x18EF` over 26-byte payload); F7 still software-complete; HW → §21 |
 
 ### How to use this document
 
@@ -770,7 +776,7 @@ Black-box telemetry log; foundation for image storage.
 
 ## 12. Phase F7 — LoRa telemetry (RFM95W)
 
-**Phase status:** not started — software work unblocked by F1 software-complete; HW → §21.
+**Phase status:** F7 software-complete (2026-08-20); F7.4 decoder + packet v1 host test; HW exit open (§12.4 / §21). Full phase HW exit pending bench — see §21 F7.
 
 ### 12.0 Objective
 
@@ -778,7 +784,7 @@ Ground-receivable telemetry (primary recovery link).
 
 ### 12.1 Entry criteria
 
-- [ ] F1 software-complete
+- [x] F1 software-complete
 - [ ] Interim RF + packet proposal accepted or frozen (see §12.2.3)
 
 **Hardware exit / ops (not a coding start blocker):** second RFM95W + Nucleo (or equiv.) for RX — schedule with ops (Q20); see §12.4.
@@ -787,24 +793,50 @@ Ground-receivable telemetry (primary recovery link).
 
 #### F7.1 — Reset and probe
 
-- Hardware reset via `LoRa_RESET`
-- Read version register (SX1276)
+**Status:** complete (2026-08-20)
+
+- [x] Hardware reset via `LoRa_RESET` (active-low pulse, POR wait)
+- [x] Read VERSION register (`0x42`, expect `0x12` for SX1276)
+- [x] Fail `lora_init` on SPI error or ID mismatch
+- [x] `error_flags_set_lora_ok` + `lora_is_ok()` on init path
+- [x] `lora_get_version()` for bench/GDB
+- [x] `lora.c` / `lora.h`; Makefile `C_SOURCES`; `(void)lora_init()` fail-soft in `app_init`
+- [x] Clean build verified (2026-08-20); no OpMode/LoRa config, TX, or DIO0 in F7.1
 
 #### F7.2 — Radio config
 
-- Frequency 915.x MHz (US ISM), mode LoRa
-- Starting proposal: **SF8, BW125 kHz, CR4/5**, CRC on, sync word documented
-- TX power within module/legal limits; thermal/duty awareness
+**Status:** complete (2026-08-20)
+
+- [x] Sleep+LoRa → program modem/PA → LoRa standby (no TX)
+- [x] Frequency 915.0 MHz US ISM (`Frf` = `0xE4C000` via `lora_hz_to_frf`; MSB/MID/LSB `0xE4`/`0xC0`/`0x00`)
+- [x] SF8, BW125 kHz, CR4/5, explicit header, CRC on (`ModemConfig1`/`2`/`3`)
+- [x] Private sync word `0x12` documented in `lora.h` (ground RX must match)
+- [x] PA_BOOST +17 dBm, OCP on; no TxContinuousMode, no +20 dBm PaDac overdrive
+- [x] Register read-back verify on OpMode, Frf, ModemConfig1/2, SyncWord
+- [x] Host `test_lora_frf` pass (915 MHz `0xE4C000`, 868 MHz `0xD90000`; manual, 2026-08-20)
+- [x] Clean build verified (2026-08-20); no FIFO TX or DIO0 in F7.2
 
 #### F7.3 — Packet TX
 
-- Load FIFO; TX; wait DIO0 or timeout
-- Sequence number increment
+**Status:** complete (2026-08-20)
+
+- [x] `lora_tx(payload, len)` — FIFO burst, OpMode TX, DIO0 poll (1000 ms timeout)
+- [x] DioMapping1 DIO0 = TxDone (`0x40`); IRQ flags cleared before/after TX
+- [x] TX timeout forces standby; `lora_set_ok(false)` — fail-soft, no hang
+- [x] `lora_get_seq()` — increments after each successful TX (wraps at 65535)
+- [x] Payload 1..255 bytes; no TX from `app_run` (F8 owns rate)
+- [x] Clean build verified (2026-08-20); no packetizer or ground RX in F7.3
 
 #### F7.4 — Ground station
 
-- Matching modem settings + decoder for packet layout
-- Log RSSI/SNR
+**Status:** complete (2026-08-20)
+
+- [x] Modem match sheet in `ground/README.md` (915 MHz SF8/BW125/CR4/5, sync `0x12`, preamble 8)
+- [x] `packet.h` — 28-byte v1 layout, big-endian, CRC-16/CCITT-FALSE over bytes 0–25
+- [x] `packet_v1_pack` / `packet_v1_unpack` / `packet_crc16` (header-only; F8 packetizer reuses)
+- [x] Host `test_packet_v1` (pack, unpack round-trip, corrupt/version fail; minimal CRC golden `0x18EF`; manual run pending)
+- [x] `ground/decode_packet` CLI — hex payload decode + RSSI/SNR log (`n/a` if omitted)
+- [x] Clean build verified (2026-08-20); no `app_run` TX or Nucleo RX firmware in F7.4
 
 ### 12.3 Proposed packet v1 (freeze as team Q16)
 
@@ -828,9 +860,9 @@ Ground-receivable telemetry (primary recovery link).
 
 **Software verification (tick when work packages land):**
 
-- [ ] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
-- [ ] Host tests for packet v1 pack / CRC16 if extracted as pure logic (recommended)
-- [ ] TX fail path does not hang MCU — timeout on DIO0 wait; fail-soft health
+- [x] Clean build (`make clean && make` in `balloon-project-stm32mx/`) — verified 2026-08-20
+- [x] Host tests for packet v1 pack / CRC16 if extracted as pure logic (recommended) — `test_packet_v1` authored; manual run pending
+- [x] TX fail path does not hang MCU — timeout on DIO0 wait; fail-soft health (F7.3 code-path verified)
 
 **Hardware exit (pending bench — tick when §21 F7 procedure passes):**
 
@@ -852,7 +884,7 @@ Autonomous flight behavior and unified telemetry packing.
 ### 13.1 Entry criteria
 
 - [ ] F3 and/or F5 software-complete (altitude API available)
-- [ ] F7 software-complete for live TX (state machine host-testable without radio)
+- [x] F7 software-complete for live TX (state machine host-testable without radio) — 2026-08-20
 
 ### 13.2 Work packages
 
@@ -1231,16 +1263,23 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 
 **Checklist (tick with pass date when bench complete):**
 
+- [ ] After `lora_init`: VERSION `0x12`, `lora_is_ok()` true, `error_flags_lora_ok()` true (SWD/GDB)
+- [ ] After F7.2: OpMode LoRa+standby (`0x81`), Frf `0xE4C000`, ModemConfig1 `0x72`, ModemConfig2 `0x84`, SyncWord `0x12` (SWD/GDB or SPI read-back)
+- [ ] After F7.3: GDB `lora_tx` of known buffer; DIO0 rises; `lora_get_seq()` increases; timeout path if radio/antenna missing
 - [ ] Bench: RX node receives packets with increasing `seq`
 - [ ] CRC validated on ground
 - [ ] TX rate limited (e.g. ≤0.5 Hz) during test
 - [ ] Second RFM95W + Nucleo (or equiv.) for RX available (ops Q20)
 
-**Bench procedure (when PCB + ST-Link + ground RX available):**
+**Bench procedure (when PCB + ST-Link available):**
 
-1. Flash TX node; match modem settings to ground RX (SF/BW/freq per §12.2).
-2. TX packets; ground station logs increasing `seq`, valid CRC.
-3. Tick checklist above + §12.4 hardware exit items; add roadmap rev with bench date.
+1. Flash firmware; confirm `app_init` → `app_run` after reset.
+2. After `lora_init`: `lora_init()` returns true, `lora_is_ok()` true, `lora_get_version()` = `0x12` (SWD/GDB optional).
+3. After F7.2: SPI/GDB read-back OpMode `0x81`, Frf `0xE4C000` (`0xE4`/`0xC0`/`0x00`), ModemConfig1 `0x72`, ModemConfig2 `0x84`, SyncWord `0x12`.
+4. Optional logic analyzer: SPI on J11 + `LoRa_CS` (TP23); VERSION + modem config at boot; FIFO burst only when `lora_tx` called (GDB/F8).
+5. After F7.3: GDB `lora_tx` — DIO0 (PB12) rises; `lora_get_seq()` increments on success.
+6. When F7.4 lands: match modem settings to ground RX (SF/BW/freq/sync per §12.2); TX packets; ground station logs increasing `seq`, valid CRC — **decoder ready:** feed Nucleo RX hex payload + `--rssi` / `--snr` into `ground/decode_packet` (see `ground/README.md`).
+7. Tick checklist above + §12.4 hardware exit items; add roadmap rev with bench date.
 
 ### F8 — Mission state machine and packetizer
 

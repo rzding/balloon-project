@@ -9,6 +9,7 @@
 #include "error_flags.h"
 #include "gps.h"
 #include "imu.h"
+#include "lora.h"
 #include "temp.h"
 
 bool app_init(void)
@@ -18,6 +19,7 @@ bool app_init(void)
   (void)baro_init(); /* fail-soft: false does not abort app_init */
   (void)temp_init(); /* fail-soft: false does not abort app_init */
   (void)gps_init();  /* fail-soft: false does not abort app_init */
+  (void)lora_init(); /* fail-soft: false does not abort app_init */
   return true;
 }
 
