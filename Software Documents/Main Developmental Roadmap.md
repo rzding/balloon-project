@@ -48,6 +48,7 @@
 | 0.28 | 2026-08-19 | Firmware | F5.2 complete: GGA/RMC NMEA parse, `gps_sample_t`, `gps_get_sample`, host `test_gps_nmea`; F5.3–F5.4 open; HW → §21 |
 | 0.29 | 2026-08-19 | Firmware | F5.3 complete: `gps_sample_has_fix` / `gps_has_fix`; host `test_gps_nmea` extended; F5 software-complete; F5.4 optional/open; HW → §21 |
 | 0.30 | 2026-08-19 | Firmware | Gated `APP_BENCH_BUS_EXERCISE` (`make BENCH=1`) + [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md); §21 F1–F5 procedures updated; F2–F5 HW exit still open |
+| 0.31 | 2026-08-20 | Firmware | F7.1 complete: `lora` RESET + VERSION (`0x42`→`0x12`), `lora_init` / `lora_is_ok`, fail-soft `error_flags`; F7.2–F7.4 open; HW → §21 |
 
 ### How to use this document
 
@@ -770,7 +771,7 @@ Black-box telemetry log; foundation for image storage.
 
 ## 12. Phase F7 — LoRa telemetry (RFM95W)
 
-**Phase status:** not started — software work unblocked by F1 software-complete; HW → §21.
+**Phase status:** F7.1 complete (2026-08-20); F7.2–F7.4 open; HW exit open (§12.4 / §21). Full phase exit pending bench — see §21 F7.
 
 ### 12.0 Objective
 
@@ -778,7 +779,7 @@ Ground-receivable telemetry (primary recovery link).
 
 ### 12.1 Entry criteria
 
-- [ ] F1 software-complete
+- [x] F1 software-complete
 - [ ] Interim RF + packet proposal accepted or frozen (see §12.2.3)
 
 **Hardware exit / ops (not a coding start blocker):** second RFM95W + Nucleo (or equiv.) for RX — schedule with ops (Q20); see §12.4.
@@ -787,8 +788,15 @@ Ground-receivable telemetry (primary recovery link).
 
 #### F7.1 — Reset and probe
 
-- Hardware reset via `LoRa_RESET`
-- Read version register (SX1276)
+**Status:** complete (2026-08-20)
+
+- [x] Hardware reset via `LoRa_RESET` (active-low pulse, POR wait)
+- [x] Read VERSION register (`0x42`, expect `0x12` for SX1276)
+- [x] Fail `lora_init` on SPI error or ID mismatch
+- [x] `error_flags_set_lora_ok` + `lora_is_ok()` on init path
+- [x] `lora_get_version()` for bench/GDB
+- [x] `lora.c` / `lora.h`; Makefile `C_SOURCES`; `(void)lora_init()` fail-soft in `app_init`
+- [x] Clean build verified (2026-08-20); no OpMode/LoRa config, TX, or DIO0 in F7.1
 
 #### F7.2 — Radio config
 
@@ -1231,16 +1239,19 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 
 **Checklist (tick with pass date when bench complete):**
 
+- [ ] After `lora_init`: VERSION `0x12`, `lora_is_ok()` true, `error_flags_lora_ok()` true (SWD/GDB)
 - [ ] Bench: RX node receives packets with increasing `seq`
 - [ ] CRC validated on ground
 - [ ] TX rate limited (e.g. ≤0.5 Hz) during test
 - [ ] Second RFM95W + Nucleo (or equiv.) for RX available (ops Q20)
 
-**Bench procedure (when PCB + ST-Link + ground RX available):**
+**Bench procedure (when PCB + ST-Link available):**
 
-1. Flash TX node; match modem settings to ground RX (SF/BW/freq per §12.2).
-2. TX packets; ground station logs increasing `seq`, valid CRC.
-3. Tick checklist above + §12.4 hardware exit items; add roadmap rev with bench date.
+1. Flash firmware; confirm `app_init` → `app_run` after reset.
+2. After `lora_init`: `lora_init()` returns true, `lora_is_ok()` true, `lora_get_version()` = `0x12` (SWD/GDB optional).
+3. Optional logic analyzer: SPI on J11 + `LoRa_CS` (TP23); one VERSION read at boot; CS idle high afterward.
+4. When F7.2/F7.3 land: match modem settings to ground RX (SF/BW/freq per §12.2); TX packets; ground station logs increasing `seq`, valid CRC.
+5. Tick checklist above + §12.4 hardware exit items; add roadmap rev with bench date.
 
 ### F8 — Mission state machine and packetizer
 
