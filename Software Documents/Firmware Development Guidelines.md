@@ -33,6 +33,7 @@
 | 0.12 | 2026-08-19 | Firmware | Logic analyzer bench: `make BENCH=1` / `APP_BENCH_BUS_EXERCISE`; [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md) |
 | 0.13 | 2026-08-20 | Firmware | F7.1 SX1276 VERSION probe — bench only (SPI/GPIO; no host test) |
 | 0.14 | 2026-08-20 | Firmware | F7.2 Hz → Frf (`test_lora_frf` authored); modem SPI config = bench |
+| 0.15 | 2026-08-20 | Firmware | F7.3 FIFO TX + DIO0 wait — bench/GDB only (SPI/GPIO; no host test) |
 
 ---
 
@@ -141,6 +142,7 @@ See [`balloon-project-stm32mx/tests/host/README.md`](../balloon-project-stm32mx/
 | F5.3 | `gps_sample_has_fix` / `gps_has_fix` from GGA quality + RMC status — `test_gps_nmea` fix-validity vectors verified pass 2026-08-19 (manual) |
 | F7.1 | SX1276 VERSION probe (`0x42`→`0x12`) — bench only (SPI/GPIO; no host test) |
 | F7.2 | Hz → Frf (`test_lora_frf` verified pass 2026-08-20; 915 MHz `0xE4C000`); modem SPI config = bench |
+| F7.3 | FIFO TX + DIO0 wait — bench/GDB only (SPI/GPIO; no host test) |
 | F8 | Packetizer CRC16, field packing |
 
 ---

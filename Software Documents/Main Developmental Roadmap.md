@@ -51,6 +51,7 @@
 | 0.31 | 2026-08-20 | Firmware | F7.1 complete: `lora` RESET + VERSION (`0x42`→`0x12`), `lora_init` / `lora_is_ok`, fail-soft `error_flags`; F7.2–F7.4 open; HW → §21 |
 | 0.32 | 2026-08-20 | Firmware | F7.2 complete: LoRa modem config 915 MHz SF8/BW125/CR4/5/CRC, sync 0x12, PA_BOOST +17 dBm, LoRa standby; host `test_lora_frf`; F7.3–F7.4 open; HW → §21 |
 | 0.33 | 2026-08-20 | Firmware | Fix F7.2 `test_lora_frf` golden Frf vectors (`0xE4C000` / `0xD90000`); §21 bench Frf text corrected |
+| 0.34 | 2026-08-20 | Firmware | F7.3 complete: `lora_tx` FIFO + DIO0 poll (1000 ms timeout), `lora_get_seq`; F7.4 open; HW → §21 |
 
 ### How to use this document
 
@@ -773,7 +774,7 @@ Black-box telemetry log; foundation for image storage.
 
 ## 12. Phase F7 — LoRa telemetry (RFM95W)
 
-**Phase status:** F7.1–F7.2 complete (2026-08-20); F7.3–F7.4 open; HW exit open (§12.4 / §21). Full phase exit pending bench — see §21 F7.
+**Phase status:** F7.1–F7.3 complete (2026-08-20); F7.4 open; HW exit open (§12.4 / §21). Full phase exit pending bench — see §21 F7.
 
 ### 12.0 Objective
 
@@ -815,8 +816,14 @@ Ground-receivable telemetry (primary recovery link).
 
 #### F7.3 — Packet TX
 
-- Load FIFO; TX; wait DIO0 or timeout
-- Sequence number increment
+**Status:** complete (2026-08-20)
+
+- [x] `lora_tx(payload, len)` — FIFO burst, OpMode TX, DIO0 poll (1000 ms timeout)
+- [x] DioMapping1 DIO0 = TxDone (`0x40`); IRQ flags cleared before/after TX
+- [x] TX timeout forces standby; `lora_set_ok(false)` — fail-soft, no hang
+- [x] `lora_get_seq()` — increments after each successful TX (wraps at 65535)
+- [x] Payload 1..255 bytes; no TX from `app_run` (F8 owns rate)
+- [x] Clean build verified (2026-08-20); no packetizer or ground RX in F7.3
 
 #### F7.4 — Ground station
 
@@ -1250,6 +1257,7 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 
 - [ ] After `lora_init`: VERSION `0x12`, `lora_is_ok()` true, `error_flags_lora_ok()` true (SWD/GDB)
 - [ ] After F7.2: OpMode LoRa+standby (`0x81`), Frf `0xE4C000`, ModemConfig1 `0x72`, ModemConfig2 `0x84`, SyncWord `0x12` (SWD/GDB or SPI read-back)
+- [ ] After F7.3: GDB `lora_tx` of known buffer; DIO0 rises; `lora_get_seq()` increases; timeout path if radio/antenna missing
 - [ ] Bench: RX node receives packets with increasing `seq`
 - [ ] CRC validated on ground
 - [ ] TX rate limited (e.g. ≤0.5 Hz) during test
@@ -1260,9 +1268,10 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 1. Flash firmware; confirm `app_init` → `app_run` after reset.
 2. After `lora_init`: `lora_init()` returns true, `lora_is_ok()` true, `lora_get_version()` = `0x12` (SWD/GDB optional).
 3. After F7.2: SPI/GDB read-back OpMode `0x81`, Frf `0xE4C000` (`0xE4`/`0xC0`/`0x00`), ModemConfig1 `0x72`, ModemConfig2 `0x84`, SyncWord `0x12`.
-4. Optional logic analyzer: SPI on J11 + `LoRa_CS` (TP23); VERSION + modem config writes at boot; CS idle high afterward.
-5. When F7.3 lands: match modem settings to ground RX (SF/BW/freq/sync per §12.2); TX packets; ground station logs increasing `seq`, valid CRC.
-6. Tick checklist above + §12.4 hardware exit items; add roadmap rev with bench date.
+4. Optional logic analyzer: SPI on J11 + `LoRa_CS` (TP23); VERSION + modem config at boot; FIFO burst only when `lora_tx` called (GDB/F8).
+5. After F7.3: GDB `lora_tx` — DIO0 (PB12) rises; `lora_get_seq()` increments on success.
+6. When F7.4 lands: match modem settings to ground RX (SF/BW/freq/sync per §12.2); TX packets; ground station logs increasing `seq`, valid CRC.
+7. Tick checklist above + §12.4 hardware exit items; add roadmap rev with bench date.
 
 ### F8 — Mission state machine and packetizer
 
