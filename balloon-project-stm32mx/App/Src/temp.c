@@ -49,11 +49,19 @@
 /** Max 1-shot conversion time @ 60 Hz filter (datasheet 52 ms; rounded up). */
 #define TEMP_CONV_60HZ_DELAY_MS     60u
 
-/** Bytes per RTD burst read (addr | 0x80 + MSB + LSB). */
+/** Bytes per RTD burst read (addr + MSB + LSB). */
 #define TEMP_RTD_BURST_BYTES        3u
 
-/** SPI read bit for burst start address. */
-#define TEMP_SPI_REG_READ_BIT       0x80u
+/**
+ * MAX31865 address bit-7 convention (datasheet Table 1): write = reg | 0x80,
+ * read = reg with MSB clear. This is inverted relative to the ICM-42688-P /
+ * RFM95W convention in spi_bus_read_reg8 / spi_bus_write_reg8, so this driver
+ * frames its own transfers via spi_bus_transfer.
+ */
+#define TEMP_SPI_REG_WRITE_BIT      0x80u
+
+/** Bytes per single register access (address + data). */
+#define TEMP_REG_TRANSFER_BYTES     2u
 
 /** Finite HAL SPI timeout for register access. */
 #define TEMP_SPI_TIMEOUT_MS         100u
@@ -62,14 +70,55 @@ static bool s_ok;
 
 static bool temp_read_reg(uint8_t reg, uint8_t *value)
 {
-  return spi_bus_read_reg8(Temp_CS_GPIO_Port, Temp_CS_Pin, reg, value,
-                           TEMP_SPI_TIMEOUT_MS);
+  uint8_t tx[TEMP_REG_TRANSFER_BYTES];
+  uint8_t rx[TEMP_REG_TRANSFER_BYTES];
+  bool ok;
+
+  if (value == NULL)
+  {
+    return false;
+  }
+
+  tx[0] = (uint8_t)(reg & (uint8_t)~TEMP_SPI_REG_WRITE_BIT);
+  tx[1] = 0u;
+
+  if (!spi_bus_set_mode(SPI_BUS_MODE1_POLARITY, SPI_BUS_MODE1_PHASE))
+  {
+    return false;
+  }
+
+  ok = spi_bus_transfer(Temp_CS_GPIO_Port, Temp_CS_Pin, tx, rx,
+                        TEMP_REG_TRANSFER_BYTES, TEMP_SPI_TIMEOUT_MS);
+
+  (void)spi_bus_set_mode(SPI_BUS_MODE0_POLARITY, SPI_BUS_MODE0_PHASE);
+
+  if (!ok)
+  {
+    return false;
+  }
+
+  *value = rx[1];
+  return true;
 }
 
 static bool temp_write_reg(uint8_t reg, uint8_t value)
 {
-  return spi_bus_write_reg8(Temp_CS_GPIO_Port, Temp_CS_Pin, reg, value,
-                            TEMP_SPI_TIMEOUT_MS);
+  uint8_t tx[TEMP_REG_TRANSFER_BYTES];
+  bool ok;
+
+  tx[0] = (uint8_t)(reg | TEMP_SPI_REG_WRITE_BIT);
+  tx[1] = value;
+
+  if (!spi_bus_set_mode(SPI_BUS_MODE1_POLARITY, SPI_BUS_MODE1_PHASE))
+  {
+    return false;
+  }
+
+  ok = spi_bus_transfer(Temp_CS_GPIO_Port, Temp_CS_Pin, tx, NULL,
+                        TEMP_REG_TRANSFER_BYTES, TEMP_SPI_TIMEOUT_MS);
+
+  (void)spi_bus_set_mode(SPI_BUS_MODE0_POLARITY, SPI_BUS_MODE0_PHASE);
+  return ok;
 }
 
 static void temp_set_ok(bool ok)
@@ -106,18 +155,28 @@ static bool temp_burst_read_rtd(uint8_t *msb, uint8_t *lsb)
 {
   uint8_t tx[TEMP_RTD_BURST_BYTES];
   uint8_t rx[TEMP_RTD_BURST_BYTES];
+  bool ok;
 
   if (msb == NULL || lsb == NULL)
   {
     return false;
   }
 
-  tx[0] = (uint8_t)(TEMP_REG_RTD_MSB | TEMP_SPI_REG_READ_BIT);
+  tx[0] = (uint8_t)(TEMP_REG_RTD_MSB & (uint8_t)~TEMP_SPI_REG_WRITE_BIT);
   tx[1] = 0u;
   tx[2] = 0u;
 
-  if (!spi_bus_transfer(Temp_CS_GPIO_Port, Temp_CS_Pin, tx, rx, TEMP_RTD_BURST_BYTES,
-                        TEMP_SPI_TIMEOUT_MS))
+  if (!spi_bus_set_mode(SPI_BUS_MODE1_POLARITY, SPI_BUS_MODE1_PHASE))
+  {
+    return false;
+  }
+
+  ok = spi_bus_transfer(Temp_CS_GPIO_Port, Temp_CS_Pin, tx, rx, TEMP_RTD_BURST_BYTES,
+                        TEMP_SPI_TIMEOUT_MS);
+
+  (void)spi_bus_set_mode(SPI_BUS_MODE0_POLARITY, SPI_BUS_MODE0_PHASE);
+
+  if (!ok)
   {
     return false;
   }
