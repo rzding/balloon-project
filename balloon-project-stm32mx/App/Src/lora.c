@@ -86,20 +86,56 @@
 /** FIFO burst: RegFifo + max payload. */
 #define LORA_FIFO_BURST_MAX         (1u + LORA_MAX_PAYLOAD_LEN)
 
+/**
+ * SX1276 address-byte convention (datasheet §4.3): bit 7 is "wnr", which is
+ * 1 for write access and 0 for read access. This is inverted relative to the
+ * ICM-42688-P convention in spi_bus_read_reg8 / spi_bus_write_reg8, so this
+ * driver frames its own transfers via spi_bus_transfer.
+ *
+ * Datasheet §4.3 also specifies CPOL = 0, CPHA = 0 (SPI mode 0), which is the
+ * SPI1 bus default, so no per-device mode switch is required here.
+ */
+#define LORA_SPI_WRITE_BIT          0x80u
+
+/** Bytes per single register access (address + data). */
+#define LORA_REG_TRANSFER_BYTES     2u
+
 static bool s_ok;
 static uint8_t s_version;
 static uint16_t s_seq;
 
 static bool lora_read_reg(uint8_t reg, uint8_t *value)
 {
-  return spi_bus_read_reg8(LoRa_CS_GPIO_Port, LoRa_CS_Pin, reg, value,
-                           LORA_SPI_TIMEOUT_MS);
+  uint8_t tx[LORA_REG_TRANSFER_BYTES];
+  uint8_t rx[LORA_REG_TRANSFER_BYTES];
+
+  if (value == NULL)
+  {
+    return false;
+  }
+
+  tx[0] = (uint8_t)(reg & (uint8_t)~LORA_SPI_WRITE_BIT);
+  tx[1] = 0u;
+
+  if (!spi_bus_transfer(LoRa_CS_GPIO_Port, LoRa_CS_Pin, tx, rx,
+                        LORA_REG_TRANSFER_BYTES, LORA_SPI_TIMEOUT_MS))
+  {
+    return false;
+  }
+
+  *value = rx[1];
+  return true;
 }
 
 static bool lora_write_reg(uint8_t reg, uint8_t value)
 {
-  return spi_bus_write_reg8(LoRa_CS_GPIO_Port, LoRa_CS_Pin, reg, value,
-                            LORA_SPI_TIMEOUT_MS);
+  uint8_t tx[LORA_REG_TRANSFER_BYTES];
+
+  tx[0] = (uint8_t)(reg | LORA_SPI_WRITE_BIT);
+  tx[1] = value;
+
+  return spi_bus_transfer(LoRa_CS_GPIO_Port, LoRa_CS_Pin, tx, NULL,
+                          LORA_REG_TRANSFER_BYTES, LORA_SPI_TIMEOUT_MS);
 }
 
 static bool lora_write_verify(uint8_t reg, uint8_t value)
@@ -269,7 +305,7 @@ static bool lora_write_fifo(const uint8_t *payload, uint8_t len)
     return false;
   }
 
-  tx[0] = LORA_REG_FIFO;
+  tx[0] = (uint8_t)(LORA_REG_FIFO | LORA_SPI_WRITE_BIT);
   for (i = 0u; i < (uint16_t)len; i++)
   {
     tx[1u + i] = payload[i];
