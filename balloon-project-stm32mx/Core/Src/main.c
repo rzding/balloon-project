@@ -108,6 +108,21 @@ int main(void)
   /* USER CODE BEGIN 2 */
   (void)spi_bus_init(&hspi1);
   (void)app_init();
+
+  /* Boot indicator: PB5 LED on, and left on for the rest of the run.
+     Placed after app_init() so a lit LED means "booted, clocks up, and all
+     sensor init completed".
+
+     Standalone-boot diagnostic: powered from battery with no ST-LINK attached,
+     this LED should light and stay lit. Lit under the debugger but dark on
+     battery means the chip is not executing from flash when it boots on its
+     own — check BOOT0 (must be low), the battery rail under load, and NRST.
+
+     PB5 is not in the .ioc, so configure it directly here. */
+  GPIOB->MODER  &= ~(3U << (5 * 2));  /* clear PB5 mode bits */
+  GPIOB->MODER  |=  (1U << (5 * 2));  /* PB5 = general-purpose output */
+  GPIOB->OTYPER &= ~(1U << 5);        /* push-pull */
+  GPIOB->BSRR    =  (1U << 5);        /* PB5 high -> LED on, stays on */
   /* USER CODE END 2 */
 
   /* Infinite loop */
