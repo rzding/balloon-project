@@ -13,7 +13,7 @@
 | Location | `Software Documents/Firmware Development Guidelines.md` |
 | Status | Active |
 | Audience | Firmware engineers, Cursor agents, reviewers |
-| Related | [Main Developmental Roadmap.md](Main%20Developmental%20Roadmap.md) §3, §21; [`balloon-project-stm32mx/README.md`](../balloon-project-stm32mx/README.md) |
+| Related | [Main Developmental Roadmap.md](Main%20Developmental%20Roadmap.md) §3, §21; [`balloon-project-stm32mx/README.md`](../balloon-project-stm32mx/README.md); [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md) |
 
 ### Revision history
 
@@ -21,6 +21,20 @@
 |---|---|---|---|
 | 0.1 | 2026-08-06 | Firmware | Initial guidelines: verification gates, deferred HW, host tests, bench backlog, agent policy |
 | 0.2 | 2026-08-15 | Firmware | Next-phase coding unblocked rule; FAQ rows; §21 does not block F2–F7 driver work |
+| 0.3 | 2026-08-15 | Firmware | F4.1 host-test note (SPI config = bench); F4.2 CVD host-test target |
+| 0.4 | 2026-08-15 | Firmware | F4.2 `test_max31865_cvd` authored (manual run pending) |
+| 0.5 | 2026-08-15 | Firmware | F4.2 CVD inverse root fix; `test_max31865_cvd` manual pass |
+| 0.6 | 2026-08-15 | Firmware | F4.3 `temp_sample_from_raw` in `test_max31865_cvd`; `temp_read` on bench only |
+| 0.7 | 2026-08-15 | Firmware | F4.3 host test manual pass |
+| 0.8 | 2026-08-19 | Firmware | F5.1 `test_gps_rx` authored (ring + LF line extract; manual run pending) |
+| 0.9 | 2026-08-19 | Firmware | F5.1 `test_gps_rx` manual pass (test harness fix: sequential drain, wrap trailing line) |
+| 0.10 | 2026-08-19 | Firmware | F5.2 `test_gps_nmea` authored (GGA/RMC parse; manual pass 2026-08-19) |
+| 0.11 | 2026-08-19 | Firmware | F5.3 `gps_sample_has_fix` / `gps_has_fix`; `test_gps_nmea` fix-validity vectors (manual pass 2026-08-19) |
+| 0.12 | 2026-08-19 | Firmware | Logic analyzer bench: `make BENCH=1` / `APP_BENCH_BUS_EXERCISE`; [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md) |
+| 0.13 | 2026-08-20 | Firmware | F7.1 SX1276 VERSION probe — bench only (SPI/GPIO; no host test) |
+| 0.14 | 2026-08-20 | Firmware | F7.2 Hz → Frf (`test_lora_frf` authored); modem SPI config = bench |
+| 0.15 | 2026-08-20 | Firmware | F7.3 FIFO TX + DIO0 wait — bench/GDB only (SPI/GPIO; no host test) |
+| 0.16 | 2026-08-20 | Firmware | F7.4 / F7 exit: packet v1 pack/CRC16 — `test_packet_v1`; ground decode = host CLI; on-air RX = bench |
 
 ---
 
@@ -121,8 +135,17 @@ See [`balloon-project-stm32mx/tests/host/README.md`](../balloon-project-stm32mx/
 | F3.2 | MS5611 24-bit ADC big-endian unpack — `test_ms5611_adc` (manual run pending) |
 | F3.3 | MS5611 compensation from known PROM + ADC values — `test_ms5611_comp` (manual run pending; datasheet B3) |
 | F3.4 | `baro_sample_from_raw` composition (compensate + ISA) in `test_ms5611_comp`; `baro_read` on bench only |
-| F5 | NMEA sentence parse, fix extraction |
-| F8 | Packetizer CRC16, field packing |
+| F4.1 | MAX31865 CONFIG write/read-back — bench only (SPI glue; no host test) |
+| F4.2 | PT1000 resistance → °C (Callendar–Van Dusen) — `test_max31865_cvd` verified pass 2026-08-15 (manual) |
+| F4.3 | `temp_sample_from_raw` composition in `test_max31865_cvd`; `temp_read` on bench only — verified pass 2026-08-15 (manual) |
+| F5.1 | USART RX ring + LF line extract — `test_gps_rx` verified pass 2026-08-19 (manual) |
+| F5.2 | NMEA GGA/RMC parse, `lat_e7`/`lon_e7`/alt/sats — `test_gps_nmea` verified pass 2026-08-19 (manual) |
+| F5.3 | `gps_sample_has_fix` / `gps_has_fix` from GGA quality + RMC status — `test_gps_nmea` fix-validity vectors verified pass 2026-08-19 (manual) |
+| F7.1 | SX1276 VERSION probe (`0x42`→`0x12`) — bench only (SPI/GPIO; no host test) |
+| F7.2 | Hz → Frf (`test_lora_frf` verified pass 2026-08-20; 915 MHz `0xE4C000`); modem SPI config = bench |
+| F7.3 | FIFO TX + DIO0 wait — bench/GDB only (SPI/GPIO; no host test) |
+| F7.4 / F7 exit | Packet v1 pack/CRC16 — `test_packet_v1` (authored; manual run pending); ground decode = host CLI (`ground/decode_packet`); on-air RX = bench |
+| F8 | Packetizer field fill from sensors + `lora_tx` scheduler (reuses `packet.h`) |
 
 ---
 
@@ -195,3 +218,4 @@ Project rules in `.cursor/rules/` reinforce these points for every session.
 | Should I set up Renode now? | No — defer unless models are owned |
 | Who runs tests? | Developer manually; not the agent by default |
 | Where is deferred HW tracked? | Roadmap §21 |
+| How do I get live SPI for a logic analyzer? | `make BENCH=1` in `balloon-project-stm32mx/` — see [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md). Default `make` keeps SPI quiet after boot; GPS UART still runs. Do not ship `BENCH=1` as flight firmware. |

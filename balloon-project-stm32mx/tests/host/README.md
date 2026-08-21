@@ -6,7 +6,7 @@ Examples: IMU LSB→SI scale, MS5611 compensation math, NMEA parsing, telemetry 
 
 ## Status
 
-**Harness active** — `test_imu_scale` (F2.3), `test_ms5611_crc` (F3.1), `test_ms5611_adc` (F3.2), `test_ms5611_comp` (F3.3 compensation + ISA + F3.4 `baro_sample_from_raw`).
+**Harness active** — `test_imu_scale` (F2.3), `test_ms5611_crc` (F3.1), `test_ms5611_adc` (F3.2), `test_ms5611_comp` (F3.3 compensation + ISA + F3.4 `baro_sample_from_raw`), `test_max31865_cvd` (F4.2 RTD unpack + CVD + F4.3 `temp_sample_from_raw`), `test_gps_rx` (F5.1 ring + LF line extract), `test_gps_nmea` (F5.2 GGA/RMC parse + F5.3 fix validity), `test_lora_frf` (F7.2 Hz → Frf), `test_packet_v1` (F7.4 pack/unpack/CRC-16/CCITT-FALSE).
 
 ## Manual execution policy
 
@@ -23,6 +23,19 @@ make
 ./test_ms5611_crc
 ./test_ms5611_adc
 ./test_ms5611_comp
+./test_max31865_cvd
+./test_gps_rx
+./test_gps_nmea
+./test_lora_frf
+./test_packet_v1
+```
+
+Ground decoder (F7.4 — host CLI, not in this Makefile):
+
+```bash
+cd ground
+make
+./decode_packet 0102002a00bc614e1683fed0f8b4073805dc05c8092effff05086ecf --rssi -72 --snr 9.5
 ```
 
 Clean:
@@ -41,6 +54,11 @@ Requirements: host `cc` (clang/gcc) and `libm`.
 | `test_ms5611_crc` | pass | 2026-08-09 | Manual run (`make` + `./test_ms5611_crc`); AN520 golden vector |
 | `test_ms5611_adc` | pending | — | Run `make && ./test_ms5611_adc` after F3.2 changes |
 | `test_ms5611_comp` | pending | — | Run `make && ./test_ms5611_comp` after F3.3/F3.4 changes (comp + ISA + sample-from-raw) |
+| `test_max31865_cvd` | pass | 2026-08-15 | Manual run (`make` + `./test_max31865_cvd`); F4.2 CVD + F4.3 `temp_sample_from_raw` composition; clean build (no warnings) |
+| `test_gps_rx` | pass | 2026-08-19 | Manual run (`make` + `./test_gps_rx`); sequential two-line drain + last-line-wins; wrap uses valid trailing line |
+| `test_gps_nmea` | pass | 2026-08-19 | Manual run (`make` + `./test_gps_nmea`); F5.2 GGA/RMC parse + F5.3 fix validity (52 checks) |
+| `test_lora_frf` | pass | 2026-08-20 | Manual run (`make` + `./test_lora_frf`); golden Frf 915 MHz `0xE4C000`, 868 MHz `0xD90000` |
+| `test_packet_v1` | pending | — | Run `make clean && make && ./test_packet_v1` after F7.4 changes; golden rich hex `0102002a00bc614e1683fed0f8b4073805dc05c8092effff05086ecf`; minimal CRC `0x18EF` (26-byte payload `0100…ffff0000`) |
 
 ## What belongs here vs on the bench
 
