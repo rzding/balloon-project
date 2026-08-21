@@ -55,7 +55,7 @@ bool spi_bus_transfer(GPIO_TypeDef *cs_port, uint16_t cs_pin,
 {
   HAL_StatusTypeDef status;
 
-  if (spi_bus_hspi == NULL || cs_port == NULL || len == 0U)
+  if (spi_bus_hspi == NULL || len == 0U) // removed the check for cs_port  
   {
     return false;
   }
@@ -71,22 +71,27 @@ bool spi_bus_transfer(GPIO_TypeDef *cs_port, uint16_t cs_pin,
   }
 
   spi_bus_busy = true;
-  spi_bus_cs_set(cs_port, cs_pin, GPIO_PIN_RESET);
+  
+  if (cs_port != NULL) {
+    spi_bus_cs_set(cs_port, cs_pin, GPIO_PIN_RESET); // Pulls the CS pin low to select the SPI device
+  }
 
   if (tx != NULL && rx != NULL)
   {
-    status = HAL_SPI_TransmitReceive(spi_bus_hspi, tx, rx, len, timeout_ms);
+    status = HAL_SPI_TransmitReceive(spi_bus_hspi, tx, rx, len, timeout_ms); // Transmit and receive data over SPI
   }
   else if (tx != NULL)
   {
-    status = HAL_SPI_Transmit(spi_bus_hspi, tx, len, timeout_ms);
+    status = HAL_SPI_Transmit(spi_bus_hspi, tx, len, timeout_ms); // Transmit data over SPI
   }
   else
   {
-    status = HAL_SPI_Receive(spi_bus_hspi, rx, len, timeout_ms);
+    status = HAL_SPI_Receive(spi_bus_hspi, rx, len, timeout_ms); // Receive data over SPI
   }
 
-  spi_bus_cs_set(cs_port, cs_pin, GPIO_PIN_SET);
+  if (cs_port != NULL) {
+    spi_bus_cs_set(cs_port, cs_pin, GPIO_PIN_SET); // Pulls the CS pin high to deselect the SPI device
+  }
 
   if (status != HAL_OK)
   {
