@@ -22,6 +22,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
+#include <string.h>
+
 #include "app.h"
 #include "error_flags.h"
 #include "spi_bus.h"
@@ -80,8 +83,8 @@ float IMU_GetAccelX(void) {
     uint8_t high, low;
     
     // 1. Read the two registers
-    spi_bus_read_reg8(ICM_CS_GPIO_Port, ICM_CS_Pin, 0x1F, &high, 10);
-    spi_bus_read_reg8(ICM_CS_GPIO_Port, ICM_CS_Pin, 0x20, &low, 10);
+    spi_bus_read_reg8(IMU_CS_GPIO_Port, IMU_CS_Pin, 0x1F, &high, 10);
+    spi_bus_read_reg8(IMU_CS_GPIO_Port, IMU_CS_Pin, 0x20, &low, 10);
     
     // 2. Glue them together
     int16_t raw_accel = (int16_t)((high << 8) | low);

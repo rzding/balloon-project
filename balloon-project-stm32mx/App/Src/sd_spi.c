@@ -12,7 +12,7 @@
  * We do this manually because SD card commands require the pin to stay low for multiple SPI transfers.
  */
 static void SD_Select(void) {
-    HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_RESET); // 0V = Active
+    HAL_GPIO_WritePin(microSD_CS_GPIO_Port, microSD_CS_Pin, GPIO_PIN_RESET); // 0V = Active
 }
 
 /* 
@@ -20,7 +20,7 @@ static void SD_Select(void) {
  * If we don't, the SD card will stay awake and corrupt the bus when the IMU tries to talk.
  */
 static void SD_Deselect(void) {
-    HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_SET); // 3.3V = Inactive
+    HAL_GPIO_WritePin(microSD_CS_GPIO_Port, microSD_CS_Pin, GPIO_PIN_SET); // 3.3V = Inactive
     
     // SD Card Spec requires one extra "dummy clock" byte after deselecting
     uint8_t dummy = 0xFF; 
