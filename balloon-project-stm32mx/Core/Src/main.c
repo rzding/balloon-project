@@ -162,10 +162,16 @@ int main(void)
   // We will use this to track when to force a physical write
   uint8_t sync_counter = 0; 
 
+  // Only true once BOTH the mount and the open have succeeded. Writing to
+  // "fil" when f_open failed passes an uninitialised handle to FatFs, which
+  // is undefined behaviour and can hang the loop when no card is inserted.
+  bool sd_ready = false;
+
   // 1. Mount drive
   if (f_mount(&fs, "", 1) == FR_OK) {
       // 2. Open file and leave it open
       if (f_open(&fil, "FLIGHT.CSV", FA_WRITE | FA_OPEN_APPEND) == FR_OK) {
+          sd_ready = true;
           char header[] = "Timestamp_ms,Altitude_m,Pressure_hPa\n";
           f_write(&fil, header, strlen(header), &bytesWrote);
           f_sync(&fil); // Lock the header to the card immediately
@@ -196,17 +202,17 @@ int main(void)
     snprintf(log_buffer, sizeof(log_buffer), "%lu,%.2f,%.2f\n", 
              timestamp, current_accel_x, current_press);
 
-    // 3. Write to FatFs RAM buffer
-    f_write(&fil, log_buffer, strlen(log_buffer), &bytesWrote);
+    // 3. Write to FatFs RAM buffer (skipped entirely with no card mounted)
+    if (sd_ready) {
+        f_write(&fil, log_buffer, strlen(log_buffer), &bytesWrote);
 
-    // 4. Force a physical write every 10 loops
-    sync_counter++;
-    if (sync_counter >= 10) {
-        f_sync(&fil);      
-        sync_counter = 0;  
+        // 4. Force a physical write every 10 loops
+        sync_counter++;
+        if (sync_counter >= 10) {
+            f_sync(&fil);
+            sync_counter = 0;
+        }
     }
-
-    HAL_Delay(100); // 10Hz loop
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -222,7 +228,12 @@ int main(void)
         error_flags_set_sd_ok(false);
     }
 
-    // 3. Wait 100ms (10Hz loop)
+    /* Single 10 Hz delay for the whole loop. There were previously two
+       HAL_Delay(100) calls -- one from each half of the merged code -- giving
+       a 200 ms period. At 9600 baud the GPS produces ~192 bytes in that time
+       against a 256-byte RX ring, so any extra latency (a LoRa transmit, an
+       SD sync) overflowed the ring and corrupted NMEA lines. Watch
+       g_gps_rx_overruns if this is ever raised again. */
     HAL_Delay(100);
   }
   /* USER CODE END 3 */
