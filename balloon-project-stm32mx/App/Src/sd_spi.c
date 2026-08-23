@@ -12,7 +12,7 @@
  * We do this manually because SD card commands require the pin to stay low for multiple SPI transfers.
  */
 static void SD_Select(void) {
-    HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_RESET); // 0V = Active
+    HAL_GPIO_WritePin(microSD_CS_GPIO_Port, microSD_CS_Pin, GPIO_PIN_RESET); // 0V = Active
 }
 
 /* 
@@ -20,7 +20,7 @@ static void SD_Select(void) {
  * If we don't, the SD card will stay awake and corrupt the bus when the IMU tries to talk.
  */
 static void SD_Deselect(void) {
-    HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_SET); // 3.3V = Inactive
+    HAL_GPIO_WritePin(microSD_CS_GPIO_Port, microSD_CS_Pin, GPIO_PIN_SET); // 3.3V = Inactive
     
     // SD Card Spec requires one extra "dummy clock" byte after deselecting
     uint8_t dummy = 0xFF; 
@@ -98,7 +98,7 @@ static uint8_t SD_SendCmd(uint8_t cmd, uint32_t arg) {
 // ---------------------------------------------------------
 
 DSTATUS SD_SPI_Init(BYTE pdrv) {
-    uint8_t n, cmd, ty, ocr[4];
+    uint8_t n, ocr[4];
     uint16_t timeout;
 
     // 1. Wake up sequence: The card requires at least 74 clock pulses with CS HIGH
@@ -143,7 +143,7 @@ DSTATUS SD_SPI_Status(BYTE pdrv) {
      * We check the mechanical insertion spring switch.
      * Empty = 3.3V (Pulled up), Inserted = 0V (Shorted to Ground by the spring)
      */
-    if (HAL_GPIO_ReadPin(microSD_detect_GPIO_Port, microSD_detect_Pin) == GPIO_PIN_RESET) {
+    if (HAL_GPIO_ReadPin(microSD_detect_GPIO_Port, microSD_detect_Pin) == GPIO_PIN_SET) {
         return 0; // Return 0 (RES_OK) - Card is seated in the slot!
     } else {
         return STA_NODISK; // FatFs error code - "No Disk"

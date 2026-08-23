@@ -121,7 +121,7 @@ DRESULT USER_read (
 )
 {
   /* USER CODE BEGIN READ */
-    return SD_SPI_Read(pdrv, buff, sector, count);
+    return SD_SPI_ReadBlocks(pdrv, buff, sector, count);
     // Tells hardware to look at specific physical address on SD card and grab _ chunks of data and drop into empty bucket is system's memory
     // *buff is is the empty bucket (pointer to array of memory inside STM's RAM)
     // sector is sector address is SD card (kind of like file location except files don't exist in hardware)
@@ -168,8 +168,7 @@ DRESULT USER_ioctl (
 )
 {
   /* USER CODE BEGIN IOCTL */
-    DRESULT res = RES_ERROR;
-    return res;
+    return SD_SPI_Ioctl(pdrv, cmd, buff);
   /* USER CODE END IOCTL */
 }
 #endif /* _USE_IOCTL == 1 */

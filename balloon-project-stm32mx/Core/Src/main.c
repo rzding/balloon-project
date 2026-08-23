@@ -26,6 +26,8 @@
 #include "error_flags.h"
 #include "spi_bus.h"
 #include "sdlog.h"
+#include <string.h>
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -80,8 +82,8 @@ float IMU_GetAccelX(void) {
     uint8_t high, low;
     
     // 1. Read the two registers
-    spi_bus_read_reg8(ICM_CS_GPIO_Port, ICM_CS_Pin, 0x1F, &high, 10);
-    spi_bus_read_reg8(ICM_CS_GPIO_Port, ICM_CS_Pin, 0x20, &low, 10);
+    spi_bus_read_reg8(IMU_CS_GPIO_Port, IMU_CS_Pin, 0x1F, &high, 10);
+    spi_bus_read_reg8(IMU_CS_GPIO_Port, IMU_CS_Pin, 0x20, &low, 10);
     
     // 2. Glue them together
     int16_t raw_accel = (int16_t)((high << 8) | low);
@@ -152,30 +154,9 @@ int main(void)
   GPIOB->OTYPER &= ~(1U << 5);        /* push-pull */
   GPIOB->BSRR    =  (1U << 5);        /* PB5 high -> LED on, stays on */
 
-  FATFS fs; // The file system object
-  FIL fil; // The file object (holds the state of your open file)
-  FRESULT fres; //Used to store error codes if something fails
-  UINT bytesWrote; // Used to store how many bytes were written to the file
-  // We will use this to track when to force a physical write
-  uint8_t sync_counter = 0; 
 
-  // 1. Mount drive
-  if (f_mount(&fs, "", 1) == FR_OK) {
-      // 2. Open file and leave it open
-      if (f_open(&fil, "FLIGHT.CSV", FA_WRITE | FA_OPEN_APPEND) == FR_OK) {
-          char header[] = "Timestamp_ms,Altitude_m,Pressure_hPa\n";
-          f_write(&fil, header, strlen(header), &bytesWrote);
-          f_sync(&fil); // Lock the header to the card immediately
-      }
-  }
 
   /* USER CODE BEGIN 2 */
-  // Initialize SD card and update health flag
-  if (sdlog_init()) {
-      error_flags_set_sd_ok(true);
-  } else {
-      error_flags_set_sd_ok(false);
-  }
   
   /* USER CODE END 2 */
 
@@ -183,44 +164,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    // 1. Collect live telemetry from the helper functions!
-    uint32_t timestamp = HAL_GetTick(); 
-    float current_accel_x = IMU_GetAccelX();
-    float current_press = Baro_GetPressure();
-
-    // 2. Format the data into a comma-separated string
-    char log_buffer[64];
-    snprintf(log_buffer, sizeof(log_buffer), "%lu,%.2f,%.2f\n", 
-             timestamp, current_accel_x, current_press);
-
-    // 3. Write to FatFs RAM buffer
-    f_write(&fil, log_buffer, strlen(log_buffer), &bytesWrote);
-
-    // 4. Force a physical write every 10 loops
-    sync_counter++;
-    if (sync_counter >= 10) {
-        f_sync(&fil);      
-        sync_counter = 0;  
-    }
-
-    HAL_Delay(100); // 10Hz loop
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
     app_run();
-
-    // 1. Generate test data (this is for SD test case)
-    uint32_t t = HAL_GetTick();
-    float dummy_temp = -40.5f; 
-    float dummy_alt = 25000.0f; 
-
-    // 2. Attempt to save it. Flag an error if it fails, but don't stop the loop.
-    if (!sdlog_write_sample(t, dummy_temp, dummy_alt)) {
-        error_flags_set_sd_ok(false);
-    }
-
-    // 3. Wait 100ms (10Hz loop)
-    HAL_Delay(100);
   }
   /* USER CODE END 3 */
 }
