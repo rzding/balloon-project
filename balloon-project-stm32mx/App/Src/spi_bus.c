@@ -8,7 +8,8 @@
 #define SPI_BUS_REG_READ_BIT (1u << 7)
 
 static SPI_HandleTypeDef *spi_bus_hspi;
-static bool spi_bus_busy;
+static bool spi_bus_busy; /* mid single HAL transfer */
+static bool spi_bus_held; /* multi-transfer window (spi_bus_acquire) */
 
 static void spi_bus_cs_set(GPIO_TypeDef *cs_port, uint16_t cs_pin, GPIO_PinState state)
 {
@@ -73,13 +74,35 @@ bool spi_bus_set_mode(uint32_t polarity, uint32_t phase)
   return spi_bus_apply_mode(polarity, phase);
 }
 
+bool spi_bus_acquire(void)
+{
+  if (spi_bus_hspi == NULL || spi_bus_held || spi_bus_busy)
+  {
+    return false;
+  }
+
+  spi_bus_held = true;
+  return true;
+}
+
+bool spi_bus_release(void)
+{
+  if (!spi_bus_held || spi_bus_busy)
+  {
+    return false;
+  }
+
+  spi_bus_held = false;
+  return true;
+}
+
 bool spi_bus_transfer(GPIO_TypeDef *cs_port, uint16_t cs_pin,
                       const uint8_t *tx, uint8_t *rx,
                       uint16_t len, uint32_t timeout_ms)
 {
   HAL_StatusTypeDef status;
 
-  if (spi_bus_hspi == NULL || len == 0U) // removed the check for cs_port  
+  if (spi_bus_hspi == NULL || len == 0U)
   {
     return false;
   }
@@ -94,27 +117,43 @@ bool spi_bus_transfer(GPIO_TypeDef *cs_port, uint16_t cs_pin,
     return false;
   }
 
+  if (spi_bus_held)
+  {
+    /* Acquired window: caller owns CS; only NULL-CS byte streams allowed. */
+    if (cs_port != NULL)
+    {
+      return false;
+    }
+  }
+  else if (cs_port == NULL)
+  {
+    /* Outside acquire, CS must be framed by this call (IMU/LoRa/…). */
+    return false;
+  }
+
   spi_bus_busy = true;
-  
-  if (cs_port != NULL) {
-    spi_bus_cs_set(cs_port, cs_pin, GPIO_PIN_RESET); // Pulls the CS pin low to select the SPI device
+
+  if (cs_port != NULL)
+  {
+    spi_bus_cs_set(cs_port, cs_pin, GPIO_PIN_RESET);
   }
 
   if (tx != NULL && rx != NULL)
   {
-    status = HAL_SPI_TransmitReceive(spi_bus_hspi, tx, rx, len, timeout_ms); // Transmit and receive data over SPI
+    status = HAL_SPI_TransmitReceive(spi_bus_hspi, tx, rx, len, timeout_ms);
   }
   else if (tx != NULL)
   {
-    status = HAL_SPI_Transmit(spi_bus_hspi, tx, len, timeout_ms); // Transmit data over SPI
+    status = HAL_SPI_Transmit(spi_bus_hspi, tx, len, timeout_ms);
   }
   else
   {
-    status = HAL_SPI_Receive(spi_bus_hspi, rx, len, timeout_ms); // Receive data over SPI
+    status = HAL_SPI_Receive(spi_bus_hspi, rx, len, timeout_ms);
   }
 
-  if (cs_port != NULL) {
-    spi_bus_cs_set(cs_port, cs_pin, GPIO_PIN_SET); // Pulls the CS pin high to deselect the SPI device
+  if (cs_port != NULL)
+  {
+    spi_bus_cs_set(cs_port, cs_pin, GPIO_PIN_SET);
   }
 
   if (status != HAL_OK)

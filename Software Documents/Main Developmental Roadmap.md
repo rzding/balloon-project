@@ -55,6 +55,7 @@
 | 0.35 | 2026-08-20 | Firmware | F7.4 complete: `packet.h` v1 pack/unpack/CRC-16/CCITT-FALSE, host `test_packet_v1`, `ground/decode_packet` RSSI/SNR CLI; F7 software-complete; HW → §21 |
 | 0.36 | 2026-08-20 | Firmware | Fix F7.4 `test_packet_v1` minimal CRC golden (`0x18EF` over 26-byte payload); F7 still software-complete; HW → §21 |
 | 0.37 | 2026-08-22 | Firmware | F2–F4 hardware bench complete (§7–§9 HW exit + §21 F2–F4); Pre-F8 audit note (docs only); F6 flagged potentially incomplete (deeper dive later); stale F6/F8 entry ticks |
+| 0.38 | 2026-08-24 | Firmware | F6 audit + remediation: `spi_bus_acquire`/`release`, SD init ≤400 kHz, USERFatFS mount, host `test_sdlog_name`; F6 software-complete; HW → §21; §3.3 SD CS policy |
 
 ### How to use this document
 
@@ -182,7 +183,7 @@ Software Documents/
 | Timeouts | All HAL SPI/I2C/UART calls use finite timeouts |
 | Memory | No `malloc` in flight loop; fixed-size buffers only |
 | Concurrency | v1 = bare-metal superloop; ISRs only set flags / push bytes |
-| SPI | Single `spi_bus` owner; one CS low at a time |
+| SPI | Single `spi_bus` owner; one CS low at a time. Register slaves use per-call CS in `spi_bus_transfer`. **microSD** holds CS for one protocol frame (cmd/data/CRC) via `spi_bus_acquire` … manual CS … `spi_bus_release` — never leave `microSD_CS` low between FatFs ops |
 | Types | Fixed-width (`uint8_t`, `int32_t`); explicit endianness in packets |
 | Logging | Prefer SD CSV; optional SWD debug builds only |
 | Versions | Boot log / packet field includes firmware version string |
@@ -725,7 +726,7 @@ Non-blocking NMEA parser providing fix for recovery and APRS/LoRa.
 
 ## 11. Phase F6 — microSD logging (FatFS)
 
-**Phase status:** potentially incomplete — entry met (F1 software-complete); partial SD/FatFs code may exist in-tree while work packages / software exit remain open. Full F6 audit deferred (Pre-F8 note, rev 0.37). HW → §21.
+**Phase status:** software verification complete (2026-08-24 — audit remediation + clean `make`; host `test_sdlog_name` authored, manual run pending); hardware exit criteria open (§11.3 / §21). Full phase exit pending bench — see §21 F6.
 
 ### 11.0 Objective
 
@@ -735,37 +736,38 @@ Black-box telemetry log; foundation for image storage.
 
 - [x] F1 software-complete
 
-**Known facts (not coding blockers):** industrial microSD for flight; detect polarity high = present (see §2).
+**Known facts (not coding blockers):** industrial **SDHC/SDXC** microSD for flight (block addressing); detect polarity high = present (see §2).
 
 ### 11.2 Work packages
 
 #### F6.1 — Middleware
 
-- Integrate ChaN FatFs or CubeMX FatFS for SPI SD
-- Low clock during card init if required by stack
+- [x] Integrate ChaN FatFs or CubeMX FatFS for SPI SD — `user_diskio` → `sd_spi`; `spi_bus_acquire`/`release` for transaction-held CS
+- [x] Low clock during card init — `SPI_BAUDRATEPRESCALER_256` (~390 kHz) in `SD_SPI_Init`, restore bring-up default after
 
 #### F6.2 — Mount / file policy
 
-- Check `microSD_detect` then mount
-- Create `FLIGHTxxx.CSV` (or next index)
-- Header row once
+- [x] Check `microSD_detect` then mount — `USERFatFS` / `USERPath`
+- [x] Create `FLIGHTxxx.CSV` (or next index) — `sdlog_next_flight_index` / `FLIGHT%03u.CSV`
+- [x] Header row once — `FA_CREATE_NEW` + header + `f_sync`
 
 #### F6.3 — Append API
 
-- `sdlog_write_sample(...)` non-fatal on failure
-- Periodic `f_sync` / flush every N seconds
+- [x] `sdlog_write_sample(...)` non-fatal on failure
+- [x] Periodic `f_sync` — every 10 writes (~50 s at 5 s beacon); sync failure fail-soft
 
 #### F6.4 — Fail-soft
 
-- Missing card ⇒ `sd_ok = false`; mission continues
+- [x] Missing card ⇒ `sd_ok = false`; mission continues — `(void)sdlog_init()` in `app_init`; close/unmount on hard fail
 
 ### 11.3 Verification / exit criteria
 
 **Software verification (tick when work packages land):**
 
-- [ ] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
-- [ ] No hang when card absent — fail-soft `sd_ok`; mission continues
-- [ ] `sdlog_write_sample` non-fatal on failure
+- [x] Clean build (`make clean && make` in `balloon-project-stm32mx/`) — 2026-08-24
+- [x] No hang when card absent — fail-soft `sd_ok`; mission continues — code-path verified 2026-08-24
+- [x] `sdlog_write_sample` non-fatal on failure — code-path verified 2026-08-24
+- [x] Host `tests/host/test_sdlog_name` authored (manual run pending)
 
 **Hardware exit (pending bench — tick when §21 F6 procedure passes):**
 
@@ -773,7 +775,7 @@ Black-box telemetry log; foundation for image storage.
 - [ ] Pull-power mid-write test: document corruption mitigations (flush policy)
 - [ ] Industrial microSD exercised on hardware
 
----
+**CS note:** Analyzer should show short `microSD_CS` low **bursts** (whole CMD/block), not permanent low.
 
 ## 12. Phase F7 — LoRa telemetry (RFM95W)
 
@@ -887,14 +889,14 @@ Autonomous flight behavior and unified telemetry packing.
 - [x] F3 and/or F5 software-complete (altitude API available) — F3 `baro_read` / F5 GPS APIs
 - [x] F7 software-complete for live TX (state machine host-testable without radio) — 2026-08-20
 
-### 13.1.1 Pre-F8 audit (docs only — 2026-08-22)
+### 13.1.1 Pre-F8 audit (docs only — 2026-08-22; F6 updated 2026-08-24)
 
-F8 coding may start per §4 / §13.1. F0–F7 are **not** fully closed to professional standard yet:
+F8 coding may start per §4 / §13.1. Remaining soft spots outside F6:
 
-- **F6 potentially incomplete** — deeper dive deferred; do not mark F6 software-complete until audited.
+- **F6 software-complete** (2026-08-24 audit remediation); HW exit still §21.
 - Packet `flags` polarity in `app.c` vs `error_flags.h` may be inverted (verify later; no code change this rev).
 - Doc/code drift: §4 phase table “48B packet” vs 28-byte `packet.h` v1; some headers claim LoRa not in `app_run` while a bring-up beacon exists.
-- Host tests still marked pending in `tests/host/README.md`: `test_ms5611_adc`, `test_ms5611_comp`, `test_packet_v1`.
+- Host tests still marked pending in `tests/host/README.md`: `test_ms5611_adc`, `test_ms5611_comp`, `test_packet_v1`, `test_sdlog_name`.
 - F1 §6.4 HW ticks vs §21 F1 open — consistency cleanup later if desired.
 - Open §21 for F0/F1/F5/F6/F7 remain non-blockers for F8 coding.
 
@@ -957,7 +959,7 @@ Capture flight imagery to microSD without breaking telemetry deadlines.
 
 ### 14.1 Entry criteria
 
-- [ ] F1 + F6 software-complete
+- [x] F1 + F6 software-complete — F6 soft-complete 2026-08-24; still blocked on ArduCAM SKU (Gabe)
 - [ ] **Gabe confirms ArduCAM SKU** (2MP Mini B0067 vs 5MP OV5642) — **hard coding blocker** for correct driver
 - [ ] Interim assumption if forced: schematic Mini 2MP
 

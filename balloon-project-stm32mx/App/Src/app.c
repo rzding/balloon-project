@@ -12,6 +12,7 @@
 #include "lora.h"
 #include "main.h"
 #include "packet.h"
+#include "sdlog.h"
 #include "temp.h"
 
 /** Beacon transmit period (ms). */
@@ -43,6 +44,7 @@ bool app_init(void)
   (void)temp_init(); /* fail-soft: false does not abort app_init */
   (void)gps_init();  /* fail-soft: false does not abort app_init */
   (void)lora_init(); /* fail-soft: false does not abort app_init */
+  (void)sdlog_init();  /* fail-soft: false does not abort app_init */
   return true;
 }
 
@@ -68,7 +70,7 @@ static void app_beacon_build(void)
   g_beacon_fields.sats = 0u;
 
   /* Low byte of the health bitfield: bit set = that subsystem is OK. */
-  g_beacon_fields.flags = (uint8_t)(error_flags_get() & 0xFFu);
+  g_beacon_fields.flags = (uint8_t)(~error_flags_get() & 0xFFu);
 
   if (baro_is_ok() && baro_read(&baro))
   {
@@ -107,25 +109,20 @@ static void app_beacon_tick(void)
   if ((now - s_beacon_next_ms) >= APP_BEACON_PERIOD_MS)
   {
     s_beacon_next_ms = now;
-
-    if (!lora_is_ok())
-    {
-      return; /* radio never came up; nothing to transmit into */
-    }
-
     app_beacon_build();
+
+    /* F6: log every beacon tick even if radio is dead */
+    (void)sdlog_write_sample(
+        g_beacon_fields.time_ms,
+        (float)g_beacon_fields.temp_c_x100 / 100.0f,
+        (float)g_beacon_fields.baro_alt_m);
+
+    if (!lora_is_ok()) return;
+
     packet_v1_pack(&g_beacon_fields, g_beacon_wire);
-
     g_beacon_attempts++;
-
-    if (lora_tx(g_beacon_wire, PACKET_V1_LEN))
-    {
-      g_beacon_ok++;
-    }
-    else
-    {
-      g_beacon_fail++;
-    }
+    if (lora_tx(g_beacon_wire, PACKET_V1_LEN)) g_beacon_ok++;
+    else                                        g_beacon_fail++;
   }
 }
 
@@ -133,6 +130,5 @@ void app_run(void)
 {
   /* Subsystem faults must not stop the superloop; F8+ mission tick runs regardless. */
   (void)gps_poll();
-  (void)error_flags_get();
   app_beacon_tick();
 }

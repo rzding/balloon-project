@@ -22,13 +22,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <stdio.h>
-#include <string.h>
-
 #include "app.h"
-#include "error_flags.h"
 #include "spi_bus.h"
-#include "sdlog.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -74,30 +69,6 @@ static void MX_USART2_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
-// ---------------------------------------------------------
-// SENSOR HELPER FUNCTIONS
-// ---------------------------------------------------------
-
-float IMU_GetAccelX(void) {
-    uint8_t high, low;
-    
-    // 1. Read the two registers
-    spi_bus_read_reg8(IMU_CS_GPIO_Port, IMU_CS_Pin, 0x1F, &high, 10);
-    spi_bus_read_reg8(IMU_CS_GPIO_Port, IMU_CS_Pin, 0x20, &low, 10);
-    
-    // 2. Glue them together
-    int16_t raw_accel = (int16_t)((high << 8) | low);
-    
-    // 3. Convert to G-force (assuming +/- 16g scale)
-    return (float)raw_accel / 2048.0f;
-}
-
-float Baro_GetPressure(void) {
-    // TODO: Add the BMP390 24-bit reading and calibration math here!
-    // Returning a dummy value for now so the code compiles.
-    return 1013.25f; 
-}
 
 /* USER CODE END 0 */
 
@@ -154,87 +125,16 @@ int main(void)
   GPIOB->MODER  |=  (1U << (5 * 2));  /* PB5 = general-purpose output */
   GPIOB->OTYPER &= ~(1U << 5);        /* push-pull */
   GPIOB->BSRR    =  (1U << 5);        /* PB5 high -> LED on, stays on */
-
-  FATFS fs; // The file system object
-  FIL fil; // The file object (holds the state of your open file)
-  FRESULT fres; //Used to store error codes if something fails
-  UINT bytesWrote; // Used to store how many bytes were written to the file
-  // We will use this to track when to force a physical write
-  uint8_t sync_counter = 0; 
-
-  // Only true once BOTH the mount and the open have succeeded. Writing to
-  // "fil" when f_open failed passes an uninitialised handle to FatFs, which
-  // is undefined behaviour and can hang the loop when no card is inserted.
-  bool sd_ready = false;
-
-  // 1. Mount drive
-  if (f_mount(&fs, "", 1) == FR_OK) {
-      // 2. Open file and leave it open
-      if (f_open(&fil, "FLIGHT.CSV", FA_WRITE | FA_OPEN_APPEND) == FR_OK) {
-          sd_ready = true;
-          char header[] = "Timestamp_ms,Altitude_m,Pressure_hPa\n";
-          f_write(&fil, header, strlen(header), &bytesWrote);
-          f_sync(&fil); // Lock the header to the card immediately
-      }
-  }
-
-  /* USER CODE BEGIN 2 */
-  // Initialize SD card and update health flag
-  if (sdlog_init()) {
-      error_flags_set_sd_ok(true);
-  } else {
-      error_flags_set_sd_ok(false);
-  }
-  
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    // 1. Collect live telemetry from the helper functions!
-    uint32_t timestamp = HAL_GetTick(); 
-    float current_accel_x = IMU_GetAccelX();
-    float current_press = Baro_GetPressure();
-
-    // 2. Format the data into a comma-separated string
-    char log_buffer[64];
-    snprintf(log_buffer, sizeof(log_buffer), "%lu,%.2f,%.2f\n", 
-             timestamp, current_accel_x, current_press);
-
-    // 3. Write to FatFs RAM buffer (skipped entirely with no card mounted)
-    if (sd_ready) {
-        f_write(&fil, log_buffer, strlen(log_buffer), &bytesWrote);
-
-        // 4. Force a physical write every 10 loops
-        sync_counter++;
-        if (sync_counter >= 10) {
-            f_sync(&fil);
-            sync_counter = 0;
-        }
-    }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
     app_run();
-
-    // 1. Generate test data (this is for SD test case)
-    uint32_t t = HAL_GetTick();
-    float dummy_temp = -40.5f; 
-    float dummy_alt = 25000.0f; 
-
-    // 2. Attempt to save it. Flag an error if it fails, but don't stop the loop.
-    if (!sdlog_write_sample(t, dummy_temp, dummy_alt)) {
-        error_flags_set_sd_ok(false);
-    }
-
-    /* Single 10 Hz delay for the whole loop. There were previously two
-       HAL_Delay(100) calls -- one from each half of the merged code -- giving
-       a 200 ms period. At 9600 baud the GPS produces ~192 bytes in that time
-       against a 256-byte RX ring, so any extra latency (a LoRa transmit, an
-       SD sync) overflowed the ring and corrupted NMEA lines. Watch
-       g_gps_rx_overruns if this is ever raised again. */
-    HAL_Delay(100);
   }
   /* USER CODE END 3 */
 }
