@@ -15,6 +15,31 @@ static gps_sample_t s_sample;
 static bool s_have_line;
 static bool s_ok;
 
+/* Bring-up diagnostics (F5 bench).
+ *
+ * gps_init() cannot detect whether a module is attached -- it only enables the
+ * USART1 RX interrupt -- so gps_is_ok() is not evidence of a working GPS.
+ * These counters distinguish the failure modes, which need different fixes:
+ *
+ *   g_gps_rx_bytes == 0            no serial data at all: wiring, power, or
+ *                                  TX/RX swapped
+ *   g_gps_rx_bytes > 0, lines == 0 bytes arriving but not forming NMEA lines:
+ *                                  usually a baud mismatch (garbage bytes)
+ *   g_gps_lines > 0, sentences 0   lines received but not GGA/RMC, or failing
+ *                                  their checksum
+ *   g_gps_sentences > 0, no fix    module is healthy and talking; it simply
+ *                                  has no satellite lock yet (needs sky view)
+ *
+ * External linkage and volatile so they resolve in the debugger from any stop
+ * location; nothing in the firmware reads them.
+ */
+volatile uint32_t g_gps_rx_bytes;
+volatile uint32_t g_gps_rx_overruns;
+volatile uint32_t g_gps_lines;
+volatile uint32_t g_gps_sentences;
+char g_gps_last_line[GPS_LINE_MAX];
+gps_sample_t g_gps_sample;
+
 static void gps_set_ok(bool ok)
 {
   s_ok = ok;
@@ -38,7 +63,9 @@ static void gps_handle_line(const char *line)
     return;
   }
 
+  g_gps_sentences++;
   gps_nmea_merge_patch(&s_sample, &patch, type == GPS_NMEA_GGA);
+  g_gps_sample = s_sample;
 }
 
 bool gps_init(void)
@@ -68,6 +95,8 @@ bool gps_poll(void)
     if (gps_line_feed(&s_line_acc, byte, line_buf, sizeof(line_buf)))
     {
       memcpy(s_last_line, line_buf, sizeof(s_last_line));
+      memcpy(g_gps_last_line, line_buf, sizeof(g_gps_last_line));
+      g_gps_lines++;
       s_have_line = true;
       gps_handle_line(line_buf);
       got_line = true;
@@ -126,11 +155,13 @@ void gps_usart1_irq(void)
 
   if ((isr & USART_SR_RXNE) != 0u)
   {
+    g_gps_rx_bytes++;
     gps_ring_push(&s_ring, (uint8_t)(USART1->DR & 0xFFu));
   }
 
   if ((isr & USART_SR_ORE) != 0u)
   {
+    g_gps_rx_overruns++;
     (void)USART1->DR;
   }
 }

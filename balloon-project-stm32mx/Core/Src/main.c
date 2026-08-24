@@ -23,11 +23,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "app.h"
-#include "error_flags.h"
 #include "spi_bus.h"
-#include "sdlog.h"
-#include <string.h>
-#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -73,30 +69,6 @@ static void MX_USART2_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
-// ---------------------------------------------------------
-// SENSOR HELPER FUNCTIONS
-// ---------------------------------------------------------
-
-float IMU_GetAccelX(void) {
-    uint8_t high, low;
-    
-    // 1. Read the two registers
-    spi_bus_read_reg8(IMU_CS_GPIO_Port, IMU_CS_Pin, 0x1F, &high, 10);
-    spi_bus_read_reg8(IMU_CS_GPIO_Port, IMU_CS_Pin, 0x20, &low, 10);
-    
-    // 2. Glue them together
-    int16_t raw_accel = (int16_t)((high << 8) | low);
-    
-    // 3. Convert to G-force (assuming +/- 16g scale)
-    return (float)raw_accel / 2048.0f;
-}
-
-float Baro_GetPressure(void) {
-    // TODO: Add the BMP390 24-bit reading and calibration math here!
-    // Returning a dummy value for now so the code compiles.
-    return 1013.25f; 
-}
 
 /* USER CODE END 0 */
 
@@ -153,11 +125,6 @@ int main(void)
   GPIOB->MODER  |=  (1U << (5 * 2));  /* PB5 = general-purpose output */
   GPIOB->OTYPER &= ~(1U << 5);        /* push-pull */
   GPIOB->BSRR    =  (1U << 5);        /* PB5 high -> LED on, stays on */
-
-
-
-  /* USER CODE BEGIN 2 */
-  
   /* USER CODE END 2 */
 
   /* Infinite loop */

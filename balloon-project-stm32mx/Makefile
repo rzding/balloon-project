@@ -69,10 +69,10 @@ App/Src/spi_bus.c \
 App/Src/temp.c \
 App/Src/gps.c \
 App/Src/lora.c \
+App/Src/sd_spi.c \
 App/Src/sdlog.c \
 FATFS/App/fatfs.c \
 FATFS/Target/user_diskio.c \
-FATFS/Target/sd_spi.c \
 Middlewares/Third_Party/FatFs/src/diskio.c \
 Middlewares/Third_Party/FatFs/src/ff.c \
 Middlewares/Third_Party/FatFs/src/ff_gen_drv.c \

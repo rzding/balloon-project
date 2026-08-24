@@ -54,6 +54,7 @@
 | 0.34 | 2026-08-20 | Firmware | F7.3 complete: `lora_tx` FIFO + DIO0 poll (1000 ms timeout), `lora_get_seq`; F7.4 open; HW → §21 |
 | 0.35 | 2026-08-20 | Firmware | F7.4 complete: `packet.h` v1 pack/unpack/CRC-16/CCITT-FALSE, host `test_packet_v1`, `ground/decode_packet` RSSI/SNR CLI; F7 software-complete; HW → §21 |
 | 0.36 | 2026-08-20 | Firmware | Fix F7.4 `test_packet_v1` minimal CRC golden (`0x18EF` over 26-byte payload); F7 still software-complete; HW → §21 |
+| 0.37 | 2026-08-22 | Firmware | F2–F4 hardware bench complete (§7–§9 HW exit + §21 F2–F4); Pre-F8 audit note (docs only); F6 flagged potentially incomplete (deeper dive later); stale F6/F8 entry ticks |
 
 ### How to use this document
 
@@ -393,7 +394,7 @@ Own the shared SPI1 bus safely for six slaves.
 
 ## 7. Phase F2 — IMU (ICM-42688-P)
 
-**Phase status:** software verification complete (2026-08-09 — host `test_imu_scale` manual pass); hardware exit criteria open (§7.3 / §21). Full phase exit pending bench — see §21 F2 procedure; then tick §7.3 HW items.
+**Phase status:** complete (software 2026-08-09; hardware bench 2026-08-22). Full phase exit closed — see §7.3 / §21 F2.
 
 ### 7.0 Objective
 
@@ -447,16 +448,16 @@ Prove SPI + first sensor; provide motion data for burst detection later.
 - [x] Host `tests/host/test_imu_scale` pass (manual, 2026-08-09)
 - [x] Init failure does not hang MCU — `(void)imu_init()` in `app_init`; `app_run` continues; code-path verified (2026-08-06)
 
-**Hardware exit (pending bench — tick when §21 F2 procedure passes; then add rev 0.15):**
+**Hardware exit (closed 2026-08-22 — §21 F2 procedure passed):**
 
-- [ ] WHO_AM_I passes on hardware (see §21 F2)
-- [ ] Values change when board is moved/tilted (see §21 F2)
+- [x] WHO_AM_I passes on hardware (see §21 F2) — 2026-08-22
+- [x] Values change when board is moved/tilted (see §21 F2) — 2026-08-22
 
 ---
 
 ## 8. Phase F3 — Barometer (MS5611)
 
-**Phase status:** software verification complete (2026-08-15); hardware exit criteria open (§8.3 / §21). Full phase exit pending bench — see §21 F3 procedure; then tick §8.3 HW items.
+**Phase status:** complete (software 2026-08-15; hardware bench 2026-08-22). Full phase exit closed — see §8.3 / §21 F3.
 
 ### 8.0 Objective
 
@@ -540,17 +541,17 @@ Pressure and barometric altitude for ascent/float/descent logic.
 - [x] Host `tests/host/test_ms5611_comp` extended with `baro_sample_from_raw` datasheet vector (manual run pending)
 - [x] `baro_read` fail path does not hang MCU — not called from `app_run`; health updated on read like `imu_read`
 
-**Hardware exit (pending bench — tick when §21 F3 procedure passes):**
+**Hardware exit (closed 2026-08-22 — §21 F3 procedure passed):**
 
-- [ ] Indoor pressure ~980–1040 hPa (site-dependent)
-- [ ] Raising board ~1–2 m shows altitude change directionally
-- [ ] PROM/CRC failure handled cleanly on hardware (CRC pass on silicon; inject fault optional)
+- [x] Indoor pressure ~980–1040 hPa (site-dependent) — 2026-08-22
+- [x] Raising board ~1–2 m shows altitude change directionally — 2026-08-22
+- [x] PROM/CRC failure handled cleanly on hardware (CRC pass on silicon; inject fault optional) — 2026-08-22
 
 ---
 
 ## 9. Phase F4 — Temperature (MAX31865 + PT1000)
 
-**Phase status:** software verification complete (2026-08-15); hardware exit criteria open (§9.3 / §21). Full phase exit pending bench — see §21 F4 procedure; then tick §9.3 HW items.
+**Phase status:** complete (software 2026-08-15; hardware bench 2026-08-22). Full phase exit closed — see §9.3 / §21 F4.
 
 ### 9.0 Objective
 
@@ -619,11 +620,11 @@ Outside-air temperature via RTD.
 - [x] Host `tests/host/test_max31865_cvd` extended with `temp_sample_from_raw` (manual pass 2026-08-15)
 - [x] `temp_read` fail path does not hang MCU — fail-soft `temp_ok` / `error_flags`; not called from `app_run` until mission (F8)
 
-**Hardware exit (pending bench — tick when §21 F4 procedure passes):**
+**Hardware exit (closed 2026-08-22 — §21 F4 procedure passed):**
 
-- [ ] Room-temp reading plausible (~15–30 °C)
-- [ ] Hand on probe moves reading
-- [ ] Disconnect fault (if safe to test) sets fault flag
+- [x] Room-temp reading plausible (~15–30 °C) — 2026-08-22
+- [x] Hand on probe moves reading — 2026-08-22
+- [x] Disconnect fault (if safe to test) sets fault flag — 2026-08-22
 
 ---
 
@@ -724,7 +725,7 @@ Non-blocking NMEA parser providing fix for recovery and APRS/LoRa.
 
 ## 11. Phase F6 — microSD logging (FatFS)
 
-**Phase status:** not started — software work unblocked by F1 software-complete; HW → §21.
+**Phase status:** potentially incomplete — entry met (F1 software-complete); partial SD/FatFs code may exist in-tree while work packages / software exit remain open. Full F6 audit deferred (Pre-F8 note, rev 0.37). HW → §21.
 
 ### 11.0 Objective
 
@@ -732,7 +733,7 @@ Black-box telemetry log; foundation for image storage.
 
 ### 11.1 Entry criteria
 
-- [ ] F1 software-complete
+- [x] F1 software-complete
 
 **Known facts (not coding blockers):** industrial microSD for flight; detect polarity high = present (see §2).
 
@@ -875,7 +876,7 @@ Ground-receivable telemetry (primary recovery link).
 
 ## 13. Phase F8 — Mission state machine and packetizer
 
-**Phase status:** not started — software work unblocked when F3 and/or F5 altitude APIs are software-complete; HW → §21.
+**Phase status:** not started — entry criteria met (F3/F5 + F7 software-complete); Pre-F8 audit recorded 2026-08-22 (rev 0.37). HW → §21.
 
 ### 13.0 Objective
 
@@ -883,8 +884,19 @@ Autonomous flight behavior and unified telemetry packing.
 
 ### 13.1 Entry criteria
 
-- [ ] F3 and/or F5 software-complete (altitude API available)
+- [x] F3 and/or F5 software-complete (altitude API available) — F3 `baro_read` / F5 GPS APIs
 - [x] F7 software-complete for live TX (state machine host-testable without radio) — 2026-08-20
+
+### 13.1.1 Pre-F8 audit (docs only — 2026-08-22)
+
+F8 coding may start per §4 / §13.1. F0–F7 are **not** fully closed to professional standard yet:
+
+- **F6 potentially incomplete** — deeper dive deferred; do not mark F6 software-complete until audited.
+- Packet `flags` polarity in `app.c` vs `error_flags.h` may be inverted (verify later; no code change this rev).
+- Doc/code drift: §4 phase table “48B packet” vs 28-byte `packet.h` v1; some headers claim LoRa not in `app_run` while a bring-up beacon exists.
+- Host tests still marked pending in `tests/host/README.md`: `test_ms5611_adc`, `test_ms5611_comp`, `test_packet_v1`.
+- F1 §6.4 HW ticks vs §21 F1 open — consistency cleanup later if desired.
+- Open §21 for F0/F1/F5/F6/F7 remain non-blockers for F8 coding.
 
 ### 13.2 Work packages
 
@@ -1165,9 +1177,9 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 
 **Checklist (tick with pass date when bench complete):**
 
-- [ ] WHO_AM_I reads `0x47` on hardware (SWD watch or debugger)
-- [ ] Post-init register read-back: `GYRO_CONFIG0` / `ACCEL_CONFIG0` = `0x08`, `PWR_MGMT0` = `0x0F`
-- [ ] After F2.3 sample read: accel/gyro values change when board is moved or tilted
+- [x] WHO_AM_I reads `0x47` on hardware (SWD watch or debugger) — pass 2026-08-22
+- [x] Post-init register read-back: `GYRO_CONFIG0` / `ACCEL_CONFIG0` = `0x08`, `PWR_MGMT0` = `0x0F` — pass 2026-08-22
+- [x] After F2.3 sample read: accel/gyro values change when board is moved or tilted — pass 2026-08-22
 
 **Bench procedure (when PCB + ST-Link available):**
 
@@ -1186,11 +1198,11 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 
 **Checklist (tick with pass date when bench complete):**
 
-- [ ] Reset + PROM read on hardware; CRC4 passes
-- [ ] After `baro_init`: `baro_init()` returns true, `baro_is_ok()` true, `error_flags_baro_ok()` true
-- [ ] After F3.2: `baro_read_raw` returns non-zero D1/D2; D1 changes directionally when board lifted ~1–2 m (raw ADC)
-- [ ] Indoor pressure plausible (~980–1040 hPa) — requires F3.4 `baro_read` on hardware
-- [ ] Altitude responds to ~1–2 m lift — requires F3.4 `baro_read` on hardware
+- [x] Reset + PROM read on hardware; CRC4 passes — pass 2026-08-22
+- [x] After `baro_init`: `baro_init()` returns true, `baro_is_ok()` true, `error_flags_baro_ok()` true — pass 2026-08-22
+- [x] After F3.2: `baro_read_raw` returns non-zero D1/D2; D1 changes directionally when board lifted ~1–2 m (raw ADC) — pass 2026-08-22
+- [x] Indoor pressure plausible (~980–1040 hPa) — requires F3.4 `baro_read` on hardware — pass 2026-08-22
+- [x] Altitude responds to ~1–2 m lift — requires F3.4 `baro_read` on hardware — pass 2026-08-22
 
 **Bench procedure (when PCB + ST-Link available):**
 
@@ -1209,11 +1221,11 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 
 **Checklist (tick with pass date when bench complete):**
 
-- [ ] After F4.1: `temp_init()` returns true, `temp_is_ok()` true, `error_flags_temp_ok()` true; CONFIG read-back `0x90`
-- [ ] After F4.2: `temp_read_raw` returns non-zero ADC; room-temp ADC/°C plausible via helpers (~15–30 °C)
-- [ ] After F4.3: `temp_read(&sample)` returns true, `temp_is_ok()` true on success path; room-temp `sample.temp_centi_c` plausible (~15–30 °C)
-- [ ] Hand on probe moves reading — requires F4.3 `temp_read` on hardware
-- [ ] Disconnect fault (if safe to test) sets fault flag — `temp_read` / `temp_read_raw` FAULT bit / Fault Status on hardware
+- [x] After F4.1: `temp_init()` returns true, `temp_is_ok()` true, `error_flags_temp_ok()` true; CONFIG read-back `0x90` — pass 2026-08-22
+- [x] After F4.2: `temp_read_raw` returns non-zero ADC; room-temp ADC/°C plausible via helpers (~15–30 °C) — pass 2026-08-22
+- [x] After F4.3: `temp_read(&sample)` returns true, `temp_is_ok()` true on success path; room-temp `sample.temp_centi_c` plausible (~15–30 °C) — pass 2026-08-22
+- [x] Hand on probe moves reading — requires F4.3 `temp_read` on hardware — pass 2026-08-22
+- [x] Disconnect fault (if safe to test) sets fault flag — `temp_read` / `temp_read_raw` FAULT bit / Fault Status on hardware — pass 2026-08-22
 
 **Bench procedure (when PCB + ST-Link available):**
 
