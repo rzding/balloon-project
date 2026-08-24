@@ -59,13 +59,38 @@ bool spi_bus_set_prescaler(uint32_t baudrate_prescaler);
 bool spi_bus_set_mode(uint32_t polarity, uint32_t phase);
 
 /**
+ * @brief Claim the bus for a multi-transfer window (SD SPI framing).
+ *
+ * Register-style slaves (IMU, LoRa, …) should keep using spi_bus_transfer with a
+ * non-NULL CS so each call asserts/deasserts CS. microSD needs CS held across
+ * cmd/R1/data/CRC bytes; call acquire, assert CS in the driver, transfer with
+ * cs_port NULL, then deassert CS and release. Never leave a slave CS low between
+ * FatFs/SD transactions — only for the duration of one protocol frame.
+ *
+ * @return false if bus not initialized, already held, or mid-transfer.
+ */
+bool spi_bus_acquire(void);
+
+/**
+ * @brief End a multi-transfer window started with spi_bus_acquire.
+ * @return false if not held or a HAL transfer is still in progress.
+ */
+bool spi_bus_release(void);
+
+/**
  * @brief SPI transfer with chip-select ownership (one CS low at a time).
  *
- * Asserts CS active-low, performs the HAL transfer with a finite timeout, then
- * deasserts CS (high). CS is always restored high if it was asserted, including
- * on HAL timeout or error (then HAL_SPI_Abort is called).
+ * When the bus is not acquired: asserts CS active-low (if @p cs_port non-NULL),
+ * performs the HAL transfer with a finite timeout, then deasserts CS (high).
+ * CS is always restored high if it was asserted, including on HAL timeout or
+ * error (then HAL_SPI_Abort is called).
  *
- * @param cs_port GPIO port for the slave CS (e.g. IMU_CS_GPIO_Port).
+ * When the bus is acquired (SD pattern): @p cs_port must be NULL — the caller
+ * already owns CS for the transaction. Other slaves must not transfer until
+ * spi_bus_release.
+ *
+ * @param cs_port GPIO port for the slave CS (e.g. IMU_CS_GPIO_Port); NULL only
+ *                while the bus is acquired.
  * @param cs_pin  GPIO pin for the slave CS (e.g. IMU_CS_Pin).
  * @param tx      TX buffer; NULL for receive-only.
  * @param rx      RX buffer; NULL for transmit-only.

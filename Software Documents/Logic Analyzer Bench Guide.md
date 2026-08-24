@@ -34,7 +34,7 @@ This guide explains how to use a **logic analyzer** to verify bus wiring and liv
 | MAX31865 + PT1000 | SPI1 | Yes |
 | MAX-M10S GPS | USART1 (UART) | Yes |
 | RFM95W LoRa | SPI1 | F7 software-complete: init + TX API (`lora_tx`; not called from default `app_run`); packet v1 in `packet.h` |
-| microSD | SPI1 | Not yet (F6) |
+| microSD | SPI1 | F6 software-complete: `sdlog` + `sd_spi`; CS low in short protocol bursts (not permanent) |
 | ArduCAM | SPI1 + I2C1 | Not yet (F9) |
 | DRA818V APRS | USART2 | Not yet (F10) |
 
@@ -61,7 +61,7 @@ All three SPI sensors share SCLK/MOSI/MISO. Only **one** CS line goes low per tr
 | `BARO_CS` | PB2 | TP22 |
 | `Temp_CS` | PA8 | TP21 |
 | `LoRa_CS` | PB1 | TP23 (init SPI at boot; FIFO burst when `lora_tx` called) |
-| `microSD_CS` | PB3 | TP24 (idle — no driver) |
+| `microSD_CS` | PB3 | TP24 (transaction bursts during FatFs; idle high between ops) |
 | `Cam_CS` | PA4 | (idle — no driver) |
 
 **GPS uses UART, not SPI.** There is no CS, MOSI, MISO, or SCLK on the GPS link. Clip the UART line and use an **async serial / UART** decoder.
@@ -207,12 +207,13 @@ What `BENCH=1` does in `app_run` (every ~1 s, fail-soft):
 
 ## 8. Explicitly not this branch
 
-- **LoRa:** F7 software-complete — `lora_init` configures radio at boot; `lora_tx` loads FIFO and transmits when called (GDB/F8). Default firmware does **not** TX from `app_run`. DIO0 (PB12) polled for TxDone. Packet v1 contract in `packet.h`; ground decode via `ground/decode_packet`. No `BENCH=1` LoRa loop yet.
-- **microSD / ArduCAM:** CS idle high; no driver traffic.
+- **LoRa:** F7 software-complete — `lora_init` configures radio at boot; `lora_tx` loads FIFO and transmits when called (GDB/F8). Default firmware does **not** TX from `app_run` except the bring-up beacon path. DIO0 (PB12) polled for TxDone. Packet v1 contract in `packet.h`; ground decode via `ground/decode_packet`. No `BENCH=1` LoRa loop yet.
+- **microSD:** F6 software-complete — `sdlog_init` / `sdlog_write_sample` via FatFs; `microSD_CS` low only for each SD SPI frame (`spi_bus_acquire` … release). Analyzer: short CS-low bursts, not stuck low. Optional: extend `BENCH=1` capture groups later.
+- **ArduCAM:** CS idle high; no driver traffic (F9).
 - **APRS USART2 / PTT / PWM:** Initialized idle; no App traffic.
 - **I2C1 (ArduCAM):** Bus idle after init.
 
-When F6 (SD) is software-complete, extend the same `BENCH=1` flag and add capture groups here. F7 LoRa is software-complete (see LoRa bullet above).
+F7 LoRa is software-complete (see LoRa bullet above).
 
 ---
 
