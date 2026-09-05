@@ -36,6 +36,7 @@
 | 0.15 | 2026-08-20 | Firmware | F7.3 FIFO TX + DIO0 wait — bench/GDB only (SPI/GPIO; no host test) |
 | 0.16 | 2026-08-20 | Firmware | F7.4 / F7 exit: packet v1 pack/CRC16 — `test_packet_v1`; ground decode = host CLI; on-air RX = bench |
 | 0.17 | 2026-08-24 | Firmware | F6 host `test_sdlog_name` (FLIGHTxxx format + next index); F6 software-complete |
+| 0.18 | 2026-09-05 | Firmware | Drop `BENCH=1` FAQ; default bring-up beacon keeps SPI/LoRa/SD live (~5 s) |
 
 ---
 
@@ -220,4 +221,4 @@ Project rules in `.cursor/rules/` reinforce these points for every session.
 | Should I set up Renode now? | No — defer unless models are owned |
 | Who runs tests? | Developer manually; not the agent by default |
 | Where is deferred HW tracked? | Roadmap §21 |
-| How do I get live SPI for a logic analyzer? | `make BENCH=1` in `balloon-project-stm32mx/` — see [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md). Default `make` keeps SPI quiet after boot; GPS UART still runs. Do not ship `BENCH=1` as flight firmware. |
+| How do I get live SPI for a logic analyzer? | Default `make` in `balloon-project-stm32mx/` — ~5 s bring-up beacon exercises baro/temp/SD/LoRa (IMU at init; GDB `imu_read` if needed). See [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md). There is no `BENCH=1` flag. |

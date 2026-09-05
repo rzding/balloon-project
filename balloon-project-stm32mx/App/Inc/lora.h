@@ -12,7 +12,8 @@
  *   - PA_BOOST +17 dBm, OCP on; chip left in LoRa standby after init/TX
  *
  * F7.3: lora_tx loads FIFO and transmits; DIO0 polled for TxDone (no ISR).
- * Default firmware does not call lora_tx from app_run (F8 scheduler owns rate).
+ * Bring-up: app_run calls lora_tx from the ~5 s beacon (mission_state bench).
+ * F8 will replace that fixed rate with the mission scheduler.
  *
  * SX1276 uses IMU/LoRa bit-7 SPI R/W via spi_bus_read_reg8 / spi_bus_write_reg8.
  */

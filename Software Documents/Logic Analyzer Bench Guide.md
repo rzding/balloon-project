@@ -20,6 +20,7 @@
 | Rev | Date | Author | Notes |
 |---|---|---|---|
 | 0.1 | 2026-08-19 | Firmware | First branch: IMU, baro, temp (SPI), GPS (UART); `make BENCH=1` |
+| 0.2 | 2026-09-05 | Firmware | Drop `BENCH=1`; default build uses ~5 s bring-up beacon (baro/temp/SD/LoRa) |
 
 ---
 
@@ -29,16 +30,16 @@ This guide explains how to use a **logic analyzer** to verify bus wiring and liv
 
 | Device | Bus | In this guide |
 |---|---|---|
-| ICM-42688-P IMU | SPI1 | Yes |
+| ICM-42688-P IMU | SPI1 | Yes (init traffic; sample via GDB if needed) |
 | MS5611 barometer | SPI1 | Yes |
 | MAX31865 + PT1000 | SPI1 | Yes |
 | MAX-M10S GPS | USART1 (UART) | Yes |
-| RFM95W LoRa | SPI1 | F7 software-complete: init + TX API (`lora_tx`; not called from default `app_run`); packet v1 in `packet.h` |
-| microSD | SPI1 | F6 software-complete: `sdlog` + `sd_spi`; CS low in short protocol bursts (not permanent) |
+| RFM95W LoRa | SPI1 | F7: init + ~5 s beacon TX (`lora_tx`); packet v1 in `packet.h` |
+| microSD | SPI1 | F6: `sdlog` + `sd_spi`; CS low in short protocol bursts |
 | ArduCAM | SPI1 + I2C1 | Not yet (F9) |
 | DRA818V APRS | USART2 | Not yet (F10) |
 
-This is **bench bring-up**, not Phase F8 (mission scheduler). It uses a compile-gated loop in `app_run` so SPI keeps toggling after boot.
+This is **bench bring-up**, not Phase F8 (mission scheduler). The default firmware’s `app_run` bring-up beacon keeps SPI/LoRa/SD active after boot.
 
 ---
 
@@ -60,7 +61,7 @@ All three SPI sensors share SCLK/MOSI/MISO. Only **one** CS line goes low per tr
 | `IMU_CS` | PB0 | TP20 |
 | `BARO_CS` | PB2 | TP22 |
 | `Temp_CS` | PA8 | TP21 |
-| `LoRa_CS` | PB1 | TP23 (init SPI at boot; FIFO burst when `lora_tx` called) |
+| `LoRa_CS` | PB1 | TP23 (init SPI at boot; FIFO burst on each beacon TX) |
 | `microSD_CS` | PB3 | TP24 (transaction bursts during FatFs; idle high between ops) |
 | `Cam_CS` | PA4 | (idle — no driver) |
 
@@ -77,25 +78,22 @@ Settings: **9600 baud, 8N1**.
 
 ## 3. Firmware build for analyzer captures
 
-**Default build** (`make` with no options): SPI runs only during `app_init` (short burst at reset), then stays quiet. GPS UART still streams.
-
-**Bench build** (ongoing SPI sample traffic ~1 Hz):
+**Default build** (no special flags):
 
 ```bash
 cd balloon-project-stm32mx
-make clean && make BENCH=1
+make clean && make
 ```
 
 Flash `build/balloon-project-stm32mx.elf` or `.bin` per [`balloon-project-stm32mx/README.md`](../balloon-project-stm32mx/README.md) § SWD / flash.
 
-**Do not ship `BENCH=1` as flight firmware.** Phase F8 mission loop replaces this flag for operational builds.
+There is **no** `make BENCH=1` flag anymore. After `app_init`, `app_run` runs a **~5 s bring-up beacon** that (fail-soft):
 
-What `BENCH=1` does in `app_run` (every ~1 s, fail-soft):
+1. `gps_poll` every superloop iteration
+2. Every ~5 s: `baro_read`, `temp_read`, `gps_get_sample`, `sdlog_write_sample`, and `lora_tx` of packet v1 when LoRa is healthy
+3. IMU SPI runs at **init only** in the default loop; use GDB `imu_read` if you need periodic IMU sample frames on the analyzer
 
-1. `imu_read`
-2. `baro_read` (~20 ms internal conversion waits)
-3. `temp_read` (~60 ms internal conversion wait)
-4. `gps_poll` every superloop iteration (always, even without `BENCH=1`)
+F8 will replace the fixed 5 s beacon with the mission scheduler.
 
 ---
 
@@ -138,8 +136,8 @@ What `BENCH=1` does in `app_run` (every ~1 s, fail-soft):
 **Expect:**
 
 - At boot: several CS frames (WHO_AM_I, config). WHO_AM_I read on MISO includes **`0x47`**.
-- With `BENCH=1`: about **1 Hz** sample bursts. First MOSI byte of a sample read is **`0x9F`** (`0x1F | 0x80`).
-- IMU_CS falls, SCLK runs, MOSI/MISO active, IMU_CS rises. Other CS stay high.
+- Default loop does **not** issue periodic `imu_read`; after init, IMU_CS stays high unless you call `imu_read` from GDB (first MOSI byte of a sample read is **`0x9F`** = `0x1F | 0x80`).
+- When IMU SPI is active: IMU_CS falls, SCLK runs, MOSI/MISO active, IMU_CS rises. Other CS stay high.
 
 **Then** move only the CS clip to **TP22** (baro), then **TP21** (temp). Keep SCLK/MOSI/MISO on J11; change decoder Enable to the new CS channel.
 
@@ -149,8 +147,8 @@ What `BENCH=1` does in `app_run` (every ~1 s, fail-soft):
 
 **Expect:**
 
-- During an IMU transfer, **only** IMU_CS is low.
-- Without `BENCH=1`, after boot all CS idle **high** and SCLK quiet except the init burst.
+- During a baro/temp/LoRa/SD transfer, **only** that slave’s CS is low.
+- Between beacon ticks, CS lines idle **high** (short bursts every ~5 s for baro/temp/SD/LoRa).
 - CS never stuck low after a transfer ends.
 
 ### Capture C — GPS UART
@@ -170,21 +168,22 @@ What `BENCH=1` does in `app_run` (every ~1 s, fail-soft):
 
 ### IMU (ICM-42688-P)
 
-- CS-framed SPI on IMU_CS with clock activity.
+- CS-framed SPI on IMU_CS with clock activity at init.
 - WHO_AM_I response **`0x47`** at init.
-- Periodic `imu_read` bursts with `BENCH=1`.
+- Optional: GDB `imu_read` shows sample burst (MOSI first byte `0x9F`).
 
 ### Barometer (MS5611)
 
 - CS-framed SPI on BARO_CS.
 - MOSI shows command bytes (`0x1E` reset at init; `0x48`/`0x58` conversions; `0x00` ADC read).
 - Quiet gaps with CS high during ~10 ms conversions — **normal**.
+- Periodic conversion traffic about every **5 s** from the bring-up beacon.
 
 ### Temperature (MAX31865)
 
 - CS-framed SPI on Temp_CS.
 - CONFIG read-back **`0x90`** at init.
-- With `BENCH=1`: long quiet gap (~60 ms conversion) then RTD data burst.
+- About every **5 s**: long quiet gap (~60 ms conversion) then RTD data burst.
 
 ### GPS (MAX-M10S)
 
@@ -201,19 +200,17 @@ What `BENCH=1` does in `app_run` (every ~1 s, fail-soft):
 | CS low and stuck | Short, or `spi_bus_transfer` fault — check F1 |
 | Activity on wrong CS | Clip error or shorted CS lines |
 | GPS line idle forever | Wrong pin (TX vs RX), baud mismatch, module unpowered |
-| SPI quiet after boot only | Expected without `BENCH=1` — rebuild with `make BENCH=1` |
+| SPI quiet after boot (no ~5 s bursts) | Beacon not running, or LoRa/baro/temp all fail-soft before transfer — check `app_run` / health flags |
 
 ---
 
 ## 8. Explicitly not this branch
 
-- **LoRa:** F7 software-complete — `lora_init` configures radio at boot; `lora_tx` loads FIFO and transmits when called (GDB/F8). Default firmware does **not** TX from `app_run` except the bring-up beacon path. DIO0 (PB12) polled for TxDone. Packet v1 contract in `packet.h`; ground decode via `ground/decode_packet`. No `BENCH=1` LoRa loop yet.
-- **microSD:** F6 software-complete — `sdlog_init` / `sdlog_write_sample` via FatFs; `microSD_CS` low only for each SD SPI frame (`spi_bus_acquire` … release). Analyzer: short CS-low bursts, not stuck low. Optional: extend `BENCH=1` capture groups later.
+- **LoRa:** F7 software-complete — `lora_init` at boot; bring-up beacon calls `lora_tx` ~every 5 s when healthy. DIO0 (PB12) polled for TxDone. Packet v1 in `packet.h`; ground decode via `ground/decode_packet`.
+- **microSD:** F6 software-complete — beacon calls `sdlog_write_sample` ~every 5 s; `microSD_CS` low only for each SD SPI frame. Analyzer: short CS-low bursts, not stuck low.
 - **ArduCAM:** CS idle high; no driver traffic (F9).
 - **APRS USART2 / PTT / PWM:** Initialized idle; no App traffic.
 - **I2C1 (ArduCAM):** Bus idle after init.
-
-F7 LoRa is software-complete (see LoRa bullet above).
 
 ---
 

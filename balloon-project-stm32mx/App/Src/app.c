@@ -69,7 +69,7 @@ static void app_beacon_build(void)
   g_beacon_fields.batt = PACKET_V1_BATT_NA;
   g_beacon_fields.sats = 0u;
 
-  /* Low byte of the health bitfield: bit set = that subsystem is OK. */
+  /* Packet v1 flags: bit set = healthy (OK polarity). See packet.h / ground/README.md. */
   g_beacon_fields.flags = (uint8_t)(~error_flags_get() & 0xFFu);
 
   if (baro_is_ok() && baro_read(&baro))

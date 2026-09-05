@@ -2,11 +2,16 @@
  * @file packet.h
  * @brief Telemetry packet v1 wire format (28 bytes, big-endian, CRC-16/CCITT-FALSE).
  *
- * F7.4: shared contract for flight TX (F8 packetizer) and ground decode.
- * Header-only — no packet.c in firmware until F8 calls pack from app_run.
+ * F7.4: shared contract for flight TX and ground decode.
+ * Header-only — pack/unpack live here; app_run bring-up beacon already calls
+ * packet_v1_pack (F8 mission packetizer will reuse the same helpers).
  *
  * CRC: poly 0x1021, init 0xFFFF, refin/refout false, xorout 0x0000 (CCITT-FALSE).
  * CRC covers bytes 0–25; stored big-endian at offset 26.
+ *
+ * flags (offset 24): bit set = subsystem healthy (OK polarity). Bit positions match
+ * ERR_FLAG_* in error_flags.h (IMU=0 … APRS=7), but inverted vs the fault bitfield:
+ *   flags = (uint8_t)(~error_flags_get() & 0xFFu);
  */
 
 #pragma once
@@ -39,6 +44,7 @@ typedef struct
   int16_t baro_alt_m;
   int16_t temp_c_x100;
   uint16_t batt;
+  /** Health byte: bit set = OK (see file header); not the raw error_flags fault mask. */
   uint8_t flags;
   uint8_t sats;
 } packet_v1_t;

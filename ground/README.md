@@ -19,6 +19,23 @@ Software support for ops RX (second RFM95W + Nucleo). F7.4 does **not** flash Nu
 
 Payload on air is **28 bytes** per `App/Inc/packet.h` (packet v1). SX1276 adds its LoRa header/CRC around this; the decoder expects the **application payload** hex dump (56 hex chars).
 
+### `flags` byte (offset 24)
+
+Bit set = subsystem **healthy** (OK polarity). Positions match `ERR_FLAG_*` in `error_flags.h`, but inverted relative to the in-firmware fault bitfield (`error_flags_get()`):
+
+| Bit | Subsystem |
+|---|---|
+| 0 | IMU |
+| 1 | Baro |
+| 2 | Temp |
+| 3 | GPS |
+| 4 | SD |
+| 5 | LoRa |
+| 6 | Cam |
+| 7 | APRS |
+
+Flight firmware packs: `flags = (uint8_t)(~error_flags_get() & 0xFF)`.
+
 ## Build and decode
 
 ```bash

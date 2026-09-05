@@ -56,6 +56,7 @@
 | 0.36 | 2026-08-20 | Firmware | Fix F7.4 `test_packet_v1` minimal CRC golden (`0x18EF` over 26-byte payload); F7 still software-complete; HW → §21 |
 | 0.37 | 2026-08-22 | Firmware | F2–F4 hardware bench complete (§7–§9 HW exit + §21 F2–F4); Pre-F8 audit note (docs only); F6 flagged potentially incomplete (deeper dive later); stale F6/F8 entry ticks |
 | 0.38 | 2026-08-24 | Firmware | F6 audit + remediation: `spi_bus_acquire`/`release`, SD init ≤400 kHz, USERFatFS mount, host `test_sdlog_name`; F6 software-complete; HW → §21; §3.3 SD CS policy |
+| 0.39 | 2026-09-05 | Firmware | Post-F7 audit cleanup: confirm F0–F7 soft-complete / F8 next; drop stale `BENCH=1` docs; freeze packet `flags` OK polarity; §4 28B packet; F10 F5 entry tick |
 
 ### How to use this document
 
@@ -237,7 +238,7 @@ Two levels — do not conflate them.
 | **F5** | GPS driver | NMEA fix @ 9600 | F0 |
 | **F6** | SD logging | FatFS append log | F1 |
 | **F7** | LoRa telemetry TX | RFM95W packets | F1, packet draft, ground RX |
-| **F8** | Mission + packetizer | State machine + 48B packet | F2–F5 (soft), F7 for live TX |
+| **F8** | Mission + packetizer | State machine + 28B packet v1 | F2–F5 (soft), F7 for live TX |
 | **F9** | ArduCAM → SD | Images on card | F1, F6, **Gabe SKU** |
 | **F10** | APRS | Position beacons | F5, **callsign/license** |
 | **F11** | System integration (HIL) | End-to-end on hardware | F0–F10 as available |
@@ -512,7 +513,7 @@ Pressure and barometric altitude for ascent/float/descent logic.
 - [x] `baro_sample_t` with `pressure_pa`, `temp_centi_c`, `alt_m` (mission / telemetry units)
 - [x] `baro_read` = `baro_read_raw` + compensate cached PROM + ISA altitude (`baro_sample_from_raw`)
 - [x] Fail-soft health: invalid PROM, SPI, or compensate failure → `baro_set_ok(false)`; success → `baro_set_ok(true)`
-- [x] `baro_init` already wired in `app_init` (F3.1); `baro_read` not called from `app_run` until mission (F8)
+- [x] `baro_init` already wired in `app_init` (F3.1); `baro_read` used by bring-up beacon; F8 owns mission rate
 - [x] Altitude helper `baro_pressure_pa_to_alt_m` exposed for mission via `baro_sample_t.alt_m`
 - [x] Host-testable `baro_sample_from_raw` in `baro.h`; host test in `test_ms5611_comp` (manual run pending)
 
@@ -588,7 +589,7 @@ Outside-air temperature via RTD.
 - [x] `temp_raw_t` + `temp_read_raw()` polling API; reject zero ADC / SPI failure
 - [x] `temp_read_raw` success/failure updates `error_flags_set_temp_ok` and `temp_is_ok()`
 - [x] Host test `tests/host/test_max31865_cvd` (unpack + ohm + CVD vectors; manual pass 2026-08-15)
-- [x] Not called from `app_run` until mission (F8); `temp_read` deferred to F4.3
+- [x] Sample path landed in F4.2/F4.3; bring-up beacon calls `temp_read`; F8 owns mission rate
 
 #### F4.3 — API + faults
 
@@ -597,7 +598,7 @@ Outside-air temperature via RTD.
 - [x] `temp_sample_t` with `temp_centi_c` (packet `temp_c_x100`, int16 centi-°C)
 - [x] `temp_sample_from_raw` = ohm + CVD → centi-°C; fail on NULL, fault, zero ADC, CVD fail, int16 overflow
 - [x] `temp_read` = `temp_read_raw` + `temp_sample_from_raw`; fail-soft `temp_ok` / `error_flags`
-- [x] `temp_init` already wired in `app_init` (F4.1); `temp_read` not called from `app_run` until mission (F8)
+- [x] `temp_init` already wired in `app_init` (F4.1); `temp_read` used by bring-up beacon; F8 owns mission rate
 - [x] Host-testable `temp_sample_from_raw` in `temp.h`; host test in `test_max31865_cvd` (manual pass 2026-08-15)
 
 ### 9.3 Verification / exit criteria
@@ -619,7 +620,7 @@ Outside-air temperature via RTD.
 
 - [x] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
 - [x] Host `tests/host/test_max31865_cvd` extended with `temp_sample_from_raw` (manual pass 2026-08-15)
-- [x] `temp_read` fail path does not hang MCU — fail-soft `temp_ok` / `error_flags`; not called from `app_run` until mission (F8)
+- [x] `temp_read` fail path does not hang MCU — fail-soft `temp_ok` / `error_flags`; bring-up beacon calls `temp_read`
 
 **Hardware exit (closed 2026-08-22 — §21 F4 procedure passed):**
 
@@ -669,7 +670,7 @@ Non-blocking NMEA parser providing fix for recovery and APRS/LoRa.
 - [x] `gps_sample_t` + `gps_get_sample()`; integer-only `ddmm` → e7 (no libm)
 - [x] `gps_poll()` parses **every** complete line (GGA + RMC in one poll cycle)
 - [x] Host-testable parse helpers in `gps.h`; host `test_gps_nmea` (manual pass 2026-08-19)
-- [x] No `gps_has_fix()` (F5.3); `gps_get_sample` not called from `app_run` until F8
+- [x] No `gps_has_fix()` in this WP (F5.3); sample API deferred to F5.2/F5.3
 
 #### F5.3 — Fix validity
 
@@ -680,7 +681,7 @@ Non-blocking NMEA parser providing fix for recovery and APRS/LoRa.
 - [x] Indoor / no lock: quality 0 + RMC V → false even when sentences parse
 - [x] OR rule (not AND GGA+RMC) — either sentence type can assert fix
 - [x] `gps_ok` unchanged — RX armed only; no `error_flags` change on fix
-- [x] Not called from `app_run` until F8
+- [x] Bring-up beacon uses `gps_get_sample` (fix fields when valid); F8 may gate on `gps_has_fix`
 - [x] Host `test_gps_nmea` extended with fix-validity vectors (manual pass 2026-08-19)
 
 #### F5.4 — Optional UBX config (later)
@@ -703,7 +704,7 @@ Non-blocking NMEA parser providing fix for recovery and APRS/LoRa.
 - [x] Host `tests/host/test_gps_nmea` pass (manual, 2026-08-19; GGA/RMC golden sentences, checksum, merge)
 - [x] `gps_poll()` parses every complete line; bad checksum does not clear merged sample
 - [x] No `gps_has_fix()` in F5.2 — deferred to F5.3
-- [x] `gps_get_sample` not called from `app_run` until mission (F8)
+- [x] Bring-up beacon calls `gps_get_sample`; F8 owns mission scheduling
 
 **Software verification (F5.3 — 2026-08-19):**
 
@@ -827,7 +828,7 @@ Ground-receivable telemetry (primary recovery link).
 - [x] DioMapping1 DIO0 = TxDone (`0x40`); IRQ flags cleared before/after TX
 - [x] TX timeout forces standby; `lora_set_ok(false)` — fail-soft, no hang
 - [x] `lora_get_seq()` — increments after each successful TX (wraps at 65535)
-- [x] Payload 1..255 bytes; no TX from `app_run` (F8 owns rate)
+- [x] Payload 1..255 bytes; bring-up beacon TX ~0.2 Hz; F8 owns mission rate scheduler
 - [x] Clean build verified (2026-08-20); no packetizer or ground RX in F7.3
 
 #### F7.4 — Ground station
@@ -839,7 +840,7 @@ Ground-receivable telemetry (primary recovery link).
 - [x] `packet_v1_pack` / `packet_v1_unpack` / `packet_crc16` (header-only; F8 packetizer reuses)
 - [x] Host `test_packet_v1` (pack, unpack round-trip, corrupt/version fail; minimal CRC golden `0x18EF`; manual run pending)
 - [x] `ground/decode_packet` CLI — hex payload decode + RSSI/SNR log (`n/a` if omitted)
-- [x] Clean build verified (2026-08-20); no `app_run` TX or Nucleo RX firmware in F7.4
+- [x] Clean build verified (2026-08-20); F7.4 itself had no `app_run` TX (bring-up beacon added later; F8 owns mission rate)
 
 ### 12.3 Proposed packet v1 (freeze as team Q16)
 
@@ -889,14 +890,14 @@ Autonomous flight behavior and unified telemetry packing.
 - [x] F3 and/or F5 software-complete (altitude API available) — F3 `baro_read` / F5 GPS APIs
 - [x] F7 software-complete for live TX (state machine host-testable without radio) — 2026-08-20
 
-### 13.1.1 Pre-F8 audit (docs only — 2026-08-22; F6 updated 2026-08-24)
+### 13.1.1 Pre-F8 audit (docs only — 2026-08-22; F6 updated 2026-08-24; cleanup 2026-09-05)
 
-F8 coding may start per §4 / §13.1. Remaining soft spots outside F6:
+F8 coding may start per §4 / §13.1. Soft spots cleared or frozen in rev 0.39:
 
 - **F6 software-complete** (2026-08-24 audit remediation); HW exit still §21.
-- Packet `flags` polarity in `app.c` vs `error_flags.h` may be inverted (verify later; no code change this rev).
-- Doc/code drift: §4 phase table “48B packet” vs 28-byte `packet.h` v1; some headers claim LoRa not in `app_run` while a bring-up beacon exists.
-- Host tests still marked pending in `tests/host/README.md`: `test_ms5611_adc`, `test_ms5611_comp`, `test_packet_v1`, `test_sdlog_name`.
+- Packet `flags` polarity **frozen**: wire byte bit set = healthy (OK); `flags = (uint8_t)(~error_flags_get() & 0xFFu)` — documented in `packet.h` and `ground/README.md`.
+- Doc/code drift fixed: §4 “28B packet v1”; headers/`app_run` bring-up beacon wording aligned; `BENCH=1` removed from §21 and Logic Analyzer Bench Guide (default ~5 s beacon).
+- Host tests still marked pending in `tests/host/README.md`: `test_ms5611_adc`, `test_ms5611_comp`, `test_packet_v1`, `test_sdlog_name` (developer manual run).
 - F1 §6.4 HW ticks vs §21 F1 open — consistency cleanup later if desired.
 - Open §21 for F0/F1/F5/F6/F7 remain non-blockers for F8 coding.
 
@@ -1006,7 +1007,7 @@ Backup VHF position beacons.
 
 ### 15.1 Entry criteria
 
-- [ ] F5 software-complete (GPS fix API for payload encoding)
+- [x] F5 software-complete (GPS fix API for payload encoding)
 - [ ] APRS cable correct (mirrored face-to-face) — bench validation in §21
 - [ ] Audio path connected (team confirmed) — bench validation in §21
 
@@ -1161,7 +1162,7 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 
 **Process:** When a work package completes in software, add matching HW checks below if not already listed. Clear ticks with date and pass/fail note.
 
-**Logic analyzer:** For SPI/UART wire-level checks on IMU, baro, temp, and GPS, flash `make BENCH=1` firmware and follow [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md) (Captures A–C). GDB remains available for functional checks listed in each phase procedure below.
+**Logic analyzer:** For SPI/UART wire-level checks on IMU, baro, temp, and GPS, flash the **default** firmware (`make clean && make`) and follow [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md) (Captures A–C). The ~5 s bring-up beacon exercises baro/temp/SD/LoRa; IMU sample frames need GDB `imu_read` if required. GDB remains available for functional checks listed in each phase procedure below.
 
 ### F0 — Foundation
 
@@ -1173,7 +1174,7 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 - [ ] Dummy SPI transfer does not leave any CS stuck low
 - [ ] Timeout path releases CS (analyzer or fault injection)
 
-**Logic analyzer:** [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md) Capture B with `make BENCH=1` firmware (idle CS + single-slave activity during IMU/baro/temp reads).
+**Logic analyzer:** [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md) Capture B with default firmware (idle CS + single-slave activity during beacon baro/temp/SD/LoRa transfers).
 
 ### F2 — IMU (ICM-42688-P)
 
@@ -1185,12 +1186,12 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 
 **Bench procedure (when PCB + ST-Link available):**
 
-1. Flash `build/balloon-project-stm32mx.elf` built with `make BENCH=1` (see `balloon-project-stm32mx/README.md` § SWD / flash and [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md) Capture A).
+1. Flash `build/balloon-project-stm32mx.elf` from default `make` (see `balloon-project-stm32mx/README.md` § SWD / flash and [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md) Capture A).
 2. Confirm `app_init` → `while(1)` / `app_run` after reset.
-3. Logic analyzer: SPI on J11 + IMU_CS (TP20); WHO_AM_I MISO byte `0x47`; with `BENCH=1`, ~1 Hz `imu_read` bursts (MOSI first byte `0x9F`).
+3. Logic analyzer: SPI on J11 + IMU_CS (TP20); WHO_AM_I MISO byte `0x47` at init; periodic `imu_read` only if called from GDB (MOSI first byte `0x9F`).
 4. After `imu_init`: `imu_init()` returns true, `imu_is_ok()` true, `error_flags_imu_ok()` true; optional WHO_AM_I reg read = `0x47` (SWD/GDB).
 5. Read-back via SPI/debugger: `GYRO_CONFIG0` / `ACCEL_CONFIG0` = `0x08`, `PWR_MGMT0` = `0x0F`.
-6. `imu_read(&sample)` repeatedly (bench loop or GDB): flat rest ~1 g on one accel axis (orientation-dependent); tilt/rotate changes ax/ay/az and gx/gy/gz; `imu_is_ok()` stays true on success.
+6. `imu_read(&sample)` repeatedly (GDB): flat rest ~1 g on one accel axis (orientation-dependent); tilt/rotate changes ax/ay/az and gx/gy/gz; `imu_is_ok()` stays true on success.
 7. Tick checklist above + §7.3 hardware exit items; add roadmap rev with bench date; update §7 phase status to `complete (bench YYYY-MM-DD)`.
 8. PR title: `firmware: complete Phase F2 — IMU` (roadmap §20).
 
@@ -1208,11 +1209,11 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 
 **Bench procedure (when PCB + ST-Link available):**
 
-1. Flash `build/balloon-project-stm32mx.elf` built with `make BENCH=1` (see README § SWD / flash and [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md) Capture A — move CS clip to TP22).
+1. Flash `build/balloon-project-stm32mx.elf` from default `make` (see README § SWD / flash and [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md) Capture A — move CS clip to TP22).
 2. Confirm `app_init` → `while(1)` / `app_run` after reset.
-3. Logic analyzer: SPI on J11 + BARO_CS (TP22); PROM/ADC frames; quiet gaps during conversions normal; CS not stuck low.
+3. Logic analyzer: SPI on J11 + BARO_CS (TP22); PROM/ADC frames; quiet gaps during conversions normal; CS not stuck low; ~5 s beacon repeats `baro_read`.
 4. After `baro_init`: `baro_init()` returns true, `baro_is_ok()` true, `error_flags_baro_ok()` true.
-5. `baro_read_raw(&raw)` repeatedly (bench loop or GDB): non-zero `raw.d1` / `raw.d2`; `baro_is_ok()` true; D1 changes when board lifted ~1–2 m.
+5. `baro_read_raw(&raw)` repeatedly (beacon or GDB): non-zero `raw.d1` / `raw.d2`; `baro_is_ok()` true; D1 changes when board lifted ~1–2 m.
 6. `baro_read(&sample)` repeatedly: indoor `sample.pressure_pa / 100` ≈ 980–1040 hPa (site-dependent); `baro_is_ok()` true on success; raise board ~1–2 m and confirm `sample.alt_m` increases directionally.
 7. Tick checklist above + §8.3 hardware exit items; add roadmap rev with bench date.
 8. PR title: `firmware: complete Phase F3 — Barometer` (roadmap §20).
@@ -1231,10 +1232,10 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 
 **Bench procedure (when PCB + ST-Link available):**
 
-1. Flash `build/balloon-project-stm32mx.elf` built with `make BENCH=1` (see README and [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md) Capture A — move CS clip to TP21).
-2. Logic analyzer: SPI on J11 + Temp_CS (TP21); CONFIG read-back `0x90` at init; with `BENCH=1`, ~60 ms conversion gap then RTD burst.
+1. Flash `build/balloon-project-stm32mx.elf` from default `make` (see README and [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md) Capture A — move CS clip to TP21).
+2. Logic analyzer: SPI on J11 + Temp_CS (TP21); CONFIG read-back `0x90` at init; ~5 s beacon: ~60 ms conversion gap then RTD burst.
 3. After `temp_init`: `temp_init()` returns true, `temp_is_ok()` true, `error_flags_temp_ok()` true; optional CONFIG reg read-back = `0x90` (SWD/GDB).
-4. `temp_read_raw(&raw)` repeatedly (bench loop or GDB): non-zero `raw.adc`; `temp_is_ok()` true on success; room-temp °C plausible via `temp_rtd_adc_to_ohm` + `temp_pt1000_ohm_to_c`.
+4. `temp_read_raw(&raw)` repeatedly (beacon or GDB): non-zero `raw.adc`; `temp_is_ok()` true on success; room-temp °C plausible via `temp_rtd_adc_to_ohm` + `temp_pt1000_ohm_to_c`.
 5. `temp_read(&sample)` repeatedly — room-temp plausible; `temp_is_ok()` true on success; hand on probe changes reading.
 6. Tick checklist above + §9.3 hardware exit items; add roadmap rev with bench date.
 
@@ -1251,7 +1252,7 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 
 **Bench procedure (when PCB + ST-Link available):**
 
-1. Flash firmware (`make` or `make BENCH=1` — GPS needs no bench flag); confirm `app_init` → `app_run`; `gps_is_ok()` true after init (RX armed).
+1. Flash default firmware (`make`); confirm `app_init` → `app_run`; `gps_is_ok()` true after init (RX armed).
 2. Logic analyzer: [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md) Capture C — UART on PA10 (`GPS_TX` → MCU RX), 9600 8N1; NMEA visible; fix not required indoors.
 3. Indoor (F5.1): confirm `gps_poll()` receives NMEA via `gps_copy_line()` (SWD/GDB optional).
 4. After F5.2/F5.3: indoor sentences parse; `gps_has_fix()` may be false (expected).
@@ -1290,7 +1291,7 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 1. Flash firmware; confirm `app_init` → `app_run` after reset.
 2. After `lora_init`: `lora_init()` returns true, `lora_is_ok()` true, `lora_get_version()` = `0x12` (SWD/GDB optional).
 3. After F7.2: SPI/GDB read-back OpMode `0x81`, Frf `0xE4C000` (`0xE4`/`0xC0`/`0x00`), ModemConfig1 `0x72`, ModemConfig2 `0x84`, SyncWord `0x12`.
-4. Optional logic analyzer: SPI on J11 + `LoRa_CS` (TP23); VERSION + modem config at boot; FIFO burst only when `lora_tx` called (GDB/F8).
+4. Optional logic analyzer: SPI on J11 + `LoRa_CS` (TP23); VERSION + modem config at boot; FIFO burst on each bring-up beacon TX (~5 s).
 5. After F7.3: GDB `lora_tx` — DIO0 (PB12) rises; `lora_get_seq()` increments on success.
 6. When F7.4 lands: match modem settings to ground RX (SF/BW/freq/sync per §12.2); TX packets; ground station logs increasing `seq`, valid CRC — **decoder ready:** feed Nucleo RX hex payload + `--rssi` / `--snr` into `ground/decode_packet` (see `ground/README.md`).
 7. Tick checklist above + §12.4 hardware exit items; add roadmap rev with bench date.

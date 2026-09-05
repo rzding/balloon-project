@@ -358,7 +358,8 @@ bool baro_read_raw(baro_raw_t *out);
  * @brief Poll compensated pressure, temperature, and ISA altitude.
  *
  * Calls baro_read_raw, then compensates using cached PROM and computes altitude.
- * Updates health on success or failure. Not called from app_run until mission (F8).
+ * Updates health on success or failure. Called from the app_run bring-up beacon;
+ * F8 mission loop will keep calling it on the scheduler tick.
  *
  * @param out Out sample; must not be NULL.
  * @return false on NULL @p out, invalid PROM, SPI failure, or compensation failure; true on success.

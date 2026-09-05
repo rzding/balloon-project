@@ -883,7 +883,8 @@ bool gps_get_sample(gps_sample_t *out);
 /**
  * @brief True when merged sample has a valid fix from GGA quality or RMC status.
  *
- * Not the same as gps_is_ok() (RX path armed). Not called from app_run until F8.
+ * Not the same as gps_is_ok() (RX path armed). Bring-up beacon uses gps_get_sample
+ * (and thus fix fields when valid); F8 mission SM will gate on gps_has_fix as needed.
  */
 bool gps_has_fix(void);
 

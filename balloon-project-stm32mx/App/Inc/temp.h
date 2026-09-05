@@ -227,7 +227,8 @@ bool temp_read_raw(temp_raw_t *out);
  * @brief Poll compensated outside-air temperature in centi-degrees Celsius.
  *
  * Calls temp_read_raw, then converts RTD resistance to °C via CVD.
- * Updates health on success or failure. Not called from app_run until mission (F8).
+ * Updates health on success or failure. Called from the app_run bring-up beacon;
+ * F8 mission loop will keep calling it on the scheduler tick.
  *
  * @param out Out sample; must not be NULL.
  * @return false on NULL @p out, SPI failure, fault, zero ADC, or conversion failure; true on success.
