@@ -36,6 +36,21 @@ Bit set = subsystem **healthy** (OK polarity). Positions match `ERR_FLAG_*` in `
 
 Flight firmware packs: `flags = (uint8_t)(~error_flags_get() & 0xFF)`.
 
+### `mission_state` byte (offset 1)
+
+Values from flight `mission.h` (`mission_state_t`):
+
+| Value | Name |
+|---|---|
+| 0 | PAD |
+| 1 | ARMED |
+| 2 | ASCENT |
+| 3 | FLOAT |
+| 4 | BURST |
+| 5 | DESCENT |
+| 6 | LANDED |
+| 7 | BEACON |
+
 ## Build and decode
 
 ```bash

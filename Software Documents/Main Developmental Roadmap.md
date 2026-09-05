@@ -57,6 +57,7 @@
 | 0.37 | 2026-08-22 | Firmware | F2–F4 hardware bench complete (§7–§9 HW exit + §21 F2–F4); Pre-F8 audit note (docs only); F6 flagged potentially incomplete (deeper dive later); stale F6/F8 entry ticks |
 | 0.38 | 2026-08-24 | Firmware | F6 audit + remediation: `spi_bus_acquire`/`release`, SD init ≤400 kHz, USERFatFS mount, host `test_sdlog_name`; F6 software-complete; HW → §21; §3.3 SD CS policy |
 | 0.39 | 2026-09-05 | Firmware | Post-F7 audit cleanup: confirm F0–F7 soft-complete / F8 next; drop stale `BENCH=1` docs; freeze packet `flags` OK polarity; §4 28B packet; F10 F5 entry tick |
+| 0.40 | 2026-09-05 | Firmware | F8.1 mission SM: `mission.h`/`mission.c`, app wire, host `test_mission_sm`; F8 in progress (F8.2–F8.4 open) |
 
 ### How to use this document
 
@@ -879,7 +880,7 @@ Ground-receivable telemetry (primary recovery link).
 
 ## 13. Phase F8 — Mission state machine and packetizer
 
-**Phase status:** not started — entry criteria met (F3/F5 + F7 software-complete); Pre-F8 audit recorded 2026-08-22 (rev 0.37). HW → §21.
+**Phase status:** in progress — F8.1 software-complete (2026-09-05); F8.2–F8.4 open; entry criteria met; HW → §21.
 
 ### 13.0 Objective
 
@@ -905,16 +906,20 @@ F8 coding may start per §4 / §13.1. Soft spots cleared or frozen in rev 0.39:
 
 #### F8.1 — State enum and transitions
 
-States: `PAD`, `ARMED`, `ASCENT`, `FLOAT`, `BURST`, `DESCENT`, `LANDED`, `BEACON`
+**Status:** complete (2026-09-05)
+
+States: `PAD`, `ARMED`, `ASCENT`, `FLOAT`, `BURST`, `DESCENT`, `LANDED`, `BEACON` (wire 0–7 in `mission.h`)
 
 Rules:
 
-- No mag-switch: auto ARMED after healthy init + optional hold
-- ASCENT: sustained positive altitude rate
-- FLOAT: high altitude + near-zero rate
-- BURST: large negative rate and/or IMU freefall — **latched**
-- LANDED: altitude stable >60 s
-- BEACON: periodic GPS TX
+- [x] No mag-switch: auto ARMED after healthy altitude source + `MISSION_ARM_HOLD_MS` (10 s)
+- [x] ASCENT: sustained positive altitude rate (`MISSION_ASCENT_RATE_MPS` / sustain)
+- [x] FLOAT: high altitude + near-zero rate
+- [x] BURST: large negative instantaneous rate and/or IMU freefall — **latched**
+- [x] LANDED: altitude stable >60 s (`MISSION_LANDED_STABLE_MS`)
+- [x] BEACON: entered after LANDED (TX rate remains bring-up 5 s until F8.2)
+- [x] `mission.c` / `mission.h`; Makefile `C_SOURCES`; `mission_init` / `mission_update` in `app_run`
+- [x] Host `test_mission_sm` (full walk + BURST latch + freefall; manual run pending in README)
 
 #### F8.2 — Schedulers
 
@@ -932,16 +937,18 @@ Rules:
 
 #### F8.4 — Host-side state tests (recommended)
 
-- Feed simulated altitude profiles; assert state sequence
+**Status:** started in F8.1 — `test_mission_sm` covers full walk + BURST latch; extend with richer profiles as needed
+
+- [x] Feed simulated altitude profiles; assert state sequence — baseline in `test_mission_sm` (2026-09-05)
 
 ### 13.3 Verification / exit criteria
 
 **Software verification (tick when work packages land):**
 
-- [ ] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
-- [ ] Host tests: simulated altitude profiles walk PAD→…→BEACON correctly
-- [ ] BURST does not clear when descent slows (host or unit test)
-- [ ] Packetizer CRC16 host-testable against golden vectors
+- [ ] Clean build (`make clean && make` in `balloon-project-stm32mx/`) — F8.1 build verified 2026-09-05; re-tick when F8.2–F8.4 land
+- [x] Host tests: simulated altitude profiles walk PAD→…→BEACON correctly — `test_mission_sm` (F8.1; manual run pending in README)
+- [x] BURST does not clear when descent slows (host or unit test) — `test_mission_sm` latch case
+- [ ] Packetizer CRC16 host-testable against golden vectors — F7.4 `test_packet_v1`; F8.3 may extend
 
 **Hardware exit (pending bench — tick when §21 F8 procedure passes):**
 

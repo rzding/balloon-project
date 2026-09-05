@@ -35,6 +35,7 @@
 typedef struct
 {
   uint8_t version;
+  /** See mission.h mission_state_t (PAD=0 … BEACON=7). */
   uint8_t mission_state;
   uint16_t seq;
   uint32_t time_ms;

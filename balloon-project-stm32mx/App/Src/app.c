@@ -11,17 +11,18 @@
 #include "imu.h"
 #include "lora.h"
 #include "main.h"
+#include "mission.h"
 #include "packet.h"
 #include "sdlog.h"
 #include "temp.h"
 
-/** Beacon transmit period (ms). */
-#define APP_BEACON_PERIOD_MS  5000u
+/** Beacon transmit period (ms). F8.2 will replace with per-state rates. */
+#define APP_BEACON_PERIOD_MS       5000u
 
-/** Mission state reported in packet v1 while in bring-up. */
-#define APP_MISSION_STATE_BENCH  0x00u
+/** Altitude refresh period for mission SM (ms); IMU polled every superloop. */
+#define APP_MISSION_ALT_PERIOD_MS  1000u
 
-/* Bench telemetry beacon (F7.3 bring-up).
+/* Bring-up telemetry beacon (F7/F8.1).
  *
  * Deliberately NOT static: file-local symbols can only be resolved by bare
  * name while halted inside this translation unit, which makes them awkward to
@@ -30,6 +31,11 @@
  * optimisation level is raised later (nothing in the firmware reads them).
  */
 static uint32_t s_beacon_next_ms;
+static uint32_t s_mission_alt_next_ms;
+static float s_mission_alt_m;
+static bool s_mission_alt_valid;
+static bool s_mission_alt_source_ok;
+
 volatile uint32_t g_beacon_attempts;
 volatile uint32_t g_beacon_ok;
 volatile uint32_t g_beacon_fail;
@@ -45,7 +51,82 @@ bool app_init(void)
   (void)gps_init();  /* fail-soft: false does not abort app_init */
   (void)lora_init(); /* fail-soft: false does not abort app_init */
   (void)sdlog_init();  /* fail-soft: false does not abort app_init */
+  mission_init();
+  s_mission_alt_m = 0.0f;
+  s_mission_alt_valid = false;
+  s_mission_alt_source_ok = false;
   return true;
+}
+
+/** Refresh cached altitude for the mission SM (baro preferred, else GPS). */
+static void app_mission_refresh_alt(void)
+{
+  baro_sample_t baro;
+  gps_sample_t gps;
+  bool baro_ok = false;
+  bool gps_alt_ok = false;
+
+  s_mission_alt_valid = false;
+  s_mission_alt_source_ok = false;
+
+  if (baro_is_ok() && baro_read(&baro))
+  {
+    s_mission_alt_m = baro.alt_m;
+    s_mission_alt_valid = true;
+    baro_ok = true;
+  }
+
+  if (gps_get_sample(&gps) && gps.alt_valid && gps.alt_m > 0)
+  {
+    gps_alt_ok = true;
+    if (!s_mission_alt_valid)
+    {
+      s_mission_alt_m = (float)gps.alt_m;
+      s_mission_alt_valid = true;
+    }
+  }
+
+  s_mission_alt_source_ok = baro_ok || gps_alt_ok;
+}
+
+/**
+ * @brief Feed mission_update: IMU every call; altitude on APP_MISSION_ALT_PERIOD_MS.
+ */
+static void app_mission_tick(void)
+{
+  mission_input_t in;
+  imu_sample_t imu;
+  const uint32_t now = HAL_GetTick();
+  unsigned i;
+
+  in.time_ms = now;
+  in.alt_m = s_mission_alt_m;
+  in.alt_valid = s_mission_alt_valid;
+  in.altitude_source_ok = s_mission_alt_source_ok;
+  in.imu_valid = false;
+  for (i = 0u; i < 3u; i++)
+  {
+    in.accel_g[i] = 0.0f;
+  }
+
+  if ((now - s_mission_alt_next_ms) >= APP_MISSION_ALT_PERIOD_MS)
+  {
+    s_mission_alt_next_ms = now;
+    app_mission_refresh_alt();
+    in.alt_m = s_mission_alt_m;
+    in.alt_valid = s_mission_alt_valid;
+    in.altitude_source_ok = s_mission_alt_source_ok;
+  }
+
+  if (imu_is_ok() && imu_read(&imu))
+  {
+    in.accel_g[0] = (float)imu.ax / IMU_ACCEL_LSB_PER_G;
+    in.accel_g[1] = (float)imu.ay / IMU_ACCEL_LSB_PER_G;
+    in.accel_g[2] = (float)imu.az / IMU_ACCEL_LSB_PER_G;
+    in.imu_valid = true;
+  }
+
+  mission_update(&in);
 }
 
 /* Fill g_beacon_fields from whatever sensors are healthy right now.
@@ -58,7 +139,7 @@ static void app_beacon_build(void)
   gps_sample_t gps;
 
   g_beacon_fields.version = PACKET_V1_VERSION;
-  g_beacon_fields.mission_state = APP_MISSION_STATE_BENCH;
+  g_beacon_fields.mission_state = (uint8_t)mission_get_state();
   g_beacon_fields.seq = lora_get_seq();
   g_beacon_fields.time_ms = HAL_GetTick();
   g_beacon_fields.lat_e7 = 0;
@@ -128,7 +209,8 @@ static void app_beacon_tick(void)
 
 void app_run(void)
 {
-  /* Subsystem faults must not stop the superloop; F8+ mission tick runs regardless. */
+  /* Subsystem faults must not stop the superloop; mission tick runs regardless. */
   (void)gps_poll();
+  app_mission_tick();
   app_beacon_tick();
 }
