@@ -61,6 +61,7 @@
 | 0.41 | 2026-09-05 | Firmware | F8.2 schedulers: `schedule.h`/`schedule.c`, state LoRa/camera periods, host `test_schedule`; F8.3 open |
 | 0.42 | 2026-09-05 | Firmware | F8.3 packetizer: `packetizer_fill`/`pack`, app wire, host `test_packetizer`; F8 software path complete pending §21 HW |
 | 0.43 | 2026-09-05 | Firmware | F8.4 complete: richer host edge profiles in `test_mission_sm`; F8 software exit confirmed; HW → §21 |
+| 0.44 | 2026-09-05 | Firmware | F10.1 complete: `aprs` PD/PTT idle high, USART2 9600, AT connect/group/volume/filter; host `test_aprs_at`; F10.2–F10.4 open; HW → §21 |
 
 ### How to use this document
 
@@ -1023,7 +1024,7 @@ Capture flight imagery to microSD without breaking telemetry deadlines.
 
 ## 15. Phase F10 — APRS (DRA818V)
 
-**Phase status:** not started — software dry-run unblocked by F5 software-complete; on-air blocked by license; HW → §21.
+**Phase status:** F10.1 complete (2026-09-05); F10.2–F10.4 open; on-air blocked by license; HW → §21.
 
 ### 15.0 Objective
 
@@ -1041,8 +1042,14 @@ Backup VHF position beacons.
 
 #### F10.1 — Power and AT config
 
-- PD high (normal); PTT high (RX) idle
-- UART AT: frequency 144.390 MHz, volume, squelch per datasheet
+**Status:** complete (2026-09-05)
+
+- [x] PD high (normal); PTT high (RX) idle — CubeMX USER CODE + `aprs_init`
+- [x] USART2 @ 9600 8N1 (USER CODE re-init + `.ioc`); DRA818V AT baud
+- [x] AT sequence: `DMOCONNECT` (≤3 retries) → `DMOSETGROUP` 144.3900 / SQ=4 → `DMOSETVOLUME=8` → `SETFILTER=1,1,1`
+- [x] `aprs.c` / `aprs.h`; Makefile `C_SOURCES`; `(void)aprs_init()` fail-soft in `app_init`
+- [x] `error_flags_set_aprs_ok` + `aprs_is_ok()`; host `test_aprs_at` (AT format / ACK parse)
+- [x] Clean build verified (2026-09-05); **no PTT TX / no AFSK / no `APRS_RF_ENABLE`** in F10.1
 
 #### F10.2 — AFSK generator
 
@@ -1356,8 +1363,8 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 
 **Bench procedure (when APRS hardware + license available):**
 
-1. Dry-run with `APRS_RF_ENABLE=0`: AT ACK, scope on audio tones.
-2. On-air only with license: verify decode on APRS client / HT.
+1. F10.1 dry-run (PTT stays high): confirm USART2 @ 9600 AT sequence ACK — `DMOCONNECT` → `DMOSETGROUP` 144.3900 → `DMOSETVOLUME` → `SETFILTER`; PD/PTT idle high; `aprs_is_ok()`.
+2. After F10.2+ with `APRS_RF_ENABLE=0`: scope audio tones; then on-air only with license: verify decode on APRS client / HT.
 3. Tick checklist above + §15.3 hardware exit items; add roadmap rev with bench date.
 
 ### Notes

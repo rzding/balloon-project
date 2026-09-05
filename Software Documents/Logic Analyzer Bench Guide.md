@@ -38,7 +38,7 @@ This guide explains how to use a **logic analyzer** to verify bus wiring and liv
 | RFM95W LoRa | SPI1 | F7–F8.2: init + state-scheduled TX (`schedule.h`); packet v1 in `packet.h` |
 | microSD | SPI1 | F6: `sdlog` + `sd_spi`; CS low in short protocol bursts |
 | ArduCAM | SPI1 + I2C1 | Not yet (F9) |
-| DRA818V APRS | USART2 | Not yet (F10) |
+| DRA818V APRS | USART2 | F10.1 boot AT @ 9600; PTT/PD idle high |
 
 This is **bench bring-up** with the flight `app_run` loop (mission SM + F8.2 scheduler). SPI/LoRa/SD stay active after boot on the LoRa-due schedule.
 
@@ -210,7 +210,7 @@ Periods live in `App/Inc/schedule.h`.
 - **LoRa:** F7–F8.2 — `lora_init` at boot; `schedule_poll` drives `lora_tx` by mission state (~2 s on PAD). DIO0 (PB12) polled for TxDone. Packet v1 in `packet.h`; ground decode via `ground/decode_packet`.
 - **microSD:** F6 — `sdlog_write_sample` on each LoRa-due; `microSD_CS` low only for each SD SPI frame. Analyzer: short CS-low bursts, not stuck low.
 - **ArduCAM:** CS idle high; no driver traffic (F9).
-- **APRS USART2 / PTT / PWM:** Initialized idle; no App traffic.
+- **APRS USART2 / PTT / PWM:** F10.1 — boot AT on USART2 @ 9600 (`DMOCONNECT` / group / volume / filter); PD high, PTT high (RX idle). No AFSK PWM / no PTT TX until F10.2–F10.3.
 - **I2C1 (ArduCAM):** Bus idle after init.
 
 ---

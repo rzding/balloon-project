@@ -72,6 +72,7 @@ App/Src/spi_bus.c \
 App/Src/temp.c \
 App/Src/gps.c \
 App/Src/lora.c \
+App/Src/aprs.c \
 App/Src/sd_spi.c \
 App/Src/sdlog.c \
 FATFS/App/fatfs.c \

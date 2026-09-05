@@ -5,6 +5,7 @@
 
 #include "app.h"
 
+#include "aprs.h"
 #include "baro.h"
 #include "error_flags.h"
 #include "gps.h"
@@ -47,6 +48,7 @@ bool app_init(void)
   (void)temp_init(); /* fail-soft: false does not abort app_init */
   (void)gps_init();  /* fail-soft: false does not abort app_init */
   (void)lora_init(); /* fail-soft: false does not abort app_init */
+  (void)aprs_init(); /* fail-soft: false does not abort app_init */
   (void)sdlog_init();  /* fail-soft: false does not abort app_init */
   mission_init();
   schedule_init();
