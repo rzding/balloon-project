@@ -57,6 +57,10 @@
 | 0.37 | 2026-08-22 | Firmware | F2–F4 hardware bench complete (§7–§9 HW exit + §21 F2–F4); Pre-F8 audit note (docs only); F6 flagged potentially incomplete (deeper dive later); stale F6/F8 entry ticks |
 | 0.38 | 2026-08-24 | Firmware | F6 audit + remediation: `spi_bus_acquire`/`release`, SD init ≤400 kHz, USERFatFS mount, host `test_sdlog_name`; F6 software-complete; HW → §21; §3.3 SD CS policy |
 | 0.39 | 2026-09-05 | Firmware | Post-F7 audit cleanup: confirm F0–F7 soft-complete / F8 next; drop stale `BENCH=1` docs; freeze packet `flags` OK polarity; §4 28B packet; F10 F5 entry tick |
+| 0.40 | 2026-09-05 | Firmware | F8.1 mission SM: `mission.h`/`mission.c`, app wire, host `test_mission_sm`; F8 in progress (F8.2–F8.4 open) |
+| 0.41 | 2026-09-05 | Firmware | F8.2 schedulers: `schedule.h`/`schedule.c`, state LoRa/camera periods, host `test_schedule`; F8.3 open |
+| 0.42 | 2026-09-05 | Firmware | F8.3 packetizer: `packetizer_fill`/`pack`, app wire, host `test_packetizer`; F8 software path complete pending §21 HW |
+| 0.43 | 2026-09-05 | Firmware | F8.4 complete: richer host edge profiles in `test_mission_sm`; F8 software exit confirmed; HW → §21 |
 
 ### How to use this document
 
@@ -879,7 +883,7 @@ Ground-receivable telemetry (primary recovery link).
 
 ## 13. Phase F8 — Mission state machine and packetizer
 
-**Phase status:** not started — entry criteria met (F3/F5 + F7 software-complete); Pre-F8 audit recorded 2026-08-22 (rev 0.37). HW → §21.
+**Phase status:** software-complete (F8.1–F8.4, 2026-09-05); HW exit open (§13.3 / §21).
 
 ### 13.0 Objective
 
@@ -905,43 +909,63 @@ F8 coding may start per §4 / §13.1. Soft spots cleared or frozen in rev 0.39:
 
 #### F8.1 — State enum and transitions
 
-States: `PAD`, `ARMED`, `ASCENT`, `FLOAT`, `BURST`, `DESCENT`, `LANDED`, `BEACON`
+**Status:** complete (2026-09-05)
+
+States: `PAD`, `ARMED`, `ASCENT`, `FLOAT`, `BURST`, `DESCENT`, `LANDED`, `BEACON` (wire 0–7 in `mission.h`)
 
 Rules:
 
-- No mag-switch: auto ARMED after healthy init + optional hold
-- ASCENT: sustained positive altitude rate
-- FLOAT: high altitude + near-zero rate
-- BURST: large negative rate and/or IMU freefall — **latched**
-- LANDED: altitude stable >60 s
-- BEACON: periodic GPS TX
+- [x] No mag-switch: auto ARMED after healthy altitude source + `MISSION_ARM_HOLD_MS` (10 s)
+- [x] ASCENT: sustained positive altitude rate (`MISSION_ASCENT_RATE_MPS` / sustain)
+- [x] FLOAT: high altitude + near-zero rate
+- [x] BURST: large negative instantaneous rate and/or IMU freefall — **latched**
+- [x] LANDED: altitude stable >60 s (`MISSION_LANDED_STABLE_MS`)
+- [x] BEACON: entered after LANDED (LoRa rate from F8.2 schedule)
+- [x] `mission.c` / `mission.h`; Makefile `C_SOURCES`; `mission_init` / `mission_update` in `app_run`
+- [x] Host `test_mission_sm` (full walk + BURST latch + freefall)
 
 #### F8.2 — Schedulers
 
+**Status:** complete (2026-09-05)
+
 | State | LoRa rate | Camera | Notes |
 |---|---|---|---|
-| ASCENT | ~0.5 Hz | ~30 s | |
-| FLOAT | ~0.2 Hz | ~30 s | |
-| DESCENT | ~0.5 Hz | optional | |
-| BEACON | ~1/60 s | off | |
+| ASCENT | ~0.5 Hz (2000 ms) | ~30 s | |
+| FLOAT | ~0.2 Hz (5000 ms) | ~30 s | |
+| DESCENT | ~0.5 Hz (2000 ms) | off (optional→off until F9) | |
+| BEACON | ~1/60 s (60000 ms) | off | |
+| PAD / ARMED / BURST | 2000 ms | off | Locked defaults (not in roadmap table) |
+| LANDED | 60000 ms | off | Same as BEACON |
+
+- [x] `schedule_lora_period_ms` / `schedule_camera_period_ms` + `schedule_init` / `schedule_poll`
+- [x] `app_schedule_tick` replaces fixed 5 s beacon; SD log on LoRa-due; camera due → stub (`g_cam_due_count`) for F9.3
+- [x] Host `test_schedule` (period table, due timing, state-change, cam-off)
+- [x] Clean build with `schedule.c` in Makefile
 
 #### F8.3 — Packetizer
 
-- Fill packet v1 from latest samples + flags
-- CRC16
+**Status:** complete (2026-09-05)
+
+- [x] Fill packet v1 from latest samples + flags — `packetizer_fill` (OK polarity flags)
+- [x] CRC16 — via `packetizer_pack` → `packet_v1_pack`
+- [x] `packetizer.c` / `packetizer.h`; Makefile; `app_beacon_build` samples sensors then fill
+- [x] Host `test_packetizer` (field fill, temp override, fill→pack golden matching F7.4 rich vector)
 
 #### F8.4 — Host-side state tests (recommended)
 
-- Feed simulated altitude profiles; assert state sequence
+**Status:** complete (2026-09-05)
+
+- [x] Feed simulated altitude profiles; assert state sequence — baseline in `test_mission_sm` (F8.1)
+- [x] Edge profiles (F8.4): PAD no-arm / interrupted arm reset; no false ASCENT; FLOAT rate gate; short freefall; DESCENT while falling (no early LANDED)
 
 ### 13.3 Verification / exit criteria
 
 **Software verification (tick when work packages land):**
 
-- [ ] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
-- [ ] Host tests: simulated altitude profiles walk PAD→…→BEACON correctly
-- [ ] BURST does not clear when descent slows (host or unit test)
-- [ ] Packetizer CRC16 host-testable against golden vectors
+- [x] Clean build (`make clean && make` in `balloon-project-stm32mx/`) — F8.1–F8.4 verified 2026-09-05
+- [x] Host tests: simulated altitude profiles walk PAD→…→BEACON correctly — `test_mission_sm` (F8.1 + F8.4 edge profiles 2026-09-05)
+- [x] BURST does not clear when descent slows (host or unit test) — `test_mission_sm` latch case
+- [x] Packetizer CRC16 host-testable against golden vectors — `test_packet_v1` + `test_packetizer` fill→pack golden
 
 **Hardware exit (pending bench — tick when §21 F8 procedure passes):**
 

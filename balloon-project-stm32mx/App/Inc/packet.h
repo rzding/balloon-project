@@ -3,8 +3,8 @@
  * @brief Telemetry packet v1 wire format (28 bytes, big-endian, CRC-16/CCITT-FALSE).
  *
  * F7.4: shared contract for flight TX and ground decode.
- * Header-only — pack/unpack live here; app_run bring-up beacon already calls
- * packet_v1_pack (F8 mission packetizer will reuse the same helpers).
+ * Header-only pack/unpack/CRC. Flight fill lives in packetizer.h (F8.3);
+ * packetizer_pack wraps packet_v1_pack.
  *
  * CRC: poly 0x1021, init 0xFFFF, refin/refout false, xorout 0x0000 (CCITT-FALSE).
  * CRC covers bytes 0–25; stored big-endian at offset 26.
@@ -17,6 +17,7 @@
 #pragma once
 
 #include <stdbool.h>
+#include <stddef.h>
 #include <stdint.h>
 
 /** Wire length of packet v1 (bytes). */
@@ -35,6 +36,7 @@
 typedef struct
 {
   uint8_t version;
+  /** See mission.h mission_state_t (PAD=0 … BEACON=7). */
   uint8_t mission_state;
   uint16_t seq;
   uint32_t time_ms;
