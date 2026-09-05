@@ -40,6 +40,7 @@
 | 0.19 | 2026-09-05 | Firmware | F8.1 host `test_mission_sm` (state walk + BURST latch) |
 | 0.20 | 2026-09-05 | Firmware | F8.2 host `test_schedule` (LoRa/camera periods + due) |
 | 0.21 | 2026-09-05 | Firmware | F8.3 host `test_packetizer` (fill + golden pack/CRC) |
+| 0.22 | 2026-09-05 | Firmware | F8.4 host `test_mission_sm` edge profiles; F8 software exit confirmed |
 
 ---
 
@@ -151,7 +152,7 @@ See [`balloon-project-stm32mx/tests/host/README.md`](../balloon-project-stm32mx/
 | F7.2 | Hz → Frf (`test_lora_frf` verified pass 2026-08-20; 915 MHz `0xE4C000`); modem SPI config = bench |
 | F7.3 | FIFO TX + DIO0 wait — bench/GDB only (SPI/GPIO; no host test) |
 | F7.4 / F7 exit | Packet v1 pack/CRC16 — `test_packet_v1` (authored; manual run pending); ground decode = host CLI (`ground/decode_packet`); on-air RX = bench |
-| F8 | Mission SM (`test_mission_sm`); schedule (`test_schedule`); packetizer fill (`test_packetizer`); pack/CRC also `test_packet_v1` |
+| F8 | Mission SM (`test_mission_sm` F8.1 walk + F8.4 edge profiles); schedule (`test_schedule`); packetizer fill (`test_packetizer`); pack/CRC also `test_packet_v1` |
 
 ---
 

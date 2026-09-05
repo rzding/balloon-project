@@ -60,6 +60,7 @@
 | 0.40 | 2026-09-05 | Firmware | F8.1 mission SM: `mission.h`/`mission.c`, app wire, host `test_mission_sm`; F8 in progress (F8.2–F8.4 open) |
 | 0.41 | 2026-09-05 | Firmware | F8.2 schedulers: `schedule.h`/`schedule.c`, state LoRa/camera periods, host `test_schedule`; F8.3 open |
 | 0.42 | 2026-09-05 | Firmware | F8.3 packetizer: `packetizer_fill`/`pack`, app wire, host `test_packetizer`; F8 software path complete pending §21 HW |
+| 0.43 | 2026-09-05 | Firmware | F8.4 complete: richer host edge profiles in `test_mission_sm`; F8 software exit confirmed; HW → §21 |
 
 ### How to use this document
 
@@ -882,7 +883,7 @@ Ground-receivable telemetry (primary recovery link).
 
 ## 13. Phase F8 — Mission state machine and packetizer
 
-**Phase status:** software-complete (F8.1–F8.3 + F8.4 baseline host tests, 2026-09-05); HW exit open (§13.3 / §21).
+**Phase status:** software-complete (F8.1–F8.4, 2026-09-05); HW exit open (§13.3 / §21).
 
 ### 13.0 Objective
 
@@ -952,16 +953,17 @@ Rules:
 
 #### F8.4 — Host-side state tests (recommended)
 
-**Status:** started in F8.1 — `test_mission_sm` covers full walk + BURST latch; extend with richer profiles as needed
+**Status:** complete (2026-09-05)
 
-- [x] Feed simulated altitude profiles; assert state sequence — baseline in `test_mission_sm` (2026-09-05)
+- [x] Feed simulated altitude profiles; assert state sequence — baseline in `test_mission_sm` (F8.1)
+- [x] Edge profiles (F8.4): PAD no-arm / interrupted arm reset; no false ASCENT; FLOAT rate gate; short freefall; DESCENT while falling (no early LANDED)
 
 ### 13.3 Verification / exit criteria
 
 **Software verification (tick when work packages land):**
 
-- [x] Clean build (`make clean && make` in `balloon-project-stm32mx/`) — F8.1–F8.3 verified 2026-09-05
-- [x] Host tests: simulated altitude profiles walk PAD→…→BEACON correctly — `test_mission_sm` (F8.1)
+- [x] Clean build (`make clean && make` in `balloon-project-stm32mx/`) — F8.1–F8.4 verified 2026-09-05
+- [x] Host tests: simulated altitude profiles walk PAD→…→BEACON correctly — `test_mission_sm` (F8.1 + F8.4 edge profiles 2026-09-05)
 - [x] BURST does not clear when descent slows (host or unit test) — `test_mission_sm` latch case
 - [x] Packetizer CRC16 host-testable against golden vectors — `test_packet_v1` + `test_packetizer` fill→pack golden
 

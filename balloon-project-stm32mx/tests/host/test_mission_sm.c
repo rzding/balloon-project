@@ -1,6 +1,9 @@
 /**
  * @file test_mission_sm.c
- * @brief Host unit tests for mission state transitions + BURST latch (F8.1).
+ * @brief Host unit tests for mission state transitions (F8.1) + edge profiles (F8.4).
+ *
+ * Covers happy-path PAD→…→BEACON, BURST latch, freefall, skip-FLOAT burst, and
+ * negative gates (no arm, no false ASCENT/FLOAT/LANDED, short freefall).
  */
 
 #include <stdio.h>
@@ -222,12 +225,167 @@ static void test_ascent_skips_float_to_burst(void)
   assert_state(mission_get_state(), MISSION_STATE_BURST, "ASCENT→BURST skip FLOAT");
 }
 
+/** F8.4: no healthy altitude source → stay PAD; interrupted OK resets arm timer. */
+static void test_pad_no_source(void)
+{
+  uint32_t t = 0u;
+  const float alt = 200.0f;
+
+  mission_init();
+  for (; t <= MISSION_ARM_HOLD_MS + 5000u; t += 1000u)
+  {
+    feed_alt(t, alt, false);
+  }
+  assert_state(mission_get_state(), MISSION_STATE_PAD, "no source stays PAD");
+
+  mission_init();
+  t = 0u;
+  for (; t < (MISSION_ARM_HOLD_MS / 2u); t += 1000u)
+  {
+    feed_alt(t, alt, true);
+  }
+  assert_state(mission_get_state(), MISSION_STATE_PAD, "partial arm still PAD");
+  feed_alt(t, alt, false); /* interrupt → reset arm timer */
+  t += 1000u;
+  {
+    const uint32_t end = t + MISSION_ARM_HOLD_MS - 1000u;
+    for (; t <= end; t += 1000u)
+    {
+      feed_alt(t, alt, true);
+    }
+  }
+  assert_state(mission_get_state(), MISSION_STATE_PAD, "interrupted arm not ARMED yet");
+  {
+    const uint32_t end = t + MISSION_ARM_HOLD_MS + 1000u;
+    for (; t <= end; t += 1000u)
+    {
+      feed_alt(t, alt, true);
+    }
+  }
+  assert_state(mission_get_state(), MISSION_STATE_ARMED, "full hold after reset → ARMED");
+}
+
+/** F8.4: flat altitude while ARMED → no false ASCENT. */
+static void test_armed_no_false_ascent(void)
+{
+  uint32_t t = 0u;
+  const float alt = 200.0f;
+
+  mission_init();
+  for (; t <= MISSION_ARM_HOLD_MS; t += 1000u)
+  {
+    feed_alt(t, alt, true);
+  }
+  assert_state(mission_get_state(), MISSION_STATE_ARMED, "setup ARMED");
+
+  hold_alt(&t, alt, MISSION_ASCENT_SUSTAIN_MS + 5000u);
+  assert_state(mission_get_state(), MISSION_STATE_ARMED, "flat stays ARMED");
+}
+
+/** F8.4: above float alt but still climbing → stay ASCENT (rate gate). */
+static void test_float_requires_low_rate(void)
+{
+  uint32_t t = 0u;
+  float alt = 200.0f;
+
+  mission_init();
+  for (; t <= MISSION_ARM_HOLD_MS; t += 1000u)
+  {
+    feed_alt(t, alt, true);
+  }
+  climb_to_ascent(&t, &alt);
+  assert_state(mission_get_state(), MISSION_STATE_ASCENT, "rate-gate setup ASCENT");
+
+  /* Climb past float altitude at ~+2 m/s, then keep climbing through sustain window. */
+  while (alt < MISSION_FLOAT_ALT_M + 100.0f)
+  {
+    alt += 2.0f;
+    feed_alt(t, alt, true);
+    t += 1000u;
+  }
+  {
+    const uint32_t end = t + MISSION_FLOAT_SUSTAIN_MS + 2000u;
+    for (; t <= end; t += 1000u)
+    {
+      alt += 2.0f;
+      feed_alt(t, alt, true);
+    }
+  }
+  assert_true(alt >= MISSION_FLOAT_ALT_M, "above float alt");
+  assert_state(mission_get_state(), MISSION_STATE_ASCENT, "climbing stays ASCENT");
+}
+
+/** F8.4: freefall shorter than sustain → no BURST. */
+static void test_freefall_too_short(void)
+{
+  uint32_t t = 0u;
+  float alt = 1000.0f;
+
+  mission_init();
+  for (; t <= MISSION_ARM_HOLD_MS; t += 1000u)
+  {
+    feed_alt(t, alt, true);
+  }
+  climb_to_ascent(&t, &alt);
+  assert_state(mission_get_state(), MISSION_STATE_ASCENT, "short-ff setup ASCENT");
+
+  {
+    const uint32_t end = t + (MISSION_FREEFALL_SUSTAIN_MS / 2u);
+    for (; t <= end; t += 100u)
+    {
+      feed(t, alt, true, true, 0.05f, 0.05f, 0.05f, true);
+    }
+  }
+  assert_state(mission_get_state(), MISSION_STATE_ASCENT, "short freefall still ASCENT");
+
+  feed_alt(t, alt, true); /* 1 g restores */
+  assert_state(mission_get_state(), MISSION_STATE_ASCENT, "after 1g still ASCENT");
+  assert_true(!mission_burst_latched(), "short freefall not latched");
+}
+
+/** F8.4: DESCENT while still falling → no early LANDED. */
+static void test_descent_not_landed_while_falling(void)
+{
+  uint32_t t = 0u;
+  float alt = 500.0f;
+  uint32_t end;
+
+  mission_init();
+  for (; t <= MISSION_ARM_HOLD_MS; t += 1000u)
+  {
+    feed_alt(t, alt, true);
+  }
+  climb_to_ascent(&t, &alt);
+  assert_state(mission_get_state(), MISSION_STATE_ASCENT, "falling setup ASCENT");
+
+  alt -= 55.0f;
+  feed_alt(t, alt, true);
+  assert_state(mission_get_state(), MISSION_STATE_BURST, "falling BURST");
+  t += 1000u;
+  alt -= 20.0f;
+  feed_alt(t, alt, true);
+  assert_state(mission_get_state(), MISSION_STATE_DESCENT, "falling DESCENT");
+
+  end = t + MISSION_LANDED_STABLE_MS + 10000u;
+  for (t += 1000u; t <= end; t += 1000u)
+  {
+    alt -= 2.0f; /* ~−2 m/s, above LANDED rate gate */
+    feed_alt(t, alt, true);
+  }
+  assert_state(mission_get_state(), MISSION_STATE_DESCENT, "falling stays DESCENT");
+}
+
 int main(void)
 {
   test_full_profile();
   test_burst_latch_no_return();
   test_burst_via_freefall();
   test_ascent_skips_float_to_burst();
+  test_pad_no_source();
+  test_armed_no_false_ascent();
+  test_float_requires_low_rate();
+  test_freefall_too_short();
+  test_descent_not_landed_while_falling();
 
   if (failures == 0)
   {
