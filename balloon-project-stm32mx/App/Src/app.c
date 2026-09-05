@@ -13,6 +13,7 @@
 #include "main.h"
 #include "mission.h"
 #include "packet.h"
+#include "packetizer.h"
 #include "schedule.h"
 #include "sdlog.h"
 #include "temp.h"
@@ -127,57 +128,59 @@ static void app_mission_tick(void)
   mission_update(&in);
 }
 
-/* Fill g_beacon_fields from whatever sensors are healthy right now.
- * Unhealthy or unread sensors leave their fields at zero / not-available;
- * a beacon is still sent so the link itself can be tested with no fix. */
+/* Sample sensors into packetizer; unhealthy leave zeros / N/A via fill defaults. */
 static void app_beacon_build(void)
 {
+  packetizer_sample_t sample;
   baro_sample_t baro;
   temp_sample_t temp;
   gps_sample_t gps;
 
-  g_beacon_fields.version = PACKET_V1_VERSION;
-  g_beacon_fields.mission_state = (uint8_t)mission_get_state();
-  g_beacon_fields.seq = lora_get_seq();
-  g_beacon_fields.time_ms = HAL_GetTick();
-  g_beacon_fields.lat_e7 = 0;
-  g_beacon_fields.lon_e7 = 0;
-  g_beacon_fields.gps_alt_m = 0u;
-  g_beacon_fields.baro_alt_m = 0;
-  g_beacon_fields.temp_c_x100 = 0;
-  g_beacon_fields.batt = PACKET_V1_BATT_NA;
-  g_beacon_fields.sats = 0u;
-
-  /* Packet v1 flags: bit set = healthy (OK polarity). See packet.h / ground/README.md. */
-  g_beacon_fields.flags = (uint8_t)(~error_flags_get() & 0xFFu);
+  sample.mission_state = (uint8_t)mission_get_state();
+  sample.seq = lora_get_seq();
+  sample.time_ms = HAL_GetTick();
+  sample.error_flags = error_flags_get();
+  sample.baro_valid = false;
+  sample.baro_alt_m = 0.0f;
+  sample.baro_temp_centi_c = 0;
+  sample.temp_valid = false;
+  sample.temp_centi_c = 0;
+  sample.gps_sample_valid = false;
+  sample.sats = 0u;
+  sample.lat_lon_valid = false;
+  sample.lat_e7 = 0;
+  sample.lon_e7 = 0;
+  sample.gps_alt_valid = false;
+  sample.gps_alt_m = 0u;
 
   if (baro_is_ok() && baro_read(&baro))
   {
-    g_beacon_fields.baro_alt_m = (int16_t)baro.alt_m;
-    g_beacon_fields.temp_c_x100 = (int16_t)baro.temp_centi_c;
+    sample.baro_valid = true;
+    sample.baro_alt_m = baro.alt_m;
+    sample.baro_temp_centi_c = (int16_t)baro.temp_centi_c;
   }
 
-  /* MAX31865 is the better temperature source; let it override the baro die temp. */
   if (temp_is_ok() && temp_read(&temp))
   {
-    g_beacon_fields.temp_c_x100 = temp.temp_centi_c;
+    sample.temp_valid = true;
+    sample.temp_centi_c = temp.temp_centi_c;
   }
 
   if (gps_get_sample(&gps))
   {
-    g_beacon_fields.sats = gps.sats;
-
-    if (gps.lat_lon_valid)
-    {
-      g_beacon_fields.lat_e7 = gps.lat_e7;
-      g_beacon_fields.lon_e7 = gps.lon_e7;
-    }
-
+    sample.gps_sample_valid = true;
+    sample.sats = gps.sats;
+    sample.lat_lon_valid = gps.lat_lon_valid;
+    sample.lat_e7 = gps.lat_e7;
+    sample.lon_e7 = gps.lon_e7;
     if (gps.alt_valid && gps.alt_m > 0)
     {
-      g_beacon_fields.gps_alt_m = (uint16_t)gps.alt_m;
+      sample.gps_alt_valid = true;
+      sample.gps_alt_m = (uint16_t)gps.alt_m;
     }
   }
+
+  packetizer_fill(&sample, &g_beacon_fields);
 }
 
 /**
@@ -222,7 +225,7 @@ static void app_schedule_tick(void)
     return;
   }
 
-  packet_v1_pack(&g_beacon_fields, g_beacon_wire);
+  packetizer_pack(&g_beacon_fields, g_beacon_wire);
   g_beacon_attempts++;
   if (lora_tx(g_beacon_wire, PACKET_V1_LEN))
   {

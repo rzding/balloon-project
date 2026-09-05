@@ -59,6 +59,7 @@
 | 0.39 | 2026-09-05 | Firmware | Post-F7 audit cleanup: confirm F0–F7 soft-complete / F8 next; drop stale `BENCH=1` docs; freeze packet `flags` OK polarity; §4 28B packet; F10 F5 entry tick |
 | 0.40 | 2026-09-05 | Firmware | F8.1 mission SM: `mission.h`/`mission.c`, app wire, host `test_mission_sm`; F8 in progress (F8.2–F8.4 open) |
 | 0.41 | 2026-09-05 | Firmware | F8.2 schedulers: `schedule.h`/`schedule.c`, state LoRa/camera periods, host `test_schedule`; F8.3 open |
+| 0.42 | 2026-09-05 | Firmware | F8.3 packetizer: `packetizer_fill`/`pack`, app wire, host `test_packetizer`; F8 software path complete pending §21 HW |
 
 ### How to use this document
 
@@ -881,7 +882,7 @@ Ground-receivable telemetry (primary recovery link).
 
 ## 13. Phase F8 — Mission state machine and packetizer
 
-**Phase status:** in progress — F8.1–F8.2 software-complete (2026-09-05); F8.3–F8.4 open; entry criteria met; HW → §21.
+**Phase status:** software-complete (F8.1–F8.3 + F8.4 baseline host tests, 2026-09-05); HW exit open (§13.3 / §21).
 
 ### 13.0 Objective
 
@@ -942,8 +943,12 @@ Rules:
 
 #### F8.3 — Packetizer
 
-- Fill packet v1 from latest samples + flags
-- CRC16
+**Status:** complete (2026-09-05)
+
+- [x] Fill packet v1 from latest samples + flags — `packetizer_fill` (OK polarity flags)
+- [x] CRC16 — via `packetizer_pack` → `packet_v1_pack`
+- [x] `packetizer.c` / `packetizer.h`; Makefile; `app_beacon_build` samples sensors then fill
+- [x] Host `test_packetizer` (field fill, temp override, fill→pack golden matching F7.4 rich vector)
 
 #### F8.4 — Host-side state tests (recommended)
 
@@ -955,10 +960,10 @@ Rules:
 
 **Software verification (tick when work packages land):**
 
-- [ ] Clean build (`make clean && make` in `balloon-project-stm32mx/`) — F8.1–F8.2 builds verified 2026-09-05; re-tick when F8.3–F8.4 land
+- [x] Clean build (`make clean && make` in `balloon-project-stm32mx/`) — F8.1–F8.3 verified 2026-09-05
 - [x] Host tests: simulated altitude profiles walk PAD→…→BEACON correctly — `test_mission_sm` (F8.1)
 - [x] BURST does not clear when descent slows (host or unit test) — `test_mission_sm` latch case
-- [ ] Packetizer CRC16 host-testable against golden vectors — F7.4 `test_packet_v1`; F8.3 may extend
+- [x] Packetizer CRC16 host-testable against golden vectors — `test_packet_v1` + `test_packetizer` fill→pack golden
 
 **Hardware exit (pending bench — tick when §21 F8 procedure passes):**
 
