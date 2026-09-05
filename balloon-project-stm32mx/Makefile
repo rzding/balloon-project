@@ -64,6 +64,7 @@ Core/Src/syscalls.c \
 App/Src/app.c \
 App/Src/error_flags.c \
 App/Src/mission.c \
+App/Src/schedule.c \
 App/Src/baro.c \
 App/Src/imu.c \
 App/Src/spi_bus.c \

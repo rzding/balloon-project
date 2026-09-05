@@ -13,24 +13,19 @@
 #include "main.h"
 #include "mission.h"
 #include "packet.h"
+#include "schedule.h"
 #include "sdlog.h"
 #include "temp.h"
-
-/** Beacon transmit period (ms). F8.2 will replace with per-state rates. */
-#define APP_BEACON_PERIOD_MS       5000u
 
 /** Altitude refresh period for mission SM (ms); IMU polled every superloop. */
 #define APP_MISSION_ALT_PERIOD_MS  1000u
 
-/* Bring-up telemetry beacon (F7/F8.1).
+/*
+ * Telemetry / schedule debug counters.
  *
- * Deliberately NOT static: file-local symbols can only be resolved by bare
- * name while halted inside this translation unit, which makes them awkward to
- * watch in the debugger. External linkage lets "g_beacon_ok" resolve from any
- * stop location. volatile on the counters keeps them observable even if the
- * optimisation level is raised later (nothing in the firmware reads them).
+ * Deliberately NOT static: external linkage lets GDB resolve them from any
+ * stop location. volatile keeps them observable if optimisation rises.
  */
-static uint32_t s_beacon_next_ms;
 static uint32_t s_mission_alt_next_ms;
 static float s_mission_alt_m;
 static bool s_mission_alt_valid;
@@ -39,6 +34,7 @@ static bool s_mission_alt_source_ok;
 volatile uint32_t g_beacon_attempts;
 volatile uint32_t g_beacon_ok;
 volatile uint32_t g_beacon_fail;
+volatile uint32_t g_cam_due_count;
 packet_v1_t g_beacon_fields;
 uint8_t g_beacon_wire[PACKET_V1_LEN];
 
@@ -52,9 +48,11 @@ bool app_init(void)
   (void)lora_init(); /* fail-soft: false does not abort app_init */
   (void)sdlog_init();  /* fail-soft: false does not abort app_init */
   mission_init();
+  schedule_init();
   s_mission_alt_m = 0.0f;
   s_mission_alt_valid = false;
   s_mission_alt_source_ok = false;
+  g_cam_due_count = 0u;
   return true;
 }
 
@@ -182,28 +180,57 @@ static void app_beacon_build(void)
   }
 }
 
-/* Transmit one packet v1 beacon every APP_BEACON_PERIOD_MS. */
-static void app_beacon_tick(void)
+/**
+ * @brief F9.3 hook — capture not implemented until ArduCAM SKU (F9).
+ * LoRa must never wait on this path.
+ */
+static void app_camera_on_due(void)
 {
+  g_cam_due_count++;
+  /* F9.3: camera_capture_to_sd(...); yield SPI between chunks. */
+}
+
+/* F8.2: LoRa/SD on schedule_poll lora_due; camera stub on cam_due. */
+static void app_schedule_tick(void)
+{
+  bool lora_due = false;
+  bool cam_due = false;
   const uint32_t now = HAL_GetTick();
 
-  if ((now - s_beacon_next_ms) >= APP_BEACON_PERIOD_MS)
+  schedule_poll(now, mission_get_state(), &lora_due, &cam_due);
+
+  if (cam_due)
   {
-    s_beacon_next_ms = now;
-    app_beacon_build();
+    app_camera_on_due();
+  }
 
-    /* F6: log every beacon tick even if radio is dead */
-    (void)sdlog_write_sample(
-        g_beacon_fields.time_ms,
-        (float)g_beacon_fields.temp_c_x100 / 100.0f,
-        (float)g_beacon_fields.baro_alt_m);
+  if (!lora_due)
+  {
+    return;
+  }
 
-    if (!lora_is_ok()) return;
+  app_beacon_build();
 
-    packet_v1_pack(&g_beacon_fields, g_beacon_wire);
-    g_beacon_attempts++;
-    if (lora_tx(g_beacon_wire, PACKET_V1_LEN)) g_beacon_ok++;
-    else                                        g_beacon_fail++;
+  /* F6: log every LoRa-due tick even if radio is dead */
+  (void)sdlog_write_sample(
+      g_beacon_fields.time_ms,
+      (float)g_beacon_fields.temp_c_x100 / 100.0f,
+      (float)g_beacon_fields.baro_alt_m);
+
+  if (!lora_is_ok())
+  {
+    return;
+  }
+
+  packet_v1_pack(&g_beacon_fields, g_beacon_wire);
+  g_beacon_attempts++;
+  if (lora_tx(g_beacon_wire, PACKET_V1_LEN))
+  {
+    g_beacon_ok++;
+  }
+  else
+  {
+    g_beacon_fail++;
   }
 }
 
@@ -212,5 +239,5 @@ void app_run(void)
   /* Subsystem faults must not stop the superloop; mission tick runs regardless. */
   (void)gps_poll();
   app_mission_tick();
-  app_beacon_tick();
+  app_schedule_tick();
 }

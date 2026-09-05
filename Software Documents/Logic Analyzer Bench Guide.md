@@ -21,6 +21,7 @@
 |---|---|---|---|
 | 0.1 | 2026-08-19 | Firmware | First branch: IMU, baro, temp (SPI), GPS (UART); `make BENCH=1` |
 | 0.2 | 2026-09-05 | Firmware | Drop `BENCH=1`; default build uses ~5 s bring-up beacon (baro/temp/SD/LoRa) |
+| 0.3 | 2026-09-05 | Firmware | F8.2: LoRa/SD period is mission-state-dependent (`schedule.h`) |
 
 ---
 
@@ -34,12 +35,12 @@ This guide explains how to use a **logic analyzer** to verify bus wiring and liv
 | MS5611 barometer | SPI1 | Yes |
 | MAX31865 + PT1000 | SPI1 | Yes |
 | MAX-M10S GPS | USART1 (UART) | Yes |
-| RFM95W LoRa | SPI1 | F7: init + ~5 s beacon TX (`lora_tx`); packet v1 in `packet.h` |
+| RFM95W LoRa | SPI1 | F7–F8.2: init + state-scheduled TX (`schedule.h`); packet v1 in `packet.h` |
 | microSD | SPI1 | F6: `sdlog` + `sd_spi`; CS low in short protocol bursts |
 | ArduCAM | SPI1 + I2C1 | Not yet (F9) |
 | DRA818V APRS | USART2 | Not yet (F10) |
 
-This is **bench bring-up**, not Phase F8 (mission scheduler). The default firmware’s `app_run` bring-up beacon keeps SPI/LoRa/SD active after boot.
+This is **bench bring-up** with the flight `app_run` loop (mission SM + F8.2 scheduler). SPI/LoRa/SD stay active after boot on the LoRa-due schedule.
 
 ---
 
@@ -87,13 +88,13 @@ make clean && make
 
 Flash `build/balloon-project-stm32mx.elf` or `.bin` per [`balloon-project-stm32mx/README.md`](../balloon-project-stm32mx/README.md) § SWD / flash.
 
-There is **no** `make BENCH=1` flag anymore. After `app_init`, `app_run` runs a **~5 s bring-up beacon** that (fail-soft):
+There is **no** `make BENCH=1` flag anymore. After `app_init`, `app_run` runs the mission SM plus F8.2 **state-dependent** LoRa/SD schedule (fail-soft):
 
-1. `gps_poll` every superloop iteration
-2. Every ~5 s: `baro_read`, `temp_read`, `gps_get_sample`, `sdlog_write_sample`, and `lora_tx` of packet v1 when LoRa is healthy
-3. IMU SPI runs at **init only** in the default loop; use GDB `imu_read` if you need periodic IMU sample frames on the analyzer
+1. `gps_poll` every superloop iteration; IMU sampled for freefall; altitude refreshed ~1 Hz
+2. On LoRa-due (PAD/ARMED/ASCENT/DESCENT/BURST **~2 s**; FLOAT **~5 s**; BEACON/LANDED **~60 s**): `baro_read` / `temp_read` / GPS fields, `sdlog_write_sample`, and `lora_tx` of packet v1 when LoRa is healthy
+3. Camera-due in ASCENT/FLOAT (~30 s) only increments a stub counter until F9
 
-F8 will replace the fixed 5 s beacon with the mission scheduler.
+Periods live in `App/Inc/schedule.h`.
 
 ---
 
@@ -148,7 +149,7 @@ F8 will replace the fixed 5 s beacon with the mission scheduler.
 **Expect:**
 
 - During a baro/temp/LoRa/SD transfer, **only** that slave’s CS is low.
-- Between beacon ticks, CS lines idle **high** (short bursts every ~5 s for baro/temp/SD/LoRa).
+- Between schedule ticks, CS lines idle **high** (short bursts on LoRa-due: ~2 s on PAD after boot).
 - CS never stuck low after a transfer ends.
 
 ### Capture C — GPS UART
@@ -177,13 +178,13 @@ F8 will replace the fixed 5 s beacon with the mission scheduler.
 - CS-framed SPI on BARO_CS.
 - MOSI shows command bytes (`0x1E` reset at init; `0x48`/`0x58` conversions; `0x00` ADC read).
 - Quiet gaps with CS high during ~10 ms conversions — **normal**.
-- Periodic conversion traffic about every **5 s** from the bring-up beacon.
+- Periodic conversion traffic on each LoRa-due (~**2 s** in PAD after boot).
 
 ### Temperature (MAX31865)
 
 - CS-framed SPI on Temp_CS.
 - CONFIG read-back **`0x90`** at init.
-- About every **5 s**: long quiet gap (~60 ms conversion) then RTD data burst.
+- About every LoRa-due (~**2 s** on PAD): long quiet gap (~60 ms conversion) then RTD data burst.
 
 ### GPS (MAX-M10S)
 
@@ -200,14 +201,14 @@ F8 will replace the fixed 5 s beacon with the mission scheduler.
 | CS low and stuck | Short, or `spi_bus_transfer` fault — check F1 |
 | Activity on wrong CS | Clip error or shorted CS lines |
 | GPS line idle forever | Wrong pin (TX vs RX), baud mismatch, module unpowered |
-| SPI quiet after boot (no ~5 s bursts) | Beacon not running, or LoRa/baro/temp all fail-soft before transfer — check `app_run` / health flags |
+| SPI quiet after boot (no schedule bursts) | Scheduler not running, or LoRa/baro/temp all fail-soft before transfer — check `app_run` / health flags |
 
 ---
 
 ## 8. Explicitly not this branch
 
-- **LoRa:** F7 software-complete — `lora_init` at boot; bring-up beacon calls `lora_tx` ~every 5 s when healthy. DIO0 (PB12) polled for TxDone. Packet v1 in `packet.h`; ground decode via `ground/decode_packet`.
-- **microSD:** F6 software-complete — beacon calls `sdlog_write_sample` ~every 5 s; `microSD_CS` low only for each SD SPI frame. Analyzer: short CS-low bursts, not stuck low.
+- **LoRa:** F7–F8.2 — `lora_init` at boot; `schedule_poll` drives `lora_tx` by mission state (~2 s on PAD). DIO0 (PB12) polled for TxDone. Packet v1 in `packet.h`; ground decode via `ground/decode_packet`.
+- **microSD:** F6 — `sdlog_write_sample` on each LoRa-due; `microSD_CS` low only for each SD SPI frame. Analyzer: short CS-low bursts, not stuck low.
 - **ArduCAM:** CS idle high; no driver traffic (F9).
 - **APRS USART2 / PTT / PWM:** Initialized idle; no App traffic.
 - **I2C1 (ArduCAM):** Bus idle after init.

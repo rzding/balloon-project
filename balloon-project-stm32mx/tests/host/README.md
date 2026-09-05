@@ -6,7 +6,7 @@ Examples: IMU LSB→SI scale, MS5611 compensation math, NMEA parsing, telemetry 
 
 ## Status
 
-**Harness active** — `test_imu_scale` (F2.3), `test_ms5611_crc` (F3.1), `test_ms5611_adc` (F3.2), `test_ms5611_comp` (F3.3 compensation + ISA + F3.4 `baro_sample_from_raw`), `test_max31865_cvd` (F4.2 RTD unpack + CVD + F4.3 `temp_sample_from_raw`), `test_gps_rx` (F5.1 ring + LF line extract), `test_gps_nmea` (F5.2 GGA/RMC parse + F5.3 fix validity), `test_sdlog_name` (F6.2 `FLIGHT%03u.CSV` format + next index), `test_lora_frf` (F7.2 Hz → Frf), `test_packet_v1` (F7.4 pack/unpack/CRC-16/CCITT-FALSE), `test_mission_sm` (F8.1 state transitions + BURST latch).
+**Harness active** — `test_imu_scale` (F2.3), `test_ms5611_crc` (F3.1), `test_ms5611_adc` (F3.2), `test_ms5611_comp` (F3.3 compensation + ISA + F3.4 `baro_sample_from_raw`), `test_max31865_cvd` (F4.2 RTD unpack + CVD + F4.3 `temp_sample_from_raw`), `test_gps_rx` (F5.1 ring + LF line extract), `test_gps_nmea` (F5.2 GGA/RMC parse + F5.3 fix validity), `test_sdlog_name` (F6.2 `FLIGHT%03u.CSV` format + next index), `test_lora_frf` (F7.2 Hz → Frf), `test_packet_v1` (F7.4 pack/unpack/CRC-16/CCITT-FALSE), `test_mission_sm` (F8.1 state transitions + BURST latch), `test_schedule` (F8.2 LoRa/camera periods + due).
 
 ## Manual execution policy
 
@@ -30,6 +30,7 @@ make
 ./test_packet_v1
 ./test_sdlog_name
 ./test_mission_sm
+./test_schedule
 ```
 
 Ground decoder (F7.4 — host CLI, not in this Makefile):
@@ -63,6 +64,7 @@ Requirements: host `cc` (clang/gcc) and `libm`.
 | `test_packet_v1` | pending | — | Run `make clean && make && ./test_packet_v1` after F7.4 changes; golden rich hex `0102002a00bc614e1683fed0f8b4073805dc05c8092effff05086ecf`; minimal CRC `0x18EF` (26-byte payload `0100…ffff0000`) |
 | `test_sdlog_name` | pending | — | Run `make && ./test_sdlog_name` after F6.2 name/index helper changes |
 | `test_mission_sm` | pass | 2026-09-05 | F8.1 full PAD→…→BEACON walk + BURST latch + freefall (`make && ./test_mission_sm`) |
+| `test_schedule` | pass | 2026-09-05 | F8.2 period table + due timing + state-change / cam-off (`make && ./test_schedule`) |
 
 ## What belongs here vs on the bench
 

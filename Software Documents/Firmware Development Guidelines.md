@@ -38,6 +38,7 @@
 | 0.17 | 2026-08-24 | Firmware | F6 host `test_sdlog_name` (FLIGHTxxx format + next index); F6 software-complete |
 | 0.18 | 2026-09-05 | Firmware | Drop `BENCH=1` FAQ; default bring-up beacon keeps SPI/LoRa/SD live (~5 s) |
 | 0.19 | 2026-09-05 | Firmware | F8.1 host `test_mission_sm` (state walk + BURST latch) |
+| 0.20 | 2026-09-05 | Firmware | F8.2 host `test_schedule` (LoRa/camera periods + due) |
 
 ---
 
@@ -149,7 +150,7 @@ See [`balloon-project-stm32mx/tests/host/README.md`](../balloon-project-stm32mx/
 | F7.2 | Hz → Frf (`test_lora_frf` verified pass 2026-08-20; 915 MHz `0xE4C000`); modem SPI config = bench |
 | F7.3 | FIFO TX + DIO0 wait — bench/GDB only (SPI/GPIO; no host test) |
 | F7.4 / F7 exit | Packet v1 pack/CRC16 — `test_packet_v1` (authored; manual run pending); ground decode = host CLI (`ground/decode_packet`); on-air RX = bench |
-| F8 | Mission SM transitions (`test_mission_sm`); packetizer + `lora_tx` scheduler (F8.2–F8.3; reuses `packet.h`) |
+| F8 | Mission SM (`test_mission_sm`); LoRa/camera schedule (`test_schedule`); packetizer (F8.3; reuses `packet.h`) |
 
 ---
 
@@ -222,4 +223,4 @@ Project rules in `.cursor/rules/` reinforce these points for every session.
 | Should I set up Renode now? | No — defer unless models are owned |
 | Who runs tests? | Developer manually; not the agent by default |
 | Where is deferred HW tracked? | Roadmap §21 |
-| How do I get live SPI for a logic analyzer? | Default `make` in `balloon-project-stm32mx/` — ~5 s bring-up beacon exercises baro/temp/SD/LoRa (IMU at init; GDB `imu_read` if needed). See [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md). There is no `BENCH=1` flag. |
+| How do I get live SPI for a logic analyzer? | Default `make` in `balloon-project-stm32mx/` — F8.2 schedule exercises baro/temp/SD/LoRa (~2 s on PAD; see `schedule.h`). IMU also polled in `app_run` for freefall. See [Logic Analyzer Bench Guide.md](Logic%20Analyzer%20Bench%20Guide.md). There is no `BENCH=1` flag. |

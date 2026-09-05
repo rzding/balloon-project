@@ -2,7 +2,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -std=c11 -I../../App/Inc
 LDFLAGS = -lm
 
-TARGETS = test_imu_scale test_ms5611_crc test_ms5611_adc test_ms5611_comp test_max31865_cvd test_gps_rx test_gps_nmea test_lora_frf test_packet_v1 test_sdlog_name test_mission_sm
+TARGETS = test_imu_scale test_ms5611_crc test_ms5611_adc test_ms5611_comp test_max31865_cvd test_gps_rx test_gps_nmea test_lora_frf test_packet_v1 test_sdlog_name test_mission_sm test_schedule
 
 .PHONY: all clean
 
@@ -40,6 +40,9 @@ test_sdlog_name: test_sdlog_name.c
 
 test_mission_sm: test_mission_sm.c ../../App/Src/mission.c
 	$(CC) $(CFLAGS) -o $@ test_mission_sm.c ../../App/Src/mission.c $(LDFLAGS)
+
+test_schedule: test_schedule.c ../../App/Src/schedule.c
+	$(CC) $(CFLAGS) -o $@ test_schedule.c ../../App/Src/schedule.c
 
 clean:
 	rm -f $(TARGETS)

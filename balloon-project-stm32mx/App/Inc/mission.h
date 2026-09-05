@@ -3,7 +3,7 @@
  * @brief Mission state machine (F8.1) — enum, thresholds, pure transition API.
  *
  * Wire values for packet_v1.mission_state (offset 1). No HAL — host-testable.
- * Schedulers (F8.2) and packetizer fill (F8.3) are out of scope here.
+ * Schedulers (F8.2) live in schedule.h; packetizer fill (F8.3) is separate.
  */
 
 #pragma once
