@@ -133,8 +133,8 @@ MCU = $(CPU) -mthumb $(FPU) $(FLOAT-ABI)
 AS_DEFS = 
 
 # C defines
-# APRS_RF_ENABLE=0 (default): PTT stays RX during F10.3 SM (AFSK dry-run).
-# Override: make APRS_RF_ENABLE=1  (licensed on-air only).
+# F10.4 / O6: APRS_RF_ENABLE=0 (default) — dry-run: AFSK SM, PTT stays RX.
+# Override: make APRS_RF_ENABLE=1  (licensed on-air / RF TX only).
 APRS_RF_ENABLE ?= 0
 C_DEFS =  \
 -DUSE_HAL_DRIVER \

@@ -5,6 +5,7 @@
  * F10.1: power idle (PD high / PTT high RX), UART AT config @ 9600 8N1.
  * F10.2: Bell 202 AFSK (TIM2 CH1 PA0) + AX.25 UI / APRS position encode.
  * F10.3: Non-blocking PTT→AFSK→unkey SM + 60 s schedule; APRS_RF_ENABLE gate.
+ * F10.4: Dry-run mode — APRS_RF_ENABLE=0 flight default; GDB last-info log.
  *
  * Locked init defaults (F10.1 — volume/SQ interim, bench-tunable):
  *   - Handshake AT+DMOCONNECT (retry ≤3)
@@ -17,9 +18,10 @@
  *   - Uncompressed !lat/lonO/A=feet; Bell 202 1200/2200 Hz @ 1200 baud
  *
  * F10.3 sequencing: PTT lead 200 ms → bit play → tail 50 ms → idle.
- * APRS_RF_ENABLE=0 (default): AFSK still plays; PTT stays high (no RF).
- * APRS_RF_ENABLE=1: PTT low during lead/play/tail (licensed RF only).
+ * F10.4 dry-run (APRS_RF_ENABLE=0, default): AFSK may play; PTT stays high (no RF).
+ * Licensed RF (APRS_RF_ENABLE=1): PTT low during lead/play/tail — O6/callsign only.
  *
+ * Soft-exit proof without RF: host test_aprs_ax25 + g_aprs_last_info / counters.
  * Blocking aprs_afsk_play_bits remains bench/GDB only (always PTT high).
  */
 
@@ -30,6 +32,11 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
+
+#ifndef APRS_RF_ENABLE
+/** Flight default: dry-run (no PTT key). Override via Makefile. */
+#define APRS_RF_ENABLE 0
+#endif
 
 /** DRA818V AT UART baud (datasheet). */
 #define APRS_UART_BAUD           9600u
@@ -119,6 +126,23 @@
 
 /** Max APRS info-field length (bytes, excl. NUL). */
 #define APRS_INFO_MAX            64u
+
+/**
+ * @brief True when firmware was built with APRS_RF_ENABLE!=0 (licensed RF).
+ */
+static inline bool aprs_rf_enabled(void)
+{
+  return (APRS_RF_ENABLE != 0);
+}
+
+/**
+ * Dry-run / GDB observability (F10.4). External linkage for SWD inspection.
+ * Updated by aprs_tx_start; last info is the APRS payload without needing RF RX.
+ */
+extern volatile uint32_t g_aprs_attempts;
+extern volatile uint32_t g_aprs_ok;
+extern volatile uint32_t g_aprs_fail;
+extern char g_aprs_last_info[APRS_INFO_MAX];
 
 /**
  * Max raw AX.25 UI frame (addrs + ctrl + pid + info + FCS).
@@ -719,7 +743,10 @@ void aprs_afsk_stop(void);
 bool aprs_afsk_play_bits(const uint8_t *bits, size_t bit_count);
 
 /**
- * @brief Encode position frame and arm non-blocking TX state machine (F10.3).
+ * @brief Encode position frame and arm non-blocking TX state machine (F10.3/F10.4).
+ *
+ * Updates g_aprs_attempts / ok / fail and g_aprs_last_info on the start path
+ * (dry-run observability without RF receive).
  *
  * @return false if busy, encode failure, or already transmitting.
  */

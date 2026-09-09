@@ -1,6 +1,6 @@
 /**
  * @file aprs.c
- * @brief DRA818V APRS driver — AT (F10.1), AFSK (F10.2), PTT SM (F10.3).
+ * @brief DRA818V APRS driver — AT (F10.1), AFSK (F10.2), PTT SM (F10.3), dry-run log (F10.4).
  */
 
 #include "aprs.h"
@@ -22,6 +22,11 @@
 
 /** Handshake command (fixed). */
 static const char APRS_CMD_CONNECT[] = "AT+DMOCONNECT\r\n";
+
+volatile uint32_t g_aprs_attempts;
+volatile uint32_t g_aprs_ok;
+volatile uint32_t g_aprs_fail;
+char g_aprs_last_info[APRS_INFO_MAX];
 
 typedef enum
 {
@@ -337,10 +342,22 @@ bool aprs_tx_busy(void)
 
 bool aprs_tx_start(int32_t lat_e7, int32_t lon_e7, int32_t alt_m)
 {
+  char info[APRS_INFO_MAX];
+  int info_len;
   size_t n;
+
+  g_aprs_attempts++;
 
   if (s_sm != APRS_SM_IDLE)
   {
+    g_aprs_fail++;
+    return false;
+  }
+
+  info_len = aprs_format_info_field(info, sizeof(info), lat_e7, lon_e7, alt_m);
+  if (info_len < 0)
+  {
+    g_aprs_fail++;
     return false;
   }
 
@@ -348,8 +365,11 @@ bool aprs_tx_start(int32_t lat_e7, int32_t lon_e7, int32_t alt_m)
                                 lon_e7, alt_m);
   if (n == 0u)
   {
+    g_aprs_fail++;
     return false;
   }
+
+  (void)memcpy(g_aprs_last_info, info, (size_t)info_len + 1u);
 
   s_bit_count = n;
   s_bit_index = 0u;
@@ -359,6 +379,7 @@ bool aprs_tx_start(int32_t lat_e7, int32_t lon_e7, int32_t alt_m)
   aprs_ptt_key_tx();
   s_phase_start_ms = HAL_GetTick();
   s_sm = APRS_SM_PTT_LEAD;
+  g_aprs_ok++;
   return true;
 }
 

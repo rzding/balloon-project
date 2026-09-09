@@ -64,6 +64,7 @@
 | 0.44 | 2026-09-05 | Firmware | F10.1 complete: `aprs` PD/PTT idle high, USART2 9600, AT connect/group/volume/filter; host `test_aprs_at`; F10.2–F10.4 open; HW → §21 |
 | 0.45 | 2026-09-08 | Firmware | F10.2 complete: AX.25 UI / APRS position encode + TIM2 Bell 202 AFSK; host `test_aprs_ax25`; no PTT TX; F10.3–F10.4 open; HW → §21 |
 | 0.46 | 2026-09-08 | Firmware | F10.3 complete: non-blocking PTT→AFSK SM, 60 s schedule, `APRS_RF_ENABLE=0` default; F10.4 open; HW → §21 |
+| 0.47 | 2026-09-08 | Firmware | F10.4 complete: dry-run logging (`g_aprs_*` / `g_aprs_last_info`), soft exit (§15.3); phase software-complete; HW → §21 |
 
 ### How to use this document
 
@@ -1026,7 +1027,7 @@ Capture flight imagery to microSD without breaking telemetry deadlines.
 
 ## 15. Phase F10 — APRS (DRA818V)
 
-**Phase status:** F10.1–F10.3 complete (2026-09-08); F10.4 open; on-air blocked by license; HW → §21.
+**Phase status:** software verification complete (2026-09-08); hardware exit open (§15.3 / §21). Full phase exit pending bench / license — see §21 F10.
 
 ### 15.0 Objective
 
@@ -1075,14 +1076,17 @@ Backup VHF position beacons.
 
 #### F10.4 — Dry-run mode
 
-- Build flag `APRS_RF_ENABLE=0` until license confirmed (flag introduced in F10.3; F10.4 owns dry-run soft-exit tick)
+- [x] Build flag `APRS_RF_ENABLE=0` until license confirmed (F10.3 gate; F10.4 soft-exit)
+- [x] `aprs_rf_enabled()`; GDB `g_aprs_attempts` / `g_aprs_ok` / `g_aprs_fail` / `g_aprs_last_info`
+- [x] Host `test_aprs_ax25` documented as no-RF frame proof; README dry-run vs RF notes
+- [x] Clean build verified (2026-09-08) with default `APRS_RF_ENABLE=0`
 
 ### 15.3 Verification / exit criteria
 
 **Software verification (tick when work packages land):**
 
-- [ ] Clean build (`make clean && make` in `balloon-project-stm32mx/`)
-- [ ] `APRS_RF_ENABLE=0` dry-run: AX.25 frame build host-testable or logged without RF
+- [x] Clean build (`make clean && make` in `balloon-project-stm32mx/`) — 2026-09-08
+- [x] `APRS_RF_ENABLE=0` dry-run: AX.25 frame build host-testable or logged without RF (`test_aprs_ax25` + `g_aprs_last_info`)
 - [x] PTT sequencing does not block mission loop (F10.3 — `aprs_poll` catch-up ≤ 32 bits/call)
 
 **Hardware exit (pending bench — tick when §21 F10 procedure passes):**
@@ -1377,7 +1381,7 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 
 1. F10.1 dry-run (PTT stays high): confirm USART2 @ 9600 AT sequence ACK — `DMOCONNECT` → `DMOSETGROUP` 144.3900 → `DMOSETVOLUME` → `SETFILTER`; PD/PTT idle high; `aprs_is_ok()`.
 2. F10.2 tones (PTT high): `aprs_afsk_set_tone(1200)` / `2200` on scope at PA0; optional `aprs_afsk_play_bits`.
-3. F10.3 with `APRS_RF_ENABLE=0`: 60 s schedule starts AFSK SM without PTT low (scope PWM only). With `APRS_RF_ENABLE=1` (licensed): PTT low → tones → PTT high; then on-air decode on APRS client / HT.
+3. F10.3/F10.4 with `APRS_RF_ENABLE=0`: 60 s schedule starts AFSK SM without PTT low (scope PWM only); GDB `g_aprs_last_info` / counters after a due TX. With `APRS_RF_ENABLE=1` (licensed): PTT low → tones → PTT high; then on-air decode on APRS client / HT.
 4. Tick checklist above + §15.3 hardware exit items; add roadmap rev with bench date.
 
 ### Notes
