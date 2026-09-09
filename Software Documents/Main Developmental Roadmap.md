@@ -62,6 +62,7 @@
 | 0.42 | 2026-09-05 | Firmware | F8.3 packetizer: `packetizer_fill`/`pack`, app wire, host `test_packetizer`; F8 software path complete pending §21 HW |
 | 0.43 | 2026-09-05 | Firmware | F8.4 complete: richer host edge profiles in `test_mission_sm`; F8 software exit confirmed; HW → §21 |
 | 0.44 | 2026-09-05 | Firmware | F10.1 complete: `aprs` PD/PTT idle high, USART2 9600, AT connect/group/volume/filter; host `test_aprs_at`; F10.2–F10.4 open; HW → §21 |
+| 0.45 | 2026-09-08 | Firmware | F10.2 complete: AX.25 UI / APRS position encode + TIM2 Bell 202 AFSK; host `test_aprs_ax25`; no PTT TX; F10.3–F10.4 open; HW → §21 |
 
 ### How to use this document
 
@@ -1024,7 +1025,7 @@ Capture flight imagery to microSD without breaking telemetry deadlines.
 
 ## 15. Phase F10 — APRS (DRA818V)
 
-**Phase status:** F10.1 complete (2026-09-05); F10.2–F10.4 open; on-air blocked by license; HW → §21.
+**Phase status:** F10.1–F10.2 complete (2026-09-08); F10.3–F10.4 open; on-air blocked by license; HW → §21.
 
 ### 15.0 Objective
 
@@ -1053,8 +1054,13 @@ Backup VHF position beacons.
 
 #### F10.2 — AFSK generator
 
-- TIM2 PWM → 1200/2200 Hz Bell 202
-- AX.25 UI frame with callsign, lat/lon, altitude
+**Status:** complete (2026-09-08)
+
+- [x] TIM2 CH1 (PA0) PWM → 1200/2200 Hz Bell 202 (`aprs_afsk_set_tone` / `stop` / `play_bits`)
+- [x] AX.25 UI frame: dest `APZSSI`, src `N0CALL-11` (O6 placeholder), path `WIDE2-1`, info `!lat/lonO/A=feet`
+- [x] Pure encode: lat/lon format, FCS, bit-stuff + NRZI bitstream; host `test_aprs_ax25`
+- [x] `extern htim2`; DWT bit pacing; **PTT remains high** (no RF TX / no `APRS_RF_ENABLE`)
+- [x] Clean build verified (2026-09-08); not wired into `app_run` (blocking play = bench/GDB)
 
 #### F10.3 — PTT sequencing
 
@@ -1364,7 +1370,7 @@ Hardware checks deferred when no board or bench tools are available. **Tick here
 **Bench procedure (when APRS hardware + license available):**
 
 1. F10.1 dry-run (PTT stays high): confirm USART2 @ 9600 AT sequence ACK — `DMOCONNECT` → `DMOSETGROUP` 144.3900 → `DMOSETVOLUME` → `SETFILTER`; PD/PTT idle high; `aprs_is_ok()`.
-2. After F10.2+ with `APRS_RF_ENABLE=0`: scope audio tones; then on-air only with license: verify decode on APRS client / HT.
+2. F10.2 tones (PTT high): `aprs_afsk_set_tone(1200)` / `2200` on scope at PA0; optional `aprs_afsk_play_bits` full frame AFSK; then after F10.3–F10.4 with `APRS_RF_ENABLE=0` / on-air only with license: verify decode on APRS client / HT.
 3. Tick checklist above + §15.3 hardware exit items; add roadmap rev with bench date.
 
 ### Notes

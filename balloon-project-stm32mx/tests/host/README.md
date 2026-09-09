@@ -6,7 +6,7 @@ Examples: IMU LSB→SI scale, MS5611 compensation math, NMEA parsing, telemetry 
 
 ## Status
 
-**Harness active** — `test_imu_scale` (F2.3), `test_ms5611_crc` (F3.1), `test_ms5611_adc` (F3.2), `test_ms5611_comp` (F3.3 compensation + ISA + F3.4 `baro_sample_from_raw`), `test_max31865_cvd` (F4.2 RTD unpack + CVD + F4.3 `temp_sample_from_raw`), `test_gps_rx` (F5.1 ring + LF line extract), `test_gps_nmea` (F5.2 GGA/RMC parse + F5.3 fix validity), `test_sdlog_name` (F6.2 `FLIGHT%03u.CSV` format + next index), `test_lora_frf` (F7.2 Hz → Frf), `test_packet_v1` (F7.4 pack/unpack/CRC-16/CCITT-FALSE), `test_mission_sm` (F8.1/F8.4 state walk + BURST latch + edge profiles), `test_schedule` (F8.2 LoRa/camera periods + due), `test_packetizer` (F8.3 fill + pack golden), `test_aprs_at` (F10.1 AT format / ACK parse).
+**Harness active** — `test_imu_scale` (F2.3), `test_ms5611_crc` (F3.1), `test_ms5611_adc` (F3.2), `test_ms5611_comp` (F3.3 compensation + ISA + F3.4 `baro_sample_from_raw`), `test_max31865_cvd` (F4.2 RTD unpack + CVD + F4.3 `temp_sample_from_raw`), `test_gps_rx` (F5.1 ring + LF line extract), `test_gps_nmea` (F5.2 GGA/RMC parse + F5.3 fix validity), `test_sdlog_name` (F6.2 `FLIGHT%03u.CSV` format + next index), `test_lora_frf` (F7.2 Hz → Frf), `test_packet_v1` (F7.4 pack/unpack/CRC-16/CCITT-FALSE), `test_mission_sm` (F8.1/F8.4 state walk + BURST latch + edge profiles), `test_schedule` (F8.2 LoRa/camera periods + due), `test_packetizer` (F8.3 fill + pack golden), `test_aprs_at` (F10.1 AT format / ACK parse), `test_aprs_ax25` (F10.2 AX.25 UI / APRS position encode).
 
 ## Manual execution policy
 
@@ -33,6 +33,7 @@ make
 ./test_schedule
 ./test_packetizer
 ./test_aprs_at
+./test_aprs_ax25
 ```
 
 Ground decoder (F7.4 — host CLI, not in this Makefile):
@@ -69,6 +70,7 @@ Requirements: host `cc` (clang/gcc) and `libm`.
 | `test_schedule` | pass | 2026-09-05 | F8.2 period table + due timing + state-change / cam-off (`make && ./test_schedule`) |
 | `test_packetizer` | pass | 2026-09-05 | F8.3 fill fields + temp override + fill→pack golden CRC (`make && ./test_packetizer`) |
 | `test_aprs_at` | pending | — | Run `make && ./test_aprs_at` after F10.1 changes; locked SETGROUP/VOLUME/FILTER strings + ACK `:0` parse |
+| `test_aprs_ax25` | pending | — | Run `make && ./test_aprs_ax25` after F10.2; lat/lon/info, FCS `0x14AD`, UI frame + NRZI bitstream |
 
 ## What belongs here vs on the bench
 
