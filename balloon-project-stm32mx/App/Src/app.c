@@ -195,18 +195,29 @@ static void app_camera_on_due(void)
   /* F9.3: camera_capture_to_sd(...); yield SPI between chunks. */
 }
 
-/* F8.2: LoRa/SD on schedule_poll lora_due; camera stub on cam_due. */
+/* F8.2: LoRa/SD on lora_due; camera stub on cam_due. F10.3: APRS on aprs_due. */
 static void app_schedule_tick(void)
 {
   bool lora_due = false;
   bool cam_due = false;
+  bool aprs_due = false;
   const uint32_t now = HAL_GetTick();
 
-  schedule_poll(now, mission_get_state(), &lora_due, &cam_due);
+  schedule_poll(now, mission_get_state(), &lora_due, &cam_due, &aprs_due);
 
   if (cam_due)
   {
     app_camera_on_due();
+  }
+
+  if (aprs_due && aprs_is_ok() && !aprs_tx_busy() && gps_has_fix())
+  {
+    gps_sample_t gps;
+    if (gps_get_sample(&gps))
+    {
+      int32_t alt_m = gps.alt_valid ? (int32_t)gps.alt_m : 0;
+      (void)aprs_tx_start(gps.lat_e7, gps.lon_e7, alt_m);
+    }
   }
 
   if (!lora_due)
@@ -245,4 +256,5 @@ void app_run(void)
   (void)gps_poll();
   app_mission_tick();
   app_schedule_tick();
+  aprs_poll(); /* F10.3: non-blocking PTT / AFSK SM */
 }

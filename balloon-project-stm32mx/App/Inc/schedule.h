@@ -1,9 +1,10 @@
 /**
  * @file schedule.h
- * @brief Mission LoRa / camera rate schedulers (F8.2); pure logic, no HAL.
+ * @brief Mission LoRa / camera / APRS rate schedulers (F8.2 / F10.3); pure logic, no HAL.
  *
  * Periods are integer milliseconds. Camera period 0 = disabled for that state.
  * F9 owns actual capture; schedule only signals due.
+ * F10.3: APRS period is constant SCHEDULE_APRS_MS (BEACON-aligned).
  */
 
 #pragma once
@@ -31,6 +32,9 @@
 #define SCHEDULE_CAM_ASCENT_MS      30000u
 #define SCHEDULE_CAM_FLOAT_MS       30000u
 
+/** APRS period all states (ms) — F10.3: aligned with BEACON (60 s). */
+#define SCHEDULE_APRS_MS            60000u
+
 /**
  * @brief LoRa TX period for @p state (ms). Always > 0.
  */
@@ -40,6 +44,11 @@ uint32_t schedule_lora_period_ms(mission_state_t state);
  * @brief Camera period for @p state (ms); 0 means camera off.
  */
 uint32_t schedule_camera_period_ms(mission_state_t state);
+
+/**
+ * @brief APRS TX period (ms). Constant SCHEDULE_APRS_MS for all states.
+ */
+uint32_t schedule_aprs_period_ms(void);
 
 /**
  * @brief Reset last-fire timestamps (treat as never fired).
@@ -56,6 +65,7 @@ void schedule_init(void);
  * @param state Current mission state.
  * @param lora_due Out: true if LoRa/SD pack path should run; may be NULL.
  * @param cam_due Out: true if camera stub should run; may be NULL.
+ * @param aprs_due Out: true if APRS TX should start; may be NULL.
  */
 void schedule_poll(uint32_t now_ms, mission_state_t state,
-                   bool *lora_due, bool *cam_due);
+                   bool *lora_due, bool *cam_due, bool *aprs_due);

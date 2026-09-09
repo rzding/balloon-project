@@ -4,7 +4,7 @@
  *
  * F10.1: power idle (PD high / PTT high RX), UART AT config @ 9600 8N1.
  * F10.2: Bell 202 AFSK (TIM2 CH1 PA0) + AX.25 UI / APRS position encode.
- * F10.3+: PTT TX sequencing — not in this WP.
+ * F10.3: Non-blocking PTT→AFSK→unkey SM + 60 s schedule; APRS_RF_ENABLE gate.
  *
  * Locked init defaults (F10.1 — volume/SQ interim, bench-tunable):
  *   - Handshake AT+DMOCONNECT (retry ≤3)
@@ -16,8 +16,11 @@
  *   - Source APRS_CALLSIGN SSID 11 (balloon); dest APZSSI; path WIDE2-1
  *   - Uncompressed !lat/lonO/A=feet; Bell 202 1200/2200 Hz @ 1200 baud
  *
- * F10.1/F10.2 never drive PTT low (no RF TX). Params lost on power-off →
- * configure every boot after PD wake settle.
+ * F10.3 sequencing: PTT lead 200 ms → bit play → tail 50 ms → idle.
+ * APRS_RF_ENABLE=0 (default): AFSK still plays; PTT stays high (no RF).
+ * APRS_RF_ENABLE=1: PTT low during lead/play/tail (licensed RF only).
+ *
+ * Blocking aprs_afsk_play_bits remains bench/GDB only (always PTT high).
  */
 
 #pragma once
@@ -104,6 +107,15 @@
 
 /** AFSK bit rate (baud). */
 #define APRS_AFSK_BAUD           1200u
+
+/** F10.3: PTT assert → audio lead-in (ms). */
+#define APRS_PTT_LEAD_MS         200u
+
+/** F10.3: audio end → PTT release (ms). */
+#define APRS_PTT_TAIL_MS         50u
+
+/** Max bits advanced per aprs_poll (bounds superloop work). */
+#define APRS_POLL_BITS_MAX       32u
 
 /** Max APRS info-field length (bytes, excl. NUL). */
 #define APRS_INFO_MAX            64u
@@ -705,3 +717,20 @@ void aprs_afsk_stop(void);
  * @return false on NULL/empty or tone programming failure.
  */
 bool aprs_afsk_play_bits(const uint8_t *bits, size_t bit_count);
+
+/**
+ * @brief Encode position frame and arm non-blocking TX state machine (F10.3).
+ *
+ * @return false if busy, encode failure, or already transmitting.
+ */
+bool aprs_tx_start(int32_t lat_e7, int32_t lon_e7, int32_t alt_m);
+
+/**
+ * @brief Advance PTT / AFSK state machine; call every app_run (non-blocking).
+ */
+void aprs_poll(void);
+
+/**
+ * @brief True while TX SM is not idle.
+ */
+bool aprs_tx_busy(void);
