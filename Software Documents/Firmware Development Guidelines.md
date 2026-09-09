@@ -41,6 +41,10 @@
 | 0.20 | 2026-09-05 | Firmware | F8.2 host `test_schedule` (LoRa/camera periods + due) |
 | 0.21 | 2026-09-05 | Firmware | F8.3 host `test_packetizer` (fill + golden pack/CRC) |
 | 0.22 | 2026-09-05 | Firmware | F8.4 host `test_mission_sm` edge profiles; F8 software exit confirmed |
+| 0.23 | 2026-09-05 | Firmware | F10.1 host `test_aprs_at` (AT format / ACK); UART/GPIO AT path = bench |
+| 0.24 | 2026-09-08 | Firmware | F10.2 host `test_aprs_ax25` (AX.25 UI / APRS position); TIM2 AFSK PWM = bench |
+| 0.25 | 2026-09-08 | Firmware | F10.3 `test_schedule` APRS 60 s due; PTT/AFSK SM = bench; `APRS_RF_ENABLE` default 0 |
+| 0.26 | 2026-09-08 | Firmware | F10.4 dry-run logging + soft exit; `test_aprs_ax25` host gate; RF still gated |
 
 ---
 
@@ -153,6 +157,10 @@ See [`balloon-project-stm32mx/tests/host/README.md`](../balloon-project-stm32mx/
 | F7.3 | FIFO TX + DIO0 wait — bench/GDB only (SPI/GPIO; no host test) |
 | F7.4 / F7 exit | Packet v1 pack/CRC16 — `test_packet_v1` (authored; manual run pending); ground decode = host CLI (`ground/decode_packet`); on-air RX = bench |
 | F8 | Mission SM (`test_mission_sm` F8.1 walk + F8.4 edge profiles); schedule (`test_schedule`); packetizer fill (`test_packetizer`); pack/CRC also `test_packet_v1` |
+| F10.1 | AT command format + ACK `:0` parse — `test_aprs_at` (authored; manual run pending); USART2 / PD / PTT / DRA818V ACK = bench |
+| F10.2 | AX.25 UI + APRS lat/lon/alt info + FCS/bit-stuff/NRZI — `test_aprs_ax25` (authored; manual run pending); TIM2 Bell 202 PWM = bench |
+| F10.3 | APRS 60 s schedule due — `test_schedule` (authored; re-run after F10.3); PTT→AFSK SM / `APRS_RF_ENABLE` = bench |
+| F10.4 | Dry-run soft exit — `test_aprs_ax25` host frame proof + flight `g_aprs_last_info` / counters; RF gated (`APRS_RF_ENABLE=0` default) |
 
 ---
 

@@ -1,6 +1,6 @@
 /**
  * @file schedule.c
- * @brief Per-state LoRa / camera interval scheduler (F8.2).
+ * @brief Per-state LoRa / camera / APRS interval scheduler (F8.2 / F10.3).
  */
 
 #include "schedule.h"
@@ -9,8 +9,10 @@
 
 static uint32_t s_last_lora_ms;
 static uint32_t s_last_cam_ms;
+static uint32_t s_last_aprs_ms;
 static bool s_lora_armed;
 static bool s_cam_armed;
+static bool s_aprs_armed;
 
 uint32_t schedule_lora_period_ms(mission_state_t state)
 {
@@ -50,21 +52,30 @@ uint32_t schedule_camera_period_ms(mission_state_t state)
   }
 }
 
+uint32_t schedule_aprs_period_ms(void)
+{
+  return SCHEDULE_APRS_MS;
+}
+
 void schedule_init(void)
 {
   s_last_lora_ms = 0u;
   s_last_cam_ms = 0u;
+  s_last_aprs_ms = 0u;
   s_lora_armed = false;
   s_cam_armed = false;
+  s_aprs_armed = false;
 }
 
 void schedule_poll(uint32_t now_ms, mission_state_t state,
-                   bool *lora_due, bool *cam_due)
+                   bool *lora_due, bool *cam_due, bool *aprs_due)
 {
   const uint32_t lora_period = schedule_lora_period_ms(state);
   const uint32_t cam_period = schedule_camera_period_ms(state);
+  const uint32_t aprs_period = schedule_aprs_period_ms();
   bool lora = false;
   bool cam = false;
+  bool aprs = false;
 
   if (!s_lora_armed)
   {
@@ -95,6 +106,17 @@ void schedule_poll(uint32_t now_ms, mission_state_t state,
     s_last_cam_ms = now_ms;
   }
 
+  if (!s_aprs_armed)
+  {
+    s_last_aprs_ms = now_ms;
+    s_aprs_armed = true;
+  }
+  else if ((now_ms - s_last_aprs_ms) >= aprs_period)
+  {
+    aprs = true;
+    s_last_aprs_ms = now_ms;
+  }
+
   if (lora_due != NULL)
   {
     *lora_due = lora;
@@ -102,5 +124,9 @@ void schedule_poll(uint32_t now_ms, mission_state_t state,
   if (cam_due != NULL)
   {
     *cam_due = cam;
+  }
+  if (aprs_due != NULL)
+  {
+    *aprs_due = aprs;
   }
 }

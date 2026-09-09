@@ -72,6 +72,7 @@ App/Src/spi_bus.c \
 App/Src/temp.c \
 App/Src/gps.c \
 App/Src/lora.c \
+App/Src/aprs.c \
 App/Src/sd_spi.c \
 App/Src/sdlog.c \
 FATFS/App/fatfs.c \
@@ -132,9 +133,13 @@ MCU = $(CPU) -mthumb $(FPU) $(FLOAT-ABI)
 AS_DEFS = 
 
 # C defines
+# F10.4 / O6: APRS_RF_ENABLE=0 (default) — dry-run: AFSK SM, PTT stays RX.
+# Override: make APRS_RF_ENABLE=1  (licensed on-air / RF TX only).
+APRS_RF_ENABLE ?= 0
 C_DEFS =  \
 -DUSE_HAL_DRIVER \
--DSTM32F411xE
+-DSTM32F411xE \
+-DAPRS_RF_ENABLE=$(APRS_RF_ENABLE)
 
 
 # AS includes

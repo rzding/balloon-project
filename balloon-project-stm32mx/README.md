@@ -31,6 +31,18 @@ Requires `arm-none-eabi-gcc` (e.g. STM32CubeCLT). Artifacts are written to `buil
 - `build/balloon-project-stm32mx.hex`
 - `build/balloon-project-stm32mx.bin`
 
+### APRS dry-run vs RF (F10.4 / O6)
+
+Default build is **dry-run** (`APRS_RF_ENABLE=0`): the APRS state machine still encodes and may drive AFSK on PA0, but **PTT stays high** (no RF). Inspect `g_aprs_last_info` / `g_aprs_ok` under GDB. Host proof of frame encode: `tests/host` → `./test_aprs_ax25`.
+
+Licensed on-air only:
+
+```bash
+make clean && make APRS_RF_ENABLE=1
+```
+
+Do not enable RF without a callsign and license.
+
 ## Add a new App module
 
 1. Add `App/Inc/foo.h` and `App/Src/foo.c` (one module = one `.c` / `.h` pair).
