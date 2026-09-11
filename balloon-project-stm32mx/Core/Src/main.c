@@ -121,11 +121,12 @@ int main(void)
      own — check BOOT0 (must be low), the battery rail under load, and NRST.
 
      PB5 is not in the .ioc, so configure it directly here. */
-  GPIOB->MODER  &= ~(3U << (5 * 2));  /* clear PB5 mode bits */
-  GPIOB->MODER  |=  (1U << (5 * 2));  /* PB5 = general-purpose output */
-  GPIOB->OTYPER &= ~(1U << 5);        /* push-pull */
-  GPIOB->BSRR    =  (1U << 5);        /* PB5 high -> LED on, stays on */
-  /* USER CODE END 2 */
+  for (int i = 0; i<4; i++){
+	    HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+        HAL_Delay(500);
+        HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+        HAL_Delay(500);
+  }
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -410,7 +411,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOB, IMU_CS_Pin|LoRa_CS_Pin|BARO_CS_Pin|microSD_CS_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LoRa_RESET_Pin|APRS_PTT_Pin|APRS_PD_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, LoRa_RESET_Pin|APRS_PTT_Pin|APRS_PD_Pin|LED_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : Cam_CS_Pin Temp_CS_Pin */
   GPIO_InitStruct.Pin = Cam_CS_Pin|Temp_CS_Pin;
@@ -432,8 +433,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(LoRa_DIO0_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LoRa_RESET_Pin APRS_PTT_Pin APRS_PD_Pin */
-  GPIO_InitStruct.Pin = LoRa_RESET_Pin|APRS_PTT_Pin|APRS_PD_Pin;
+  /*Configure GPIO pins : LoRa_RESET_Pin APRS_PTT_Pin APRS_PD_Pin LED_Pin */
+  GPIO_InitStruct.Pin = LoRa_RESET_Pin|APRS_PTT_Pin|APRS_PD_Pin|LED_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

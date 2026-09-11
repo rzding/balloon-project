@@ -68,6 +68,30 @@
 
 static bool s_ok;
 
+/* Bring-up diagnostics (F4 bench).
+ *
+ * temp_read_raw() already reads the MAX31865 fault status register when the
+ * RTD LSB fault bit is set, but the value is only returned in temp_raw_t and
+ * is not visible while the superloop is running. Mirror it here.
+ *
+ * Decode per datasheet Table 11 (3-wire setups):
+ *   0x80 D7  open RTD element / FORCE+ shorted high      -> reads full scale
+ *   0x40 D6  RTDIN+ shorted to RTDIN- / FORCE+ shorted low -> reads near zero
+ *   0x20 D5  open RTD element, or FORCE+ unconnected
+ *   0x10 D4  RTDIN- shorted low
+ *   0x08 D3  FORCE+ shorted low / RTDIN+ shorted low
+ *   0x04 D2  overvoltage or undervoltage on a protected input
+ *
+ * A disconnected PT1000 typically shows 0x20 (and often 0x80 with it).
+ *
+ * External linkage and volatile so they resolve in the debugger from any stop
+ * location; nothing in the firmware reads them.
+ */
+volatile uint8_t g_temp_fault_status;
+volatile uint16_t g_temp_last_adc;
+volatile uint32_t g_temp_faults;
+volatile uint32_t g_temp_reads_ok;
+
 static bool temp_read_reg(uint8_t reg, uint8_t *value)
 {
   uint8_t tx[TEMP_REG_TRANSFER_BYTES];
@@ -228,9 +252,13 @@ bool temp_read_raw(temp_raw_t *out)
     return false;
   }
 
+  g_temp_last_adc = out->adc;
+
   if (out->fault)
   {
     (void)temp_read_reg(TEMP_REG_FAULT_STATUS, &out->fault_status);
+    g_temp_fault_status = out->fault_status;
+    g_temp_faults++;
     temp_set_ok(false);
     return false;
   }
@@ -240,6 +268,9 @@ bool temp_read_raw(temp_raw_t *out)
     temp_set_ok(false);
     return false;
   }
+
+  g_temp_fault_status = 0u;
+  g_temp_reads_ok++;
 
   temp_set_ok(true);
   return true;

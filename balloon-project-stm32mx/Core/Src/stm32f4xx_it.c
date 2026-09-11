@@ -56,7 +56,7 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-
+extern UART_HandleTypeDef huart1;
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */
@@ -200,6 +200,20 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
+  * @brief This function handles USART1 global interrupt.
+  */
+void USART1_IRQHandler(void)
+{
+  /* USER CODE BEGIN USART1_IRQn 0 */
+  gps_usart1_irq();
+  /* USER CODE END USART1_IRQn 0 */
+  HAL_UART_IRQHandler(&huart1);
+  /* USER CODE BEGIN USART1_IRQn 1 */
+
+  /* USER CODE END USART1_IRQn 1 */
+}
+
+/**
   * @brief This function handles EXTI line[15:10] interrupts.
   */
 void EXTI15_10_IRQHandler(void)
@@ -219,8 +233,5 @@ void EXTI15_10_IRQHandler(void)
  * USART1 RX for GPS (MAX-M10S). If CubeMX regenerates a USART1_IRQHandler stub,
  * move gps_usart1_irq() into USER CODE BEGIN USART1_IRQn 0 and remove this copy.
  */
-void USART1_IRQHandler(void)
-{
-  gps_usart1_irq();
-}
+
 /* USER CODE END 1 */

@@ -87,6 +87,8 @@ void Error_Handler(void);
 #define microSD_CS_GPIO_Port GPIOB
 #define microSD_detect_Pin GPIO_PIN_4
 #define microSD_detect_GPIO_Port GPIOB
+#define LED_Pin GPIO_PIN_5
+#define LED_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
