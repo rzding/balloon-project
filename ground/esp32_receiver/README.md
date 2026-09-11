@@ -131,3 +131,66 @@ Expressions view (see `App/Src/app.c`):
 
 `g_beacon_ok` climbing means the radio reported TxDone, so the problem is on the
 RX side or in the air, not the flight firmware.
+
+---
+
+## IMU and image downlink (added 2026-09-10)
+
+The flight computer now sends three packet types, told apart by the first byte.
+The sketch dispatches on it automatically — no wiring change.
+
+| Type | First byte | Contents |
+|---|---|---|
+| Telemetry v1 | `0x01` | GPS, baro, temp, flags, sats (unchanged) |
+| IMU | `0x02` | accel + gyro, one per beacon |
+| Image header | `0x10` | id, total length, chunk count, width, height |
+| Image chunk | `0x11` | JPEG bytes |
+
+### IMU
+
+Printed each beacon, scaled to g and deg/s:
+
+```
+[imu 12] t=48120 ms  state=0
+    accel g  :  0.007   0.002   1.001
+    gyro dps :  0.1    -0.3     0.2
+    link     : rssi=-41 dBm  snr=9.6 dB
+```
+
+Flat and still, one axis reads ~1.0 g and the gyro sits near zero. Tilt or spin
+the board and the numbers track it.
+
+### Image
+
+Trigger a capture on the flight side (see the firmware notes: set
+`g_cam_capture_request = 1` in the debugger, or let a scheduled `cam_due` fire).
+The image arrives as a header then a stream of chunks over ~10–20 s:
+
+```
+>> image 1 incoming: 160x120  4913 bytes  26 chunks
+   img 1: 0/26 chunks
+   img 1: 10/26 chunks
+   ...
+===IMG BEGIN id=1 w=160 h=120 len=4913===
+<base64...>
+===IMG END===
+```
+
+Save the image to a `.jpg`:
+
+1. In Serial Monitor, capture the output to a file, or use a logging terminal.
+2. Run the saver on that capture:
+   ```bash
+   python3 ../save_image.py capture.txt      # writes img1.jpg
+   ```
+   Or read the port live (needs `pip install pyserial`):
+   ```bash
+   python3 ../save_image.py --port /dev/tty.usbserial-XXXX --baud 115200
+   ```
+
+`save_image.py` decodes the base64 and trims to the JPEG `FF D8 … FF D9`
+markers, so a missing chunk yields a partial but still-openable image.
+
+**LoRa is a slow image channel.** At SF8 a 160×120 JPEG of a few kB takes
+~10–20 s and ties up the radio between beacons. It's a bench / novelty downlink;
+microSD is the real image path.

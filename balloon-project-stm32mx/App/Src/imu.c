@@ -38,6 +38,28 @@
 
 static bool s_ok;
 
+/*
+ * Bring-up diagnostics (F2 bench). imu_read() feeds the mission SM every
+ * superloop but stashed its sample in a local, so nothing was observable in
+ * the debugger and the firmware prints nothing. Mirror the last sample here.
+ *
+ * External linkage and volatile so they resolve in GDB from any stop location;
+ * nothing in the firmware reads them.
+ *
+ * Scale: accel 2048 LSB/g (IMU_ACCEL_LSB_PER_G), gyro 16.4 LSB/dps.
+ * At rest, the vertical axis reads about +/-2048 and the other two near 0;
+ * sqrt(ax^2+ay^2+az^2) ~ 2048 = 1 g. Gyro near 0 at rest, hundreds-to-thousands
+ * of LSB while you rotate it.
+ */
+volatile int16_t g_imu_ax;
+volatile int16_t g_imu_ay;
+volatile int16_t g_imu_az;
+volatile int16_t g_imu_gx;
+volatile int16_t g_imu_gy;
+volatile int16_t g_imu_gz;
+volatile uint32_t g_imu_reads_ok;
+volatile uint32_t g_imu_read_fail;
+
 static bool imu_read_reg(uint8_t reg, uint8_t *value)
 {
   return spi_bus_read_reg8(IMU_CS_GPIO_Port, IMU_CS_Pin, reg, value, IMU_SPI_TIMEOUT_MS);
@@ -186,6 +208,7 @@ bool imu_read(imu_sample_t *out)
   if (!spi_bus_transfer(IMU_CS_GPIO_Port, IMU_CS_Pin, tx, rx,
                         IMU_BURST_TRANSFER_BYTES, IMU_SPI_TIMEOUT_MS))
   {
+    g_imu_read_fail++;
     imu_set_ok(false);
     return false;
   }
@@ -196,6 +219,14 @@ bool imu_read(imu_sample_t *out)
   out->gx = imu_be_bytes_to_i16(rx[7], rx[8]);
   out->gy = imu_be_bytes_to_i16(rx[9], rx[10]);
   out->gz = imu_be_bytes_to_i16(rx[11], rx[12]);
+
+  g_imu_ax = out->ax;
+  g_imu_ay = out->ay;
+  g_imu_az = out->az;
+  g_imu_gx = out->gx;
+  g_imu_gy = out->gy;
+  g_imu_gz = out->gz;
+  g_imu_reads_ok++;
 
   imu_set_ok(true);
   return true;
